@@ -6,7 +6,14 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-require('../scss/app.scss');
-
+import '../scss/app.scss';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
+//import $ from 'jquery';
+const $ = require('jquery');
+
+require('bootstrap');
+
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});
+console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
