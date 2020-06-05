@@ -6,16 +6,16 @@ $warm-color: #ffd64f;
 $cust-bg-input-form: #5eb5e0;
 $cust-bg-page: rgba(255, 255, 255, 1);
 $cust-text-color: black;
-$cust-text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.2);
-$cust-border-radius : 5px;
-$cust-container-std-margin-top : 50px;
+$cust-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+$cust-border-radius: 5px;
+$cust-container-std-margin-top: 50px;
 
 
 //  Container STD value , used in _containers.scss
-$cust-container-std-margin-top : $cust-container-std-margin-top;
+$cust-container-std-margin-top: $cust-container-std-margin-top;
 $cust-container-std-childs-margin-top: 10px;
 $cust-container-std-radius: $cust-border-radius;
 $cust-container-std-border-radius: $cust-border-radius;
-$cust-container-std-text-color : $cust-text-color;
+$cust-container-std-text-color: $cust-text-color;
 $cust-container-std-bgcolor: $cust-bg-page;
-$cust-container-std-text-shadow : $cust-border-radius;
+$cust-container-std-text-shadow: $cust-border-radius;
