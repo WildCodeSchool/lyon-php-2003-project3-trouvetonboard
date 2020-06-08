@@ -6,10 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity( fields={"email"},message="Cet email est deja utilisé, merci de le modifier" )
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="Cet email est deja utilisé, merci de le modifier"
+ * )
  */
 class User implements UserInterface
 {
@@ -24,7 +28,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="Merci de saisir une valeur!")
      * @Assert\Email(message="Merci de saisir un email!")
-     * @Assert\Length(message"La taille minimum pour lemail  est de 5 caractéres",min=5)
+     * @Assert\Length(min=5)
      */
     private $email;
 

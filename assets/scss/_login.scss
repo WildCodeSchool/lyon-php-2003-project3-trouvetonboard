@@ -1,5 +1,6 @@
 .login {
     form {
+        width: 50%;
         div {
             margin-top: $cust-container-std-childs-margin-top;
         }
@@ -7,21 +8,35 @@
         h1 {
             margin-top: $cust-container-std-childs-margin-top;
         }
-
         label {
             margin-top: $cust-container-std-childs-margin-top;
         }
 
         input {
-            background-color: $cust-bg-input-form;
+            background-color: $style-guide-blue;
+            color: white;
+            font-weight: bold;
+            border-style: solid;
+            border-width: $style-guide-border-width;
+            border-color: $style-guide-blue;
+        }
+        input:focus {
+            color: white;
+            border-color: $style-guide-dark ;
+            background-color: $style-guide-blue;
+            box-shadow: $cust-box-shadow;
         }
 
         button {
-            background-color: $cust-bg-input-form;
+            background-color: $style-guide-blue;
             margin-top: $cust-container-std-childs-margin-top;
+            border-color: $style-guide-blue;
+            border-radius: $cust-container-std-radius;
         }
-
+        button:hover {
+            background-color: $style-guide-blue;
+            border-color: $style-guide-dark;
+            box-shadow: $cust-box-shadow;
+        }
     }
-
-
 }
