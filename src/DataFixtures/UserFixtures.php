@@ -25,6 +25,24 @@ class UserFixtures extends Fixture
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPassword($this->passwordEncoder->encodePassword($admin, "pwd"));
         $manager->persist($admin);
+
+
+        // Création d’un utilisateur de type “cedric”
+        $cedric = new User();
+        $cedric->setEmail('cedric@ttb.com');
+        $cedric->setRoles(['ROLE_ADMIN']);
+        $cedric->setPassword($this->passwordEncoder->encodePassword($cedric, "pwd"));
+        $manager->persist($cedric);
+
+        // Création d’un utilisateur de type “user”
+        $user = new User();
+        $user->setEmail('user@ttb.com');
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword($this->passwordEncoder->encodePassword($user, "pwd"));
+        $manager->persist($user);
+
+
+        // enregistrement
         $manager->flush();
     }
 }
