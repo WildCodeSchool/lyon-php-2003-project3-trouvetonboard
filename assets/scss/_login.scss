@@ -1,6 +1,7 @@
 .login {
     form {
         width: 50%;
+
         div {
             margin-top: $cust-container-std-childs-margin-top;
         }
@@ -27,12 +28,14 @@
             border-width: $style-guide-button-border-width;
             border-color: $style-guide-blue;
         }
+
         input:focus {
             color: white;
             border-color: $style-guide-dark ;
             background-color: $style-guide-blue;
             box-shadow: $cust-box-shadow;
         }
+
         input::placeholder {
             color: white;
         }
@@ -47,6 +50,7 @@
             margin-top: $cust-container-std-childs-margin-top;
             border-radius: $cust-container-std-radius;
         }
+
         button:hover {
             background-color: white;
             color: black;
