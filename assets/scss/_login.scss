@@ -8,16 +8,23 @@
         h1 {
             margin-top: $cust-container-std-childs-margin-top;
         }
+
+        a {
+            color: $style-guide-blue !important;
+        }
+
         label {
             margin-top: $cust-container-std-childs-margin-top;
         }
 
         input {
+            min-height: 50px;
+            margin-top: $cust-container-std-childs-margin-top + 25px;
             background-color: $style-guide-blue;
             color: white;
             font-weight: bold;
             border-style: solid;
-            border-width: $style-guide-border-width;
+            border-width: $style-guide-button-border-width;
             border-color: $style-guide-blue;
         }
         input:focus {
@@ -26,16 +33,24 @@
             background-color: $style-guide-blue;
             box-shadow: $cust-box-shadow;
         }
+        input::placeholder {
+            color: white;
+        }
 
         button {
-            background-color: $style-guide-blue;
-            margin-top: $cust-container-std-childs-margin-top;
+            padding:$style-guide-button-padding;
+            background-color: white;
+            color:black;
+            border-style: solid;
             border-color: $style-guide-blue;
+            border-width: $style-guide-button-border-width;
+            margin-top: $cust-container-std-childs-margin-top;
             border-radius: $cust-container-std-radius;
         }
         button:hover {
-            background-color: $style-guide-blue;
-            border-color: $style-guide-dark;
+            background-color: white;
+            color: black;
+            border-style: solid;
             box-shadow: $cust-box-shadow;
         }
     }

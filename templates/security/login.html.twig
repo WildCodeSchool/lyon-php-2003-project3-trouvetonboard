@@ -13,18 +13,20 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Vous etes connecter en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se
+                        Vous etes connecter en tant que <strong>{{ app.user.username }}</strong>, <a href="{{ path
+                            ('app_logout')
+                        }}">Se
                             déconnecter</a>
                     </div>
                 {% endif %}
                 <div class="d-flex justify-content-around">
-                    <h1 class="h3 mb-3"><strong>Connexion</strong></h1>
+                    <h1 class="h3"><strong>Connexion</strong></h1>
                 </div>
 
-                    <label for="inputEmail">Email :</label>
+                    {#<label for="inputEmail">Email :</label>#}
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
                            required autofocus placeholder="email">
-                    <label for="inputPassword">Mot de passe:</label>
+                    {#<label for="inputPassword">Mot de passe:</label>#}
                     <input type="password" name="password" id="inputPassword" class="form-control pwd" required
                            placeholder="password">
 
@@ -41,7 +43,7 @@
                         </div>
                     #}
                     <div class="d-flex justify-content-around">
-                        <button class="btn btn-lg btn-primary" type="submit">
+                        <button class="" type="submit">
                             Connexion
                         </button>
                     </div>
