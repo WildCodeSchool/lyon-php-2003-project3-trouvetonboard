@@ -1,0 +1,31 @@
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    justify-content: flex-end;
+  }
+}
+.bg-custom {
+  background-color: #fff;
+}
+
+.navbar-brand {
+  font-size: 30px;
+
+  .first-T {
+    color: #4B5E8E;
+  }
+
+  .second-T {
+    color: #6E9DB8;
+  }
+
+  .first-B {
+    color: #B0B0B0;
+  }
+}
+
+.navbar-nav {
+  font-size: 25px;
+  .nav-link {
+    margin: 0 10px;
+  }
+}
