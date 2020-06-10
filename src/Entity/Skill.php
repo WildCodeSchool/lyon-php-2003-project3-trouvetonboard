@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SkillRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class Skill
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="skills")
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Profile::class, mappedBy="skill")
+     */
+    private $profiles;
+
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,34 @@ class Skill
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profile[]
+     */
+    public function getProfiles(): Collection
+    {
+        return $this->profiles;
+    }
+
+    public function addProfile(Profile $profile): self
+    {
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles[] = $profile;
+            $profile->addSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfile(Profile $profile): self
+    {
+        if ($this->profiles->contains($profile)) {
+            $this->profiles->removeElement($profile);
+            $profile->removeSkill($this);
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EnterpriseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +58,16 @@ class Enterprise
      * @ORM\Column(type="string", length=100)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Profile::class, mappedBy="enterprise")
+     */
+    private $profiles;
+
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +166,37 @@ class Enterprise
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profile[]
+     */
+    public function getProfiles(): Collection
+    {
+        return $this->profiles;
+    }
+
+    public function addProfile(Profile $profile): self
+    {
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles[] = $profile;
+            $profile->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfile(Profile $profile): self
+    {
+        if ($this->profiles->contains($profile)) {
+            $this->profiles->removeElement($profile);
+            // set the owning side to null (unless already changed)
+            if ($profile->getEnterprise() === $this) {
+                $profile->setEnterprise(null);
+            }
+        }
 
         return $this;
     }
