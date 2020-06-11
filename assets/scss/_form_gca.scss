@@ -1,0 +1,68 @@
+@import "functions";
+.form-gca {
+    form {
+        // each form in coantainerr
+        h1 {
+            margin-top: $cust-container-std-childs-margin-top;
+        }
+        div {
+            // form  global  container
+            div {
+                display: flex;
+                align-items: center;
+
+                @media screen and (max-width: 6000px) {
+                        flex-wrap: wrap;
+                }
+                margin: $cust-formBlock-div-m;
+                // each label + input are includ in one div
+                label {
+                    // each line label
+                    margin-right: $cust-formBlock-label-mr;
+                    margin-bottom: 0px;
+                    width: 20%;
+                }
+                input {
+                    margin-right: 5px;
+                    width: 75% ;
+                    // each line input
+                    min-height: 50px;
+                    background-color: $style-guide-blue;
+                    color: white;
+                    font-weight: bold;
+                    border-style: solid;
+                    border-width: $style-guide-button-border-width;
+                    border-color: $style-guide-blue;
+                }
+                input:focus {
+                    color: white;
+                    border-color: $style-guide-dark;
+                    background-color: $style-guide-blue;
+                    box-shadow: $cust-box-shadow;
+                }
+                input::placeholder {
+                    color: white;
+                }
+            }
+        }
+        button {
+            padding: $style-guide-button-padding;
+            background-color: white;
+            color: black;
+            border-style: solid;
+            border-color: $style-guide-blue;
+            border-width: $style-guide-button-border-width;
+            margin-top: $cust-container-std-childs-margin-top;
+            border-radius: $cust-container-std-radius;
+        }
+        button:hover {
+            background-color: white;
+            color: black;
+            border-style: solid;
+            box-shadow: $cust-box-shadow;
+        }
+    }
+    a {
+        color: $style-guide-blue !important;
+    }
+}
