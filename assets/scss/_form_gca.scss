@@ -11,26 +11,25 @@
                 display: flex;
                 align-items: center;
 
-                @media screen and (max-width: 6000px) {
-                        flex-wrap: wrap;
-                }
+
                 margin: $cust-formBlock-div-m;
                 // each label + input are includ in one div
                 label {
                     // each line label
+                    font-weight: unset;
                     margin-right: $cust-formBlock-label-mr;
                     margin-bottom: 0px;
-                    width: 20%;
+                    min-width: $cust-formBlock-label-minwidth;
                 }
                 input {
-                    margin-right: 5px;
-                    width: 75% ;
+                    padding: $cust-formBlock-input-padding;
+                    width: $cust-formBlock-input-width ;
                     // each line input
-                    min-height: 50px;
-                    background-color: $style-guide-blue;
-                    color: white;
-                    font-weight: bold;
-                    border-style: solid;
+                    min-height: $cust-formBlock-input-height;
+                    background-color: $cust-formBlock-input-bgcolor;
+                    color: $cust-formBlock-input-textcolor;
+                    font-weight: unset;
+                    border-style: $cust-formBlock-input-borderstyle;
                     border-width: $style-guide-button-border-width;
                     border-color: $style-guide-blue;
                 }
@@ -64,5 +63,28 @@
     }
     a {
         color: $style-guide-blue !important;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .form-gca {
+        form {
+            // each form in coantainerr
+            h1 {
+                margin-top: $cust-container-std-childs-margin-top;
+            }
+
+            div {
+                // form  global  container
+                div {
+                    flex-wrap: wrap;
+                    //background-color: #718C00;
+                    input {
+                        padding: 10px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 }
