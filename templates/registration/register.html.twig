@@ -7,18 +7,33 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Création de profil</h1>
 
-    {{ dump(user) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.first_name) }}
-        {{ form_row(registrationForm.last_name) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: false
-        }) }}
+    <div class="{{ containerStd }} login">
+        <div class="d-flex justify-content-around align-items-center align-content-center login">
 
-        <button type="submit" class="btn">Inscription</button>
-    {{ form_end(registrationForm) }}
+
+
+            {{ form_start(registrationForm) }}
+            <div class="d-flex justify-content-around">
+                <h1>Création de profil</h1>
+            </div>
+            {{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.email, {'attr' : {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: false, 'attr' : {'class': 'form-control'}
+            }) }}
+            <div class="d-flex justify-content-around">
+                <button type="submit" class="btn">Inscription</button>
+                {{ form_end(registrationForm) }}
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
 {% endblock %}
