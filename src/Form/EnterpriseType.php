@@ -12,7 +12,7 @@ class EnterpriseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('paymentStatus')
+            ->add('paymentStatus', null, ["label" => "Status du  paiment :"])
             ->add('address')
             ->add('legelRepresentative')
             ->add('websiteLink')
