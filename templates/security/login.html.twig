@@ -20,7 +20,11 @@
                 <div class="d-flex justify-content-around">
                     <h1 class="h3"><strong>Connexion</strong></h1>
                 </div>
-
+                    {% if success is defined %}
+                        <div>
+                            {{ success }}
+                        </div>
+                    {% endif %}
                     {#<label for="inputEmail">Email :</label>#}
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
                            required autofocus placeholder="email">
