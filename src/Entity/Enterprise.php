@@ -6,6 +6,7 @@ use App\Repository\EnterpriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EnterpriseRepository::class)
@@ -21,6 +22,7 @@ class Enterprise
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $paymentStatus;
 
@@ -36,6 +38,12 @@ class Enterprise
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 300,
+     *      minMessage = "Le lien ne peux pas inférieur a {{ limit }} caractères",
+     *      maxMessage = "Le lien ne peux pas depasser {{ limit }} caracterès",
+     * )
      */
     private $websiteLink;
 
