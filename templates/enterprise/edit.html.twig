@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Enterprise{% endblock %}
+
+{% block body %}
+    <div class="{{ containerStd }} ">
+        <div class="{{ formBlock }}">
+                <div class="m-xl-5 d-flex justify-content-center align-content-center align-items-center">
+                    <h1 class="m-0">Edit Enterprise</h1>
+                    {{ include('enterprise/_delete_form.html.twig') }}
+                </div>
+            {{ include('enterprise/_form.html.twig', {'button_label': 'Mise a jour'}) }}
+
+            <a href="{{ path('enterprise_index') }}">back to list</a>
+        </div>
+
+    </div>
+{% endblock %}
