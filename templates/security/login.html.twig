@@ -3,6 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    {% block navbar %}
+        
+    {% endblock %}
+
 
     <div class="{{ containerStd }} login">
         <div class="d-flex justify-content-around align-items-center align-content-center login">
@@ -53,5 +57,10 @@
             </form>
         </div>
     </div>
+
+    {% block footer %}
+        
+    {% endblock %}
+
 
 {% endblock %}
