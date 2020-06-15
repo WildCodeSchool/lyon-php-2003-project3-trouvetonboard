@@ -58,8 +58,8 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('benjamin.moniotte@gmail.com', 'TTB Mail Confirmation Bot'))
-                    ->to('test.mail@mail.fr')
+                    ->from(new Address($this->getParameter('mailer_from'), 'TTB Mail Confirmation Bot'))
+                    ->to(new Address($user->getEmail()))
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
