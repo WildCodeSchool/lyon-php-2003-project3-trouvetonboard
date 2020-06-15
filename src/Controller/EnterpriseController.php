@@ -17,6 +17,7 @@ class EnterpriseController extends AbstractController
 {
     /**
      * @Route("/", name="enterprise_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(EnterpriseRepository $enterpriseRepository): Response
     {
