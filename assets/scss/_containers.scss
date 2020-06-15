@@ -6,6 +6,10 @@
 
 .container-std-bg-white {
     @extend .container-std;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     color: $cust-container-std-text-color;
     text-shadow: $cust-container-std-text-shadow;
     background-color: $cust-container-std-bgcolor;
