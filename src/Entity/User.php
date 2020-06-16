@@ -78,7 +78,7 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
