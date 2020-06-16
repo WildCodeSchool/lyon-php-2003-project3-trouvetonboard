@@ -26,7 +26,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Merci de saisir une valeur!")
+     * @Assert\NotBlank(message="Merci de saisir une valeur")
      * @Assert\Email(strict=true, message="Le format de l'email est incorrect")
      * @Assert\Email(checkMX=true, message="Aucun serveur mail n'a été trouvé pour ce domaine")
      * @Assert\Length(min=5)
@@ -40,7 +40,7 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @Assert\NotBlank(message="Merci de renseigner votre mot de passe !")
+     * @Assert\NotBlank(message="Merci de renseigner votre mot de passe")
      * @Assert\Length(min=8)
      * @ORM\Column(type="string")
      */
@@ -53,22 +53,22 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Merci de renseigner votre prénom !")
+     * @Assert\NotBlank(message="Merci de renseigner votre prénom")
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match=false,
-     *     message="Il ne peut y avoir de nombre dans votre prénom !"
+     *     message="Il ne peut y avoir de nombre dans votre prénom"
      * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Merci de renseigner votre prénom !")
+     * @Assert\NotBlank(message="Merci de renseigner votre prénom")
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match=false,
-     *     message="Il ne peut y avoir de nombre dans votre prénom !"
+     *     message="Il ne peut y avoir de nombre dans votre prénom"
      * )
      */
     private $lastName;
@@ -78,7 +78,7 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }

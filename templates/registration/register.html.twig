@@ -3,6 +3,10 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    {% block navbar %}
+        
+    {% endblock %}
+
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
@@ -10,13 +14,13 @@
 
 
     <div class="{{ containerStd }} login">
-        <div class="d-flex justify-content-around align-items-center align-content-center login">
+        <div class="d-flex justify-content-around align-items-center align-content-center login bnj-form-width">
 
 
 
             {{ form_start(registrationForm) }}
             <div class="d-flex justify-content-around">
-                <h1>Création de profil</h1>
+                <h1>Créer votre profil</h1>
             </div>
             {{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control'}}) }}
             {{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control'}}) }}
@@ -25,7 +29,7 @@
                 label: false, 'attr' : {'class': 'form-control'}
             }) }}
             <div class="d-flex justify-content-around">
-                <button type="submit" class="btn">Inscription</button>
+                <button type="submit" class="btn">Je m'inscris</button>
                 {{ form_end(registrationForm) }}
             </div>
 
@@ -35,5 +39,9 @@
 
 
     </div>
+    {% block footer %}
+        
+    {% endblock %}
+
 
 {% endblock %}
