@@ -62,7 +62,7 @@ class EnterpriseController extends AbstractController
     {
 
 
-        $connectedUser = $this->getUser();
+        $connectedUser = $this ? $this->getUser() : new User();
         $connectedEnterprise = $connectedUser ? $connectedUser->getEnterprise() : null;
 
         try {
