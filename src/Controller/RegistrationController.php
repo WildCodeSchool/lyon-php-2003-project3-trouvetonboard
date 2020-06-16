@@ -36,6 +36,7 @@ class RegistrationController extends AbstractController
         LoginAuthenticator $authenticator
     ): Response {
         $user = new User();
+        $user->setEmail("contact@ttb.fr");
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
