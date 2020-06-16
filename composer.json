@@ -10,7 +10,6 @@
         "laminas/laminas-eventmanager": "^3.2",
         "phpmd/phpmd": "^2.6",
         "sensio/framework-extra-bundle": "^5.1",
-        "stof/doctrine-extensions-bundle": "^1.4",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",
         "symfony/dotenv": "^4.4",
