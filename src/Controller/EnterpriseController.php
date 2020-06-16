@@ -67,7 +67,8 @@ class EnterpriseController extends AbstractController
 
         try {
             if (!$connectedEnterprise || ($connectedEnterprise->getId() != $enterprise->getId())) {
-                throw new AccessDeniedException("Accès non autorisé - Votre profil ne vous permet pas d'accéder à cette page");
+                throw new AccessDeniedException("Accès non autorisé - 
+                Votre profil ne vous permet pas d'accéder à cette page");
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
             return $this->redirectToRoute('home');
