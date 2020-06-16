@@ -3,9 +3,13 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    {% block navbar %}
+        
+    {% endblock %}
+
 
     <div class="{{ containerStd }} login">
-        <div class="d-flex justify-content-around align-items-center align-content-center login">
+        <div class="d-flex justify-content-around align-items-center align-content-center login bnj-form-width">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -13,7 +17,7 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Vous etes connecter en tant que <strong>{{ app.user.username }}</strong>, <a href="{{ path
+                        Vous êtes connecté en tant que <strong>{{ app.user.username }}</strong>, <a href="{{ path
                             ('app_logout') }}">Se déconnecter</a>
                     </div>
                 {% endif %}
@@ -30,7 +34,7 @@
                            required autofocus placeholder="email">
                     {#<label for="inputPassword">Mot de passe:</label>#}
                     <input type="password" name="password" id="inputPassword" class="form-control pwd" required
-                           placeholder="password">
+                           placeholder="mot de passe">
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -46,12 +50,17 @@
                     #}
                     <div class="d-flex justify-content-around">
                         <button class="" type="submit">
-                            Connexion
+                            Je me connecte
                         </button>
                     </div>
 
             </form>
         </div>
     </div>
+
+    {% block footer %}
+        
+    {% endblock %}
+
 
 {% endblock %}
