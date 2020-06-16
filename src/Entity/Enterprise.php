@@ -72,9 +72,15 @@ class Enterprise
      */
     private $profiles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="enterprise")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,6 +212,36 @@ class Enterprise
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setEnterprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getEnterprise() === $this) {
+                $user->setEnterprise(null);
+            }
+        }
         return $this;
     }
 }

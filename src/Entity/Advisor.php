@@ -44,6 +44,11 @@ class Advisor
      */
     private $profiles;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="advisor", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
@@ -128,6 +133,24 @@ class Advisor
             if ($profile->getAdvisor() === $this) {
                 $profile->setAdvisor(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAdvisor = null === $user ? null : $this;
+        if ($user && ($user->getAdvisor() !== $newAdvisor)) {
+            $user->setAdvisor($newAdvisor);
         }
 
         return $this;

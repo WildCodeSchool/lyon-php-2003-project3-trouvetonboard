@@ -73,6 +73,16 @@ class User implements UserInterface
      */
     private $lastName;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Enterprise::class, inversedBy="users")
+     */
+    private $enterprise;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Advisor::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $advisor;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -183,6 +193,30 @@ class User implements UserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getEnterprise(): ?Enterprise
+    {
+        return $this->enterprise;
+    }
+
+    public function setEnterprise(?Enterprise $enterprise): self
+    {
+        $this->enterprise = $enterprise;
+
+        return $this;
+    }
+
+    public function getAdvisor(): ?Advisor
+    {
+        return $this->advisor;
+    }
+
+    public function setAdvisor(?Advisor $advisor): self
+    {
+        $this->advisor = $advisor;
 
         return $this;
     }
