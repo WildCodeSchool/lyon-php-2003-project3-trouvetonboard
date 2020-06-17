@@ -1,7 +1,9 @@
 @import "functions";
 
-.form-gca {
 
+$cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
+.form-gca {
+    width: $cust-formBlock-input-width-local;
     // div title + delte button ( custon place for delte button )
     div {
         h1 {
@@ -19,6 +21,7 @@
 
     form {
         // form  global  container
+
         div {
             margin: $cust-formBlock-div-m;
             // each label + input are includ in one div
@@ -33,7 +36,6 @@
 
             input {
                 padding: $cust-formBlock-input-padding;
-                width: $cust-formBlock-input-width;
                 // each line input
                 min-height: $cust-formBlock-input-height;
                 background-color: $cust-formBlock-input-bgcolor;
@@ -43,6 +45,36 @@
                 border-width: $style-guide-button-border-width;
                 border-color: $style-guide-blue;
             }
+
+            select {
+                padding: $cust-formBlock-input-padding;
+
+                // each line input
+                min-height: $cust-formBlock-input-height;
+                background-color: $cust-formBlock-input-bgcolor;
+                color: $cust-formBlock-input-textcolor;
+                font-weight: unset;
+                border-style: $cust-formBlock-input-borderstyle;
+                border-width: $style-guide-button-border-width;
+                border-color: $style-guide-blue;
+            }
+
+            fieldset {
+                padding: $cust-formBlock-input-padding;
+
+                legend{
+
+
+
+                }
+                div{
+                    select{
+                        margin: 5px;
+                    }
+                }
+
+            }
+
 
             input:focus {
                 color: white;

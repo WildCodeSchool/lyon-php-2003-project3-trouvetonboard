@@ -106,19 +106,21 @@ class UserController extends AbstractController
     {
         $loggedUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneByEmail($this->getUser()
         ->getEmail());
-        $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
+       // $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
         return $this->render('user/profileShow.html.twig', [
             'user' => $loggedUser,
         ]);
     }
 
     /**
-     * @Route("/profile/edit", name="profile_edit", methods={"GET","POST"})
+     * @Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
      */
     public function profileEdit(Request $request, User $user): Response
     {
-        $loggedUser = $this->getDoctrine()->getManager()->getRepository()->findOneBy(["id" => $this->getUser()
-            ->getId()]);
+
+       /* $loggedUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["id" =>
+        $this->getUser()
+            ->getId()]);*/
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -126,7 +128,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('user/edit.html.twig', [
