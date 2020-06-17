@@ -1,0 +1,139 @@
+<div class="{{ titleBlock }}">
+    <h3>Board request de l'entreprise:</h3>
+</div>
+{% set card = "col-lg-6 col-md-12" %}
+<div class="container-fluid row">
+    <div class="{{ card }}">
+
+        <div class="rounded ">
+            <div class="{{ titleBlock }} m-3">
+                <h3>Une -> demande de board</h3>
+                <div class="bg-danger rounded-pill">2 matchs</div>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Prénom:</th>
+                    <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
+                </tr>
+                <tr>
+                    <th>Nom:</th>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Email & identifiant:</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Compte verifier :</th>
+                    <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="d-flex p-2 justify-content-around ml-1 container-a">
+            <a href="{{ path('enterprise_new') }}">
+                Afficher les details</a>
+        </div>
+    </div>
+
+    <div class="{{ card }}">
+
+        <div class="rounded">
+            <div class="{{ titleBlock }} m-3">
+                <h3>Une -> demande de board</h3>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Prénom:</th>
+                    <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
+                </tr>
+                <tr>
+                    <th>Nom:</th>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Email & identifiant:</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Compte verifier :</th>
+                    <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="{{ card }}">
+
+        <div class="rounded">
+            <div class="{{ titleBlock }} m-3">
+                <h3>Une -> demande de board</h3>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Prénom:</th>
+                    <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
+                </tr>
+                <tr>
+                    <th>Nom:</th>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Email & identifiant:</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Compte verifier :</th>
+                    <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="{{ card }}">
+
+        <div class="flex-fill rounded">
+            <div class="{{ titleBlock }} m-3">
+                <h3>Une -> demande de board</h3>
+            </div>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Prénom:</th>
+                    <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
+                </tr>
+                <tr>
+                    <th>Nom:</th>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Email & identifiant:</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Compte verifier :</th>
+                    <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

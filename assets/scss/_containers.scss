@@ -16,3 +16,37 @@
     box-shadow: $cust-box-shadow;
 }
 
+.container-std-bg-white-bootstrap {
+    @extend .container-std;
+    color: $cust-container-std-text-color;
+    text-shadow: $cust-container-std-text-shadow;
+    background-color: $cust-container-std-bgcolor;
+    box-shadow: $cust-box-shadow;
+}
+
+.container-title-block {
+    color: white;
+    text-shadow: $cust-container-std-text-shadow;
+    background-color: $style-guide-blue;
+    border-radius: $cust-border-radius $cust-border-radius 0 0 ;
+}
+
+.container-a {
+    a{
+        color:$style-guide-dark;
+        text-shadow: $cust-container-std-text-shadow;
+        border-radius: $cust-border-radius $cust-border-radius 0 0;
+    }
+
+    a:hover {
+        color: $style-guide-blue;
+        text-shadow: $cust-container-std-text-shadow;
+    }
+
+}
+
+.container-width-30 {
+    width: 30%;
+    min-width: 30%;
+
+}

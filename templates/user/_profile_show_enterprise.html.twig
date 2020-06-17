@@ -1,0 +1,38 @@
+<div class="{{ titleBlock }}">
+    <h3>Enterprise :</h3>
+</div>
+{% if user.enterprise %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Nom de l'entreprise :</th>
+            <td>{{ user.enterprise.name }}</td>
+        </tr>
+        <tr>
+            <th>Status du payment :</th>
+            <td>{{ user.enterprise.paymentStatus }}</td>
+        </tr>
+        <tr>
+            <th>Adresse :</th>
+            <td>{{ user.enterprise.paymentStatus }}</td>
+        </tr>
+        <tr>
+            <th>Representant legal:</th>
+            <td>{{ user.enterprise.legelRepresentative }}</td>
+        </tr>
+        <tr>
+            <th>Lien linkedIn:</th>
+            <td>{{ user.enterprise.linkedinLink }}</td>
+        </tr>
+        <tr>
+            <th>Lien site Web:</th>
+            <td>{{ user.enterprise.websiteLink }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% else %}
+    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+        <a href="{{ path('enterprise_new') }}">
+            Ajouter mon entreprise</a>
+    </div>
+{% endif %}

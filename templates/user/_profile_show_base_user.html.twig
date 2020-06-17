@@ -1,0 +1,25 @@
+<div class="{{ titleBlock }}">
+    <h3>Profil utilisateur :</h3>
+</div>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Prénom:</th>
+        <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
+    </tr>
+    <tr>
+        <th>Nom:</th>
+        <td>{{ user.lastName }}</td>
+    </tr>
+    <tr>
+        <th>Email & identifiant:</th>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <th>Compte verifier :</th>
+        <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
+    </tr>
+
+    </tbody>
+</table>

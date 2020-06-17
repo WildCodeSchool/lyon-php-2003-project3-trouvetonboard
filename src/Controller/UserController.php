@@ -9,14 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/user")
+ * @Route("/user" ,  name="user_")
  */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -26,7 +28,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -49,7 +52,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(User $user): Response
     {
@@ -59,7 +63,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, User $user): Response
     {
@@ -79,7 +84,8 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, User $user): Response
     {
@@ -93,10 +99,27 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/profile/show", name="profile_show", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
-    public function profile(Request $request, User $user): Response
+    public function profileShow(Request $request): Response
     {
+        $loggedUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneByEmail($this->getUser()
+        ->getEmail());
+        $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
+        return $this->render('user/profileShow.html.twig', [
+            'user' => $loggedUser,
+        ]);
+    }
+
+    /**
+     * @Route("/profile/edit", name="profile_edit", methods={"GET","POST"})
+     */
+    public function profileEdit(Request $request, User $user): Response
+    {
+        $loggedUser = $this->getDoctrine()->getManager()->getRepository()->findOneBy(["id" => $this->getUser()
+            ->getId()]);
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil utilisateur : {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid row">
+        <!-- col 1 -->
+        <div class="col-lg-4 col-md-12">
+            <div class="">
+                {% include 'user/_profile_show_base_user.html.twig' %}
+            </div>
+            <div class="">
+                {% include 'user/_profile_show_detail_user.html.twig' %}
+            </div>
+            <div class="">
+                {% include 'user/_profile_show_enterprise.html.twig' %}
+            </div>
+
+
+        </div>
+        <!-- col 2 -->
+        <div class="col-lg-8 col-md-12">
+                {% include 'user/_profile_show_board_request.html.twig' %}
+        </div>
+
+    </div>
+
+    <a href="{{ path('user_index') }}">back to list</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+{% endblock %}
