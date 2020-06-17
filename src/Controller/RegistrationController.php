@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
         LoginAuthenticator $authenticator
     ): Response {
         $user = new User();
-        $user->setEmail("contact@ttb.fr");
+        $user->setEmail("email");
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -63,7 +63,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address($this->getParameter('mailer_from'), 'TTB Mail Confirmation Bot'))
                     ->to(new Address($userEmail))
-                    ->subject('Please Confirm your Email')
+                    ->subject('Bienvenue sur TTB')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
