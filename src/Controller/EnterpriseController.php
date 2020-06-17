@@ -61,10 +61,7 @@ class EnterpriseController extends AbstractController
     public function show(Enterprise $enterprise): Response
     {
 
-        //$connectedUser = $this ? $this->getUser()
-        $connectedUser = $this ? $this->getUser() : new User();
-        $connectedEnterprise = $connectedUser ? $connectedUser->getEnterprise() : null;
-
+        $connectedEnterprise = ($user = $this->getUser()) ? $user->getEnterprise() : null;
         try {
             if (!$connectedEnterprise || ($connectedEnterprise->getId() != $enterprise->getId())) {
                 throw new AccessDeniedException("Accès non autorisé - 
