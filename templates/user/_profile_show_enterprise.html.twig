@@ -5,31 +5,35 @@
     <table class="table">
         <tbody>
         <tr>
-            <th>Nom de l'entreprise :</th>
+            <th width="{{ thWidth }}">Nom de l'entreprise :</th>
             <td>{{ user.enterprise.name }}</td>
         </tr>
         <tr>
-            <th>Status du payment :</th>
+            <th width="{{ thWidth }}">Status du payment :</th>
             <td>{{ user.enterprise.paymentStatus }}</td>
         </tr>
         <tr>
-            <th>Adresse :</th>
+            <th width="{{ thWidth }}">Adresse :</th>
             <td>{{ user.enterprise.paymentStatus }}</td>
         </tr>
         <tr>
-            <th>Representant legal:</th>
+            <th width="{{ thWidth }}">Representant legal:</th>
             <td>{{ user.enterprise.legelRepresentative }}</td>
         </tr>
         <tr>
-            <th>Lien linkedIn:</th>
+            <th width="{{ thWidth }}">Lien linkedIn:</th>
             <td>{{ user.enterprise.linkedinLink }}</td>
         </tr>
         <tr>
-            <th>Lien site Web:</th>
+            <th width="{{ thWidth }}">Lien site Web:</th>
             <td>{{ user.enterprise.websiteLink }}</td>
         </tr>
         </tbody>
     </table>
+    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+        <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
+            Modifier les informations de l'entreprise</a>
+    </div>
 {% else %}
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
         <a href="{{ path('enterprise_new') }}">

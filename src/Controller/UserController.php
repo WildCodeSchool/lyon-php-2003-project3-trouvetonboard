@@ -110,9 +110,9 @@ class UserController extends AbstractController
         if (isset($logUser)) {
             $email = $logUser->getUsername();
         }
-        $user = "";
-        if (method_exists($userRepo, "findOneByEmail")) {
-                $user = $userRepo->findOneByEmail($email);
+        $user = $logUser;
+        if (method_exists($userRepo, "findOneBy")) {
+                $user = $userRepo->findOneBy(["email" => $email]);
         }
 
 
@@ -123,7 +123,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * git add@Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
+     * @Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
      */
     public function profileEdit(Request $request, User $user): Response
     {
