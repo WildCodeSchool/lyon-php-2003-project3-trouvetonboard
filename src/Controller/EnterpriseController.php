@@ -44,6 +44,12 @@ class EnterpriseController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enterprise);
             $entityManager->flush();
+            $user = $this->getUser();
+            if ($user) {
+                $user = $user->setEnterprise($enterprise);
+            }
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             return $this->redirectToRoute('enterprise_index');
         }
