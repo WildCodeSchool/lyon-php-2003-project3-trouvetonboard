@@ -104,22 +104,33 @@ class UserController extends AbstractController
      */
     public function profileShow(Request $request): Response
     {
-        $loggedUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneByEmail($this->getUser()
-        ->getEmail());
+        $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
+        $logUser = $this->getUser();
+        $email = "";
+        if (isset($logUser)) {
+            $email = $logUser->getUsername();
+        }
+        $user = "";
+        if (method_exists($userRepo, "findOneByEmail")) {
+                $user = $userRepo->findOneByEmail($email);
+        }
+
+
        // $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
         return $this->render('user/profileShow.html.twig', [
-            'user' => $loggedUser,
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
+     * git add@Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
      */
     public function profileEdit(Request $request, User $user): Response
     {
 
-       /* $loggedUser = $this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["id" =>
-        $this->getUser()
+
+        /*$loggedUser = ($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["id" =>
+        $this->getUser())
             ->getId()]);*/
 
         $form = $this->createForm(UserType::class, $user);
