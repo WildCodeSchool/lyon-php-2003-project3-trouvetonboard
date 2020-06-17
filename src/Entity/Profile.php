@@ -54,6 +54,16 @@ class Profile
      */
     private $advisor;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Profile::class, mappedBy="profile", cascade={"persist", "remove"})
+     */
+    private $profile;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
@@ -159,6 +169,36 @@ class Profile
     {
         $this->advisor = $advisor;
 
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getProfile(): ?self
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(self $profile): self
+    {
+        $this->profile = $profile;
+        // set (or unset) the owning side of the relation if necessary
+        /*
+        $newProfile = null === $profile ? null : $this;
+        if ($profile->getProfile() !== $newProfile) {
+            $profile->setProfile($newProfile);
+        }
+        */
         return $this;
     }
 }

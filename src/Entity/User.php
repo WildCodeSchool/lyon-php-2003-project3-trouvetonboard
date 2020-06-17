@@ -83,6 +83,51 @@ class User implements UserInterface
      */
     private $advisor;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $nationality;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $birthday;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $postCode;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=300, nullable=true)
+     */
+    private $pictureLink;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -217,6 +262,114 @@ class User implements UserInterface
     public function setAdvisor(?Advisor $advisor): self
     {
         $this->advisor = $advisor;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): self
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(?\DateTimeInterface $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostCode(): ?int
+    {
+        return $this->postCode;
+    }
+
+    public function setPostCode(?int $postCode): self
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPictureLink(): ?string
+    {
+        return $this->pictureLink;
+    }
+
+    public function setPictureLink(?string $pictureLink): self
+    {
+        $this->pictureLink = $pictureLink;
 
         return $this;
     }
