@@ -22,12 +22,33 @@
             <div class="d-flex justify-content-around">
                 <h1>Créer votre profil</h1>
             </div>
-            {{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control'}}) }}
-            {{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control'}}) }}
-            {{ form_row(registrationForm.email, {'attr' : {'class': 'form-control'}}) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: false, 'attr' : {'class': 'form-control'}
-            }) }}
+
+            {% if form_errors(registrationForm.first_name) %}
+                <div class="alert alert-danger">{{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% else %}
+                {{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control'}}) }}
+            {% endif %}
+
+            {% if form_errors(registrationForm.last_name) %}
+                <div class="alert alert-danger">{{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% else %}
+                {{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control'}}) }}
+            {% endif %}
+
+            {% if form_errors(registrationForm.email) %}
+                <div class="alert alert-danger">{{ form_row(registrationForm.email, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% else %}
+                {{ form_row(registrationForm.email, {'attr' : {'class': 'form-control'}}) }}
+            {% endif %}
+
+            {% if form_errors(registrationForm.plainPassword) %}
+                <div class="alert alert-danger">{{ form_row(registrationForm.plainPassword, {label: false, 'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% else %}
+                {{ form_row(registrationForm.plainPassword, {label: false, 'attr' : {'class': 'form-control'}}) }}
+            {% endif %}
+
+
+
             <div class="d-flex justify-content-around">
                 <button type="submit" class="btn">Je m'inscris</button>
                 {{ form_end(registrationForm) }}
