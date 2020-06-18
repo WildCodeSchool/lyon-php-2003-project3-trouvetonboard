@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Level;
+use App\Entity\Profile;
 use App\Entity\Skill;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -24,7 +25,13 @@ class SkillFixtures extends Fixture
         ];
         // Création du  level 1
         $cat = 0;
-        $skill = 0;
+        // create one profile
+        $profile = new profile();
+        $profile->setTitle("DRH spéciliste Industre");
+        $profile->setIsRequest(true);
+        $profile->setIsPropose(false);
+        $profile->setPaymentType(2);
+
         foreach ($values as $key => $categorys) {
             $category = new Category();
             $category->setName($key);
@@ -39,9 +46,17 @@ class SkillFixtures extends Fixture
                     $skill->setName($categorys[$a]);
                     $skill->setCategory($this->getReference("category_" . $cat));
                     $skill->setLevel($this->getReference("level_" . $i));
+                    if ($i == 0) {
+                        $this->addReference("skill_" . $cat ."_" . $a, $skill);
+                    }
                     $manager->persist($skill);
+
+                    if ($i == 0) {
+                        $profile->addSkill($this->getReference("skill_" . $cat . "_" . $a));
+                    }
                 }
             }
+            $manager->persist($profile);
             $cat++;
         }
         // enregistrement

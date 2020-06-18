@@ -3,6 +3,18 @@
 </div>
 {% set card = "col-lg-5 col-md-12" %}
 <div class="container-fluid row justify-content-around m-0">
+    {% for profile in app.user.enterprise.profiles %}
+    {% else %}
+        <div class="d-flex p-2 justify-content-around ml-1 container-a">
+            <p>Aucune recherche active, cliquer sur le lien pour creer une recherche.</p>
+        </div>
+    {% endfor %}
+    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+        <a href="{{ path('profile_newBdReq') }}">
+            Creer une recherche de board member</a>
+    </div>
+
+    {#commented for keep and reuse base code when data ok in next us
     <div class="{{ card }} {{ formBlockStd }} m-2 ">
 
         <div class="rounded ">
@@ -71,69 +83,9 @@
 
         </div>
     </div>
+ #}
 
-    <div class="{{ card }} {{ formBlockStd }} m-2">
 
-        <div class="rounded">
-            <div class="{{ titleBlock }} m-3">
-                <h3>Une -> demande de board</h3>
-            </div>
 
-            <table class="table">
-                <tbody>
-                <tr>
-                    <th>Prénom:</th>
-                    <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
-                </tr>
-                <tr>
-                    <th>Nom:</th>
-                    <td>{{ user.lastName }}</td>
-                </tr>
-                <tr>
-                    <th>Email & identifiant:</th>
-                    <td>{{ user.email }}</td>
-                </tr>
-                <tr>
-                    <th>Compte verifier :</th>
-                    <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
-                </tr>
-
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
-    <div class="{{ card }} {{ formBlockStd }} m-2">
-
-        <div class="flex-fill rounded">
-            <div class="{{ titleBlock }} m-3">
-                <h3>Une -> demande de board</h3>
-            </div>
-
-            <table class="table">
-                <tbody>
-                <tr>
-                    <th>Prénom:</th>
-                    <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
-                </tr>
-                <tr>
-                    <th>Nom:</th>
-                    <td>{{ user.lastName }}</td>
-                </tr>
-                <tr>
-                    <th>Email & identifiant:</th>
-                    <td>{{ user.email }}</td>
-                </tr>
-                <tr>
-                    <th>Compte verifier :</th>
-                    <td>{{ user.isVerified ? 'OUI' : 'NON' }}</td>
-                </tr>
-
-                </tbody>
-            </table>
-
-        </div>
-    </div>
 
 </div>
