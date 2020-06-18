@@ -22,8 +22,6 @@ class SkillFixtures extends Fixture
             "Rémunération" => ["Salaire", "defraiement", "Equity"],
             "Taille de l'entreprise" => ["Idéation", "Start-up", "TPE", "PME", "ETI", "Grand groupes"],
         ];
-
-
         // Création du  level 1
         $cat = 0;
         $skill = 0;
