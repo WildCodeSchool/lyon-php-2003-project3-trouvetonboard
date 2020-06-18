@@ -24,7 +24,7 @@ class Enterprise
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
      */
-    private $paymentStatus;
+    private $paymentStatus = 0;
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
@@ -65,7 +65,7 @@ class Enterprise
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private $name = 'default';
 
     /**
      * @ORM\OneToMany(targetEntity=Profile::class, mappedBy="enterprise")
