@@ -35,7 +35,7 @@ class Skill
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Profile::class, mappedBy="skill")
+     * @ORM\ManyToMany(targetEntity=Profile::class, mappedBy="skills")
      */
     private $profiles;
 

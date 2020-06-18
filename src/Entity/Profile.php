@@ -59,10 +59,6 @@ class Profile
      */
     private $dateCreation;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Profile::class, mappedBy="profile", cascade={"persist", "remove"})
-     */
-    private $profile;
 
     public function __construct()
     {
@@ -181,24 +177,6 @@ class Profile
     {
         $this->dateCreation = $dateCreation;
 
-        return $this;
-    }
-
-    public function getProfile(): ?self
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(self $profile): self
-    {
-        $this->profile = $profile;
-        // set (or unset) the owning side of the relation if necessary
-        /*
-        $newProfile = null === $profile ? null : $this;
-        if ($profile->getProfile() !== $newProfile) {
-            $profile->setProfile($newProfile);
-        }
-        */
         return $this;
     }
 }
