@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Advisor;
+use App\Entity\Enterprise;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -42,15 +44,24 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted()) {
             // encode the plain password
+            $entityManager = $this->getDoctrine()->getManager();
+
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+            if ($form->get('type')->getData() == "enterprise") {
+                $enterprise = new Enterprise();
+                $entityManager->persist($enterprise);
+                $user->setEnterprise($enterprise);
+            } else {
+                $advisor = new Advisor();
+                $entityManager->persist($advisor);
+                $user->setAdvisor($advisor);
+            }
 
-
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 

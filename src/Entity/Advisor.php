@@ -37,7 +37,7 @@ class Advisor
     /**
      * @ORM\Column(type="integer")
      */
-    private $paymentStatus;
+    private $paymentStatus = 0;
 
     /**
      * @ORM\OneToMany(targetEntity=Profile::class, mappedBy="advisor")
