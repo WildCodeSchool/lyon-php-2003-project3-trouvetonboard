@@ -59,10 +59,22 @@ class Profile
      */
     private $dateCreation;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Profile::class, inversedBy="advisorProfiles")
+     */
+    private $enterpriseProfiles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Profile::class, mappedBy="enterpriseProfiles")
+     */
+    private $advisorProfiles;
+
 
     public function __construct()
     {
         $this->skills = new ArrayCollection();
+        $this->enterpriseProfiles = new ArrayCollection();
+        $this->advisorProfiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,6 +188,60 @@ class Profile
     public function setDateCreation(?\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getEnterpriseProfiles(): Collection
+    {
+        return $this->enterpriseProfiles;
+    }
+
+    public function addEnterpriseProfile(self $enterpriseProfile): self
+    {
+        if (!$this->enterpriseProfiles->contains($enterpriseProfile)) {
+            $this->enterpriseProfiles[] = $enterpriseProfile;
+        }
+
+        return $this;
+    }
+
+    public function removeEnterpriseProfile(self $enterpriseProfile): self
+    {
+        if ($this->enterpriseProfiles->contains($enterpriseProfile)) {
+            $this->enterpriseProfiles->removeElement($enterpriseProfile);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getAdvisorProfiles(): Collection
+    {
+        return $this->advisorProfiles;
+    }
+
+    public function addAdvisorProfile(self $advisorProfile): self
+    {
+        if (!$this->advisorProfiles->contains($advisorProfile)) {
+            $this->advisorProfiles[] = $advisorProfile;
+            $advisorProfile->addEnterpriseProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvisorProfile(self $advisorProfile): self
+    {
+        if ($this->advisorProfiles->contains($advisorProfile)) {
+            $this->advisorProfiles->removeElement($advisorProfile);
+            $advisorProfile->removeEnterpriseProfile($this);
+        }
 
         return $this;
     }
