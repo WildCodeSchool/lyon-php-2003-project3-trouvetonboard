@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile index{% endblock %}
+
+{% block body %}
+    <h1>Profile index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IsRequest</th>
+                <th>IsPropose</th>
+                <th>PaymentType</th>
+                <th>Title</th>
+                <th>DateCreation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for profile in profiles %}
+            <tr>
+                <td>{{ profile.id }}</td>
+                <td>{{ profile.isRequest ? 'Yes' : 'No' }}</td>
+                <td>{{ profile.isPropose ? 'Yes' : 'No' }}</td>
+                <td>{{ profile.paymentType }}</td>
+                <td>{{ profile.title }}</td>
+                <td>{{ profile.dateCreation ? profile.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('profile_show', {'id': profile.id}) }}">show</a>
+                    <a href="{{ path('profile_edit', {'id': profile.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('profile_new') }}">Create new</a>
+{% endblock %}
