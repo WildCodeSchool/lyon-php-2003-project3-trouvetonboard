@@ -1,0 +1,65 @@
+.login {
+    form {
+        width: 50%;
+
+        div {
+            margin-top: $cust-container-std-childs-margin-top;
+        }
+
+        h1 {
+            margin-top: $cust-container-std-childs-margin-top;
+        }
+
+        a {
+            color: $style-guide-blue !important;
+        }
+
+        label {
+            margin-top: $cust-container-std-childs-margin-top;
+        }
+
+        input {
+            min-height: 50px;
+            margin-top: $cust-container-std-childs-margin-top + 25px;
+            background-color: $style-guide-blue;
+            color: white;
+            font-weight: bold;
+            border-style: solid;
+            border-width: $style-guide-button-border-width;
+            border-color: $style-guide-blue;
+        }
+
+        input:focus {
+            color: white;
+            border-color: $style-guide-dark ;
+            background-color: $style-guide-blue;
+            box-shadow: $cust-box-shadow;
+        }
+
+        input::placeholder {
+            color: white;
+        }
+
+        button {
+            padding:$style-guide-button-padding;
+            background-color: white;
+            color:black;
+            border-style: solid;
+            border-color: $style-guide-blue;
+            border-width: $style-guide-button-border-width;
+            margin-top: $cust-container-std-childs-margin-top;
+            border-radius: $cust-container-std-radius;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+            border-style: solid;
+            box-shadow: $cust-box-shadow;
+        }
+    }
+}
+
+.bnj-form-width {
+    width: 80%;
+}

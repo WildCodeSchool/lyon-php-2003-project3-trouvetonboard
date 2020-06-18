@@ -1,3 +1,38 @@
 $primary-color: #f76c6c;
 $secondary-color: #f99797;
 $warm-color: #ffd64f;
+$style-guide-dark : #4B5E8E;
+$style-guide-blue: #6e9db8;
+$style-guide-gray: #b0b0b0;
+$style-guide-button-border-width: 4px;
+$style-guide-button-padding: 10px 20px;
+
+
+//general custom value global  site
+$cust-bg-input-form: $style-guide-blue;
+$cust-bg-page: rgba(255, 255, 255, 1);
+$cust-text-color: black;
+$cust-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+$cust-border-radius: 3px;
+$cust-container-std-margin-top: 50px;
+$cust-box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+
+//  Container STD value , used in _containers.scss
+$cust-container-std-margin-top: $cust-container-std-margin-top;
+$cust-container-std-childs-margin-top: 10px;
+$cust-container-std-radius: $cust-border-radius;
+$cust-container-std-border-radius: $cust-border-radius;
+$cust-container-std-text-color: $cust-text-color;
+$cust-container-std-bgcolor: $cust-bg-page;
+$cust-container-std-text-shadow: $cust-border-radius;
+
+//  custom for _form_gca.scss todo rename _form_gca.scss to _form.scss
+$cust-formBlock-div-m: 10px;
+$cust-formBlock-label-mr: 10px;
+$cust-formBlock-label-minwidth: 22%;
+$cust-formBlock-input-width: 75%;
+$cust-formBlock-input-height: 50px;
+$cust-formBlock-input-padding: 10px;
+$cust-formBlock-input-borderstyle: solid;
+$cust-formBlock-input-textcolor: white;
+$cust-formBlock-input-bgcolor: $style-guide-blue;

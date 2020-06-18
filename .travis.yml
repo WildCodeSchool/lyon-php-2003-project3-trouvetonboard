@@ -1,6 +1,6 @@
 language: php
 php:
-    - '7.3'
+    - '7.4'
 before_install:
     - if [ -d "./.idea" ]; then echo "Forbidden idea folder found ! Please, ignore them globaly..."; exit 2; fi
     - if [ -d "./.vscode" ]; then echo "Forbidden vscode folder found ! Please, ignore them globaly..."; exit 2; fi
@@ -18,8 +18,12 @@ script:
     - ./bin/sass-lint -c sass-linter.yml -v
 notifications:
     email:
-        - TRAINER@wildcodeschool.fr
-        - STUDENT_MAIL
+        - actix2013@gmail.com
+        - amina.aitm@gmail.com
+        - cvr.contact.pro@gmail.com
+        - raphael.morales@hotmail.fr
+        - benjamin.moniotte@gmail.com
+        - r.moulet0@gmail.com
 branches:
     only:
         - master

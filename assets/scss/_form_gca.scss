@@ -1,0 +1,109 @@
+@import "functions";
+
+.form-gca {
+
+    // div title + delte button ( custon place for delte button )
+    div {
+        h1 {
+            margin-top: 0px;
+        }
+
+        form {
+            button {
+                margin-left: 50px;
+                margin-top: 0px;
+            }
+
+        }
+    }
+
+    form {
+        // form  global  container
+        div {
+            margin: $cust-formBlock-div-m;
+            // each label + input are includ in one div
+
+            label {
+                // each line label
+                font-weight: unset;
+                margin-right: $cust-formBlock-label-mr;
+                margin-bottom: 0px;
+                min-width: $cust-formBlock-label-minwidth;
+            }
+
+            input {
+                padding: $cust-formBlock-input-padding;
+                width: $cust-formBlock-input-width;
+                // each line input
+                min-height: $cust-formBlock-input-height;
+                background-color: $cust-formBlock-input-bgcolor;
+                color: $cust-formBlock-input-textcolor;
+                font-weight: unset;
+                border-style: $cust-formBlock-input-borderstyle;
+                border-width: $style-guide-button-border-width;
+                border-color: $style-guide-blue;
+            }
+
+            input:focus {
+                color: white;
+                border-color: $style-guide-dark;
+                background-color: $style-guide-blue;
+                box-shadow: $cust-box-shadow;
+            }
+
+            input::placeholder {
+                color: white;
+            }
+        }
+    }
+
+    button {
+        padding: $style-guide-button-padding;
+        background-color: white;
+        color: black;
+        border-style: solid;
+        border-color: $style-guide-blue;
+        border-width: $style-guide-button-border-width;
+        margin-top: $cust-container-std-childs-margin-top;
+        border-radius: $cust-container-std-radius;
+    }
+
+    button:hover {
+        background-color: white;
+        color: black;
+        border-style: solid;
+        box-shadow: $cust-box-shadow;
+    }
+
+    a {
+        color: $style-guide-blue !important;
+    }
+
+}
+
+@media screen and (max-width: 900px) {
+    .form-gca {
+
+        form {
+            // each form in coantainerr
+
+            h1 {
+                margin-top: $cust-container-std-childs-margin-top;
+            }
+
+            div {
+                // form  global  container
+
+                div {
+                    flex-wrap: wrap;
+                    //background-color: #718C00;
+
+                    input {
+                        padding: 10px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

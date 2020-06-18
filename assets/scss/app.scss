@@ -1,9 +1,53 @@
+@import "~bootstrap/scss/bootstrap";
 @import "vars";
+@import "containers";
+@import "login";
+@import "navbar";
+@import "form_gca";
+@import "icons";
 
 body {
-    background-color: $secondary-color;
+    background-color: $cust-bg-page;
+    font-family: 'Roboto', sans-serif;
 }
 
 a {
     color: $warm-color;
 }
+
+.navbar-light .navbar-toggler {
+    border-color: rgba(0, 0, 0, 0)
+}
+
+
+.footer-container {
+    width: 100%;
+    min-height: 150px;
+    background-color: #6E9DB8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 100px;
+
+    li {
+        list-style: none;
+        margin: 0 20px;
+        font-size: 20px;
+        text-align: center;
+
+        a {
+            color: #FFFFFF;
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .footer-container {
+        flex-direction: column;
+
+        li {
+            margin: 5px 20px;
+        }
+    }
+}
+
