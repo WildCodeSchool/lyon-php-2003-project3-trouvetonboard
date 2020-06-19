@@ -3,16 +3,16 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <div class="{{ containerStdProfile }} p-0 justify-content-center">
+<div class="d-flex justify-content-center">
         <div class="{{ containerStdProfile }} flex-column form-gca p-0">
             <div class="p-2 d-flex align-items-start justify-content-start align-content-start container-title-block">
-                <h3>Modification des informations utilisateur:</h3>
+                <h3>Modification des informations utilisateur :</h3>
             </div>
 
-                {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('user/_form.html.twig', {'button_label': 'Mise a jour'}) }}
 
         </div>
-        <a href="{{ path('user_index') }}">back to list</a>
+</div>
 
-    </div>
+
 {% endblock %}

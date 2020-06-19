@@ -1,5 +1,10 @@
 <div class="{{ titleBlock }}">
-    <h3>Enterprise :</h3>
+    <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
+        <h3 class="m-0 align-self-center">Enterprise :</h3>
+        <div>
+            {{ include('components/_icon_enterprise.html.twig') }}
+        </div>
+    </div>
 </div>
 {% if user.enterprise %}
     <table class="table">

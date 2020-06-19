@@ -45,3 +45,52 @@
 
 }
 
+.container-btn {
+
+    button, a {
+        padding: $style-guide-button-padding;
+        background-color: white;
+        color: black !important;
+        border-style: solid;
+        border-color: $style-guide-blue;
+        border-width: $style-guide-button-border-width;
+        margin-top: $cust-container-std-childs-margin-top;
+        border-radius: $cust-container-std-radius;
+        text-decoration: none !important;
+        text-decoration-color: black !important;
+
+    }
+
+    a:link {
+        text-decoration: none;
+        color: black !important;
+        text-decoration-color: black !important;
+    }
+
+    a:visited {
+        text-decoration: none !important;
+    }
+
+    a:hover {
+        text-decoration: none !important;
+        color: black !important;
+    }
+
+
+
+
+    button:hover, a:hover {
+        background-color: white;
+        color: black;
+        border-style: solid;
+        box-shadow: $cust-box-shadow;
+    }
+}
+
+    .cust-grid-col-1-line-3fill-midel {
+        display: grid;
+        height: 100%;
+        grid-template-columns:1fr;
+        grid-template-rows: 5px minmax(10%, 85%) minmax(40px,100px);
+
+    }

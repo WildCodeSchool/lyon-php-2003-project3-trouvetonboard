@@ -8,6 +8,8 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,7 +21,7 @@ class UserType extends AbstractType
             ->add('email', null, ["label" => "Adesse mail: "])
             //->add('roles')
             ->add('password', null, ["label" => "Mot de passe: "])
-            ->add('firstName',null, ["label" => "Prénom: "])
+            ->add('firstName', null, ["label" => "Prénom: "])
             ->add('lastName', null, ["label" => "Nom: "])
             ->add('gender', ChoiceType::class, [
                 "choices" => [
@@ -30,7 +32,11 @@ class UserType extends AbstractType
             ])
             ->add('nationality', null, ["label" => "Natiaonalitée: "])
             ->add('lastName', null, ["label" => "Nom: "])
-            ->add('birthday', null, ["label" => "Date de naissance: "])
+            ->add('birthday', DateType::class, [
+                "label" => "Date de naissance: ",
+                "placeholder"  => ['year' => 'Année :', 'month' => 'Mois :', 'day' => 'Jour :'],
+                'years' => range(1900, 2020),
+            ])
             ->add('phone', null, ["label" => "Téléphone: "])
             ->add('address', null, ["label" => "Adresse:"])
             ->add('postCode', null, ["label" => "Code postal: "])
