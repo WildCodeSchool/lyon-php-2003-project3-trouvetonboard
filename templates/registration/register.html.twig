@@ -4,7 +4,7 @@
 
 {% block body %}
     {% block navbar %}
-        
+
     {% endblock %}
 
     {% for flashError in app.flashes('verify_email_error') %}
@@ -22,6 +22,8 @@
             <div class="d-flex justify-content-around">
                 <h1>Créer votre profil</h1>
             </div>
+            
+            {{ form_row(registrationForm.type, {'attr' : {'class': 'form-control'}}) }}
 
             {% if form_errors(registrationForm.first_name) %}
                 <div class="alert alert-danger">{{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
@@ -48,7 +50,6 @@
             {% endif %}
 
 
-
             <div class="d-flex justify-content-around">
                 <button type="submit" class="btn">Je m'inscris</button>
                 {{ form_end(registrationForm) }}
@@ -61,7 +62,7 @@
 
     </div>
     {% block footer %}
-        
+
     {% endblock %}
 
 
