@@ -18,30 +18,30 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', null, ["label" => "Adesse mail: "])
+            ->add('firstName', null, ["label" => "Prénom : "])
+            ->add('lastName', null, ["label" => "Nom : "])
+            ->add('email', null, ["label" => "Adesse mail : "])
             //->add('roles')
-            ->add('password', null, ["label" => "Mot de passe: "])
-            ->add('firstName', null, ["label" => "Prénom: "])
-            ->add('lastName', null, ["label" => "Nom: "])
             ->add('gender', ChoiceType::class, [
+                "label" => "Genre :",
                 "choices" => [
                     "Homme" => "Homme",
                     "Femme" => "Femme",
                     "Autre" => "Autre",
                     ]
             ])
-            ->add('nationality', null, ["label" => "Natiaonalitée: "])
-            ->add('lastName', null, ["label" => "Nom: "])
+            ->add('nationality', null, ["label" => "Natiaonalitée : "])
+            ->add('lastName', null, ["label" => "Nom : "])
             ->add('birthday', DateType::class, [
-                "label" => "Date de naissance: ",
+                "label" => "Date de naissance : ",
                 "placeholder"  => ['year' => 'Année :', 'month' => 'Mois :', 'day' => 'Jour :'],
                 'years' => range(1900, 2020),
             ])
-            ->add('phone', null, ["label" => "Téléphone: "])
-            ->add('address', null, ["label" => "Adresse:"])
-            ->add('postCode', null, ["label" => "Code postal: "])
-            ->add('city', null, ["label" => "Ville: "])
-            ->add('pictureLink', null, ["label" => "Photo: "])
+            ->add('phone', null, ["label" => "Téléphone :"])
+            ->add('address', null, ["label" => "Adresse :"])
+            ->add('postCode', null, ["label" => "Code postal :"])
+            ->add('city', null, ["label" => "Ville :"])
+            ->add('pictureLink', null, ["label" => "Photo :"])
         ;
     }
 

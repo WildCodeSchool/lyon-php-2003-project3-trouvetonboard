@@ -7,31 +7,34 @@
     </div>
 </div>
 {% if user.enterprise %}
-    <table class="table">
+    <table class="table container-table">
         <tbody>
         <tr>
             <th width="{{ thWidth }}">Nom de l'entreprise :</th>
             <td>{{ user.enterprise.name }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Status du payment :</th>
-            <td>{{ user.enterprise.paymentStatus }}</td>
-        </tr>
-        <tr>
             <th width="{{ thWidth }}">Adresse :</th>
-            <td>{{ user.enterprise.paymentStatus }}</td>
+            <td>
+                {{ user.enterprise.address }}
+                {{ user.enterprise.zipCode ~ " " ~ user.enterprise.city }}
+            </td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Representant legal:</th>
+            <th width="{{ thWidth }}">Représentant légal :</th>
             <td>{{ user.enterprise.legelRepresentative }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Lien linkedIn:</th>
+            <th width="{{ thWidth }}">Lien linkedIn :</th>
             <td>{{ user.enterprise.linkedinLink }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Lien site Web:</th>
+            <th width="{{ thWidth }}">Site Web :</th>
             <td>{{ user.enterprise.websiteLink }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Status du paiement :</th>
+            <td>{{ user.enterprise.paymentStatus }}</td>
         </tr>
         </tbody>
     </table>
@@ -40,8 +43,8 @@
             Modifier les informations de l'entreprise</a>
     </div>
 {% else %}
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+    <div class="d-flex flex-fill justify-content-center container-btn p-3">
         <a href="{{ path('enterprise_new') }}">
-            Ajouter mon entreprise</a>
+            {{ include('components/_icon_new.html.twig') }} Ajouter mon entreprise</a>
     </div>
 {% endif %}

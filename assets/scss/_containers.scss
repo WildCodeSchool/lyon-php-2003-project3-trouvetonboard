@@ -94,3 +94,22 @@
         grid-template-rows: 5px minmax(10%, 85%) minmax(40px,100px);
 
     }
+
+    // used for table inline cowlumn value
+    .container-table {
+    tbody{
+        tr{
+            td{
+                font-weight: lighter !important;
+                color: $style-guide-dark;
+                font-size: 0.9rem;
+            }
+            th{
+
+            }
+        }
+    }
+
+    }
+
+
