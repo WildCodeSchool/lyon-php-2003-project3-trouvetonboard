@@ -23,22 +23,25 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
         $values = [
             "Type de missions" =>
                 [
-                    "question=Quel type de mission d’advisor proposez-vous ?",
+                    "enterpriseQuestion=Quel type de mission d’advisor proposez-vous ?",
+                    "advisorQuestion=Vous recherchez des missions d’advisor ?",
                     "Payantes",
                     "Bénévoles",
                     "Bénévoles puis payantes"
                 ],
             "Rémunération" =>
                 [
-                    "question=Comment souhaitez-vous rémunérer votre advisor ?",
+                    "enterpriseQuestion=Comment souhaitez-vous rémunérer votre advisor ?",
+                    "advisorQuestion=Comment souhaitez-vous être rémunéré pour votre mission d’advisor ?",
                     "Salaire",
                     "defraiement",
                     "Equity"
                 ],
             "Taille de l'entreprise" =>
                 [
-                    "question=Vous recherchez un advisor pour votre entreprise * 
+                    "enterpriseQuestion=Vous recherchez un advisor pour votre entreprise * 
                     ou pour un nouveau projet au stade de ?",
+                    "advisorQuestion=Quel type de projet / d’entreprise souhaitez-vous accompagner ?",
                     "Idéation",
                     "Start-up",
                     "TPE",
@@ -58,9 +61,13 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference("category_" . $cat, $category);
             var_dump($category);
             for ($a = 0; $a < count($categorys); $a++) {
-                $search = 'question=';
+                $search = 'enterpriseQuestion=';
+                $search2 = "advisorQuestion=";
+
                 if (preg_match("/{$search}/i", $categorys[$a])) {
-                    $category->setQuestion(str_replace($search, "", $categorys[$a]));
+                    $category->setEnterpriseQuestion(str_replace($search, "", $categorys[$a]));
+                } elseif (preg_match("/{$search2}/i", $categorys[$a])) {
+                    $category->setAdvisorQuestion(str_replace($search2, "", $categorys[$a]));
                 } else {
                     for ($i = 0; $i < 5; $i++) {
                         $skill = new Skill();

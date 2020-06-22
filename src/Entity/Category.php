@@ -32,7 +32,12 @@ class Category
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $question;
+    private $advisorQuestion;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $enterpriseQuestion;
 
     public function __construct()
     {
@@ -87,14 +92,26 @@ class Category
         return $this;
     }
 
-    public function getQuestion(): ?string
+    public function getAdvisorQuestion(): ?string
     {
-        return $this->question;
+        return $this->advisorQuestion;
     }
 
-    public function setQuestion(?string $question): self
+    public function setAdvisorQuestion(?string $advisorQuestion): self
     {
-        $this->question = $question;
+        $this->advisorQuestion = $advisorQuestion;
+
+        return $this;
+    }
+
+    public function getEnterpriseQuestion(): ?string
+    {
+        return $this->enterpriseQuestion;
+    }
+
+    public function setEnterpriseQuestion(?string $enterpriseQuestion): self
+    {
+        $this->enterpriseQuestion = $enterpriseQuestion;
 
         return $this;
     }

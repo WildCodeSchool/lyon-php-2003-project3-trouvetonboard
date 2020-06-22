@@ -48,8 +48,7 @@ class ProfileController extends AbstractController
         foreach ($categories as $category) {
             $skills = $skillRepository->findByCategory($category->getId());
             $skillsByCategory[] = [
-                "categoryName" => $category->getName(),
-                "categoryQuestion" => $category->getQuestion(),
+                "category" => $category,
                 "skills" => $skills,
             ];
         }
