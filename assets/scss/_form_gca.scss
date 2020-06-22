@@ -1,7 +1,7 @@
 @import "functions";
 
-
 $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
+
 .form-gca {
     width: $cust-formBlock-input-width-local;
     // div title + delte button ( custon place for delte button )
@@ -36,7 +36,6 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
 
             input {
                 padding: $cust-formBlock-input-padding;
-                // each line input
                 min-height: $cust-formBlock-input-height;
                 background-color: $cust-formBlock-input-bgcolor;
                 color: $cust-formBlock-input-textcolor;
@@ -48,8 +47,6 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
 
             select {
                 padding: $cust-formBlock-input-padding;
-
-                // each line input
                 min-height: $cust-formBlock-input-height;
                 background-color: $cust-formBlock-input-bgcolor;
                 color: $cust-formBlock-input-textcolor;
@@ -74,7 +71,6 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
                 }
 
             }
-
 
             input:focus {
                 color: white;
