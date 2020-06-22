@@ -138,6 +138,11 @@ class User implements UserInterface
      */
     private $pictureLink;
 
+    /**
+     * @ORM\Column(type="string", nullable=true, length=50)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -382,5 +387,22 @@ class User implements UserInterface
         $this->pictureLink = $pictureLink;
 
         return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
     }
 }

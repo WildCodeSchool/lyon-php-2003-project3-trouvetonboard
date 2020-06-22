@@ -4,7 +4,7 @@
 
 {% block body %}
     {% block navbar %}
-        
+
     {% endblock %}
 
     {% for flashError in app.flashes('verify_email_error') %}
@@ -22,6 +22,7 @@
             <div class="d-flex justify-content-around">
                 <h1>Créer votre profil</h1>
             </div>
+            {{ form_row(registrationForm.type, {'attr' : {'class': 'form-control'}}) }}
             {{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control'}}) }}
             {{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control'}}) }}
             {{ form_row(registrationForm.email, {'attr' : {'class': 'form-control'}}) }}
@@ -40,7 +41,7 @@
 
     </div>
     {% block footer %}
-        
+
     {% endblock %}
 
 
