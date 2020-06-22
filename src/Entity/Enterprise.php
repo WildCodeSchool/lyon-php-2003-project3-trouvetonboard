@@ -71,12 +71,6 @@ class Enterprise
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 15,
-     *      minMessage = "Le code postal doit etre supérieur a {{ limit }} caractères",
-     *      maxMessage = "Le code postal doit etre inférieur a {{ limit }} caractères",
-     * )
      */
     private $zipCode;
 

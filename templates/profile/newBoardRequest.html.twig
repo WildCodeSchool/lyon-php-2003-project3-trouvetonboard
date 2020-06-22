@@ -3,22 +3,34 @@
 {% block title %}New Profile{% endblock %}
 
 {% block body %}
-    <h1>Create new Profile</h1>
+    <div class="container-fluid m-2 p-0">
+        <div class="{{ formFullColBlock }} flex-fill p-0">
+            <div class="p-2 d-flex align-items-start justify-content-center align-content-start container-title-block">
+                <h1>Creation d'une nouvelle demande de board member :</h1>
+            </div>
+            <div class="m-2">
+                {% set idCategoryBefore = -1 %}
+                {% set idLevelBefore = -1 %}
+                {% for aSkillBy in skillsByCategories %}
+                    <div class="{{ containerStdProfile }} flex-column form-gca flex-fill p-0">
+                        <div class="p-2 d-flex align-items-start justify-content- align-content-start container-title-block">
+                            <h5>{{ aSkillBy.categoryName }} :</h5>
+                        </div>
+                        <p>{{ aSkillBy.categoryQuestion }}</p>
+                        {% set before = "" %}
+                        {% for aSkill in aSkillBy.skills %}
+                            {% if before != aSkill.name %}
+                                <h6>{{ aSkill.name }}</h6>
+                                {% set before = aSkill.name %}
+                            {% endif %}
+                        {% else %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h1> Aucun skill detecter</h1>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
-    {% set idCategoryBefore = -1 %}
-    {% set idLevelBefore = -1 %}
-    {% for aSkillBy in skillsByCategories %}
-        <h2>{{ aSkillBy.categoryName }}</h2>
-        {% set before = "" %}
-        {% for aSkill in aSkillBy.skills %}
-            {% if before != aSkill.name %}
-                <h6>{{ aSkill.name }}</h6>
-                {% set before = aSkill.name %}
-            {% endif %}
-
-        {% else %}
-        {% endfor %}
-    {% else %}
-        <h1> Aucun skill detecter</h1>
-    {% endfor %}
 {% endblock %}
