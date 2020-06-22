@@ -14,11 +14,15 @@
                         Modifier les informations utilisateur</a>
                 </div>
             </div>
-            {% if is_granted('ROLE_ENTERPRISE') %}
+
             <div class="{{ formBlockStd }}">
-                {% include 'user/_profile_show_enterprise.html.twig' %}
+                {% if is_granted('ROLE_ENTERPRISE') %}
+                    {% include 'user/_profile_show_enterprise.html.twig' %}
+                {% elseif is_granted('ROLE_ADVISOR') %}
+                    {% include 'user/_profile_show_advisor.html.twig' %}
+                {% endif %}
             </div>
-            {% endif %}
+
         </div>
         <!-- col 2 -->
         {% if is_granted('ROLE_ENTERPRISE') %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advisor{% endblock %}
+
+{% block body %}
+    <h1>Advisor</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ advisor.id }}</td>
+            </tr>
+            <tr>
+                <th>IsAlreadyBoardMember</th>
+                <td>{{ advisor.isAlreadyBoardMember ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>LinkedinLink</th>
+                <td>{{ advisor.linkedinLink }}</td>
+            </tr>
+            <tr>
+                <th>CvLink</th>
+                <td>{{ advisor.cvLink }}</td>
+            </tr>
+            <tr>
+                <th>PaymentStatus</th>
+                <td>{{ advisor.paymentStatus }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('advisor_index') }}">back to list</a>
+
+    <a href="{{ path('advisor_edit', {'id': advisor.id}) }}">edit</a>
+
+    {{ include('advisor/_delete_form.html.twig') }}
+{% endblock %}

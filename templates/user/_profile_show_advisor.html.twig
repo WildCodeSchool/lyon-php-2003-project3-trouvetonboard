@@ -1,47 +1,37 @@
 <div class="{{ titleBlock }}">
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
         <h3 class="m-0 align-self-center">Advisor :</h3>
-        <div>
-            {{ include('components/_icon_enterprise.html.twig') }}
-        </div>
+        <i class="fas fa-user-tie fa-3x"></i>
     </div>
 </div>
-{% if user.enterprise %}
+{% if user.advisor %}
     <table class="table">
         <tbody>
         <tr>
-            <th width="{{ thWidth }}">Nom de l'entreprise :</th>
-            <td>{{ user.enterprise.name }}</td>
+            <th width="{{ thWidth }}">Votre historique de board :</th>
+            <td>{{ user.advisor.isAlreadyBoardMember ? "rajouter l'historique" : "Vous n'êtes pas encore membre d'un board" }}</td>
         </tr>
         <tr>
             <th width="{{ thWidth }}">Status du payment :</th>
-            <td>{{ user.enterprise.paymentStatus }}</td>
+            <td>{{ user.advisor.paymentStatus }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Adresse :</th>
-            <td>{{ user.enterprise.paymentStatus }}</td>
+            <th width="{{ thWidth }}">LinkedIn :</th>
+            <td>{{ user.advisor.linkedinLink ? "lien LikedIn" : "insérer l'upload de lien" }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Representant legal:</th>
-            <td>{{ user.enterprise.legelRepresentative }}</td>
-        </tr>
-        <tr>
-            <th width="{{ thWidth }}">Lien linkedIn:</th>
-            <td>{{ user.enterprise.linkedinLink }}</td>
-        </tr>
-        <tr>
-            <th width="{{ thWidth }}">Lien site Web:</th>
-            <td>{{ user.enterprise.websiteLink }}</td>
+            <th width="{{ thWidth }}">CV:</th>
+            <td>{{ user.advisor.cvLink ? "lien CV" : "insérer l'upload de lien" }}</td>
         </tr>
         </tbody>
     </table>
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
-            Modifier les informations de l'entreprise</a>
+        <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
+            Modifier mes informations Advisor</a>
     </div>
 {% else %}
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('enterprise_new') }}">
-            Ajouter mon entreprise</a>
+        <a href="{{ path('advisor_new') }}">
+            Ajouter mes informations Advisor</a>
     </div>
 {% endif %}
