@@ -28,12 +28,12 @@
     color: white;
     text-shadow: $cust-container-std-text-shadow;
     background-color: $style-guide-blue;
-    border-radius: $cust-border-radius $cust-border-radius 0 0 ;
+    border-radius: $cust-border-radius $cust-border-radius 0 0;
 }
 
 .container-a {
-    a{
-        color:$style-guide-dark;
+    a {
+        color: $style-guide-dark;
         text-shadow: $cust-container-std-text-shadow;
         border-radius: $cust-border-radius $cust-border-radius 0 0;
     }
@@ -42,7 +42,6 @@
         color: $style-guide-blue;
         text-shadow: $cust-container-std-text-shadow;
     }
-
 }
 
 .container-btn {
@@ -76,9 +75,6 @@
         color: black !important;
     }
 
-
-
-
     button:hover, a:hover {
         background-color: white;
         color: black;
@@ -87,10 +83,28 @@
     }
 }
 
-    .cust-grid-col-1-line-3fill-midel {
-        display: grid;
-        height: 100%;
-        grid-template-columns:1fr;
-        grid-template-rows: 5px minmax(10%, 85%) minmax(40px,100px);
+.cust-grid-col-1-line-3fill-midel {
+    display: grid;
+    height: 100%;
+    grid-template-columns:1fr;
+    grid-template-rows: 5px minmax(10%, 85%) minmax(40px, 100px);
+}
 
+// used for table inline cowlumn value
+.container-table {
+    tbody {
+        tr {
+            td {
+                font-weight: lighter !important;
+                color: $style-guide-dark;
+                font-size: 0.9rem;
+            }
+
+            th {
+
+            }
+        }
     }
+}
+
+

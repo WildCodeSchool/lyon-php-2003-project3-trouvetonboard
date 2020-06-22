@@ -103,8 +103,14 @@ class EnterpriseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('enterprise_index');
+            $roles = [];
+            if ($connectedUser) {
+                $roles = $connectedUser->getRoles();
+            }
+            if (in_array("ROLE_ADMIN", $roles, false)) {
+                return $this->redirectToRoute('enterprise_index');
+            }
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('enterprise/edit.html.twig', [
@@ -119,7 +125,7 @@ class EnterpriseController extends AbstractController
      */
     public function delete(Request $request, Enterprise $enterprise): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$enterprise->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $enterprise->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($enterprise);
             $entityManager->flush();

@@ -23,6 +23,14 @@ class Enterprise
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message="Le staus de paiement ne peut pas etre inférieur a 0."
+     * )
+     * @Assert\LessThanOrEqual(
+     *     value = 5,
+     *     message="Le staus de paiement ne peut pas etre supérieur a 5."
+     * )
      */
     private $paymentStatus = 0;
 
@@ -33,6 +41,7 @@ class Enterprise
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
+     * @Assert\NotBlank
      */
     private $legelRepresentative;
 
@@ -44,16 +53,30 @@ class Enterprise
      *      minMessage = "Le lien ne peux pas inférieur a {{ limit }} caractères",
      *      maxMessage = "Le lien ne peux pas depasser {{ limit }} caracterès",
      * )
+     * @Assert\Url(message = "L'url '{{ value }}' n'est pas une url valide.")
      */
     private $websiteLink;
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 300,
+     *      minMessage = "Le lien ne peux pas inférieur a {{ limit }} caractères",
+     *      maxMessage = "Le lien ne peux pas depasser {{ limit }} caracterès",
+     * )
+     * @Assert\Url(message = "L'url '{{ value }}' n'est pas une url valide.")
      */
     private $linkedinLink;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 15,
+     *      minMessage = "Le code postal doit etre supérieur a {{ limit }} caractères",
+     *      maxMessage = "Le code postal doit etre inférieur a {{ limit }} caractères",
+     * )
      */
     private $zipCode;
 

@@ -40,8 +40,6 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @Assert\NotBlank(message="Merci de renseigner votre mot de passe")
-     * @Assert\Length(min=8)
      * @ORM\Column(type="string")
      */
     private $password;
@@ -85,11 +83,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/Homme|Femme|Autre/",
+     *     match=true,
+     *     message="Le genre ne peut etre Homme , Femme ou Autre."
+     * )
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[1-9]{1,}/",
+     *     match=false,
+     *     message="La nationalitée ne peut contenir que des lettres."
+     * )
      */
     private $nationality;
 
@@ -138,7 +146,7 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
