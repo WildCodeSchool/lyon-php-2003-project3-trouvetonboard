@@ -28,7 +28,7 @@
 
                         {% if app.user %}
                             {#  _____Display if connected_____ #}
-                            <a class="nav-item nav-link" href="/" >Mon Profil</a>
+                            <a class="nav-item nav-link" href="{{ path('user_profile_show') }}" >Mon Profil</a>
                             <a class="nav-item nav-link" href="/" >Mes Matchs</a>
                             <a class="nav-item nav-link" href="{{ path('app_logout') }}" >Déconnexion</a>
                         {% else %}
@@ -43,8 +43,14 @@
 
 
         {% set containerStd = "mb-2 mt-4 container container-std-bg-white" %}
-        {% set formBlock = "d-flex flex-column justify-content-around align-items-left align-content-center form-gca" %}
-
+        {% set containerStdProfile = "mb-2 mt-4 d-flex justify-content-left container-std-bg-white-bootstrap" %}
+        {% set formBlock = "m-4 p-0 d-flex flex-column justify-content-start container-std-bg-white-bootstrap" %}
+        {% set formBlockStd = "mt-2 mb-2 p-0 justify-content-start container-std-bg-white-bootstrap" %}
+        {% set formFullCol = "d-flex flex-row flex-fill align-items-stretch" %}
+        {% set formFullColBlock = "m-4 p-0 d-flex flex-column flex-fill container-std-bg-white-bootstrap" %}
+        {% set titleBlock = "p-2 d-flex align-items-stretch container-title-block" %}
+        {% set titleBlock2 = "p-2 d-flex align-items-start container-title-block" %}
+        {% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}
 
 
         {% block body %}{% endblock %}

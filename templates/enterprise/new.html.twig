@@ -1,16 +1,20 @@
+
+
 {% extends 'base.html.twig' %}
 
 {% block title %}New Enterprise{% endblock %}
 
 {% block body %}
-<div class="{{ containerStd }} ">
-    <div class="{{ formBlock }}">
+    <div class="{{ containerStdProfile }} p-0 justify-content-center">
+        <div class="{{ containerStdProfile }} flex-column form-gca p-0">
+            <div class="p-2 d-flex align-items-start justify-content-start align-content-start container-title-block">
+                <h3>Creation d'une entreprise:</h3>
+            </div>
 
-    <h1>Create new Enterprise</h1>
+            {{ include('enterprise/_form.html.twig') }}
 
-    {{ include('enterprise/_form.html.twig') }}
+        </div>
+        <a href="{{ path('user_profile_show') }}">back to list</a>
 
-    <a href="{{ path('enterprise_index') }}">back to list</a>
     </div>
-</div>
 {% endblock %}

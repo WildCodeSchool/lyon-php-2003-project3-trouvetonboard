@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil utilisateur : {% endblock %}
+
+{% block body %}
+    {% set thWidth = "40%" %}
+    <div class="container-fluid row">
+        <!-- col 1 -->
+        <div class="col-lg-4 col-md-12">
+            <div class="{{ formBlockStd }}">
+                {% include 'user/_profile_show_base_user.html.twig' %}
+                <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                    <a href="{{ path('user_profile_edit' , { "id": app.user.id }) }}">
+                        Modifier les informations utilisateur</a>
+                </div>
+            </div>
+            {% if is_granted('ROLE_ENTERPRISE') %}
+            <div class="{{ formBlockStd }}">
+                {% include 'user/_profile_show_enterprise.html.twig' %}
+            </div>
+            {% endif %}
+        </div>
+        <!-- col 2 -->
+        {% if is_granted('ROLE_ENTERPRISE') %}
+        <div class="col-lg-8 col-md-12 {{ formBlockStd }}">
+            {% include 'user/_profile_show_board_request.html.twig' %}
+        </div>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}

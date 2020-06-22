@@ -64,16 +64,20 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
-            $userEmail = $user->getEmail();
-
+            // if added for travis check problem
+            $userEmail = "";
+            $emailAddress = "";
+            if ($user->getEmail()) {
+                $userEmail = $user->getEmail();
+                $emailAddress = new Address($userEmail);
+            }
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation(
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
                     ->from(new Address($this->getParameter('mailer_from'), 'TTB Mail Confirmation Bot'))
-                    ->to(new Address($userEmail))
+                    ->to($emailAddress)
                     ->subject('Bienvenue sur TTB')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );

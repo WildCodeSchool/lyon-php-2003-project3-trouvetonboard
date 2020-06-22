@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Profile;
 use App\Entity\Skill;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,19 @@ class SkillRepository extends ServiceEntityRepository
         parent::__construct($registry, Skill::class);
     }
 
+
+    /**
+     * @return Skill[] Returns an array of Profile objects
+     */
+    public function findByCategory($categoryId)
+    {
+        return $this->createQueryBuilder('skill')
+            ->andWhere('skill.category = :val')
+            ->setParameter('val', $categoryId)
+            ->orderBy('skill.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Skill[] Returns an array of Skill objects
     //  */
