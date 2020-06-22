@@ -4,8 +4,10 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
 
 .form-gca {
     width: $cust-formBlock-input-width-local;
+
     // div title + delte button ( custon place for delte button )
     div {
+
         h1 {
             margin-top: 0px;
         }
