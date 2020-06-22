@@ -1,0 +1,78 @@
+<div class="{{ titleBlock }}">
+    <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
+        <h3 class="m-0 align-self-center">Profil utilisateur :</h3>
+        <div>
+            {{ include('components/_icon_user.html.twig') }}
+        </div>
+    </div>
+</div>
+<table class="table table container-fluid">
+    <tbody>
+    <tr>
+        <th width="{{ thWidth }}">Prénom:</th>
+        <td><span class="font-weight-light h-1">{{ user.firstName }}</span></td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Nom:</th>
+        <td>{{ user.lastName }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Email & identifiant:</th>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Compte verifier :</th>
+        <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Profil type:</th>
+        <td>
+            {{ user.enterprise ? "Profil Entreprise" }}
+            {{ user.advisor ? "Profil Advisor" }}
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="{{ titleBlock }} rounded-0 p-0">
+    <h6 class="m-0 align-self-center">Info. complementaires:</h6>
+</div>
+
+<table class="table container-fluid">
+
+    <tbody>
+    <tr>
+        <th width="{{ thWidth }}">Téléphone:</th>
+        <td>{{ user.phone }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Genre:</th>
+        <td>{{ user.gender }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Nationalitée:</th>
+        <td>{{ user.nationality }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Adresse:</th>
+        <td><span class="font-weight-light h-1">{{ user.address }}</span></td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Code postal:</th>
+        <td>{{ user.lastName }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Ville:</th>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Pays:</th>
+        <td>{{ user.country }}</td>
+    </tr>
+    <tr>
+        <th width="{{ thWidth }}">Lien photo:</th>
+        <td>{{ user.pictureLink }}</td>
+    </tr>
+
+    </tbody>
+</table>
+

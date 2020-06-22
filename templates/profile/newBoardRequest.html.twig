@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Profile{% endblock %}
+
+{% block body %}
+    <h1>Create new Profile</h1>
+
+    {% set idCategoryBefore = -1 %}
+    {% set idLevelBefore = -1 %}
+    {% for aSkillBy in skillsByCategories %}
+        <h2>{{ aSkillBy.categoryName }}</h2>
+        {% set before = "" %}
+        {% for aSkill in aSkillBy.skills %}
+            {% if before != aSkill.name %}
+                <h6>{{ aSkill.name }}</h6>
+                {% set before = aSkill.name %}
+            {% endif %}
+
+        {% else %}
+        {% endfor %}
+    {% else %}
+        <h1> Aucun skill detecter</h1>
+    {% endfor %}
+{% endblock %}

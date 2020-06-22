@@ -242,6 +242,17 @@ class Enterprise
                 $user->setEnterprise(null);
             }
         }
+
         return $this;
+    }
+
+    public function __toString() : string
+    {
+        $val = $this->getName();
+        if ($val) {
+            return $val;
+        } else {
+            return "";
+        }
     }
 }

@@ -20,7 +20,7 @@ class Level
     private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $level;
 
@@ -44,12 +44,12 @@ class Level
         return $this->id;
     }
 
-    public function getLevel(): ?bool
+    public function getLevel(): ?int
     {
         return $this->level;
     }
 
-    public function setLevel(?bool $level): self
+    public function setLevel(?int $level): self
     {
         $this->level = $level;
 

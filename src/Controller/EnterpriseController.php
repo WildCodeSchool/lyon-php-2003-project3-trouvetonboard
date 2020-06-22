@@ -44,6 +44,12 @@ class EnterpriseController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enterprise);
             $entityManager->flush();
+            $user = $this->getUser();
+            if ($user) {
+                $user = $user->setEnterprise($enterprise);
+            }
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             return $this->redirectToRoute('enterprise_index');
         }
@@ -61,9 +67,7 @@ class EnterpriseController extends AbstractController
     public function show(Enterprise $enterprise): Response
     {
 
-
         $connectedEnterprise = ($user = $this->getUser()) ? $user->getEnterprise() : null;
-
         try {
             if (!$connectedEnterprise || ($connectedEnterprise->getId() != $enterprise->getId())) {
                 throw new AccessDeniedException("Accès non autorisé - 
