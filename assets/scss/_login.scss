@@ -8,6 +8,7 @@
 
         h1 {
             margin-top: $cust-container-std-childs-margin-top;
+            text-align: center;
         }
 
         a {
@@ -70,6 +71,12 @@
     }
 }
 
+.reset-password {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 30px;
+}
 .bnj-form-width {
+    flex-direction: column;
     width: 80%;
 }
