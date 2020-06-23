@@ -6,7 +6,12 @@
         </div>
     </div>
 </div>
-{% if user.enterprise %}
+{% if user.enterprise.address == null and user.enterprise.zipCode == null and user.enterprise.city == null and user.enterprise.legelRepresentative == null and user.enterprise.linkedinLink == null and user.enterprise.websiteLink == null %}
+<div class="d-flex flex-fill justify-content-center container-btn p-3">
+    <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
+        {{ include('components/_icon_new.html.twig') }} Ajouter mon entreprise</a>
+</div>
+{% else %}
     <table class="table container-table">
         <tbody>
         <tr>
@@ -42,9 +47,5 @@
         <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
             Modifier les informations de l'entreprise</a>
     </div>
-{% else %}
-    <div class="d-flex flex-fill justify-content-center container-btn p-3">
-        <a href="{{ path('enterprise_new') }}">
-            {{ include('components/_icon_new.html.twig') }} Ajouter mon entreprise</a>
-    </div>
+
 {% endif %}

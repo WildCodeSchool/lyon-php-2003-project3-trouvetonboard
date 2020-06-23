@@ -4,7 +4,12 @@
         <i class="fas fa-user-tie fa-3x"></i>
     </div>
 </div>
-{% if user.advisor %}
+{% if user.advisor.isAlreadyBoardMember is same as(null) and user.advisor.linkedinLink == null and user.advisor.cvLink == null %}
+<div class="d-flex flex-fill justify-content-center container-btn p-3">
+    <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
+        {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
+</div>
+{% else %}
     <table class="table">
         <tbody>
         <tr>
@@ -28,10 +33,5 @@
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
         <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
             Modifier mes informations Advisor</a>
-    </div>
-{% else %}
-    <div class="d-flex flex-fill justify-content-center container-btn p-3">
-        <a href="{{ path('advisor_new') }}">
-            {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
     </div>
 {% endif %}

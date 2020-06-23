@@ -69,7 +69,7 @@ class AdvisorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('advisor_index');
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('advisor/edit.html.twig', [
