@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Profile;
+use App\Entity\Skill;
 use App\Form\ProfileType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,6 +132,18 @@ class ProfileController extends AbstractController
             $entityManager->remove($profile);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('profile_index');
+    }
+
+    /**
+     * @Route("/{id}/addSkill", name="addSkill", methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function addSkill(Request $request, Profile $profile, Skill $skill, EntityManagerInterface $manager):
+    Response
+    {
+
 
         return $this->redirectToRoute('profile_index');
     }

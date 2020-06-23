@@ -13,6 +13,8 @@ const $ = require('jquery');
 
 require('bootstrap');
 
+var greet = require('./addSkill');
+
 $(document).ready(() => {
     $('[data-toggle="popover"]').popover();
 });
