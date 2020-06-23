@@ -56,10 +56,12 @@ class RegistrationController extends AbstractController
                 $enterprise = new Enterprise();
                 $entityManager->persist($enterprise);
                 $user->setEnterprise($enterprise);
+                $user->setRoles(['ROLE_ENTREPRISE']);
             } else {
                 $advisor = new Advisor();
                 $entityManager->persist($advisor);
                 $user->setAdvisor($advisor);
+                $user->setRoles(['ROLE_ADVISOR']);
             }
 
             $entityManager->persist($user);
