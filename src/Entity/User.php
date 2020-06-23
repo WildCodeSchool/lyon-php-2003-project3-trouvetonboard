@@ -138,6 +138,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", nullable=true, length=50)
+     * @Assert\NotBlank(message="Merci de sélectionner un type")
      */
     private $type;
 
