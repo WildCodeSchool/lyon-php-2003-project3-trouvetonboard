@@ -12,11 +12,10 @@ class AdvisorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('isAlreadyBoardMember')
-            ->add('linkedinLink')
-            ->add('cvLink')
-            ->add('paymentStatus')
-            ->add('user')
+            ->add('isAlreadyBoardMember', null, ["label" => "Avez-vous déjà pris part à un board d'advisor ?"])
+            ->add('linkedinLink', null, ['label' => "modif upload LinkedIn"])
+            ->add('cvLink', null, ['label' => "modif upload CV"])
+            ->add('paymentStatus', null, ['label' => "Votre abonnement"])
         ;
     }
 

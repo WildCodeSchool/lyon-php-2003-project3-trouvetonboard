@@ -30,8 +30,8 @@
             Modifier mes informations Advisor</a>
     </div>
 {% else %}
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+    <div class="d-flex flex-fill justify-content-center container-btn p-3">
         <a href="{{ path('advisor_new') }}">
-            Ajouter mes informations Advisor</a>
+            {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
     </div>
 {% endif %}
