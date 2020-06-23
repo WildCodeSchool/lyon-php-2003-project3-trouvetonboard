@@ -1,7 +1,7 @@
 <div class="{{ titleBlock }}">
 
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-        <h3 class="m-0 align-self-center">Board request(s) de l'entreprise :</h3>
+        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board request(s) de l'entreprise" : "Advisor propositions" }} :</h3>
         <div>
             {{ include('components/_icon_board_request.html.twig') }}
         </div>
@@ -10,7 +10,7 @@
 </div>
 <div class="d-flex flex-fill container-btn p-3">
         <a href="{{ path('profile_newBdReq') }}">
-        {{ include('components/_icon_new.html.twig') }} Créer une "board request"</a>
+        {{ include('components/_icon_new.html.twig') }} Créer une {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 <div class="container-fluid row m-0  justify-content-between">
     {% if app.user.enterprise is not null %}
