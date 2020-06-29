@@ -21,7 +21,7 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        // Création d’un utilisateur de type “admin”
+        // Creation d’un utilisateur de type “admin”
         $admin = new User();
         $admin->setEmail('admin@ttb.com');
         $admin->setRoles(['ROLE_ADMIN',"ROLE_SUBSCRIBER","ROLE_ENTERRPRISE","ROLE_USER"]);
@@ -34,7 +34,7 @@ class UserFixtures extends Fixture
         $manager->persist($admin);
 
 
-        // Création d’un utilisateur de type “cedric”
+        // Creation d’un utilisateur de type “cedric”
         $cedric = new User();
         $cedric->setEmail('cedric@ttb.com');
         $cedric->setRoles(['ROLE_ADMIN']);
@@ -47,7 +47,7 @@ class UserFixtures extends Fixture
         $manager->persist($cedric);
 
 
-        // Création d’un utilisateur de type “user”
+        // Creation d’un utilisateur de type “user”
         $user = new User();
         $user->setEmail('user@ttb.com');
         $user->setRoles(['ROLE_USER']);
@@ -59,7 +59,7 @@ class UserFixtures extends Fixture
         $user->setLastName($faker->lastName);
         $manager->persist($user);
 
-        // Création d’un utilisateur de type “advisor”
+        // Creation d’un utilisateur de type “advisor”
         $advisor = new User();
         $advisor->setEmail('advisor@ttb.com');
         $advisor->setRoles(['ROLE_ADVISOR']);
@@ -69,7 +69,7 @@ class UserFixtures extends Fixture
         $advisor->setPassword($this->passwordEncoder->encodePassword($advisor, "pwd"));
         $manager->persist($advisor);
 
-        // Création d’un utilisateur de type “enterprise”
+        // Creation d’un utilisateur de type “enterprise”
         $enterprise = new User();
         $enterprise->setEmail('enterprise@ttb.com');
         $enterprise->setRoles(['ROLE_ENTERPRISE']);
