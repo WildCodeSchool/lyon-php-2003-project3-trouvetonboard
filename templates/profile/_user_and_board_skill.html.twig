@@ -22,6 +22,7 @@
                             <input id="skillCheckbox" class="m-0 align-self-center" type="checkbox">
                             {% set before = aSkill.name %}
                             <input id="skillId" name="skillId" type="hidden" value="{{ aSkill.id }}">
+                            <input id="profileId" name="profileId" type="hidden" value="{{ aSkill.profile.id }}">
                         </div>
                     </div>
                 {% endif %}

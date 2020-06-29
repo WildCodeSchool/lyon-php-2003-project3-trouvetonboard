@@ -7,20 +7,31 @@ $(document).ready(() => {
 
     if (debug) console.log("__ Add Skill __", "recupération du  skill group");
 
-    // get all skill group
+    // get all skill group , each skillGroup contain , hiden , label and checkbox
     var skillBlocks = document.querySelectorAll('#skillGroup');
     //if (debug) console.log("__ Add Skill __", skillBlocks);
+    // for each skillgroup  add event listener
     for( var i = 0 ; i<skillBlocks.length; i++){
+        // get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
+        // get the checkbox in skillblock
         let checkbox = aSkill.querySelector('#skillCheckbox');
-        //checkbox.set
-        addEventListener('click', addToWatchlist)
+        // get the skillid in hidden input
+        let skillId = aSkill.querySelector('#skillId');
+        // add event listener to the checkbox
+        checkbox.addEventListener('change', function () {
+            if (this.checked) {
+                if (debug) console.log("__Add Skill__",
+                    "Skill ID :" + skillId.value + " IS" + " CHECKED");
+            } else {
+                if (debug)console.log("__Add Skill__",
+                    "Skill ID :"+ skillId.value +" IS UNCHEKED");
+            }
+        });
         console.log(aSkill.querySelector('#skillId'));
 
     }
-    skillBlocks.forEach(()=>{
 
-    })
 
 });
 

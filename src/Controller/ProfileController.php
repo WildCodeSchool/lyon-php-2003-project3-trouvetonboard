@@ -40,7 +40,14 @@ class ProfileController extends AbstractController
         CategoryRepository $categoryRepository,
         SkillRepository $skillRepository
     ): Response {
+
+        // persit object immediatly  because skill choice are updated with ajax // todo after creation  , not posible
+        // to cancel or it will be take in consideration
         $profile = new Profile();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($profile);
+        $entityManager->flush();
+
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
 
