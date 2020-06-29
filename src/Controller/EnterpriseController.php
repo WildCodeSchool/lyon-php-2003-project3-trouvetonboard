@@ -51,7 +51,7 @@ class EnterpriseController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('enterprise_index');
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('enterprise/new.html.twig', [
