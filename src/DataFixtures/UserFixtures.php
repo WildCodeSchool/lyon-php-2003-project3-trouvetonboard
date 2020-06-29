@@ -94,7 +94,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($profile);
             $user->setAdvisor($this->getReference("advisor_$i"));
             $advisor->addProfile($this->getReference("profile_$i"));
-            for ($k=0; $k < rand(1, SkillFixtures::NB_MAX_SKIILS); $k++) {
+            for ($k = 0; $k < rand(1, SkillFixtures::NB_MAX_SKIILS); $k++) {
                 $profile->addSkill($this->getReference("skillNb_$k"));
             }
         }
@@ -115,7 +115,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference("enterprise_$numEnt", $enterpriseOne);
         $enterpriseUser->setEnterprise($this->getReference("enterprise_$numEnt"));
 
-        for ($l=0; $l < self::NB_PROFILE_BY_ENTERPRISE; $l++) {
+        for ($l = 0; $l < self::NB_PROFILE_BY_ENTERPRISE; $l++) {
             $profile = new Profile();
             $profile->setPaymentType("All");
             $profile->setTitle($faker->jobTitle);

@@ -14,7 +14,8 @@
         <tbody>
         <tr>
             <th width="{{ thWidth }}">Votre historique de board :</th>
-            <td>{{ user.advisor.isAlreadyBoardMember ? "rajouter l'historique" : "Vous n'êtes pas encore membre d'un board" }}</td>
+            <!-- TODO rajouter oui/non selon le choix -->
+            <td>{{ user.advisor.isAlreadyBoardMember ? "Historique" : "Vous n'êtes pas encore membre d'un board" }}</td>
         </tr>
         <tr>
             <th width="{{ thWidth }}">Status du payment :</th>
@@ -22,11 +23,11 @@
         </tr>
         <tr>
             <th width="{{ thWidth }}">LinkedIn :</th>
-            <td>{{ user.advisor.linkedinLink ? "lien LikedIn" : "insérer l'upload de lien" }}</td>
+            <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Rajoutez un lien vers votre LinkedIn" }}</td>
         </tr>
         <tr>
             <th width="{{ thWidth }}">CV:</th>
-            <td>{{ user.advisor.cvLink ? "lien CV" : "insérer l'upload de lien" }}</td>
+            <td>{{ user.advisor.cvLink ? "CV" : "Rajoutez votre CV" }}</td>
         </tr>
         </tbody>
     </table>

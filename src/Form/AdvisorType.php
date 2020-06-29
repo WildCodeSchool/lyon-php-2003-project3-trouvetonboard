@@ -25,8 +25,8 @@ class AdvisorType extends AbstractType
                     ]
                 ]
             )
-            ->add('linkedinLink', null, ['label' => "modif upload LinkedIn"])
-            ->add('cvLink', null, ['label' => "modif upload CV"])
+            ->add('linkedinLink', null, ['label' => "LinkedIn :"])
+            ->add('cvLink', null, ['label' => "CV :"])
         ;
     }
 

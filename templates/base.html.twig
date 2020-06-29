@@ -24,7 +24,11 @@
 
                         {% if app.user %}
                             {#  _____Display if connected_____ #}
-                            <a class="nav-item nav-link" href="{{ path('user_profile_show') }}" >Mon Profil</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="nav-item nav-link" href="#" >Mon Profil</a>
+                            {% else %}
+                                <a class="nav-item nav-link" href="{{ path('user_profile_show') }}" >Mon Profil</a>
+                            {% endif %}
                             <a class="nav-item nav-link" href="/" >Mes Matchs</a>
                             <a class="nav-item nav-link" href="{{ path('app_logout') }}" >Déconnexion</a>
                         {% else %}
