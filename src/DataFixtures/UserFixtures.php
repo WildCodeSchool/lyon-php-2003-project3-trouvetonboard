@@ -110,6 +110,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference("entUser_$numEnt", $enterpriseUser);
         $enterpriseOne = new Enterprise();
         $enterpriseOne->setPaymentStatus(1);
+        $enterpriseOne->setName("Enterprise OIne");
         $enterpriseOne->setLinkedinLink($faker->url);
         $manager->persist($enterpriseOne);
         $this->addReference("enterprise_$numEnt", $enterpriseOne);
