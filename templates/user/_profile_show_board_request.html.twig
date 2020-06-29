@@ -1,7 +1,7 @@
 <div class="{{ titleBlock }}">
 
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board request(s) de l'entreprise" : "Advisor propositions" }} :</h3>
+        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Advisor Proposition" }}</h3>
         <div>
             {{ include('components/_icon_board_request.html.twig') }}
         </div>
