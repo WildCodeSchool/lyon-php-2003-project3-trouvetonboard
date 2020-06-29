@@ -35,11 +35,9 @@ class SkillFixtures extends Fixture
         foreach ($values as $key => $categorys) {
             $category = new Category();
             $category->setName($key);
-            var_dump($key);
             $manager->persist($category);
             $this->addReference("category_" . $cat, $category);
 
-            var_dump($category);
             for ($a = 0; $a < count($categorys); $a++) {
                 for ($i = 0; $i < 5; $i++) {
                     $skill = new Skill();
