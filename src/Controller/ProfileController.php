@@ -47,7 +47,7 @@ class ProfileController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($profile);
         $entityManager->flush();
-
+        $profile->getId();
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
 
