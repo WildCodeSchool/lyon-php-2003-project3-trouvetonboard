@@ -88,7 +88,7 @@ class Enterprise
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name = 'default';
+    private $name = ' ';
 
     /**
      * @ORM\OneToMany(targetEntity=Profile::class, mappedBy="enterprise")

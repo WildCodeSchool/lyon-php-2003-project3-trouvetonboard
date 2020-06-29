@@ -56,10 +56,12 @@ class RegistrationController extends AbstractController
                 $enterprise = new Enterprise();
                 $entityManager->persist($enterprise);
                 $user->setEnterprise($enterprise);
+                $user->setRoles(['ROLE_ENTERPRISE']);
             } else {
                 $advisor = new Advisor();
                 $entityManager->persist($advisor);
                 $user->setAdvisor($advisor);
+                $user->setRoles(['ROLE_ADVISOR']);
             }
 
             $entityManager->persist($user);
@@ -88,7 +90,7 @@ class RegistrationController extends AbstractController
                 $request,
                 $authenticator,
                 'main' // firewall name in security.yaml
-            ) ?: new RedirectResponse('/');
+            ) ?: new RedirectResponse('/user/profile/show');
         }
 
         return $this->render('registration/register.html.twig', [

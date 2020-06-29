@@ -23,7 +23,11 @@
                 <h1>Créer votre profil</h1>
             </div>
 
-            {{ form_row(registrationForm.type, {'attr' : {'class': 'form-control'}}) }}
+            {% if form_errors(registrationForm.type) %}
+                <div class="alert alert-danger">{{ form_row(registrationForm.type, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% else %}
+                {{ form_row(registrationForm.type, {'attr' : {'class': 'form-control'}}) }}
+            {% endif %}
 
             {% if form_errors(registrationForm.first_name) %}
                 <div class="alert alert-danger">{{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
