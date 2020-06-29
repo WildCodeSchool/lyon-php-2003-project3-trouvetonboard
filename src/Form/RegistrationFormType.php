@@ -9,8 +9,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IdenticalTo;
+use Symfony\Component\Validator\Constraints\IdenticalToValidator;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -59,13 +62,21 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'type' => PasswordType::class,
+                'required' => true,
                 'mapped' => false,
-                'attr' => [
-                    'placeholder' => 'Mot de passe',
-                ],
+                'first_options'  => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Mot de passe']],
+                'second_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Repetez votre mot de passe']],
+                'invalid_message' => 'Les mots de passes doivent etre identique !',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de renseigner votre mot de passe.',

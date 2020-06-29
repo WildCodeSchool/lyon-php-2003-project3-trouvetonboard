@@ -161,24 +161,30 @@ class SecurityController extends AbstractController
 
         // Si le formulaire est envoyé en méthode post
         if ($request->isMethod('POST')) {
-            // On supprime le token
-            $user->setResetToken(null);
+            if ($request->request->get('password') == $request->request->get('passwordRepeat')) {
+                // On supprime le token
 
-            // On chiffre le mot de passe
-            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+                $user->setResetToken(null);
 
-            // On stocke
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+                // On chiffre le mot de passe
+                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
 
-            // On crée le message flash
-            $this->addFlash('success', 'Mot de passe mis à jour');
+                // On stocke
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            // On redirige vers la page de connexion
-            return $this->redirectToRoute('app_login');
+                // On crée le message flash
+                $this->addFlash('success', 'Mot de passe mis à jour');
+
+                // On redirige vers la page de connexion
+                return $this->redirectToRoute('app_login');
+            }
+            $this->addFlash('danger', 'Les mots de passe doivent etre identique');
+            return $this->render('security/reset_password.html.twig', ['token' => $token]);
         } else {
             // Si on n'a pas reçu les données, on affiche le formulaire
+            $this->addFlash('danger', 'Mot de passe non identique');
             return $this->render('security/reset_password.html.twig', ['token' => $token]);
         }
     }
