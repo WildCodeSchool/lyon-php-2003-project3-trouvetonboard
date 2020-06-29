@@ -1,0 +1,57 @@
+.home-parent {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.home-btn1 {
+  padding:$style-guide-button-padding;
+  background-color: white;
+  color: #6E9DB8;
+  border-style: solid;
+  border-color: $style-guide-blue;
+  border-width: $style-guide-button-border-width;
+  margin-top: $cust-container-std-childs-margin-top;
+  border-radius: $cust-container-std-radius;
+  width: 20%;
+  height: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.home-btn1:hover {
+  background-color: white;
+  color: #6E9DB8;
+  border-style: solid;
+  box-shadow: $cust-box-shadow;
+  text-decoration: none;
+}
+.home-btn2 {
+  padding:$style-guide-button-padding;
+  background-color: white;
+  color:#4B5E8E;
+  border-style: solid;
+  border-color: #4B5E8E;
+  border-width: $style-guide-button-border-width;
+  margin-top: $cust-container-std-childs-margin-top;
+  border-radius: $cust-container-std-radius;
+  width: 20%;
+  height: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.home-btn2:hover {
+  background-color: white;
+  color: #4B5E8E;
+  border-style: solid;
+  box-shadow: $cust-box-shadow;
+  text-decoration: none;
+}
+
+.home-txt {
+  text-align: center;
+  font-size: 25px;
+  margin: 50px auto;
+  width: 65%;
+}
+

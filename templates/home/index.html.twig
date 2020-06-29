@@ -1,25 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'accueil TTB{% endblock %}
+{% block title %}Trouve Ton Board{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-
-<div class="example-wrapper">
-    {% for category, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
+<section>
+    <div class="example-wrapper">
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-
-    <h1>In progress</h1>
-
-
-    <p style="height: 55vh">
-        Work in Progress
-    </p>
-</div>
+    </div>
+    <div>
+        <p class="home-txt">
+            Toute l’équipe de TTB est convaincue que la constitution d’un bon Advisory Board passe par une
+            réflexion avec les dirigeants, les fondateurs, les actionnaires et ce, quel que soit la taille de
+            l’entreprise, de la start-up à l’ETI.
+        </p>
+    </div>
+    <div class="home-parent">
+        <a class="home-btn1" href="#">Je suis une entreprise, et je recherche un Advisor</a>
+        <a class="home-btn2" href="#">Je souhaite accompagner une entreprise</a>
+    </div>
+</section>
+<section>
+    <h2>Qui sommes-nous ?</h2>
+    <div class="home-parent">
+        <div>
+            <img src="image/enterprise.svg" alt="enterprise image" width="400" height="400">
+        </div>
+        <div class="home-txt">
+            <p>
+                TTB est une marketplace communautaire où se rencontre l’offre et la demande de cet organe de gouvernance de
+                l’entreprise qu’est « l’advisory board ».
+            </p>
+            <p>
+                Alors entrepreneurs, dirigeants venez rencontrer et recruter vos advisors et vous cadres, cadres dirigeants,
+                administrateurs venez proposer vos compétences pour rejoindre et accompagner une ou plusieurs entreprises.
+            </p>
+        </div>
+    </div>
+</section>
 {% endblock %}
