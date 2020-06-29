@@ -29,9 +29,9 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/newbdReq", name="newBdReq", methods={"GET","POST"})
+     * @Route("/newBoardRequest", name="newBoardRequest", methods={"GET","POST"})
      */
-    public function newBdReq(
+    public function newBoardRequest(
         Request $request,
         CategoryRepository $categoryRepository,
         SkillRepository $skillRepository

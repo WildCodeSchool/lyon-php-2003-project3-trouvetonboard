@@ -34,12 +34,12 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de renseigner votre prénom',
+                        'message' => 'Merci de renseigner votre prénom.',
                     ]),
                     new Regex([
                         'pattern' => '/\d/',
                         'match' => false,
-                        'message' => 'Il ne peut y avoir de nombre dans votre prénom',
+                        'message' => 'Il ne peut y avoir de nombre dans votre prénom.',
                     ]),
                 ],
             ])
@@ -50,12 +50,12 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de renseigner votre nom',
+                        'message' => 'Merci de renseigner votre nom.',
                     ]),
                     new Regex([
                         'pattern' => '/\d/',
                         'match' => false,
-                        'message' => 'Il ne peut y avoir de nombre dans votre nom',
+                        'message' => 'Il ne peut y avoir de nombre dans votre nom.',
                     ]),
                 ],
             ])
@@ -68,14 +68,14 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de renseigner votre mot de passe',
+                        'message' => 'Merci de renseigner votre mot de passe.',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères',
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limit }} caractères.',
                         // max length allowed by Symfony for security reasons
                         'max' => 40,
-                        'maxMessage' => 'Votre mot de passe est limité à {{ limit }} caractères',
+                        'maxMessage' => 'Votre mot de passe est limité à {{ limit }} caractères.',
                     ]),
                 ],
             ])

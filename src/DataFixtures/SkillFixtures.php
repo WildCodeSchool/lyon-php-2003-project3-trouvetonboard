@@ -20,14 +20,14 @@ class SkillFixtures extends Fixture
     {
         $values = [
             "Type de missions" => ["Payantes", "Bénévoles", "Bénévoles puis payantes"],
-            "Rémunération" => ["Salaire", "defraiement", "Equity"],
+            "Rémunération" => ["Salaire", "Défraiement", "Equity"],
             "Taille de l'entreprise" => ["Idéation", "Start-up", "TPE", "PME", "ETI", "Grand groupes"],
         ];
         // Création du  level 1
         $cat = 0;
         // create one profile
         $profile = new profile();
-        $profile->setTitle("DRH spéciliste Industre");
+        $profile->setTitle("DRH spécialiste Industrie");
         $profile->setIsRequest(true);
         $profile->setIsPropose(false);
         $profile->setPaymentType(2);
@@ -35,11 +35,9 @@ class SkillFixtures extends Fixture
         foreach ($values as $key => $categorys) {
             $category = new Category();
             $category->setName($key);
-            var_dump($key);
             $manager->persist($category);
             $this->addReference("category_" . $cat, $category);
 
-            var_dump($category);
             for ($a = 0; $a < count($categorys); $a++) {
                 for ($i = 0; $i < 5; $i++) {
                     $skill = new Skill();

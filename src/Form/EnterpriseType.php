@@ -18,8 +18,7 @@ class EnterpriseType extends AbstractType
             ->add('city', null, ["label" => "Ville :"])
             ->add('legelRepresentative', null, ["label" => "Représentant légal :"])
             ->add('websiteLink', null, ["label" => "Site web :"])
-            ->add('linkedinLink', null, ["label" => "Linked in :"])
-            ->add('paymentStatus', null, ["label" => "Statut du  paiement :"])
+            ->add('linkedinLink', null, ["label" => "LinkedIn :"])
         ;
     }
 
