@@ -138,8 +138,14 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", nullable=true, length=50)
+     * @Assert\NotBlank(message="Merci de sélectionner un type")
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
 
     public function getId(): ?int
     {
@@ -402,5 +408,17 @@ class User implements UserInterface
     public function getIsVerified(): ?bool
     {
         return $this->isVerified;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
     }
 }

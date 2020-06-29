@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advisor index{% endblock %}
+
+{% block body %}
+    <h1>Advisor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IsAlreadyBoardMember</th>
+                <th>LinkedinLink</th>
+                <th>CvLink</th>
+                <th>PaymentStatus</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for advisor in advisors %}
+            <tr>
+                <td>{{ advisor.id }}</td>
+                <td>{{ advisor.isAlreadyBoardMember ? 'Yes' : 'No' }}</td>
+                <td>{{ advisor.linkedinLink }}</td>
+                <td>{{ advisor.cvLink }}</td>
+                <td>{{ advisor.paymentStatus }}</td>
+                <td>
+                    <a href="{{ path('advisor_show', {'id': advisor.id}) }}">show</a>
+                    <a href="{{ path('advisor_edit', {'id': advisor.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('advisor_new') }}">Create new</a>
+{% endblock %}

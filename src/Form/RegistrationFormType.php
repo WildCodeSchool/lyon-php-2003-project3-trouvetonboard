@@ -24,13 +24,13 @@ class RegistrationFormType extends AbstractType
             ->add('email', null, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'email',
+                    'placeholder' => 'Email',
                 ],
             ])
             ->add('first_name', null, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'prénom',
+                    'placeholder' => 'Prénom',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -46,7 +46,7 @@ class RegistrationFormType extends AbstractType
             ->add('last_name', null, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'nom',
+                    'placeholder' => 'Nom',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -64,7 +64,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'mot de passe',
+                    'placeholder' => 'Mot de passe',
                 ],
                 'constraints' => [
                     new NotBlank([
