@@ -10,11 +10,17 @@ import '../scss/app.scss';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // import $ from 'jquery';
 const $ = require('jquery');
-
+//import $ from 'jquery';
 require('bootstrap');
 
-var greet = require('./addSkill');
+
 
 $(document).ready(() => {
+
     $('[data-toggle="popover"]').popover();
+
 });
+
+
+
+

@@ -1,5 +1,28 @@
 // get all  div where is used for a skill
-var skillBlocks = document.querySelectorAll('#skillGroup');
+
+console.log("__ Entering in addSkill JS file__")
+var debug = true;
+$(document).ready(() => {
+    if (debug)console.log("__ Add Skill __","Document ready");
+
+    if (debug) console.log("__ Add Skill __", "recupération du  skill group");
+
+    // get all skill group
+    var skillBlocks = document.querySelectorAll('#skillGroup');
+    //if (debug) console.log("__ Add Skill __", skillBlocks);
+    for( var i = 0 ; i<skillBlocks.length; i++){
+        let aSkill = skillBlocks[i];
+        let checkbox = aSkill.querySelector('#skillCheckbox');
+        //checkbox.set
+        addEventListener('click', addToWatchlist)
+        console.log(aSkill.querySelector('#skillId'));
+
+    }
+    skillBlocks.forEach(()=>{
+
+    })
+
+});
 
 /*
 for (var i = 0; i < watchListIcons.length; i++) {
@@ -47,6 +70,8 @@ function addToWatchlist(event) {
         });
 }
 */
-
-console.log("coucou je suis un script js");
-
+/*
+function hello() {
+    console.log("coucou je suis un script js");
+}
+*/

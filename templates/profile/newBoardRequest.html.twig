@@ -9,9 +9,9 @@
                 <h1>Creation d'une nouvelle demande de board member :</h1>
             </div>
             {{ include('profile/_user_and_board_skill.html.twig') }}
+        </div>
     </div>
-
 {% endblock %}
 {% block javascripts %}
-
+    {{ encore_entry_script_tags('addSkill') }}
 {% endblock %}

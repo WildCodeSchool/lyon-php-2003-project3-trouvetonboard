@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Profile;
 use App\Entity\Skill;
+use App\Entity\User;
 use App\Form\ProfileType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProfileRepository;
@@ -137,14 +138,28 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/addSkill", name="addSkill", methods={"DELETE"})
+     * @Route("/addSkill/{id}", name="addSkill", methods={"DELETE"})
      * @IsGranted("ROLE_USER")
      */
     public function addSkill(Request $request, Profile $profile, Skill $skill, EntityManagerInterface $manager):
     Response
     {
+        // todo add advisor or enterprise detection
+        /*$connectedUser = new User();
+        if($connectedUser->getEnterprise()) {
+            $profiles = $connectedUser->getEnterprise()->getProfiles();
+        }
+
+        $connectedUser = $this->getUser();
 
 
+        if ($connectedUser) {
+           // recup profile id
+            // recupt le skill id
+            // affecter/desaffecter le skill  au  profile
+            // return true or flase au  js .
+        }
         return $this->redirectToRoute('profile_index');
+        */
     }
 }

@@ -21,6 +21,7 @@
                             <h6 id="skillLabel" class="m-0 align-self-center w-75">{{ aSkill.name }}</h6>
                             <input id="skillCheckbox" class="m-0 align-self-center" type="checkbox">
                             {% set before = aSkill.name %}
+                            <input id="skillId" name="skillId" type="hidden" value="{{ aSkill.id }}">
                         </div>
                     </div>
                 {% endif %}

@@ -245,4 +245,14 @@ class Profile
 
         return $this;
     }
+
+    public function isInSkillList(Skill $skill)
+    {
+
+        if ($this->skills->contains($skill)) {
+            return true;
+        }
+
+        return false;
+    }
 }
