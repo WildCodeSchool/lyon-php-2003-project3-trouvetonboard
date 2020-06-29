@@ -17,22 +17,27 @@ $(document).ready(() => {
         // get the checkbox in skillblock
         let checkbox = aSkill.querySelector('#skillCheckbox');
         // get the skillid in hidden input
-        let skillId = aSkill.querySelector('#skillId');
-        let link = aSkill.querySelector("#link");
+        //let skillId = aSkill.querySelector('#skillId');
+        let linkAdd = aSkill.querySelector("#linkAdd");
+        let linkRemove = aSkill.querySelector("#linkRemove");
         if (debug) console.log("__Add Skill__",
-            "Profile ID :" + link.value);
+            "Profile add skill link :" + linkAdd.value);
         // add event listener to the checkbox
         checkbox.addEventListener('change', function () {
+
+            // if checkbox is cheked
             if (this.checked) {
-                if (debug) console.log("__Add Skill__",
-                    "Skill ID :" + skillId.value + " IS" + " CHECKED");
-                fetch(link.value).then(function (response) {
+               // if (debug) console.log("__Add Skill__",
+               //     "Skill ID :" + skillId.value + " IS" + " CHECKED");
+
+                // use fetch to  go  on url  linkadd.value
+                fetch(linkAdd.value).then(function (response) {
                     if (response.ok) {
                         console.log("___ Add Skill ___", "Then OK", response);
                         response.json().then(function (data) {
                             if (data.isChecked) {
                                 aSkill.style.borderColor = "green";
-                                aSkill.style.borderWidth = "5px";
+                                aSkill.style.borderWidth = "1px";
                                 aSkill.style.borderStyle = "solid";
                             } else {
 
@@ -50,6 +55,27 @@ $(document).ready(() => {
             } else {
                 if (debug) console.log("__Add Skill__",
                     "Skill ID :" + skillId.value + " IS UNCHEKED");
+                fetch(linkRemove.value).then(function (response) {
+                    if (response.ok) {
+                        console.log("___ Add Skill ___", "Then OK", response);
+                        response.json().then(function (data) {
+                            if (!data.isChecked) {
+                                aSkill.style.borderColor = "red";
+                                aSkill.style.borderWidth = "1px";
+                                aSkill.style.borderStyle = "solid";
+                            } else {
+
+                            }
+                        });
+
+
+                    } else {
+                        console.log('Mauvaise réponse du réseau');
+                    }
+                })
+                    .catch(function (error) {
+                        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                    });
             }
         });
         console.log(aSkill.querySelector('#skillId'));

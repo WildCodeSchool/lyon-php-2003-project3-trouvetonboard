@@ -180,4 +180,35 @@ class ProfileController extends AbstractController
             'isChecked' => true
         ]);
     }
+
+    /**
+     * @Route("/{id}/removeSkill/{skillId}", name="removeSkill")
+     * @IsGranted("ROLE_USER")
+     * @ParamConverter("profile", options={"id" = "id"})
+     * @ParamConverter("skill", options={"id" = "skillId"})
+     */
+    public function removeSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    {
+        // todo add advisor or enterprise detection
+        //$connectedUser = new User();
+        /*
+        if($connectedUser->getEnterprise()) {
+            $profiles = $connectedUser->getEnterprise()->getProfiles();
+        }
+
+        $connectedUser = $this->getUser();
+
+
+        if ($connectedUser) {
+           // recup profile id
+            // recupt le skill id
+            // affecter/desaffecter le skill  au  profile
+            // return true or flase au  js .
+        }
+        return $this->redirectToRoute('profile_index');
+        */
+        return $this->json([
+            'isChecked' => false
+        ]);
+    }
 }
