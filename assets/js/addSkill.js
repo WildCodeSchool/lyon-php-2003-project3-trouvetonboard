@@ -3,7 +3,7 @@
 console.log("__ Entering in addSkill JS file__")
 var debug = true;
 $(document).ready(() => {
-    if (debug)console.log("__ Add Skill __","Document ready");
+    if (debug) console.log("__ Add Skill __", "Document ready");
 
     if (debug) console.log("__ Add Skill __", "recupération du  skill group");
 
@@ -11,21 +11,45 @@ $(document).ready(() => {
     var skillBlocks = document.querySelectorAll('#skillGroup');
     //if (debug) console.log("__ Add Skill __", skillBlocks);
     // for each skillgroup  add event listener
-    for( var i = 0 ; i<skillBlocks.length; i++){
+    for (var i = 0; i < skillBlocks.length; i++) {
         // get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
         // get the checkbox in skillblock
         let checkbox = aSkill.querySelector('#skillCheckbox');
         // get the skillid in hidden input
         let skillId = aSkill.querySelector('#skillId');
+        let link = aSkill.querySelector("#link");
+        if (debug) console.log("__Add Skill__",
+            "Profile ID :" + link.value);
         // add event listener to the checkbox
         checkbox.addEventListener('change', function () {
             if (this.checked) {
                 if (debug) console.log("__Add Skill__",
                     "Skill ID :" + skillId.value + " IS" + " CHECKED");
+                fetch(link.value).then(function (response) {
+                    if (response.ok) {
+                        console.log("___ Add Skill ___", "Then OK", response);
+                        response.json().then(function (data) {
+                            if (data.isChecked) {
+                                aSkill.style.borderColor = "green";
+                                aSkill.style.borderWidth = "5px";
+                                aSkill.style.borderStyle = "solid";
+                            } else {
+
+                            }
+                        });
+
+
+                    } else {
+                        console.log('Mauvaise réponse du réseau');
+                    }
+                })
+                    .catch(function (error) {
+                        console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                    });
             } else {
-                if (debug)console.log("__Add Skill__",
-                    "Skill ID :"+ skillId.value +" IS UNCHEKED");
+                if (debug) console.log("__Add Skill__",
+                    "Skill ID :" + skillId.value + " IS UNCHEKED");
             }
         });
         console.log(aSkill.querySelector('#skillId'));

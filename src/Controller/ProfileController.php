@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/profile" , name="profile_")
@@ -43,12 +44,16 @@ class ProfileController extends AbstractController
 
         // persit object immediatly  because skill choice are updated with ajax // todo after creation  , not posible
         // to cancel or it will be take in consideration
-        $profile = new Profile();
+        $boardRequest = new Profile();
+        $boardRequest->setIsRequest(true);
+        $boardRequest->setIsPropose(false);
+        $boardRequest->setPaymentType("Vide");
+        $boardRequest->setTitle("Please chose a title");
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($profile);
+        $entityManager->persist($boardRequest);
         $entityManager->flush();
-        $profile->getId();
-        $form = $this->createForm(ProfileType::class, $profile);
+        $boardRequestId = $boardRequest->getId();
+        $form = $this->createForm(ProfileType::class, $boardRequest);
         $form->handleRequest($request);
 
         // get the skill type list.
@@ -65,7 +70,7 @@ class ProfileController extends AbstractController
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($profile);
+            $entityManager->persist($boardRequest);
             $entityManager->flush();
 
             return $this->redirectToRoute('profile_index');
@@ -73,6 +78,7 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/newBoardRequest.html.twig', [
             'skillsByCategories' => $skillsByCategory,
+            "profileId" => $boardRequestId
         ]);
     }
 
@@ -145,14 +151,16 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/addSkill/{id}", name="addSkill", methods={"DELETE"})
+     * @Route("/{id}/addSkill/{skillId}", name="addSkill")
      * @IsGranted("ROLE_USER")
+     * @ParamConverter("profile", options={"id" = "id"})
+     * @ParamConverter("skill", options={"id" = "skillId"})
      */
-    public function addSkill(Request $request, Profile $profile, Skill $skill, EntityManagerInterface $manager):
-    Response
+    public function addSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
     {
         // todo add advisor or enterprise detection
-        /*$connectedUser = new User();
+        //$connectedUser = new User();
+        /*
         if($connectedUser->getEnterprise()) {
             $profiles = $connectedUser->getEnterprise()->getProfiles();
         }
@@ -168,5 +176,8 @@ class ProfileController extends AbstractController
         }
         return $this->redirectToRoute('profile_index');
         */
+        return $this->json([
+            'isChecked' => true
+        ]);
     }
 }
