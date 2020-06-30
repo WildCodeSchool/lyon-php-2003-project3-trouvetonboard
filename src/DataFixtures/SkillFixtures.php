@@ -51,14 +51,34 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                 ],
             "Type de l'entreprise" =>
                 [
-                    "enterpriseQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
-                    "advisorQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements ?",
+                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements ?",
+                    "advisorQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
                     "Start-up",
                     "Société cotée",
                     "Entreprise familiale",
                     "Entreprise publique",
                     "Association",
                     "Autre..."
+                ],
+            "Secteur d'activitée" =>
+                [
+                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit avoir travaillé 
+                    dans les secteurs suivants",
+                    "advisorQuestion=Vous avez travaillé dans quels secteurs pendant votre carrière ?",
+                    "Biens de consommation",
+                    "Éducation",
+                    "Énergie et ressources naturelles",
+                    "Finance",
+                    "Organisme public",
+                    "Santée",
+                    "Industrie",
+                    "Médias",
+                    "ONG / Associations",
+                    "Services à la personnes",
+                    "Technologie / internet",
+                    "Immobilier",
+                    "Télécommunications",
+                    "Autre"
                 ],
         ];
         // Création du  level 1
