@@ -44,7 +44,7 @@ class ProfileController extends AbstractController
         SkillRepository $skillRepository
     ): Response {
 
-        $boardRequestId = $boardRequest->getId();
+
 
         // get the skill type list.
         $categories = $categoryRepository->findAll();
@@ -59,9 +59,9 @@ class ProfileController extends AbstractController
             ];
         }
 
-        return $this->render('profile/newBoardRequest.html.twig', [
+        return $this->render('profile/editBordRequest.html.twig', [
             'skillsByCategories' => $skillsByCategory,
-            "profileId" => $boardRequestId
+            "profile" => $boardRequest
         ]);
     }
 

@@ -49,6 +49,17 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                     "ETI",
                     "Grand groupes"
                 ],
+            "Type de l'entreprise" =>
+                [
+                    "enterpriseQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
+                    "advisorQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements ?",
+                    "Start-up",
+                    "Société cotée",
+                    "Entreprise familiale",
+                    "Entreprise publique",
+                    "Association",
+                    "Autre..."
+                ],
         ];
         // Création du  level 1
         $cat = 0;
