@@ -8,7 +8,7 @@
 .home-parent {
   display: flex;
   justify-content: space-evenly;
-  margin: 40px 0px;
+  margin: 40px;
   align-items: center;
 }
 
@@ -65,10 +65,10 @@
 }
 
 .home-txt-presentation {
-  text-align: justify;
+  text-align: center;
   font-size: 22px;
   margin: 50px auto;
-  width: 50%;
+  width: 100%;
 }
 
 .home-img {
@@ -92,6 +92,7 @@
 .home-card {
   display: flex;
   justify-content: space-around;
+  margin: 40px;
 }
 
 .home-title-price {
@@ -141,4 +142,78 @@
   box-shadow: $cust-box-shadow;
   text-decoration: none;
 }
+
+.home-price-card1 {
+  padding:$style-guide-button-padding;
+  background-color: white;
+  border-style: solid;
+  border-color: $style-guide-blue;
+  border-width: $style-guide-button-border-width;
+  margin-top: $cust-container-std-childs-margin-top;
+  border-radius: $cust-container-std-radius;
+  height: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.home-price-card2 {
+  padding:$style-guide-button-padding;
+  background-color: white;
+  border-style: solid;
+  border-color: #4B5E8E;
+  border-width: $style-guide-button-border-width;
+  margin-top: $cust-container-std-childs-margin-top;
+  border-radius: $cust-container-std-radius;
+  height: auto;
+  font-size: 20px;
+  text-align: center;
+}
+
+.home-txt1 {
+  padding: 15px 15px;
+}
+
+@media screen and (max-width: 992px) {
+  .home-parent {
+    flex-direction: column;
+  }
+
+  .home-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-btn {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-btn1 {
+    width: 70%;
+    margin-bottom: 20px;
+  }
+
+  .home-btn2 {
+    width: 70%;
+  }
+
+  .home-price-card1 {
+    width: 50% !important;
+    margin-bottom: 30px;
+  }
+
+  .home-price-card2 {
+    width: 50% !important;
+  }
+}
+@media screen and (max-width: 560px) {
+  .home-price-card1 {
+    width: 80% !important;
+  }
+
+  .home-price-card2 {
+    width: 80% !important;
+  }
+}
+
 
