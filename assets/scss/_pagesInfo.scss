@@ -1,0 +1,27 @@
+.home-information-title{
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.info-enterprise{
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 10px;
+}
+
+.text-info-enterprise{
+  width: 40%;
+}
+
+@media screen and (max-width: 992px)
+{
+  .info-enterprise{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text-info-enterprise{
+    width: 70%;
+    margin-top: 30px;
+  }
+}
