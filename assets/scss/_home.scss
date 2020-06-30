@@ -173,6 +173,10 @@
   padding: 15px 15px;
 }
 
+.home-information-title {
+  background-color: $style-guide-blue;
+}
+
 @media screen and (max-width: 992px) {
   .home-parent {
     flex-direction: column;
