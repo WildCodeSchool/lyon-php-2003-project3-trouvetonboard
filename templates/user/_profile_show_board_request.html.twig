@@ -9,7 +9,7 @@
 
 </div>
 <div class="d-flex flex-fill container-btn p-3">
-        <a href="{{ path('profile_newBoardRequest') }}">
+        <a href="{{ path('profile_new') }}">
         {{ include('components/_icon_new.html.twig') }} Créer une {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 <div class="container-fluid row m-0  justify-content-between">

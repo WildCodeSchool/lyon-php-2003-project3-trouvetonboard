@@ -246,6 +246,11 @@ class Profile
         return $this;
     }
 
+    /**
+     * @param \App\Entity\Skill $skill
+     *
+     * @return bool
+     */
     public function isInSkillList(Skill $skill)
     {
 

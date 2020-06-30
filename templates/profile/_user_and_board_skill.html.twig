@@ -19,11 +19,15 @@
                         'skillId': aSkill.id }) %}
                     {% set wayRemove = app.request.schemeAndHttpHost ~ path('profile_removeSkill', {'id': profileId ,
                         'skillId': aSkill.id }) %}
+                    {% set wayCheck = app.request.schemeAndHttpHost ~ path('profile_checkSkill', {'id': profileId ,
+                        'skillId': aSkill.id }) %}
+
                     <div class="m-0 p-0 border-bottom border-style-blue">
                         <div id="skillGroup" class="ml-5 d-flex flex-fill align-items-stretch
                                     align-content-center">
                             <h6 id="skillLabel" class="m-0 align-self-center w-75">{{ aSkill.name }}</h6>
-                            <input id="skillCheckbox" class="m-0 align-self-center" type="checkbox" checked>
+                            <input id="linkCheck" name="linkCheck" type="hidden" value="{{ wayCheck }}">
+                            <input id="skillCheckbox" class="m-0 align-self-center" type="checkbox">
                             {% set before = aSkill.name %}
                             <input id="skillId" name="skillId" type="hidden" value="{{ aSkill.id }}">
                             <input id="profileId" name="profileId" type="hidden" value="{{ profileId }}">

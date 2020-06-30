@@ -20,6 +20,33 @@ $(document).ready(() => {
         //let skillId = aSkill.querySelector('#skillId');
         let linkAdd = aSkill.querySelector("#linkAdd");
         let linkRemove = aSkill.querySelector("#linkRemove");
+        let linkCheck = aSkill.querySelector("#linkCheck");
+
+        //--------------- check if profile has skill --------------------
+        // use fetch to  go  on url  linkadd.value
+        fetch(linkCheck.value).then(function (response) {
+            if (response.ok) {
+                console.log("___ Add Skill ___", "Then OK Link check", response);
+                response.json().then(function (data) {
+                    if (data.isChecked) {
+                        checkbox.checked = true;
+                        console.log("___ Add Skill ___", " +++ this skill is checked");
+                    } else {
+                        checkbox.checked = false;
+                        console.log("___ Add Skill ___", " --- this skill is UNchecked");
+                    }
+                });
+            } else {
+                console.log('Mauvaise réponse du réseau');
+            }
+        })
+            .catch(function (error) {
+                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+            });
+
+
+        //---------------------------------------------------------------
+
         if (debug) console.log("__Add Skill__",
             "Profile add skill link :" + linkAdd.value);
         // add event listener to the checkbox
@@ -27,8 +54,8 @@ $(document).ready(() => {
 
             // if checkbox is cheked
             if (this.checked) {
-               // if (debug) console.log("__Add Skill__",
-               //     "Skill ID :" + skillId.value + " IS" + " CHECKED");
+                // if (debug) console.log("__Add Skill__",
+                //     "Skill ID :" + skillId.value + " IS" + " CHECKED");
 
                 // use fetch to  go  on url  linkadd.value
                 fetch(linkAdd.value).then(function (response) {
@@ -85,54 +112,4 @@ $(document).ready(() => {
 
 });
 
-/*
-for (var i = 0; i < watchListIcons.length; i++) {
-    watchListIcons[i].addEventListener('click', addToWatchlist);
-}
-*/
-/*
-function addToWatchlist(event) {
 
-// Get the link object you click in the DOM
-    let watchlistIcon = event.target;
-    let link = watchlistIcon.dataset.href;
-    //console.log("----- Module Watchlist add and remove favorite link---", link);
-    //link = link.replace("\"","");
-    console.log("----- Module Watchlist add and remove favorite link cote del---", link);
-// Send an HTTP request with fetch to the URI defined in the href
-    /* fetch(link)
-         .then(function (res) {
-             console.log("----- Module Watchlist add and remove favorite ---","Then OK",res);
-
-             watchlistIcon.classList.remove('far'); // Remove the .far (empty heart) from classes in <i> element
-             watchlistIcon.classList.add('fas'); // Add the .fas (full heart) from classes in <i> element
-         });
- */ /*
-    fetch(link).then(function (response) {
-        if (response.ok) {
-            console.log("----- Module Watchlist add and remove favorite ---", "Then OK", response);
-            response.json().then(function (data) {
-                if (data.isInWatchlist) {
-                    watchlistIcon.classList.add('fas'); // Add the .fas (full heart) from classes in <i> element
-                    watchlistIcon.classList.remove('far'); // Remove the .far (empty heart) from classes in <i> element
-                } else {
-                    watchlistIcon.classList.add('far'); // Add the .fas (full heart) from classes in <i> element
-                    watchlistIcon.classList.remove('fas'); // Remove the .far (empty heart) from classes in <i> element
-                }
-            });
-
-
-        } else {
-            console.log('Mauvaise réponse du réseau');
-        }
-    })
-        .catch(function (error) {
-            console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-        });
-}
-*/
-/*
-function hello() {
-    console.log("coucou je suis un script js");
-}
-*/
