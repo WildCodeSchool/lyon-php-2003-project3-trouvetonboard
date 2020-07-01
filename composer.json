@@ -30,7 +30,8 @@
         "symfony/web-link": "4.3.*",
         "symfony/webpack-encore-bundle": "^1.5",
         "symfony/yaml": "4.3.*",
-        "symfonycasts/verify-email-bundle": "^1.0"
+        "symfonycasts/verify-email-bundle": "^1.0",
+      "ext-http": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

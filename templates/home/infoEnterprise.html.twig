@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information Entreprises{% endblock %}
+
+{% block body %}
+    <div class="home-information-title">
+        <h1>Entreprise</h1>
+    </div>
+    <div class="info-enterprise" >
+        <div>
+            <img height="250" width="250" src="image/information.svg" alt="">
+        </div>
+        <div class="text-info-enterprise">
+            <p>Vous cherchez à créer un Advisory Board <br>
+                Vous êtes dirigeant et vous avez la tête dans l’opérationnel, vous souhaitez prendre du recul ! <br>
+                Vous souhaitez vous exposer à l’exigence du regard externe de spécialistes. <br>
+                Vous souhaitez être challengé de manière bienveillante et réaliste sur votre business. <br>
+                Vous avez besoin de compétences que vous ne pouvez intégrer à temps plein pour le moment dans votre entreprise.
+                <br>
+                Vous cherchez un administrateur indépendant.
+            </p>
+        </div>
+    </div>
+    <div class="home-btn">
+        <a class="home-btn1" href="{{ path('app_register') }}">Je m'inscris</a>
+    </div>
+{% endblock %}
