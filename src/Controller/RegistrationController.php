@@ -54,6 +54,7 @@ class RegistrationController extends AbstractController
             );
             if ($form->get('type')->getData() == "enterprise") {
                 $enterprise = new Enterprise();
+                $enterprise->setName("y");
                 $entityManager->persist($enterprise);
                 $user->setEnterprise($enterprise);
                 $user->setRoles(['ROLE_ENTERPRISE']);
