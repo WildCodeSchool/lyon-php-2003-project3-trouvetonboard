@@ -21,7 +21,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $values = [
-            "Type de missions" =>
+            "Type de mission" =>
                 [
                     "enterpriseQuestion=Quel type de mission d’advisor proposez-vous ?",
                     "advisorQuestion=Vous recherchez des missions d’advisor ?",
@@ -34,7 +34,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                     "enterpriseQuestion=Comment souhaitez-vous rémunérer votre advisor ?",
                     "advisorQuestion=Comment souhaitez-vous être rémunéré pour votre mission d’advisor ?",
                     "Salaire",
-                    "defraiement",
+                    "Défraiement",
                     "Equity"
                 ],
             "Taille de l'entreprise" =>
@@ -47,20 +47,20 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                     "TPE",
                     "PME",
                     "ETI",
-                    "Grand groupes"
+                    "Grand groupe"
                 ],
             "Type de l'entreprise" =>
                 [
-                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements ?",
+                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements",
                     "advisorQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
                     "Start-up",
                     "Société cotée",
                     "Entreprise familiale",
                     "Entreprise publique",
                     "Association",
-                    "Autre..."
+                    "Autre"
                 ],
-            "Secteur d'activitée" =>
+            "Secteur d'activité" =>
                 [
                     "enterpriseQuestion=L’advisor que vous souhaitez recruter doit avoir travaillé 
                     dans les secteurs suivants",
@@ -70,15 +70,99 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                     "Énergie et ressources naturelles",
                     "Finance",
                     "Organisme public",
-                    "Santée",
+                    "Santé",
                     "Industrie",
                     "Médias",
                     "ONG / Associations",
-                    "Services à la personnes",
-                    "Technologie / internet",
+                    "Services à la personne",
+                    "Technologie / Internet",
                     "Immobilier",
                     "Télécommunications",
                     "Autre"
+                ],
+            "Langues" =>
+                [
+                    "enterpriseQuestion=Quelles compétences linguistiques sont nécessaires pour vous accompagner ?",
+                    "advisorQuestion=Pour vous les langues suivantes sont des langues de travail ? :",
+                    "Français",
+                    "Anglais",
+                    "Allemand",
+                    "Espagnol",
+                    "Italien",
+                    "Arabe",
+                    "Cantonais",
+                    "Danois",
+                    "Néerlandais",
+                    "Finlandais",
+                    "Grec",
+                    "Hindi",
+                    "Japonais",
+                    "Mandarin",
+                    "Norvégien",
+                    "Portugais",
+                    "Russe",
+                    "Suédois",
+                    "Taiwanais",
+                    "Mandarin",
+                ],
+            "Zones géographiques" =>
+                [
+                    "enterpriseQuestion=De quelles zones géographiques, votre advisor doit-il être expert ? :",
+                    "advisorQuestion=Vous êtes experts des zones géographiques suivantes :",
+                    "Europe",
+                    "Asie",
+                    "U.S. / Canada",
+                    "Affrique",
+                    "Amérique Sud / Centrale",
+                    "Russie",
+                    "Australie",
+                    "Moyen Orient",
+                    "Services à la personne",
+                    "Technologie / Internet",
+                    "Immobilier",
+                    "Télécommunications",
+                    "Autre"
+                ],
+            "Expériences" =>
+                [
+                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit maitriser les expertises suivantes",
+                    "advisorQuestion=Quelles sont vos expertises métier – 
+                    justifiées par des expériences / missions réussies :",
+                    "Mandataire social",
+                    "Gouvernance d’entreprise",
+                    "Responsabilité sociale des entreprises (RSE)",
+                    "Finance",
+                    "Transformation / Gestion du changement",
+                    "Technologie digitale",
+                    "Système Information (infra, run, ERP...)",
+                ],
+            "Interet" =>
+                [
+                    "enterpriseQuestion=Si ce n’est un advisor que recherchez-vous ?",
+                    "advisorQuestion=Quelles autres missions pourraient vous intéresser ?",
+                    "Président de comité d'audit",
+                    "Président de Conseil Administration",
+                    "Administrateur indépendant",
+                    "Président de comité de rémunération",
+                ],
+            "Mission de conseil" =>
+                [
+                    "enterpriseQuestion=Pour quelle missions recherchez-vous un consultant ?",
+                    "advisorQuestion=Quelles missions recherchez-vous ?",
+                    "Développement Durable",
+                    "R&D",
+                    "Risque et conformité",
+                    "Marketing",
+                    "Juridique",
+                    "M&A",
+                    "Ressources humaines",
+                    "Production",
+                    "Finance",
+                    "Digital et technologie",
+                    "Président de comité de rémunération",
+                    "Communication",
+                    "Export",
+                    "Commercial / vente"
                 ],
         ];
         // Création du  level 1
