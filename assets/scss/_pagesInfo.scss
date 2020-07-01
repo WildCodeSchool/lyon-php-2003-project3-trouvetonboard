@@ -1,6 +1,7 @@
 .home-information-title{
   text-align: center;
   color: #FFFFFF;
+  padding: 5px;
 }
 
 .info-enterprise{
@@ -10,8 +11,8 @@
 }
 
 .text-info-enterprise{
-  width: 40%;
-  text-align: center;
+  width: 60%;
+  text-align: left;
   align-self: center;
 }
 
@@ -25,5 +26,6 @@
   .text-info-enterprise{
     width: 70%;
     margin-top: 30px;
+    text-align: center;
   }
 }
