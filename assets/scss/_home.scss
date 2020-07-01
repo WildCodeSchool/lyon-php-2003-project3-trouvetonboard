@@ -1,223 +1,225 @@
 .home-btn {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 30px;
-  margin-bottom: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .home-parent {
-  display: flex;
-  justify-content: space-evenly;
-  margin: 40px;
-  align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 40px;
+    align-items: center;
 }
 
 .home-btn1 {
-  padding:$style-guide-button-padding;
-  background-color: white;
-  color: #6E9DB8;
-  border-style: solid;
-  border-color: $style-guide-blue;
-  border-width: $style-guide-button-border-width;
-  margin-top: $cust-container-std-childs-margin-top;
-  border-radius: $cust-container-std-radius;
-  width: 20%;
-  height: auto;
-  font-size: 20px;
-  text-align: center;
+    padding: $style-guide-button-padding;
+    background-color: white;
+    color: #6E9DB8;
+    border-style: solid;
+    border-color: $style-guide-blue;
+    border-width: $style-guide-button-border-width;
+    margin-top: $cust-container-std-childs-margin-top;
+    border-radius: $cust-container-std-radius;
+    width: 20%;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
 }
 
 .home-btn1:hover {
-  background-color: white;
-  color: #6E9DB8;
-  border-style: solid;
-  box-shadow: $cust-box-shadow;
-  text-decoration: none;
+    background-color: white;
+    color: #6E9DB8;
+    border-style: solid;
+    box-shadow: $cust-box-shadow;
+    text-decoration: none;
 }
+
 .home-btn2 {
-  padding:$style-guide-button-padding;
-  background-color: white;
-  color:#4B5E8E;
-  border-style: solid;
-  border-color: #4B5E8E;
-  border-width: $style-guide-button-border-width;
-  margin-top: $cust-container-std-childs-margin-top;
-  border-radius: $cust-container-std-radius;
-  width: 20%;
-  height: auto;
-  font-size: 20px;
-  text-align: center;
+    padding: $style-guide-button-padding;
+    background-color: white;
+    color: #4B5E8E;
+    border-style: solid;
+    border-color: #4B5E8E;
+    border-width: $style-guide-button-border-width;
+    margin-top: $cust-container-std-childs-margin-top;
+    border-radius: $cust-container-std-radius;
+    width: 20%;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
 }
 
 .home-btn2:hover {
-  background-color: white;
-  color: #4B5E8E;
-  border-style: solid;
-  box-shadow: $cust-box-shadow;
-  text-decoration: none;
+    background-color: white;
+    color: #4B5E8E;
+    border-style: solid;
+    box-shadow: $cust-box-shadow;
+    text-decoration: none;
 }
 
 .home-txt {
-  text-align: center;
-  font-size: 25px;
-  margin: 50px auto;
-  width: 65%;
+    text-align: center;
+    font-size: 25px;
+    margin: 50px auto;
+    width: 65%;
 }
 
 .home-txt-presentation {
-  text-align: center;
-  font-size: 22px;
-  margin: 50px auto;
-  width: 100%;
+    text-align: center;
+    font-size: 22px;
+    margin: 50px auto;
+    width: 100%;
 }
 
 .home-img {
-  margin-left: 5%;
+    margin-left: 5%;
 }
 
 .home-section-presentation {
-  padding: 50px 0px;
-  background-color: rgb(245,245,245);
+    padding: 50px 0px;
+    background-color: rgb(245, 245, 245);
 }
 
 .home-title {
-  margin-left: 30px;
-  color: #4B5E8E;
+    margin-left: 30px;
+    color: #4B5E8E;
 }
 
 .home-section-price {
-  padding: 50px 0px;
+    padding: 50px 0px;
 }
 
 .home-card {
-  display: flex;
-  justify-content: space-around;
-  margin: 40px;
+    display: flex;
+    justify-content: space-around;
+    margin: 40px;
 }
 
 .home-title-price {
-  text-align: center;
+    text-align: center;
 }
 
 .home-price-btn1 {
-  padding:$style-guide-button-padding;
-  background-color: white;
-  color: #6E9DB8;
-  border-style: solid;
-  border-color: $style-guide-blue;
-  border-width: $style-guide-button-border-width;
-  margin-top: $cust-container-std-childs-margin-top;
-  border-radius: $cust-container-std-radius;
-  height: auto;
-  font-size: 20px;
-  text-align: center;
+    padding: $style-guide-button-padding;
+    background-color: white;
+    color: #6E9DB8;
+    border-style: solid;
+    border-color: $style-guide-blue;
+    border-width: $style-guide-button-border-width;
+    margin-top: $cust-container-std-childs-margin-top;
+    border-radius: $cust-container-std-radius;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
 }
 
 .home-price-btn1:hover {
-  background-color: white;
-  color: #6E9DB8;
-  border-style: solid;
-  box-shadow: $cust-box-shadow;
-  text-decoration: none;
+    background-color: white;
+    color: #6E9DB8;
+    border-style: solid;
+    box-shadow: $cust-box-shadow;
+    text-decoration: none;
 }
 
 .home-price-btn2 {
-  padding:$style-guide-button-padding;
-  background-color: white;
-  color:#4B5E8E;
-  border-style: solid;
-  border-color: #4B5E8E;
-  border-width: $style-guide-button-border-width;
-  margin-top: $cust-container-std-childs-margin-top;
-  border-radius: $cust-container-std-radius;
-  height: auto;
-  font-size: 20px;
-  text-align: center;
+    padding: $style-guide-button-padding;
+    background-color: white;
+    color: #4B5E8E;
+    border-style: solid;
+    border-color: #4B5E8E;
+    border-width: $style-guide-button-border-width;
+    margin-top: $cust-container-std-childs-margin-top;
+    border-radius: $cust-container-std-radius;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
 }
 
 .home-price-btn2:hover {
-  background-color: white;
-  color: #4B5E8E;
-  border-style: solid;
-  box-shadow: $cust-box-shadow;
-  text-decoration: none;
+    background-color: white;
+    color: #4B5E8E;
+    border-style: solid;
+    box-shadow: $cust-box-shadow;
+    text-decoration: none;
 }
 
 .home-price-card1 {
-  padding:$style-guide-button-padding;
-  background-color: white;
-  border-style: solid;
-  border-color: $style-guide-blue;
-  border-width: $style-guide-button-border-width;
-  margin-top: $cust-container-std-childs-margin-top;
-  border-radius: $cust-container-std-radius;
-  height: auto;
-  font-size: 20px;
-  text-align: center;
+    padding: $style-guide-button-padding;
+    background-color: white;
+    border-style: solid;
+    border-color: $style-guide-blue;
+    border-width: $style-guide-button-border-width;
+    margin-top: $cust-container-std-childs-margin-top;
+    border-radius: $cust-container-std-radius;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
 }
 
 .home-price-card2 {
-  padding:$style-guide-button-padding;
-  background-color: white;
-  border-style: solid;
-  border-color: #4B5E8E;
-  border-width: $style-guide-button-border-width;
-  margin-top: $cust-container-std-childs-margin-top;
-  border-radius: $cust-container-std-radius;
-  height: auto;
-  font-size: 20px;
-  text-align: center;
+    padding: $style-guide-button-padding;
+    background-color: white;
+    border-style: solid;
+    border-color: #4B5E8E;
+    border-width: $style-guide-button-border-width;
+    margin-top: $cust-container-std-childs-margin-top;
+    border-radius: $cust-container-std-radius;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
 }
 
 .home-txt1 {
-  padding: 15px 15px;
+    padding: 15px 15px;
 }
 
 .home-information-title {
-  background-color: $style-guide-blue;
+    background-color: $style-guide-blue;
 }
 
 @media screen and (max-width: 992px) {
-  .home-parent {
-    flex-direction: column;
-  }
+    .home-parent {
+        flex-direction: column;
+    }
 
-  .home-card {
-    flex-direction: column;
-    align-items: center;
-  }
+    .home-card {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .home-btn {
-    flex-direction: column;
-    align-items: center;
-  }
+    .home-btn {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .home-btn1 {
-    width: 70%;
-    margin-bottom: 20px;
-  }
+    .home-btn1 {
+        width: 70%;
+        margin-bottom: 20px;
+    }
 
-  .home-btn2 {
-    width: 70%;
-  }
+    .home-btn2 {
+        width: 70%;
+    }
 
-  .home-price-card1 {
-    width: 50% !important;
-    margin-bottom: 30px;
-  }
+    .home-price-card1 {
+        width: 50% !important;
+        margin-bottom: 30px;
+    }
 
-  .home-price-card2 {
-    width: 50% !important;
-  }
+    .home-price-card2 {
+        width: 50% !important;
+    }
 }
-@media screen and (max-width: 560px) {
-  .home-price-card1 {
-    width: 80% !important;
-  }
 
-  .home-price-card2 {
-    width: 80% !important;
-  }
+@media screen and (max-width: 560px) {
+    .home-price-card1 {
+        width: 80% !important;
+    }
+
+    .home-price-card2 {
+        width: 80% !important;
+    }
 }
 
 

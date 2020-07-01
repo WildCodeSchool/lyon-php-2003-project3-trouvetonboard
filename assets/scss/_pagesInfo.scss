@@ -1,30 +1,30 @@
-.home-information-title{
-  text-align: center;
-  color: #FFFFFF;
-  padding: 5px;
+.home-information-title {
+    text-align: center;
+    color: #FFFFFF;
+    padding: 5px;
 }
 
-.info-enterprise{
-  display: flex;
-  justify-content: space-around;
-  margin: 30px 10px;
+.info-enterprise {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 10px;
 }
 
-.text-info-enterprise{
-  width: 60%;
-  text-align: left;
-  align-self: center;
+.text-info-enterprise {
+    width: 60%;
+    text-align: left;
+    align-self: center;
 }
 
 @media screen and (max-width: 992px) {
-  .info-enterprise{
-    flex-direction: column;
-    align-items: center;
-  }
+    .info-enterprise {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .text-info-enterprise{
-    width: 70%;
-    margin-top: 30px;
-    text-align: center;
-  }
+    .text-info-enterprise {
+        width: 70%;
+        margin-top: 30px;
+        text-align: center;
+    }
 }
