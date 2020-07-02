@@ -3,7 +3,6 @@
 
 /* global $ */
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-await-in-loop */
 /* eslint-disable arrow-parens */
 function setCheckBox(link, checkbox) {
     try {
@@ -30,7 +29,7 @@ function setCheckBox(link, checkbox) {
 }
 
 
-async function checkHasSkillAsynch(skillBlocks) {
+function checkHasSkillAsynch(skillBlocks) {
     // utiliser async + await permet un  retour plus rapide Ainsi que la prise en
     // compte immédiate des demandes de unchek ou chek alors que le chargement
     // est pas terminer, si on utilise pas async + await il  faut attendre la
@@ -45,7 +44,7 @@ async function checkHasSkillAsynch(skillBlocks) {
         const skillId = aSkill.querySelector('#skillId');
         const linkCheck = aSkill.querySelector('#linkCheck');
         // console.log('___ Add skill ___', linkCheck.value);
-        const val = await setCheckBox(linkCheck.value, checkbox);
+        const val = setCheckBox(linkCheck.value, checkbox);
     }
 }
 
