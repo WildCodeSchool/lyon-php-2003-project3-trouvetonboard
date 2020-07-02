@@ -1,15 +1,13 @@
 // get all  div where is used for a skill
 
 //console.log("__ Entering in addSkill JS file__")
-var debug = true;
+var debug = false;
 $(document).ready(() => {
     if (debug) console.log('__ Add Skill __', 'Document ready');
-
     if (debug) console.log('__ Add Skill __', 'recupération du  skill group');
-
     // get all skill group , each skillGroup contain , hiden , label and checkbox
-    var skillBlocks = document.querySelectorAll('div[name='skillGroup']');
-    //if (debug) console.log('__ Add Skill __', skillBlocks);
+    var skillBlocks = document.querySelectorAll('div[name="skillGroup"]');
+    if (debug) console.log('__ Add Skill __', skillBlocks);
     // for each skillgroup  add event listener
     checkHasSkillAsynch(skillBlocks);
     for (var i = 0; i < skillBlocks.length; i++) {
@@ -18,37 +16,25 @@ $(document).ready(() => {
         // get the checkbox in skillblock
         let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
         // get the skillid in hidden input
-        //let skillId = aSkill.querySelector('#skillId');
         let linkAdd = aSkill.querySelector('#linkAdd');
         let linkRemove = aSkill.querySelector('#linkRemove');
         let linkCheck = aSkill.querySelector('#linkCheck');
-
-
-        if (debug) console.log('__Add Skill__',
-            'Profile add skill link :' + linkAdd.value);
+        if (debug) console.log('__Add Skill__','Profile add skill link :' + linkAdd.value);
         // add event listener to the checkbox
         checkbox.addEventListener('change', function () {
-
             // if checkbox is cheked
             if (this.checked) {
                 // if (debug) console.log('__Add Skill__',
-                //     'Skill ID :' + skillId.value + ' IS' + ' CHECKED');
-
+                // 'Skill ID :' + skillId.value + ' IS' + ' CHECKED');
                 // use fetch to  go  on url  linkadd.value
                 fetch(linkAdd.value).then(function (response) {
                     if (response.ok) {
-                        console.log('___ Add Skill ___', 'Then OK', response);
+                        if (debug)console.log('___ Add Skill ___', 'Then OK', response);
                         response.json().then(function (data) {
                             if (data.isChecked) {
-                               /* aSkill.style.borderColor = 'green';
-                                aSkill.style.borderWidth = '1px';
-                                aSkill.style.borderStyle = 'solid';*/
-                            } else {
-
+                                //todo implement errors possibility
                             }
                         });
-
-
                     } else {
                         console.log('Mauvaise réponse du réseau');
                     }
@@ -57,13 +43,14 @@ $(document).ready(() => {
                         console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
                     });
             } else {
-                /*if (debug) console.log('__Add Skill__',
-                    'Skill ID :' + skillId.value + ' IS UNCHEKED');*/
+                if (debug) console.log('__Add Skill__',
+                    'Skill ID :' + skillId.value + ' IS UNCHEKED');
                 fetch(linkRemove.value).then(function (response) {
                     if (response.ok) {
                         //console.log("___ Add Skill ___", "Then OK", response);
                         response.json().then(function (data) {
                             if (!data.isChecked) {
+                                //todo implement errors possibility
                                /* aSkill.style.borderColor = "red";
                                 aSkill.style.borderWidth = "1px";
                                 aSkill.style.borderStyle = "solid";*/
@@ -78,11 +65,7 @@ $(document).ready(() => {
                     });
             }
         });
-        console.log(aSkill.querySelector('#skillId'));
-
     }
-
-
 });
 
 
@@ -95,7 +78,6 @@ function checkHasSkill(skillBlocks) {
         // get the skillid in hidden input
         //let skillId = aSkill.querySelector('#skillId');
         let linkCheck = aSkill.querySelector('#linkCheck');
-
         //--------------- check if profile has skill --------------------
         // use fetch to  go  on url  linkadd.value
         fetch(linkCheck.value).then(function (response) {
@@ -120,7 +102,10 @@ function checkHasSkill(skillBlocks) {
     }
 }
 
-
+/**
+ *
+ * @param skillBlocks
+ */
 function checkHasSkillAsynch(skillBlocks) {
     for (var i = 0; i < skillBlocks.length; i++) {
         // get one skillBlock witch it containt multiple elements
