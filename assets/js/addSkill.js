@@ -4,7 +4,7 @@
 /* global $ */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-/* eslint-disable arrow - parens */
+/* eslint-disable arrow-parens */
 function setCheckBox(link, checkbox) {
     try {
         let datas = null;
