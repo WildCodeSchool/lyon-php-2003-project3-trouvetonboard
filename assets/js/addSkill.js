@@ -2,44 +2,6 @@
 // console.log("__ Entering in addSkill JS file__")
 const debug = false;
 
-function checkHasSkillAsynch(skillBlocks) {
-    for (let i = 0; i < skillBlocks.length; i++) {
-        // get one skillBlock witch it containt multiple elements
-        const aSkill = skillBlocks[i];
-        // get the checkbox in skillblock
-        const checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
-        // get the skillid in hidden input
-        const skillId = aSkill.querySelector('#skillId');
-        const linkCheck = aSkill.querySelector('#linkCheck');
-        // console.log('___ Add skill ___', linkCheck.value);
-        return setCheckBox(linkCheck.value, checkbox);
-    }
-}
-
-async function setCheckBox(link, checkbox) {
-    try {
-        let datas = null;
-        return fetch(link)
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                datas = data;
-                if (datas.isChecked) {
-                    checkbox.checked = true;
-                    // console.log('___ Add Skill ___', ' +++ this skill is checked');
-                } else {
-                    checkbox.checked = false;
-                    // console.log('___ Add Skill ___', ' --- this skill is UNchecked');
-                }
-                return datas;
-            })
-        // console.log('___ Add skill Data asynch___', datas);
-    } catch (error) {
-        console.log('___ Add skill ___', ' Serveur error no repsonse in skill Asych function control');
-        return null;
-    }
-}
 
 
 $(document).ready(() => {
@@ -51,7 +13,7 @@ $(document).ready(() => {
     for (var i = 0; i < skillBlocks.length; i++) {
         // get one skillBlock witch it containt multiple elements
         const aSkill = skillBlocks[i];
-        // console.log('___ Add Skill ___', aSkill);
+        //console.log('___ Add Skill ___', aSkill);
         // get the checkbox in skillblock
         const checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
         // get the skillid in hidden input
@@ -69,7 +31,10 @@ $(document).ready(() => {
                         if (debug) console.log('___ Add Skill ___', 'Then OK', response);
                         response.json().then(function (data) {
                             if (data.isChecked) {
+                                console.log('___ Add Skill ___ dbwrite OK', aSkill);
                                 //todo implement errors possibility
+                            } else {
+                                console.log('___ Add Skill ___ dbwrite NOK', aSkill);
                             }
                         });
                     } else {
@@ -85,8 +50,11 @@ $(document).ready(() => {
                     if (response.ok) {
                         //console.log("___ Add Skill ___", "Then OK", response);
                         response.json().then(function (data) {
-                            if (!data.isChecked) {
+                            if (data.isChecked) {
+                                console.log('___ rem Skill ___ dbwrite del NOK',linkRemove.value);
                                 //todo implement errors possibility
+                            } else {
+                                console.log('___ rem Skill ___ dbwrite del OK', linkRemove.value);
                             }
                         });
                     }
@@ -98,5 +66,44 @@ $(document).ready(() => {
         });
     }
 });
+
+
+async function checkHasSkillAsynch(skillBlocks) {
+    for (let i = 0; i < skillBlocks.length; i++) {
+        // get one skillBlock witch it containt multiple elements
+        let aSkill = skillBlocks[i];
+        // get the checkbox in skillblock
+        const checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
+        // get the skillid in hidden input
+        const skillId = aSkill.querySelector('#skillId');
+        const linkCheck = aSkill.querySelector('#linkCheck');
+        // console.log('___ Add skill ___', linkCheck.value);
+        const varDate = setCheckBox(linkCheck.value, checkbox);
+    }
+}
+
+function setCheckBox(link, checkbox) {
+    try {
+        let datas = null;
+        return fetch(link)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                datas = data;
+                if (datas.isChecked) {
+                    checkbox.checked = true;
+                    console.log('___ Add Skill ___', ' +++ this skill is checked');
+                } else {
+                    checkbox.checked = false;
+                    console.log('___ Add Skill ___', ' --- this skill is UNchecked');
+                }
+                return datas;
+            })
+        // console.log('___ Add skill Data asynch___', datas);
+    } catch (error) {
+        console.log('___ Add skill ___', ' Serveur error no repsonse in skill Asych function control');
+    }
+}
 
 
