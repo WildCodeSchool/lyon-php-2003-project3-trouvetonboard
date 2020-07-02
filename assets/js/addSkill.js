@@ -20,15 +20,15 @@ $(document).ready(() => {
         const linkRemove = aSkill.querySelector('#linkRemove');
         const linkCheck = aSkill.querySelector('#linkCheck');
         // add event listener to the checkbox
-        checkbox.addEventListener('change', function () {
+        checkbox.addEventListener('change', () => {
             // if checkbox is cheked
             if (this.checked) {
                 // use fetch to  go  on url  linkadd.value
                 // console.log("__ Add skill link__", linkAdd)
-                fetch(linkAdd.value).then(function (response) {
+                fetch(linkAdd.value).then( (response) => {
                     if (response.ok) {
                         if (debug) console.log('___ Add Skill ___', 'Then OK', response);
-                        response.json().then(function (data) {
+                        response.json().then((data) => {
                             if (data.isChecked) {
                                 console.log('___ Add Skill ___ dbwrite OK', aSkill);
                                 // todo implement errors possibility
@@ -40,15 +40,15 @@ $(document).ready(() => {
                         // console.log('Mauvaise réponse du réseau');
                     }
                 })
-                    .catch(function (error) {
+                    .catch((error) => {
                         console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
                     });
             } else {
-                fetch(linkRemove.value).then(function (response) {
+                fetch(linkRemove.value).then((response) => {
                     console.log("__ Add skill link remove__", linkRemove.value)
                     if (response.ok) {
                         //console.log("___ Add Skill ___", "Then OK", response);
-                        response.json().then(function (data) {
+                        response.json().then((data) => {
                             if (data.isChecked) {
                                 // console.log('___ rem Skill ___ dbwrite del NOK',linkRemove.value);
                                 // todo implement errors possibility
@@ -67,7 +67,7 @@ $(document).ready(() => {
 });
 
 
-function setCheckBox(link, checkbox) {
+ function setCheckBox(link, checkbox) {
     try {
         let datas = null;
         return fetch(link)
@@ -96,6 +96,7 @@ async function checkHasSkillAsynch(skillBlocks) {
     // demande de unchek ou chek alors que le chargement est pas terminer,
     // si on utilise pas async + await il  faut attendre la fin du  for pour que les evenements check/uncheck soient
     // pris en comptes.
+
     for (let i = 0; i < skillBlocks.length; i += 1) {
         // get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
@@ -105,6 +106,7 @@ async function checkHasSkillAsynch(skillBlocks) {
         const skillId = aSkill.querySelector('#skillId');
         const linkCheck = aSkill.querySelector('#linkCheck');
         // console.log('___ Add skill ___', linkCheck.value);
-        const varDate = await setCheckBox(linkCheck.value, checkbox);
+        const val = await setCheckBox(linkCheck.value, checkbox); // eslint-disable-line no-use-before-define
     }
+
 }
