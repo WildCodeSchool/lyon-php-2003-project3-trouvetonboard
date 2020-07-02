@@ -31,7 +31,7 @@ class User implements UserInterface
      * @Assert\Email(checkMX=true, message="Aucun serveur mail n'a été trouvé pour ce domaine")
      * @Assert\Length(min=5)
      */
-    private $email;
+    private $email = '';
 
     /**
      * @ORM\Column(type="json")
