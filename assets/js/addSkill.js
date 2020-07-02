@@ -4,7 +4,7 @@
 /* global $ */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-await-in-loop */
-
+/* eslint-disable arrow - parens */
 function setCheckBox(link, checkbox) {
     try {
         let datas = null;
@@ -30,7 +30,7 @@ function setCheckBox(link, checkbox) {
 }
 
 
- async function checkHasSkillAsynch(skillBlocks) {
+async function checkHasSkillAsynch(skillBlocks) {
     // utiliser async + await permet un  retour plus rapide Ainsi que la prise en
     // compte immédiate des demandes de unchek ou chek alors que le chargement
     // est pas terminer, si on utilise pas async + await il  faut attendre la
@@ -38,14 +38,14 @@ function setCheckBox(link, checkbox) {
 
     for (let i = 0; i < skillBlocks.length; i += 1) {
         // get one skillBlock witch it containt multiple elements
-        let aSkill = skillBlocks[i];
+        const aSkill = skillBlocks[i];
         // get the checkbox in skillblock
-        let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
+        const checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
         // get the skillid in hidden input
-        let skillId = aSkill.querySelector('#skillId');
-        let linkCheck = aSkill.querySelector('#linkCheck');
+        const skillId = aSkill.querySelector('#skillId');
+        const linkCheck = aSkill.querySelector('#linkCheck');
         // console.log('___ Add skill ___', linkCheck.value);
-        let val = await setCheckBox(linkCheck.value, checkbox);
+        const val = await setCheckBox(linkCheck.value, checkbox);
     }
 }
 
@@ -74,7 +74,7 @@ $(document).ready(() => {
                 // console.log("__ Add skill link__", linkAdd)
                 fetch(linkAdd.value).then((response) => {
                     if (response.ok) {
-                         console.log('___ Add Skill add___', 'Then OK', response);
+                        // console.log('___ Add Skill add___', 'Then OK', response);
                         response.json().then((data) => {
                             if (data.isChecked) {
                                 // console.log('___ Add Skill ___ dbwrite OK', aSkill);
@@ -93,7 +93,7 @@ $(document).ready(() => {
                     });
             } else {
                 fetch(linkRemove.value).then((response) => {
-                     console.log('__ Add skill link remove__', linkRemove.value);
+                    // console.log('__ Add skill link remove__', linkRemove.value);
                     if (response.ok) {
                         // console.log("___ Add Skill ___",
                         // "Then OK", response);
