@@ -67,40 +67,6 @@ $(document).ready(() => {
 });
 
 
-function checkHasSkill(skillBlocks) {
-    for (var i = 0; i < skillBlocks.length; i++) {
-        //get one skillBlock witch it containt multiple elements
-        let aSkill = skillBlocks[i];
-        //get the checkbox in skillblock
-        let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
-        //get the skillid in hidden input
-        let skillId = aSkill.querySelector('#skillId');
-        let linkCheck = aSkill.querySelector('#linkCheck');
-        //--------------- check if profile has skill --------------------
-        //use fetch to  go  on url  linkadd.value
-        fetch(linkCheck.value).then(function (response) {
-            if (response.ok) {
-                //console.log('___ Add Skill ___', 'Then OK Link check', response);
-                response.json().then(function (data) {
-                    if (data.isChecked) {
-                        checkbox.checked = true;
-                        //console.log('___ Add Skill ___', ' +++ this skill is checked');
-                    } else {
-                        checkbox.checked = false;
-                        //console.log('___ Add Skill ___', ' --- this skill is UNchecked');
-                    }
-                });
-            } else {
-                console.log('Mauvaise réponse du réseau');
-            }
-        })
-            .catch(function (error) {
-                console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-            });
-    }
-}
-
-
 function checkHasSkillAsynch(skillBlocks) {
     for (var i = 0; i < skillBlocks.length; i++) {
         //get one skillBlock witch it containt multiple elements
