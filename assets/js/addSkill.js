@@ -1,8 +1,9 @@
 // get all  div where is used for a skill
 // console.log("__ Entering in addSkill JS file__")
-const debug = false;
 
+/* global $ */
 /* eslint-disable no-param-reassign */
+
 function setCheckBox(link, checkbox) {
     try {
         let datas = null;
@@ -21,7 +22,8 @@ function setCheckBox(link, checkbox) {
             });
         // console.log('___ Add skill Data asynch___', datas);
     } catch (error) {
-        // console.log('___ Add skill ___', ' Serveur error no repsonse in skill Asych function control');
+        // console.log('___ Add skill ___', ' Serveur error no
+        // repsonse in skill Asych function control');
     }
     return null;
 }
@@ -68,7 +70,7 @@ $(document).ready(() => {
             if (this.checked) {
                 // use fetch to  go  on url  linkadd.value
                 // console.log("__ Add skill link__", linkAdd)
-                fetch(linkAdd.value).then( (response) => {
+                fetch(linkAdd.value).then((response) => {
                     if (response.ok) {
                         // console.log('___ Add Skill ___', 'Then OK', response);
                         response.json().then((data) => {
@@ -105,7 +107,7 @@ $(document).ready(() => {
                         });
                     }
                 })
-                    .catch( (error) => {
+                    .catch((error) => {
                         // console.log('Il y a eu un problème avec l\'opération fetch:
                         // ' + error.message);
                     });
