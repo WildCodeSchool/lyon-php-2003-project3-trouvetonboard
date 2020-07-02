@@ -5,14 +5,14 @@ const debug = false;
 function checkHasSkillAsynch(skillBlocks) {
     for (let i = 0; i < skillBlocks.length; i++) {
         // get one skillBlock witch it containt multiple elements
-        let aSkill = skillBlocks[i];
+        const aSkill = skillBlocks[i];
         // get the checkbox in skillblock
-        let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
+        const checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
         // get the skillid in hidden input
-        let skillId = aSkill.querySelector('#skillId');
-        let linkCheck = aSkill.querySelector('#linkCheck');
+        const skillId = aSkill.querySelector('#skillId');
+        const linkCheck = aSkill.querySelector('#linkCheck');
         // console.log('___ Add skill ___', linkCheck.value);
-        var val = setCheckBox(linkCheck.value, checkbox);
+        return setCheckBox(linkCheck.value, checkbox);
     }
 }
 
@@ -37,6 +37,7 @@ async function setCheckBox(link, checkbox) {
         // console.log('___ Add skill Data asynch___', datas);
     } catch (error) {
         console.log('___ Add skill ___', ' Serveur error no repsonse in skill Asych function control');
+        return null;
     }
 }
 
