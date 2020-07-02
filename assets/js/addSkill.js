@@ -1,17 +1,17 @@
 // get all  div where is used for a skill
-//console.log("__ Entering in addSkill JS file__")
+// console.log("__ Entering in addSkill JS file__")
 const debug = false;
 
 function checkHasSkillAsynch(skillBlocks) {
-    for (var i = 0; i < skillBlocks.length; i++) {
-        //get one skillBlock witch it containt multiple elements
+    for (let i = 0; i < skillBlocks.length; i++) {
+        // get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
-        //get the checkbox in skillblock
+        // get the checkbox in skillblock
         let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
-        //get the skillid in hidden input
+        // get the skillid in hidden input
         let skillId = aSkill.querySelector('#skillId');
         let linkCheck = aSkill.querySelector('#linkCheck');
-        //console.log('___ Add skill ___', linkCheck.value);
+        // console.log('___ Add skill ___', linkCheck.value);
         var val = setCheckBox(linkCheck.value, checkbox);
     }
 }
@@ -27,18 +27,19 @@ async function setCheckBox(link, checkbox) {
                 datas = data;
                 if (datas.isChecked) {
                     checkbox.checked = true;
-                    //console.log('___ Add Skill ___', ' +++ this skill is checked');
+                    // console.log('___ Add Skill ___', ' +++ this skill is checked');
                 } else {
                     checkbox.checked = false;
-                    //console.log('___ Add Skill ___', ' --- this skill is UNchecked');
+                    // console.log('___ Add Skill ___', ' --- this skill is UNchecked');
                 }
                 return datas;
             })
-        //console.log('___ Add skill Data asynch___', datas);
+        // console.log('___ Add skill Data asynch___', datas);
     } catch (error) {
         console.log('___ Add skill ___', ' Serveur error no repsonse in skill Asych function control');
     }
 }
+
 
 $(document).ready(() => {
     // get all skill group , each skillGroup contain , hiden , label and checkbox
