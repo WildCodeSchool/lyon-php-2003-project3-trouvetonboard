@@ -5,28 +5,28 @@ var debug = false;
 $(document).ready(() => {
     if (debug) console.log('__ Add Skill __', 'Document ready');
     if (debug) console.log('__ Add Skill __', 'recupération du  skill group');
-    // get all skill group , each skillGroup contain , hiden , label and checkbox
+    //get all skill group , each skillGroup contain , hiden , label and checkbox
     var skillBlocks = document.querySelectorAll('div[name="skillGroup"]');
     if (debug) console.log('__ Add Skill __', skillBlocks);
-    // for each skillgroup  add event listener
+    //for each skillgroup  add event listener
     checkHasSkillAsynch(skillBlocks);
     for (var i = 0; i < skillBlocks.length; i++) {
-        // get one skillBlock witch it containt multiple elements
+        //get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
         // get the checkbox in skillblock
         let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
-        // get the skillid in hidden input
+        //get the skillid in hidden input
         let linkAdd = aSkill.querySelector('#linkAdd');
         let linkRemove = aSkill.querySelector('#linkRemove');
         let linkCheck = aSkill.querySelector('#linkCheck');
         if (debug) console.log('__Add Skill__','Profile add skill link :' + linkAdd.value);
-        // add event listener to the checkbox
+        //add event listener to the checkbox
         checkbox.addEventListener('change', function () {
-            // if checkbox is cheked
+            //if checkbox is cheked
             if (this.checked) {
-                // if (debug) console.log('__Add Skill__',
-                // 'Skill ID :' + skillId.value + ' IS' + ' CHECKED');
-                // use fetch to  go  on url  linkadd.value
+                //if (debug) console.log('__Add Skill__',
+                //'Skill ID :' + skillId.value + ' IS' + ' CHECKED');
+                //use fetch to  go  on url  linkadd.value
                 fetch(linkAdd.value).then(function (response) {
                     if (response.ok) {
                         if (debug)console.log('___ Add Skill ___', 'Then OK', response);
@@ -51,7 +51,7 @@ $(document).ready(() => {
                         response.json().then(function (data) {
                             if (!data.isChecked) {
                                 //todo implement errors possibility
-                               /* aSkill.style.borderColor = "red";
+                               /*aSkill.style.borderColor = "red";
                                 aSkill.style.borderWidth = "1px";
                                 aSkill.style.borderStyle = "solid";*/
                             } else {
@@ -71,15 +71,15 @@ $(document).ready(() => {
 
 function checkHasSkill(skillBlocks) {
     for (var i = 0; i < skillBlocks.length; i++) {
-        // get one skillBlock witch it containt multiple elements
+        //get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
-        // get the checkbox in skillblock
+        //get the checkbox in skillblock
         let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
-        // get the skillid in hidden input
+        //get the skillid in hidden input
         //let skillId = aSkill.querySelector('#skillId');
         let linkCheck = aSkill.querySelector('#linkCheck');
         //--------------- check if profile has skill --------------------
-        // use fetch to  go  on url  linkadd.value
+        //use fetch to  go  on url  linkadd.value
         fetch(linkCheck.value).then(function (response) {
             if (response.ok) {
                 //console.log('___ Add Skill ___', 'Then OK Link check', response);
@@ -108,11 +108,11 @@ function checkHasSkill(skillBlocks) {
  */
 function checkHasSkillAsynch(skillBlocks) {
     for (var i = 0; i < skillBlocks.length; i++) {
-        // get one skillBlock witch it containt multiple elements
+        //get one skillBlock witch it containt multiple elements
         let aSkill = skillBlocks[i];
-        // get the checkbox in skillblock
+        //get the checkbox in skillblock
         let checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
-        // get the skillid in hidden input
+        //get the skillid in hidden input
         //let skillId = aSkill.querySelector('#skillId');
         let linkCheck = aSkill.querySelector('#linkCheck');
         //console.log('___ Add skill ___', linkCheck.value);
