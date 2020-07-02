@@ -9,8 +9,15 @@
 
 </div>
 <div class="d-flex flex-fill container-btn p-3">
+<<<<<<< HEAD
         <a href="{{ path('profile_new') }}">
         {{ include('components/_icon_new.html.twig') }} Créer une {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
+=======
+        <a href="{{ path('profile_newBoardRequest') }}">
+        {{ include('components/_icon_new.html.twig') }} {{ is_granted('ROLE_ENTERPRISE') ? " Créer une board request"
+            : "Selectionner vos compétences" }}
+        </a>
+>>>>>>> dev
 </div>
 <div class="container-fluid row m-0  justify-content-between">
     {% if app.user.enterprise is not null %}
@@ -23,7 +30,11 @@
         {% endfor %}
     {% else %}
         <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
+            {{ is_granted('ROLE_ENTERPRISE') ?
+            "Aucune recherche active, cliquer sur le lien pour créer une
+            recherche." :
+            "Aucune compétence selectionnée, cliquer sur sur le lien pour sélectionner vos compétences." }}
+
         </div>
     {% endif %}
 </div>

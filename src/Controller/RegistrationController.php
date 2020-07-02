@@ -30,6 +30,11 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/register", name="app_register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler $guardHandler
+     * @param LoginAuthenticator $authenticator
+     * @return Response
      */
     public function register(
         Request $request,
@@ -38,7 +43,6 @@ class RegistrationController extends AbstractController
         LoginAuthenticator $authenticator
     ): Response {
         $user = new User();
-        $user->setEmail("email");
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -54,7 +58,7 @@ class RegistrationController extends AbstractController
             );
             if ($form->get('type')->getData() == "enterprise") {
                 $enterprise = new Enterprise();
-                $enterprise->setName("y");
+                $enterprise->setName("");
                 $entityManager->persist($enterprise);
                 $user->setEnterprise($enterprise);
                 $user->setRoles(['ROLE_ENTERPRISE']);
