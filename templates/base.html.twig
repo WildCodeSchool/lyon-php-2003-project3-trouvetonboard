@@ -52,7 +52,11 @@
         {% set titleBlock2 = "p-2 d-flex align-items-start container-title-block" %}
         {% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}
 
-
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
 
         {% block footer %}
