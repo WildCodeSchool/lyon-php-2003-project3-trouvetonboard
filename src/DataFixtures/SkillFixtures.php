@@ -21,64 +21,49 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $values = [
-            "Type de missions" =>
-                [
-                    "enterpriseQuestion=Quel type de mission d’advisor proposez-vous ?",
-                    "advisorQuestion=Vous recherchez des missions d’advisor ?",
-                    "Payantes",
-                    "Bénévoles",
-                    "Bénévoles puis payantes"
-                ],
+            "Type de mission" =>
+                $this::getDataTypeDeMission(),
             "Rémunération" =>
-                [
-                    "enterpriseQuestion=Comment souhaitez-vous rémunérer votre advisor ?",
-                    "advisorQuestion=Comment souhaitez-vous être rémunéré pour votre mission d’advisor ?",
-                    "Salaire",
-                    "defraiement",
-                    "Equity"
-                ],
+                $this::getDataRemuneration(),
             "Taille de l'entreprise" =>
-                [
-                    "enterpriseQuestion=Vous recherchez un advisor pour votre entreprise * 
-                    ou pour un nouveau projet au stade de ?",
-                    "advisorQuestion=Quel type de projet / d’entreprise souhaitez-vous accompagner ?",
-                    "Idéation",
-                    "Start-up",
-                    "TPE",
-                    "PME",
-                    "ETI",
-                    "Grand groupes"
-                ],
+                $this::getDataTailleDeLentreprise(),
             "Type de l'entreprise" =>
+                $this::getDataTypeDeLentreprise(),
+            "Secteur d'activité" =>
+                $this::getDataSecteurActivite(),
+            "Langues" =>
+                $this::getDataLangue(),
+            "Zones géographiques" =>
+                $this::getDataZoneGeo(),
+            "Expériences" =>
+                $this::getDataExprerience(),
+            "Interet" =>
                 [
-                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements ?",
-                    "advisorQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
-                    "Start-up",
-                    "Société cotée",
-                    "Entreprise familiale",
-                    "Entreprise publique",
-                    "Association",
-                    "Autre..."
+                    "enterpriseQuestion=Si ce n’est un advisor que recherchez-vous ?",
+                    "advisorQuestion=Quelles autres missions pourraient vous intéresser ?",
+                    "Président de comité d'audit",
+                    "Président de Conseil Administration",
+                    "Administrateur indépendant",
+                    "Président de comité de rémunération",
                 ],
-            "Secteur d'activitée" =>
+            "Mission de conseil" =>
                 [
-                    "enterpriseQuestion=L’advisor que vous souhaitez recruter doit avoir travaillé 
-                    dans les secteurs suivants",
-                    "advisorQuestion=Vous avez travaillé dans quels secteurs pendant votre carrière ?",
-                    "Biens de consommation",
-                    "Éducation",
-                    "Énergie et ressources naturelles",
+                    "enterpriseQuestion=Pour quelle missions recherchez-vous un consultant ?",
+                    "advisorQuestion=Quelles missions recherchez-vous ?",
+                    "Développement Durable",
+                    "R&D",
+                    "Risque et conformité",
+                    "Marketing",
+                    "Juridique",
+                    "M&A",
+                    "Ressources humaines",
+                    "Production",
                     "Finance",
-                    "Organisme public",
-                    "Santée",
-                    "Industrie",
-                    "Médias",
-                    "ONG / Associations",
-                    "Services à la personnes",
-                    "Technologie / internet",
-                    "Immobilier",
-                    "Télécommunications",
-                    "Autre"
+                    "Digital et technologie",
+                    "Président de comité de rémunération",
+                    "Communication",
+                    "Export",
+                    "Commercial / vente"
                 ],
         ];
         // Création du  level 1
@@ -120,5 +105,144 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [LevelFixtures::class,];
+    }
+
+    private static function getDataTypeDeMission() : array
+    {
+        return [
+            "enterpriseQuestion=Quel type de mission d’advisor proposez-vous ?",
+            "advisorQuestion=Vous recherchez des missions d’advisor ?",
+            "Payantes",
+            "Bénévoles",
+            "Bénévoles puis payantes"
+        ];
+    }
+
+    private static function getDataRemuneration() : array
+    {
+        return [
+            "enterpriseQuestion=Comment souhaitez-vous rémunérer votre advisor ?",
+            "advisorQuestion=Comment souhaitez-vous être rémunéré pour votre mission d’advisor ?",
+            "Salaire",
+            "Défraiement",
+            "Equity"
+        ];
+    }
+
+    private static function getDataTailleDeLentreprise(): array
+    {
+        return [
+            "enterpriseQuestion=Vous recherchez un advisor pour votre entreprise * 
+            ou pour un nouveau projet au stade de ?",
+            "advisorQuestion=Quel type de projet / d’entreprise souhaitez-vous accompagner ?",
+            "Idéation",
+            "Start-up",
+            "TPE",
+            "PME",
+            "ETI",
+            "Grand groupe"
+        ];
+    }
+
+    private static function getDataTypeDeLentreprise() : array
+    {
+        return [
+            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements",
+            "advisorQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
+            "Start-up",
+            "Société cotée",
+            "Entreprise familiale",
+            "Entreprise publique",
+            "Association",
+            "Autre"
+        ];
+    }
+
+    private static function getDataSecteurActivite(): array
+    {
+        return [
+            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit avoir travaillé 
+             dans les secteurs suivants",
+            "advisorQuestion=Vous avez travaillé dans quels secteurs pendant votre carrière ?",
+            "Biens de consommation",
+            "Éducation",
+            "Énergie et ressources naturelles",
+            "Finance",
+            "Organisme public",
+            "Santé",
+            "Industrie",
+            "Médias",
+            "ONG / Associations",
+            "Services à la personne",
+            "Technologie / Internet",
+            "Immobilier",
+            "Télécommunications",
+            "Autre"
+        ];
+    }
+
+    public static function getDataLangue() : array
+    {
+        return [
+            "enterpriseQuestion=Quelles compétences linguistiques sont nécessaires pour vous accompagner ?",
+            "advisorQuestion=Pour vous les langues suivantes sont des langues de travail ? :",
+            "Français",
+            "Anglais",
+            "Allemand",
+            "Espagnol",
+            "Italien",
+            "Arabe",
+            "Cantonais",
+            "Danois",
+            "Néerlandais",
+            "Finlandais",
+            "Grec",
+            "Hindi",
+            "Japonais",
+            "Mandarin",
+            "Norvégien",
+            "Portugais",
+            "Russe",
+            "Suédois",
+            "Taiwanais",
+            "Mandarin",
+        ];
+    }
+
+    public static function getDataZoneGeo()
+    {
+        return [
+            "enterpriseQuestion=De quelles zones géographiques, votre advisor doit-il être expert ? :",
+            "advisorQuestion=Vous êtes experts des zones géographiques suivantes :",
+            "Europe",
+            "Asie",
+            "U.S. / Canada",
+            "Affrique",
+            "Amérique Sud / Centrale",
+            "Russie",
+            "Australie",
+            "Moyen Orient",
+            "Services à la personne",
+            "Technologie / Internet",
+            "Immobilier",
+            "Télécommunications",
+            "Autre"
+        ];
+    }
+
+    public static function getDataExprerience()
+    {
+        return [
+            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit maitriser les expertises suivantes",
+            "advisorQuestion=Quelles sont vos expertises métier – 
+                    justifiées par des expériences / missions réussies :",
+            "Mandataire social",
+            "Gouvernance d’entreprise",
+            "Responsabilité sociale des entreprises (RSE)",
+            "Finance",
+            "Transformation / Gestion du changement",
+            "Technologie digitale",
+            "Système Information (infra, run, ERP...)",
+        ];
     }
 }

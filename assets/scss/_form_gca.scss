@@ -84,6 +84,16 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
             input::placeholder {
                 color: white;
             }
+
+            textarea {
+                padding: $cust-formBlock-input-padding;
+                color: $cust-formBlock-input-textcolor;
+                font-weight: unset;
+                border-style: $cust-formBlock-input-borderstyle;
+                border-width: $style-guide-button-border-width;
+                border-color: $style-guide-blue;
+                min-height: 25vh;
+            }
         }
     }
 

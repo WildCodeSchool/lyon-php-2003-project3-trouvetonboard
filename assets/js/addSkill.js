@@ -140,28 +140,27 @@ function checkHasSkillAsynch(skillBlocks) {
     }
 }
 
-async function setCheckBox(link,checkbox)  {
+function setCheckBox(link,checkbox)  {
 
     try{
         let datas = null;
-        const response = await fetch(link)
+        return fetch(link)
             .then((res) => {
             return res.json();
         })
             .then((data) => {
                 datas = data;
-                return data;
+                if (datas.isChecked) {
+                    checkbox.checked = true;
+                    //console.log("___ Add Skill ___", " +++ this skill is checked");
+                } else {
+                    checkbox.checked = false;
+                    //console.log("___ Add Skill ___", " --- this skill is UNchecked");
+                }
+                return datas;
             })
         //console.log("___ Add skill Data asynch___", datas);
 
-        if (datas.isChecked) {
-            checkbox.checked = true;
-            //console.log("___ Add Skill ___", " +++ this skill is checked");
-        } else {
-            checkbox.checked = false;
-            //console.log("___ Add Skill ___", " --- this skill is UNchecked");
-        }
-        return datas;
         } catch (error) {
             console.log("___ Add skill ___", " Serveur error no repsonse in skill Asych function control");
         }
