@@ -9,10 +9,8 @@
 
 </div>
 <div class="d-flex flex-fill container-btn p-3">
-        <a href="{{ path('profile_newBoardRequest') }}">
-        {{ include('components/_icon_new.html.twig') }} {{ is_granted('ROLE_ENTERPRISE') ? " Créer une board request"
-            : "Selectionner vos compétences" }}
-        </a>
+        <a href="{{ path('profile_new') }}">
+        {{ include('components/_icon_new.html.twig') }} Créer une {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 <div class="container-fluid row m-0  justify-content-between">
     {% if app.user.enterprise is not null %}
