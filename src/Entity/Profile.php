@@ -60,13 +60,31 @@ class Profile
     private $dateCreation;
 
     /**
-     * @ORM\OneToOne(targetEntity=Profile::class, mappedBy="profile", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity=Profile::class, inversedBy="advisorProfiles")
      */
-    private $profile;
+    private $enterpriseProfiles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Profile::class, mappedBy="enterpriseProfiles")
+     */
+    private $advisorProfiles;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $archived;
+
 
     public function __construct()
     {
         $this->skills = new ArrayCollection();
+        $this->enterpriseProfiles = new ArrayCollection();
+        $this->advisorProfiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,21 +202,96 @@ class Profile
         return $this;
     }
 
-    public function getProfile(): ?self
+    /**
+     * @return Collection|self[]
+     */
+    public function getEnterpriseProfiles(): Collection
     {
-        return $this->profile;
+        return $this->enterpriseProfiles;
     }
 
-    public function setProfile(self $profile): self
+    public function addEnterpriseProfile(self $enterpriseProfile): self
     {
-        $this->profile = $profile;
-        // set (or unset) the owning side of the relation if necessary
-        /*
-        $newProfile = null === $profile ? null : $this;
-        if ($profile->getProfile() !== $newProfile) {
-            $profile->setProfile($newProfile);
+        if (!$this->enterpriseProfiles->contains($enterpriseProfile)) {
+            $this->enterpriseProfiles[] = $enterpriseProfile;
         }
-        */
+
+        return $this;
+    }
+
+    public function removeEnterpriseProfile(self $enterpriseProfile): self
+    {
+        if ($this->enterpriseProfiles->contains($enterpriseProfile)) {
+            $this->enterpriseProfiles->removeElement($enterpriseProfile);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getAdvisorProfiles(): Collection
+    {
+        return $this->advisorProfiles;
+    }
+
+    public function addAdvisorProfile(self $advisorProfile): self
+    {
+        if (!$this->advisorProfiles->contains($advisorProfile)) {
+            $this->advisorProfiles[] = $advisorProfile;
+            $advisorProfile->addEnterpriseProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvisorProfile(self $advisorProfile): self
+    {
+        if ($this->advisorProfiles->contains($advisorProfile)) {
+            $this->advisorProfiles->removeElement($advisorProfile);
+            $advisorProfile->removeEnterpriseProfile($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \App\Entity\Skill $skill
+     *
+     * @return bool
+     */
+    public function isInSkillList(Skill $skill)
+    {
+
+        if ($this->skills->contains($skill)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(?bool $archived): self
+    {
+        $this->archived = $archived;
+
         return $this;
     }
 }

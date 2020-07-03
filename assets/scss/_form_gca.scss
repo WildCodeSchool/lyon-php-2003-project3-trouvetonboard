@@ -1,9 +1,13 @@
 @import "functions";
 
+$cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
+
 .form-gca {
+    width: $cust-formBlock-input-width-local;
 
     // div title + delte button ( custon place for delte button )
     div {
+
         h1 {
             margin-top: 0px;
         }
@@ -19,6 +23,7 @@
 
     form {
         // form  global  container
+
         div {
             margin: $cust-formBlock-div-m;
             // each label + input are includ in one div
@@ -33,8 +38,6 @@
 
             input {
                 padding: $cust-formBlock-input-padding;
-                width: $cust-formBlock-input-width;
-                // each line input
                 min-height: $cust-formBlock-input-height;
                 background-color: $cust-formBlock-input-bgcolor;
                 color: $cust-formBlock-input-textcolor;
@@ -42,6 +45,33 @@
                 border-style: $cust-formBlock-input-borderstyle;
                 border-width: $style-guide-button-border-width;
                 border-color: $style-guide-blue;
+            }
+
+            select {
+                padding: $cust-formBlock-input-padding;
+                min-height: $cust-formBlock-input-height;
+                background-color: $cust-formBlock-input-bgcolor;
+                color: $cust-formBlock-input-textcolor;
+                font-weight: unset;
+                border-style: $cust-formBlock-input-borderstyle;
+                border-width: $style-guide-button-border-width;
+                border-color: $style-guide-blue;
+            }
+
+            fieldset {
+                padding: $cust-formBlock-input-padding;
+
+                legend {
+
+
+                }
+
+                div {
+                    select {
+                        margin: 5px;
+                    }
+                }
+
             }
 
             input:focus {
@@ -53,6 +83,16 @@
 
             input::placeholder {
                 color: white;
+            }
+
+            textarea {
+                padding: $cust-formBlock-input-padding;
+                color: $cust-formBlock-input-textcolor;
+                font-weight: unset;
+                border-style: $cust-formBlock-input-borderstyle;
+                border-width: $style-guide-button-border-width;
+                border-color: $style-guide-blue;
+                min-height: 25vh;
             }
         }
     }
@@ -78,14 +118,15 @@
     a {
         color: $style-guide-blue !important;
     }
-
 }
 
 @media screen and (max-width: 900px) {
     .form-gca {
+        width: 90%;
 
         form {
             // each form in coantainerr
+            width: 100%;
 
             h1 {
                 margin-top: $cust-container-std-childs-margin-top;

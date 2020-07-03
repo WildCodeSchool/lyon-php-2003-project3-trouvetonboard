@@ -1,0 +1,51 @@
+<div class="{{ titleBlock }}">
+    <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
+        <h3 class="m-0 align-self-center">Fiche Entreprise</h3>
+        <div>
+            {{ include('components/_icon_enterprise.html.twig') }}
+        </div>
+    </div>
+</div>
+{% if user.enterprise.address == null and user.enterprise.zipCode == null and user.enterprise.city == null and user.enterprise.legelRepresentative == null and user.enterprise.linkedinLink == null and user.enterprise.websiteLink == null %}
+<div class="d-flex flex-fill justify-content-center container-btn p-3">
+    <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
+        {{ include('components/_icon_new.html.twig') }} Ajouter mon entreprise</a>
+</div>
+{% else %}
+    <table class="table container-table">
+        <tbody>
+        <tr>
+            <th width="{{ thWidth }}">Nom de l'entreprise :</th>
+            <td>{{ user.enterprise.name }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Adresse :</th>
+            <td>
+                {{ user.enterprise.address }}
+                {{ user.enterprise.zipCode ~ " " ~ user.enterprise.city }}
+            </td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Représentant légal :</th>
+            <td>{{ user.enterprise.legelRepresentative }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Lien linkedIn :</th>
+            <td>{{ user.enterprise.linkedinLink }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Site Web :</th>
+            <td>{{ user.enterprise.websiteLink }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Status du paiement :</th>
+            <td>{{ user.enterprise.paymentStatus }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+        <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
+            Modifier les informations de l'entreprise</a>
+    </div>
+
+{% endif %}

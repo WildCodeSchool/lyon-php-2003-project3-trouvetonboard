@@ -23,8 +23,16 @@ class Enterprise
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\GreaterThanOrEqual(
+     *     value = 0,
+     *     message="Le staus de paiement ne peut pas etre inférieur a 0."
+     * )
+     * @Assert\LessThanOrEqual(
+     *     value = 5,
+     *     message="Le staus de paiement ne peut pas etre supérieur a 5."
+     * )
      */
-    private $paymentStatus;
+    private $paymentStatus = 0;
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
@@ -33,6 +41,7 @@ class Enterprise
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
+     * @Assert\NotBlank
      */
     private $legelRepresentative;
 
@@ -44,11 +53,19 @@ class Enterprise
      *      minMessage = "Le lien ne peux pas inférieur a {{ limit }} caractères",
      *      maxMessage = "Le lien ne peux pas depasser {{ limit }} caracterès",
      * )
+     * @Assert\Url(message = "L'url '{{ value }}' n'est pas une url valide.")
      */
     private $websiteLink;
 
     /**
      * @ORM\Column(type="string", length=300, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 300,
+     *      minMessage = "Le lien ne peux pas inférieur a {{ limit }} caractères",
+     *      maxMessage = "Le lien ne peux pas depasser {{ limit }} caracterès",
+     * )
+     * @Assert\Url(message = "L'url '{{ value }}' n'est pas une url valide.")
      */
     private $linkedinLink;
 
@@ -64,6 +81,12 @@ class Enterprise
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(
+     *     message="Le nom de l'entreprise ne peut être vide."
+     * )
+     * @Assert\NotNull(
+     *     message="Le nom de l'entreprise ne peut être vide."
+     * )
      */
     private $name;
 
@@ -177,9 +200,14 @@ class Enterprise
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
-        $this->name = $name;
+        if ($name) {
+            $this->name = $name;
+        } else {
+            $this->name = ' ';
+        }
+
 
         return $this;
     }
@@ -242,6 +270,17 @@ class Enterprise
                 $user->setEnterprise(null);
             }
         }
+
         return $this;
+    }
+
+    public function __toString() : string
+    {
+        $val = $this->getName();
+        if ($val) {
+            return $val;
+        } else {
+            return "";
+        }
     }
 }

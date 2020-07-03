@@ -5,10 +5,16 @@
 @import "navbar";
 @import "form_gca";
 @import "icons";
+@import "register";
+@import "board_request";
+@import "checkbox";
+@import "home";
+@import "pagesInfo";
 
 body {
     background-color: $cust-bg-page;
     font-family: 'Roboto', sans-serif;
+
 }
 
 a {

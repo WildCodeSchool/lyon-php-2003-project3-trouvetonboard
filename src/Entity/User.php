@@ -31,7 +31,7 @@ class User implements UserInterface
      * @Assert\Email(checkMX=true, message="Aucun serveur mail n'a été trouvé pour ce domaine")
      * @Assert\Length(min=5)
      */
-    private $email;
+    private $email = '';
 
     /**
      * @ORM\Column(type="json")
@@ -40,8 +40,6 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @Assert\NotBlank(message="Merci de renseigner votre mot de passe")
-     * @Assert\Length(min=8)
      * @ORM\Column(type="string")
      */
     private $password;
@@ -85,11 +83,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/Homme|Femme|Autre/",
+     *     match=true,
+     *     message="Le genre ne peut etre Homme , Femme ou Autre."
+     * )
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[1-9]{1,}/",
+     *     match=false,
+     *     message="La nationalitée ne peut contenir que des lettres."
+     * )
      */
     private $nationality;
 
@@ -127,6 +135,17 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=300, nullable=true)
      */
     private $pictureLink;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=50)
+     * @Assert\NotBlank(message="Merci de sélectionner un type")
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
 
     public function getId(): ?int
     {
@@ -370,6 +389,35 @@ class User implements UserInterface
     public function setPictureLink(?string $pictureLink): self
     {
         $this->pictureLink = $pictureLink;
+
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }
