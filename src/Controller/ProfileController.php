@@ -23,7 +23,7 @@ class ProfileController extends AbstractController
      */
     public function index(ProfileRepository $profileRepository): Response
     {
-        return $this->render('profile/index.html.twig', [
+        return $this->render('profile/index.php', [
             'profiles' => $profileRepository->findAll(),
         ]);
     }

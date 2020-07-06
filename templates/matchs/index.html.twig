@@ -3,8 +3,20 @@
 {% block title %}Matchs{% endblock %}
 
 {% block body %}
-    <div>
+    <div class="matchs-title">
         <h1>Mes matchs</h1>
+    </div>
+    <div>
+        {{ dump(matchs) }}
+        {% if matchs is empty %}
+            <p>Aucuns matchs ne correspond à vos critères </p>
+        {% else %}
+            {% for match in matchs %}
+                <div>
+    {#                //cards des matchs.#}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
 

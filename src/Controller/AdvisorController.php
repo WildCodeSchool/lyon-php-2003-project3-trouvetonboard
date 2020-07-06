@@ -20,7 +20,7 @@ class AdvisorController extends AbstractController
      */
     public function index(AdvisorRepository $advisorRepository): Response
     {
-        return $this->render('advisor/index.html.twig', [
+        return $this->render('advisor/index.php', [
             'advisors' => $advisorRepository->findAll(),
         ]);
     }
