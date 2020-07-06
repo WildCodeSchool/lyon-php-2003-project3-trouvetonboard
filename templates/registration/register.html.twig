@@ -23,7 +23,6 @@
                 <h1>Créer votre profil</h1>
             </div>
 
-
             {% if form_errors(registrationForm.type) %}
                 <div class="alert alert-danger">{{ form_row(registrationForm.type, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
             {% else %}
@@ -48,10 +47,14 @@
                 {{ form_row(registrationForm.email, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
-            {% if form_errors(registrationForm.plainPassword) %}
-                <div class="alert alert-danger">{{ form_row(registrationForm.plainPassword, {label: false, 'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% if form_errors(registrationForm.plainPassword.first) or form_errors(registrationForm.plainPassword.second) %}
+                <div class="alert alert-danger">
+                    {{ form_row(registrationForm.plainPassword.first, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}
+                    {{ form_row(registrationForm.plainPassword.second, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}
+                </div>
             {% else %}
-                {{ form_row(registrationForm.plainPassword, {label: false, 'attr' : {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.plainPassword.first, {'attr' : {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.plainPassword.second, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
 

@@ -24,18 +24,32 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-             return $this->redirectToRoute('user_profile_show');
+        $user = $this->getUser();
+        if ($user) {
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->redirectToRoute('home');
+            } else {
+                return $this->redirectToRoute('user_profile_show');
+            }
         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        $errors = null;
+        if ($error) {
+            if ($error->getMessageKey() == "Invalid credentials.") {
+                $errors = "Mot de passe invalide.";
+            } else {
+                $errors = "Email inconnu.";
+            }
+        }
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
 
         return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername, 'error' => $error
+            'last_username' => $lastUsername, 'error' => $errors
         ]);
     }
 
@@ -151,22 +165,27 @@ class SecurityController extends AbstractController
 
         // Si le formulaire est envoyé en méthode post
         if ($request->isMethod('POST')) {
-            // On supprime le token
-            $user->setResetToken(null);
+            if ($request->request->get('password') == $request->request->get('passwordRepeat')) {
+                // On supprime le token
 
-            // On chiffre le mot de passe
-            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+                $user->setResetToken(null);
 
-            // On stocke
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+                // On chiffre le mot de passe
+                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
 
-            // On crée le message flash
-            $this->addFlash('success', 'Mot de passe mis à jour');
+                // On stocke
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            // On redirige vers la page de connexion
-            return $this->redirectToRoute('app_login');
+                // On crée le message flash
+                $this->addFlash('success', 'Mot de passe mis à jour');
+
+                // On redirige vers la page de connexion
+                return $this->redirectToRoute('app_login');
+            }
+            $this->addFlash('danger', 'Les mots de passe doivent etre identique');
+            return $this->render('security/reset_password.html.twig', ['token' => $token]);
         } else {
             // Si on n'a pas reçu les données, on affiche le formulaire
             return $this->render('security/reset_password.html.twig', ['token' => $token]);

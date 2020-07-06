@@ -71,12 +71,6 @@ class Enterprise
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 15,
-     *      minMessage = "Le code postal doit etre supérieur a {{ limit }} caractères",
-     *      maxMessage = "Le code postal doit etre inférieur a {{ limit }} caractères",
-     * )
      */
     private $zipCode;
 
@@ -87,8 +81,14 @@ class Enterprise
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(
+     *     message="Le nom de l'entreprise ne peut être vide."
+     * )
+     * @Assert\NotNull(
+     *     message="Le nom de l'entreprise ne peut être vide."
+     * )
      */
-    private $name = ' ';
+    private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Profile::class, mappedBy="enterprise")
@@ -200,9 +200,14 @@ class Enterprise
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
-        $this->name = $name;
+        if ($name) {
+            $this->name = $name;
+        } else {
+            $this->name = ' ';
+        }
+
 
         return $this;
     }

@@ -30,7 +30,7 @@ class UserType extends AbstractType
                     "Autre" => "Autre",
                     ]
             ])
-            ->add('nationality', null, ["label" => "Natiaonalitée : "])
+            ->add('nationality', null, ["label" => "Nationalité : "])
             ->add('lastName', null, ["label" => "Nom : "])
             ->add('birthday', DateType::class, [
                 "label" => "Date de naissance : ",

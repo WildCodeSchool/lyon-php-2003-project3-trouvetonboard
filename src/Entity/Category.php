@@ -29,6 +29,16 @@ class Category
      */
     private $skills;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $advisorQuestion;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $enterpriseQuestion;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
@@ -78,6 +88,30 @@ class Category
                 $skill->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAdvisorQuestion(): ?string
+    {
+        return $this->advisorQuestion;
+    }
+
+    public function setAdvisorQuestion(?string $advisorQuestion): self
+    {
+        $this->advisorQuestion = $advisorQuestion;
+
+        return $this;
+    }
+
+    public function getEnterpriseQuestion(): ?string
+    {
+        return $this->enterpriseQuestion;
+    }
+
+    public function setEnterpriseQuestion(?string $enterpriseQuestion): self
+    {
+        $this->enterpriseQuestion = $enterpriseQuestion;
 
         return $this;
     }

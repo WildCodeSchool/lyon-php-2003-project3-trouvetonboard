@@ -1,7 +1,7 @@
 <div class="{{ titleBlock }}">
 
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board request(s) de l'entreprise" : "Advisor propositions" }} :</h3>
+        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Advisor Proposition" }}</h3>
         <div>
             {{ include('components/_icon_board_request.html.twig') }}
         </div>
@@ -9,7 +9,7 @@
 
 </div>
 <div class="d-flex flex-fill container-btn p-3">
-        <a href="{{ path('profile_newBdReq') }}">
+        <a href="{{ path('profile_new') }}">
         {{ include('components/_icon_new.html.twig') }} Créer une {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 <div class="container-fluid row m-0  justify-content-between">
@@ -18,12 +18,16 @@
             {% include "profile/_board_card.html.twig" %}
         {% else %}
             <div class="d-flex p-2 justify-content-around ml-1 container-a">
-                <p>Aucune recherche active, cliquer sur le lien pour creer une recherche.</p>
+                <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
             </div>
         {% endfor %}
     {% else %}
         <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            <p>Aucune recherche active, cliquer sur le lien pour creer une recherche.</p>
+            {{ is_granted('ROLE_ENTERPRISE') ?
+            "Aucune recherche active, cliquer sur le lien pour créer une
+            recherche." :
+            "Aucune compétence selectionnée, cliquer sur sur le lien pour sélectionner vos compétences." }}
+
         </div>
     {% endif %}
 </div>
