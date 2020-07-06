@@ -6,12 +6,14 @@ use App\Repository\EnterpriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Utils\DateTime;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Vich\UploaderBundle\Entity\File;
 
 /**
  * @ORM\Entity(repositoryClass=EnterpriseRepository::class)
+ * @Vich\Uploadable()
  */
 class Enterprise
 {
@@ -112,6 +114,12 @@ class Enterprise
      * @var File
      */
     private $brochureFile = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTime
+     */
+    private $updatedAt = null;
 
     public function __construct()
     {
@@ -312,11 +320,26 @@ class Enterprise
     public function setBrochureFile(File $file):Enterprise
     {
         $this->brochureFile = $file;
+        if (!empty($file)) {
+            $this->updatedAt = new DateTime('now');
+        }
         return $this;
     }
 
     public function getBrochureFile(): ?File
     {
         return $this->brochureFile;
+    }
+
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

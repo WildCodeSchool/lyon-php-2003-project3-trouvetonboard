@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <th width="{{ thWidth }}">CV:</th>
-            <td>{{ user.advisor.cvLink ? "CV" : "Rajoutez votre CV" }}</td>
+            <td>{{ user.advisor.cvLink ?: "Rajoutez votre CV" }}</td>
         </tr>
         </tbody>
     </table>

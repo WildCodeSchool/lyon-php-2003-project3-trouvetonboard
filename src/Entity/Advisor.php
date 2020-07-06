@@ -6,11 +6,13 @@ use App\Repository\AdvisorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Utils\DateTime;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Vich\UploaderBundle\Entity\File;
 
 /**
  * @ORM\Entity(repositoryClass=AdvisorRepository::class)
+ * @Vich\Uploadable()
  */
 class Advisor
 {
@@ -56,6 +58,12 @@ class Advisor
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="advisor", cascade={"persist", "remove"})
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTime
+     */
+    private $updatedAt = null;
 
     public function __construct()
     {
@@ -106,6 +114,9 @@ class Advisor
     public function setCvLinkFile(File $file):Advisor
     {
         $this->cvLinkFile = $file;
+        if (!empty($file)) {
+            $this->updatedAt = new DateTime('now');
+        }
         return $this;
     }
 
@@ -172,6 +183,18 @@ class Advisor
         if ($user && ($user->getAdvisor() !== $newAdvisor)) {
             $user->setAdvisor($newAdvisor);
         }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
