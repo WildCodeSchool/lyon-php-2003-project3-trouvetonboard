@@ -125,8 +125,6 @@ class UserController extends AbstractController
                 $user = $userRepo->findOneBy(["email" => $email]);
         }
 
-
-       // $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
         return $this->render('user/profileShow.html.twig', [
             'user' => $user,
             'categories' => $categories,
@@ -139,15 +137,8 @@ class UserController extends AbstractController
      */
     public function profileEdit(Request $request, User $user): Response
     {
-
-
-        /*$loggedUser = ($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["id" =>
-        $this->getUser())
-            ->getId()]);*/
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

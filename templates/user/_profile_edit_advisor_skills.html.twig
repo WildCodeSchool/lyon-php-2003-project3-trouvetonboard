@@ -3,7 +3,7 @@
     container-a bg-light container-tab">
         {% for category in categories %}
             <div name="profileUserCategory" id="category-{{ category.id }}" class="p-3">
-                <a name="categoryLink" id="{{ category.id }}" href="#">{{ category.name }}</a>
+                <a class="h4" name="categoryLink" id="{{ category.id }}" href="#">{{ category.name }}</a>
                 <div name="divSkillsInCategory" id="skills-{{ category.id }}" class="d-none">
                     <div class="d-flex flex-column flex-fill w-auto form-gca p-0 ml-1 m-lg-1">
                         <p class="m-2 question">{{ category.advisorQuestion }}</p>
@@ -50,6 +50,22 @@
         {% endfor %}
     </div>
     <div id="tableSkills" class="w-75">
+        <div>
+            <p class="m-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
+                Depuis ce menu  vous pouvez sélectionner vos compétences et aptitudes d'advisor.
+            </p>
+            <p class="ml-5  text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
+                Ces données permettent de vous relier aux demandes des entreprises.
+                <br>
+            </p>
+            <p class="ml-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
+                Merci de choisir une catégorie dans le menu latéral pour afficher la liste des compétences
+                associées.
+            </p>
+            <p class="ml-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
+                Chaque competence sélectionnée est utilisable dans les recherches matchs.
+            </p>
+        </div>
     </div>
 
 </div>

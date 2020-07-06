@@ -42,6 +42,8 @@
     a:hover {
         color: $style-guide-blue;
         text-shadow: $cust-container-std-text-shadow;
+        text-decoration: none !important;
+        cursor: pointer;
     }
 }
 
@@ -114,5 +116,6 @@
     min-height: 75vh !important;
     -webkit-box-shadow: inset -32px -6px 0px -31px rgba(207, 207, 207, 1);
     -moz-box-shadow: inset -32px -6px 0px -31px rgba(207, 207, 207, 1);
+    border-radius: 0px 0px 0px $cust-border-radius;
 }
 
