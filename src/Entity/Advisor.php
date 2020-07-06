@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use DateTimeImmutable;
 
@@ -111,12 +112,18 @@ class Advisor
         return $this;
     }
 
-    public function setCvLinkFile(?File $file = null): void
+    /**
+     * @param File|UploadedFile $file
+     *
+     * @return Advisor
+     */
+    public function setCvLinkFile(?File $file = null)
     {
         $this->cvLinkFile = $file;
         if ($file) {
             $this->updatedAt = new DateTimeImmutable();
         }
+        return $this;
     }
 
     public function getCvLinkFile(): ?File
