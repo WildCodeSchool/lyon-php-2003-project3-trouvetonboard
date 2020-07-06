@@ -4,14 +4,15 @@
     "require": {
         "php": "^7.3 | ^7.4",
         "ext-ctype": "*",
+        "ext-http": "*",
         "ext-iconv": "*",
         "egulias/email-validator": "^2.1",
         "laminas/laminas-code": "^3.4",
         "laminas/laminas-eventmanager": "^3.2",
         "phpmd/phpmd": "^2.6",
         "sensio/framework-extra-bundle": "^5.1",
-        "symfony/asset": "4.3.*",
-        "symfony/console": "4.3.*",
+        "symfony/asset": "^4.3",
+        "symfony/console": "4.3.* || 4.4.*",
         "symfony/dotenv": "^4.4",
         "symfony/expression-language": "4.3.*",
         "symfony/flex": "^1.1",
@@ -31,7 +32,7 @@
         "symfony/webpack-encore-bundle": "^1.5",
         "symfony/yaml": "4.3.*",
         "symfonycasts/verify-email-bundle": "^1.0",
-      "ext-http": "*"
+        "vich/uploader-bundle": "^1.12"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

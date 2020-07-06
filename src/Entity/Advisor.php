@@ -6,6 +6,7 @@ use App\Repository\AdvisorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Entity\File;
 
 /**
  * @ORM\Entity(repositoryClass=AdvisorRepository::class)
@@ -33,6 +34,12 @@ class Advisor
      * @ORM\Column(type="string", length=300, nullable=true)
      */
     private $cvLink;
+
+    /**
+     * @Vich\UploadableField(mapping="user_file", fileNameProperty="cvLink")
+     * @var File
+     */
+    private $cvLinkFile = null;
 
     /**
      * @ORM\Column(type="integer")
@@ -94,6 +101,18 @@ class Advisor
 
         return $this;
     }
+
+    public function setCvLinkFile(File $image):Advisor
+    {
+        $this->cvLinkFile = $image;
+        return $this;
+    }
+
+    public function getCvLinkFile(): ?File
+    {
+        return $this->cvLinkFile;
+    }
+
 
     public function getPaymentStatus(): ?int
     {

@@ -100,6 +100,11 @@ class Enterprise
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $brochure;
+
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
@@ -282,5 +287,17 @@ class Enterprise
         } else {
             return "";
         }
+    }
+
+    public function getBrochure(): ?string
+    {
+        return $this->brochure;
+    }
+
+    public function setBrochure(?string $brochure): self
+    {
+        $this->brochure = $brochure;
+
+        return $this;
     }
 }
