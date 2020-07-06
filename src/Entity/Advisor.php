@@ -204,4 +204,26 @@ class Advisor
 
         return $this;
     }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->cvLinkFile,
+        ]);
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->cvLinkFile
+            ) = unserialize($serialized, ['allowed_classes' => false]);
+    }
 }
