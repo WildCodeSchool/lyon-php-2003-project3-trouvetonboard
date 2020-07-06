@@ -13,9 +13,9 @@ use DateTimeImmutable;
 
 /**
  * @ORM\Entity(repositoryClass=AdvisorRepository::class)
- * @Vich\Uploadable()
+ * @Vich\Uploadable
  */
-class Advisor
+class Advisor implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -118,7 +118,7 @@ class Advisor
     public function setCvLinkFile(?File $file = null): void
     {
         $this->cvLinkFile = $file;
-        if (null !== $file) {
+        if ($file) {
             $this->updatedAt = new DateTimeImmutable();
         }
     }
@@ -209,7 +209,7 @@ class Advisor
     {
         return serialize([
             $this->id,
-            $this->cvLinkFile,
+            $this->cvLink,
         ]);
     }
 
@@ -218,9 +218,6 @@ class Advisor
      */
     public function unserialize($serialized)
     {
-        list (
-            $this->id,
-            $this->cvLinkFile
-            ) = unserialize($serialized, ['allowed_classes' => false]);
+        $this->id = unserialize($serialized);
     }
 }
