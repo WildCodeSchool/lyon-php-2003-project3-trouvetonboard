@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Entity\File;
 
 /**
  * @ORM\Entity(repositoryClass=EnterpriseRepository::class)
@@ -104,6 +105,12 @@ class Enterprise
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $brochure;
+
+    /**
+     * @Vich\UploadableField(mapping="user_file", fileNameProperty="brochure")
+     * @var File
+     */
+    private $brochureFile = null;
 
     public function __construct()
     {
@@ -299,5 +306,16 @@ class Enterprise
         $this->brochure = $brochure;
 
         return $this;
+    }
+
+    public function setBrochureFile(File $file):Enterprise
+    {
+        $this->brochureFile = $file;
+        return $this;
+    }
+
+    public function getBrochureFile(): ?File
+    {
+        return $this->brochureFile;
     }
 }

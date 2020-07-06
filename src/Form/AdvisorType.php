@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class AdvisorType extends AbstractType
 {
@@ -25,8 +26,18 @@ class AdvisorType extends AbstractType
                     ]
                 ]
             )
-            ->add('linkedinLink', null, ['label' => "LinkedIn :"])
-            ->add('cvLink', null, ['label' => "CV :"])
+            ->add('linkedinLink', null, [
+                'label' => "LinkedIn :",
+                'attr' => [
+                    'placeholder' => 'Insérez le lien vers votre profil LinkedIn',
+                ],
+                ])
+            ->add('cvLinkFile', VichFileType::class, [
+                'label' => "CV :",
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
         ;
     }
 

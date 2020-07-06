@@ -102,9 +102,9 @@ class Advisor
         return $this;
     }
 
-    public function setCvLinkFile(File $image):Advisor
+    public function setCvLinkFile(File $file):Advisor
     {
-        $this->cvLinkFile = $image;
+        $this->cvLinkFile = $file;
         return $this;
     }
 
