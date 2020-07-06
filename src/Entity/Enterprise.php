@@ -319,17 +319,14 @@ class Enterprise
     }
 
     /**
-     * @param File|UploadedFile $file
-     *
-     * @return Enterprise
+     * @param File|UploadedFile|null $file
      */
-    public function setBrochureFile(?File $file = null):?Enterprise
+    public function setBrochureFile(?File $file = null): void
     {
         $this->brochureFile = $file;
-        if ($file) {
+        if (null !== $file) {
             $this->updatedAt = new DateTimeImmutable();
         }
-        return $this;
     }
 
     public function getBrochureFile(): ?File
