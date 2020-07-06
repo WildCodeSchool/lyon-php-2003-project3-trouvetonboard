@@ -82,7 +82,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                 } elseif (preg_match("/{$search2}/i", $categorys[$a])) {
                     $category->setAdvisorQuestion(str_replace($search2, "", $categorys[$a]));
                 } else {
-                    for ($i = 0; $i < 5; $i++) {
+                    for ($i = 0; $i < 1; $i++) {
                         $skill = new Skill();
                         $skill->setName($categorys[$a]);
                         $skill->setCategory($this->getReference("category_" . $cat));
