@@ -6,9 +6,9 @@ use App\Repository\AdvisorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Nette\Utils\DateTime;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use DateTimeImmutable;
 
 /**
  * @ORM\Entity(repositoryClass=AdvisorRepository::class)
@@ -40,9 +40,9 @@ class Advisor
 
     /**
      * @Vich\UploadableField(mapping="user_file", fileNameProperty="cvLink")
-     * @var File
+     * @var File|null
      */
-    private $cvLinkFile = null;
+    private $cvLinkFile;
 
     /**
      * @ORM\Column(type="integer")
@@ -61,9 +61,9 @@ class Advisor
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @var DateTime
+     * @var \DateTimeInterface|null
      */
-    private $updatedAt = null;
+    private $updatedAt;
 
     public function __construct()
     {
@@ -111,13 +111,12 @@ class Advisor
         return $this;
     }
 
-    public function setCvLinkFile(File $file):Advisor
+    public function setCvLinkFile(?File $file = null): void
     {
         $this->cvLinkFile = $file;
-        if (!empty($file)) {
-            $this->updatedAt = new DateTime('now');
+        if ($file) {
+            $this->updatedAt = new DateTimeImmutable();
         }
-        return $this;
     }
 
     public function getCvLinkFile(): ?File
@@ -187,12 +186,12 @@ class Advisor
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTime
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(DateTime $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt = null): self
     {
         $this->updatedAt = $updatedAt;
 

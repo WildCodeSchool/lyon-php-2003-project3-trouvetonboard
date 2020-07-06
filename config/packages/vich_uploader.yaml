@@ -5,3 +5,7 @@ vich_uploader:
         user_file:
             uri_prefix: /images/users
             upload_destination: '%upload_directory%'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
