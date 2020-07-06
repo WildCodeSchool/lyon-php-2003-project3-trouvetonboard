@@ -117,7 +117,7 @@ class Advisor
      *
      * @return Advisor
      */
-    public function setCvLinkFile(?File $file = null)
+    public function setCvLinkFile(?File $file = null): ?Advisor
     {
         $this->cvLinkFile = $file;
         if ($file) {
