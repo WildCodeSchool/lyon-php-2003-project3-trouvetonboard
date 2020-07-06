@@ -16,7 +16,7 @@ use DateTimeImmutable;
  * @ORM\Entity(repositoryClass=EnterpriseRepository::class)
  * @Vich\Uploadable()
  */
-class Enterprise
+class Enterprise implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -324,7 +324,7 @@ class Enterprise
     public function setBrochureFile(?File $file = null): void
     {
         $this->brochureFile = $file;
-        if (null !== $file) {
+        if ($file) {
             $this->updatedAt = new DateTimeImmutable();
         }
     }
@@ -353,7 +353,7 @@ class Enterprise
     {
         return serialize([
             $this->id,
-            $this->brochureFile,
+            $this->brochure,
         ]);
     }
 
@@ -362,9 +362,6 @@ class Enterprise
      */
     public function unserialize($serialized)
     {
-        list (
-            $this->id,
-            $this->brochureFile
-            ) = unserialize($serialized, ['allowed_classes' => false]);
+        $this->id = unserialize($serialized);
     }
 }
