@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Advisor;
+use App\Repository\CategoryRepository;
+use App\Repository\ProfileRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,10 +105,17 @@ class UserController extends AbstractController
      * @Route("/profile/show", name="profile_show", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function profileShow(Request $request): Response
+    public function profileShow(Request $request, CategoryRepository $categoryRepository, ProfileRepository
+    $profileRepository): Response
     {
         $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
         $logUser = $this->getUser();
+        $categories = $categoryRepository->findAll();
+        $advisor = null;
+        if ($logUser) {
+            $advisor = $logUser->getAdvisor();
+        }
+        $profile = $advisor->getProfiles()[0];
         $email = "";
         if (isset($logUser)) {
             $email = $logUser->getUsername();
@@ -119,6 +129,8 @@ class UserController extends AbstractController
        // $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
         return $this->render('user/profileShow.html.twig', [
             'user' => $user,
+            'categories' => $categories,
+            "profile" => $profile
         ]);
     }
 
