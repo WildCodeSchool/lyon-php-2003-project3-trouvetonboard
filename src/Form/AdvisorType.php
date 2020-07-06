@@ -29,7 +29,7 @@ class AdvisorType extends AbstractType
             ->add('linkedinLink', null, [
                 'label' => "LinkedIn :",
                 'attr' => [
-                    'placeholder' => 'Insérez le lien vers votre profil LinkedIn',
+                    'placeholder' => 'Insérez ici le lien vers votre profil LinkedIn',
                 ],
                 ])
             ->add('cvLinkFile', VichFileType::class, [

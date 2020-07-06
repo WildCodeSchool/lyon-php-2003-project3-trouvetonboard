@@ -6,6 +6,7 @@ use App\Entity\Enterprise;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class EnterpriseType extends AbstractType
 {
@@ -17,8 +18,24 @@ class EnterpriseType extends AbstractType
             ->add('zipCode', null, ["label" => "Code postal :"])
             ->add('city', null, ["label" => "Ville :"])
             ->add('legelRepresentative', null, ["label" => "Représentant légal :"])
-            ->add('websiteLink', null, ["label" => "Site web :"])
-            ->add('linkedinLink', null, ["label" => "LinkedIn :"])
+            ->add('websiteLink', null, [
+                "label" => "Site web :",
+                'attr' => [
+                    'placeholder' => 'Insérez ici le lien vers votre site',
+                ],
+                ])
+            ->add('linkedinLink', null, [
+                "label" => "LinkedIn :",
+                'attr' => [
+                    'placeholder' => 'Insérez ici le lien vers votre profil LinkedIn',
+                ],
+                ])
+            ->add('brochureFile', VichFileType::class, [
+                'label' => "Plaquette :",
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
         ;
     }
 
