@@ -113,17 +113,14 @@ class Advisor
     }
 
     /**
-     * @param File|UploadedFile $file
-     *
-     * @return Advisor
+     * @param File|UploadedFile|null $file
      */
-    public function setCvLinkFile(?File $file = null): ?Advisor
+    public function setCvLinkFile(?File $file = null): void
     {
         $this->cvLinkFile = $file;
-        if ($file) {
+        if (null !== $file) {
             $this->updatedAt = new DateTimeImmutable();
         }
-        return $this;
     }
 
     public function getCvLinkFile(): ?File
