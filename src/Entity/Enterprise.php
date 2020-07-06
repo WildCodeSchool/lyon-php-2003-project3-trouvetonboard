@@ -323,7 +323,7 @@ class Enterprise
      *
      * @return Enterprise
      */
-    public function setBrochureFile(?File $file = null):Enterprise
+    public function setBrochureFile(?File $file = null):?Enterprise
     {
         $this->brochureFile = $file;
         if ($file) {
@@ -347,5 +347,27 @@ class Enterprise
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->brochureFile,
+        ]);
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->brochureFile
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }
