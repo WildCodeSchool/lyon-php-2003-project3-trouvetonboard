@@ -71,7 +71,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user = new User();
             $status = $i - self::NB_REF_START_ADVISOR;
             $user->setEmail("user$status@ttb.com");
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_USER', "ROLE_ADVISOR"]);
             $user->setIsVerified(1);
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="container-back-stats">
+        <h1>Back-Statistiques</h1>
+
+        <div class="container-stats">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ users.1 }}</h1>
+                            <p>Utilisateurs sur le site</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ advisors.1 }}</h1>
+                            <p>Advisors sur le site</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ enterprises.1 }}</h1>
+                            <p>Entreprises sur le site</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="rounded">
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ boardRequest.1 }}</h1>
+                            <p>Board Request sur le site</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>548</h1>
+                            <p>Board request sur le site</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>989</h1>
+                            <p>Entreprises sur le site</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

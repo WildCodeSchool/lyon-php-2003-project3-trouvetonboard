@@ -19,7 +19,19 @@ class ProfileRepository extends ServiceEntityRepository
         parent::__construct($registry, Profile::class);
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function countBoardRequest()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('count(u)')
+            ->from($this->_entityName, 'u')
+            ->where('u.isRequest = 1');
 
+        return $qb->getQuery()->getResult();
+    }
 
 
     /*
