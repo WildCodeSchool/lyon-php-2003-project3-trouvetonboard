@@ -35,8 +35,8 @@ class AdvisorType extends AbstractType
             ->add('cvLinkFile', VichFileType::class, [
                 'label' => "CV :",
                 'required' => false,
-                'allow_delete' => true,
-                'download_uri' => true,
+                'allow_delete' => false,
+                'download_uri' => false,
             ])
         ;
     }

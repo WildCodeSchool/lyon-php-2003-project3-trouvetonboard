@@ -33,7 +33,7 @@ class EnterpriseType extends AbstractType
             ->add('brochureFile', VichFileType::class, [
                 'label' => "Plaquette :",
                 'required' => false,
-                'allow_delete' => true,
+                'allow_delete' => false,
                 'download_uri' => true,
             ])
         ;

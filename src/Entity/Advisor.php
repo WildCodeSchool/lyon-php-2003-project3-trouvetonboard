@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdvisorRepository::class)
@@ -42,6 +43,11 @@ class Advisor implements \Serializable
     /**
      * @Vich\UploadableField(mapping="user_file", fileNameProperty="cvLink")
      * @var File|null
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Seul les fichiers PDF sont autorisés"
+     * )
      */
     private $cvLinkFile;
 
