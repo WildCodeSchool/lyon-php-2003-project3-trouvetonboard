@@ -5,7 +5,6 @@ $(document).ready(() => {
         const divConstainAllCategory = $('#listCategoryDiv');
         divConstainAllCategory.children().removeClass('bg-white border-bottom border-top')
             .addClass('bg-light border-right');
-
         const idDivSkillNb = $(this).attr('id');
         const idDivSkills = `skills-${idDivSkillNb}`;
         const idDivCategory = `#category-${idDivSkillNb}`;
