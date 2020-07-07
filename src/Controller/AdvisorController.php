@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Spatie\PdfToImage\Pdf;
 
 /**
  * @Route("/advisor")
@@ -68,6 +69,8 @@ class AdvisorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $pdf = new Pdf('public/uploads/images/users/'.$advisor->getCvLink());
+            $pdf->saveImage('public/uploads/images/users/');
 
             return $this->redirectToRoute('user_profile_show');
         }
