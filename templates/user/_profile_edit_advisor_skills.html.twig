@@ -3,7 +3,7 @@
     container-a bg-light container-tab">
         {% for category in categories %}
             <div name="profileUserCategory" id="category-{{ category.id }}" class="p-3">
-                <a class="h4" name="categoryLink" id="{{ category.id }}" href="#">{{ category.name }}</a>
+                <a class="h5" name="categoryLink" id="{{ category.id }}" href="#">{{ category.name }}</a>
                 <div name="divSkillsInCategory" id="skills-{{ category.id }}" class="d-none">
                     <div class="d-flex flex-column flex-fill w-auto form-gca p-0 ml-1 m-lg-1">
                         <p class="m-2 question">{{ category.advisorQuestion }}</p>
@@ -20,31 +20,25 @@
 
                             <div class="m-0 p-3 p-sm-3 p-lg-2  border-bottom border-style-blue">
                                 <div id="skillGroup-{{ skill.id }}" name="skillGroup" class="ml-5 d-flex flex-fill
-                        align-items-stretch align-content-center">
+                                            align-items-stretch align-content-center">
                                     <label id="skillLabel" for="skillCheckbox-{{ skill.id }}" name="skillLabel"
-                                           class="m-0
-                            align-self-center w-75">
-                                        {{ skill.name }}</label>
+                                           class="m-0 align-self-center w-75"> {{ skill.name }}
+                                    </label>
                                     <input id="linkCheck" name="linkCheck" type="hidden" value="{{ wayCheck }}">
                                     <input id="skillCheckbox-{{ skill.id }}" name="skillCheckbox" class="m-0
-                            align-self-center"
-                                           type="checkbox">
-
+                                            align-self-center" type="checkbox">
                                     <input id="skillId" name="skillId" type="hidden" value="{{ skill.id }}">
-                                    <input id="profileId" name="profileId" type="hidden" value="{{ user.advisor
-                                    .profiles[0].id
-                                    }}">
+                                    <input id="profileId" name="profileId" type="hidden"
+                                           value="{{ user.advisor.profiles[0].id }}">
                                     <input id="linkAdd" name="linkAdd" type="hidden" value="{{ wayAdd }}">
                                     <input id="linkRemove" name="linkRemove" type="hidden" value="{{ wayRemove }}">
                                 </div>
                             </div>
-
                         {% else %}
-                            <h4>Aucune competence a afficher.</h4>
+                            <h4>Aucune compétence à afficher.</h4>
                         {% endfor %}
                     </div>
                 </div>
-
             </div>
         {% else %}
         {% endfor %}
@@ -52,18 +46,14 @@
     <div id="tableSkills" class="w-75">
         <div>
             <p class="m-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
-                Depuis ce menu  vous pouvez sélectionner vos compétences et aptitudes d'advisor.
+                Depuis ce menu, vous pouvez sélectionner vos compétences et aptitudes en tant qu'Advisor.
             </p>
             <p class="ml-5  text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
-                Ces données permettent de vous relier aux demandes des entreprises.
-                <br>
+                Ces données permettent de vous relier aux recherches des entreprises.
             </p>
-            <p class="ml-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
+            <p class="ml-5 mt-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
                 Merci de choisir une catégorie dans le menu latéral pour afficher la liste des compétences
                 associées.
-            </p>
-            <p class="ml-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
-                Chaque competence sélectionnée est utilisable dans les recherches matchs.
             </p>
         </div>
     </div>

@@ -111,11 +111,18 @@ class UserController extends AbstractController
         $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
         $logUser = $this->getUser();
         $categories = $categoryRepository->findAll();
-        $advisor = null;
+        $profileType = null;
+        $profile = null;
+        $roles = null;
         if ($logUser) {
-            $advisor = $logUser->getAdvisor();
+            $roles = $logUser->getRoles();
         }
-        $profile = $advisor->getProfiles()[0];
+        if (array_search("ROLE_ADVISOR", $roles)) {
+            if ($logUser) {
+                $profileType = $logUser->getAdvisor();
+            }
+            $profile = $profileType->getProfiles()[0];
+        }
         $email = "";
         if (isset($logUser)) {
             $email = $logUser->getUsername();

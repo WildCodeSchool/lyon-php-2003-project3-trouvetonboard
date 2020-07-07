@@ -37,6 +37,8 @@
         color: $style-guide-dark;
         text-shadow: $cust-container-std-text-shadow;
         border-radius: $cust-border-radius $cust-border-radius 0 0;
+        word-wrap: break-word;
+
     }
 
     a:hover {
@@ -119,3 +121,18 @@
     border-radius: 0px 0px 0px $cust-border-radius;
 }
 
+// lg boot strap
+@media screen and (max-width: 920px) {
+
+    .container-a {
+        div {
+            a {
+                word-wrap: break-word;
+                font-size: 0.8rem;
+            }
+        }
+    }
+
+
+
+}
