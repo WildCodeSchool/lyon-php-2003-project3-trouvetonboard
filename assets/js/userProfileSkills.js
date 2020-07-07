@@ -5,8 +5,10 @@ $(document).ready(() => {
         const divConstainAllCategory = $('#listCategoryDiv');
         divConstainAllCategory.children().removeClass('bg-white border-bottom border-top')
             .addClass('bg-light border-right');
-        const idDivSkills = 'skills-' + $(this).attr('id');
-        const idDivCategory = '#category-' + $(this).attr('id');
+
+        const idDivSkillNb = $(this).attr('id');
+        const idDivSkills = `skills-${idDivSkillNb}`;
+        const idDivCategory = `#category-${idDivSkillNb}`;
         const divContainSkills = document.getElementById(idDivSkills);
         const divContainCurrentCategory = $(idDivCategory);
         divContainCurrentCategory.removeClass('bg-light border-right')
@@ -17,4 +19,4 @@ $(document).ready(() => {
         divDestination.append(divContainSkills);
         divContainSkills.setAttribute('class', 'd-flex');
     });
-})
+});
