@@ -43,8 +43,6 @@ class ProfileRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-
-
     /*
     public function findOneBySomeField($value): ?Profile
     {
@@ -56,4 +54,29 @@ class ProfileRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    /**
+     * @param int $id Advisor id
+     *
+     * @return mixed[] array of result request
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findEnterpriseMatchsByAdvisor(int $id)
+    {
+        $rawSql = "SELECT PE.id as board_request_id , PE.title, PE.enterprise_id, 
+                    E.name as enterprise_name, COUNT(DISTINCT PSE.skill_id) as SCORE
+        FROM profile PA
+        JOIN profile_skill PSA ON PSA.profile_id = PA.id # tous les skill de PA.id
+        JOIN profile_skill PSE ON PSA.skill_id = PSE.skill_id # tous les skill seulement si  PA les a
+        JOIN profile PE ON PE.id = PSE.profile_id # toutes les profils qui contiennent des skills que PA a.
+        JOIN enterprise E ON PE.enterprise_id = E.id
+        JOIN user UE ON UE.enterprise_id = E.id
+        WHERE PA.id = 2517 # ID de la Board request
+        GROUP BY PE.id
+        ORDER BY SCORE DESC";
+        $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);
+        $stmt->execute([]);
+        return $stmt->fetchAll();
+    }
 }
