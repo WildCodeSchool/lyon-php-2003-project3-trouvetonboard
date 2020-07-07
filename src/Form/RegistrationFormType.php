@@ -70,13 +70,14 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'first_options'  => [
                     'label' => false,
+                    'help' => 'Votre mot de passe doit comporter au moins 8 caractères',
                     'attr' => [
                         'placeholder' => 'Mot de passe']],
                 'second_options' => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Repetez votre mot de passe']],
-                'invalid_message' => 'Les mots de passes doivent etre identique !',
+                        'placeholder' => 'Confirmez votre mot de passe']],
+                'invalid_message' => 'Les mots de passe doivent être identiques !',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de renseigner votre mot de passe.',
@@ -92,10 +93,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'label' => false,
-                'placeholder' => 'Sélectionner votre type',
+                'placeholder' => 'Vous êtes',
                 'choices'  => [
-                    'Entreprise' => 'enterprise',
-                    'Advisor' => 'advisor',
+                    'une entreprise' => 'enterprise',
+                    'un advisor' => 'advisor',
                 ],
             ]);
     }

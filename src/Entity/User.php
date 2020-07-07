@@ -84,7 +84,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
      * @Assert\Regex(
-     *     pattern="/Homme|Femme|Autre/",
+     *     pattern="/Monsieur|Madame/",
      *     match=true,
      *     message="Le genre ne peut etre Homme , Femme ou Autre."
      * )
@@ -96,7 +96,7 @@ class User implements UserInterface
      * @Assert\Regex(
      *     pattern="/[1-9]{1,}/",
      *     match=false,
-     *     message="La nationalitée ne peut contenir que des lettres."
+     *     message="La nationalité ne peut contenir que des lettres."
      * )
      */
     private $nationality;

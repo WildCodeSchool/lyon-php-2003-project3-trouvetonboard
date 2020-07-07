@@ -200,7 +200,6 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
             "Russe",
             "Suédois",
             "Taiwanais",
-            "Mandarin",
         ];
     }
 
@@ -217,11 +216,6 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
             "Russie",
             "Australie",
             "Moyen Orient",
-            "Services à la personne",
-            "Technologie / Internet",
-            "Immobilier",
-            "Télécommunications",
-            "Autre"
         ];
     }
 

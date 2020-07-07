@@ -51,7 +51,11 @@
         {% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}
         {% set containerBtnMajCancelNoMr = "d-flex justify-content-center container-btn bg-light" %}
 
-
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
 
         {% block footer %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Advisor;
 use App\Entity\Enterprise;
 use App\Entity\User;
+use App\Entity\Profile;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\LoginAuthenticator;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use \DateTime;
 
 class RegistrationController extends AbstractController
 {
@@ -67,6 +69,14 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($advisor);
                 $user->setAdvisor($advisor);
                 $user->setRoles(['ROLE_ADVISOR']);
+                $profile = new Profile();
+                $profile->setPaymentType("All");
+                $profile->setTitle($user->getFirstName() . " " . $user->getLastName());
+                $profile->setIsPropose(true);
+                $profile->setIsRequest(false);
+                $profile->setDateCreation(new DateTime("now"));
+                $profile->setAdvisor($advisor);
+                $entityManager->persist($profile);
             }
 
             $entityManager->persist($user);
@@ -89,7 +99,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-
+            $this->addFlash("success", "Veuillez valider votre compte en cliquant sur le lien envoyé.");
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

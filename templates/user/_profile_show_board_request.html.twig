@@ -1,35 +1,36 @@
 <div class="{{ titleBlock }}">
-
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Advisor Proposition" }}</h3>
+        <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Compétences &
+        Expériences"
+            }}</h3>
         <div>
             {{ include('components/_icon_board_request.html.twig') }}
         </div>
     </div>
-
 </div>
+
+{% if is_granted('ROLE_ENTERPRISE') %}
 <div class="d-flex flex-fill container-btn p-3">
         <a href="{{ path('profile_new') }}">
-        {{ include('components/_icon_new.html.twig') }} Créer une {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
+        {{ include('components/_icon_new.html.twig') }} Créer une
+            {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
-<div class="container-fluid row m-0  justify-content-between">
+{% endif %}
+<div class="container-fluid row m-0 p-0 justify-content-between">
     {% if app.user.enterprise is not null %}
         {% for profile in app.user.enterprise.profiles %}
             {% include "profile/_board_card.html.twig" %}
-        {% else %}
+        {% else  %}
             <div class="d-flex p-2 justify-content-around ml-1 container-a">
                 <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
             </div>
         {% endfor %}
+    {% elseif app.user.advisor is not null %}
+            {% include "user/_profile_edit_advisor_skills.html.twig" %}
     {% else %}
         <div class="d-flex p-2 justify-content-around ml-1 container-a">
             {{ is_granted('ROLE_ENTERPRISE') ?
-            "Aucune recherche active, cliquer sur le lien pour créer une
-            recherche." :
-            "Aucune compétence selectionnée, cliquer sur sur le lien pour sélectionner vos compétences." }}
-
+            "Aucune information disponible pour votre profil." }}
         </div>
     {% endif %}
 </div>
-
-
