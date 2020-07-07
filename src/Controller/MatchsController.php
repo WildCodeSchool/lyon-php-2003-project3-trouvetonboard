@@ -40,6 +40,28 @@ class MatchsController extends AbstractController
 //            $br = '------------------------------------------------------';
 //            var_dump("nombre de matchs: $matchs", $br);
 //        }
+//        $test = $profileRepository->findAdvisorMatchsByBoardRequest(31);
+//        $query = $test->getQuery();
+//        var_dump($query->getDQL());
+
+
+
+
+
+
         return $this->render('matchs/index.html.twig');
+    }
+
+    /**
+     * @param int $id
+     * @param ProfileRepository $profileRepository
+     * @return Response
+     * @Route("/matchs/{id}", name="match_boardrequest")
+     */
+    public function matchsAdvisorByBoardRequest(int $id, ProfileRepository $profileRepository)
+    {
+        $matchs = $profileRepository->findAdvisorMatchsByBoardRequest($id);
+
+        return $this->render('matchs/matchsBoardRequest.html.twig', ['matchs' => $matchs]);
     }
 }
