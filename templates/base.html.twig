@@ -20,8 +20,6 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
 
-                        <a class="nav-item nav-link" href="{{ path('home') }}">Accueil</a>
-
                         {% if app.user %}
                             {#  _____Display if connected_____ #}
                             {% if is_granted('ROLE_ADMIN') %}
@@ -47,10 +45,11 @@
         {% set formBlock = "m-4 p-0 d-flex flex-column justify-content-start container-std-bg-white-bootstrap" %}
         {% set formBlockStd = "mt-2 mb-2 p-0 justify-content-start container-std-bg-white-bootstrap" %}
         {% set formFullCol = "d-flex flex-row flex-fill align-items-stretch" %}
-        {% set formFullColBlock = "m-4 p-0 d-flex flex-column flex-fill container-std-bg-white-bootstrap" %}
+        {% set formFullColBlock = "m-2 p-0 d-flex flex-column flex-fill container-std-bg-white-bootstrap" %}
         {% set titleBlock = "p-2 d-flex align-items-stretch container-title-block" %}
         {% set titleBlock2 = "p-2 d-flex align-items-start container-title-block" %}
         {% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}
+        {% set containerBtnMajCancelNoMr = "d-flex justify-content-center container-btn bg-light" %}
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -72,9 +71,8 @@
 
 
 
-
+        {{ encore_entry_script_tags('app') }}
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>
 </html>

@@ -4,14 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Profile;
+use App\Entity\Skill;
+use App\Entity\User;
 use App\Form\ProfileType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use \DateTime;
 
 /**
  * @Route("/profile" , name="profile_")
@@ -28,17 +34,17 @@ class ProfileController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/newBoardRequest", name="newBoardRequest", methods={"GET","POST"})
+     * @Route("/editSkillBoardRequest/{id}", name="editSkillBoardRequest", methods={"GET","POST"})
      */
-    public function newBoardRequest(
-        Request $request,
+    public function editSkillBoardRequest(
+        Profile $boardRequest,
         CategoryRepository $categoryRepository,
         SkillRepository $skillRepository
     ): Response {
-        $profile = new Profile();
-        $form = $this->createForm(ProfileType::class, $profile);
-        $form->handleRequest($request);
+
+
 
         // get the skill type list.
         $categories = $categoryRepository->findAll();
@@ -48,20 +54,14 @@ class ProfileController extends AbstractController
         foreach ($categories as $category) {
             $skills = $skillRepository->findByCategory($category->getId());
             $skillsByCategory[] = [
-                "categoryName" => $category->getName(),
+                "category" => $category,
                 "skills" => $skills,
             ];
         }
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($profile);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('profile_index');
-        }
-
-        return $this->render('profile/newBoardRequest.html.twig', [
+        return $this->render('profile/editBordRequest.html.twig', [
             'skillsByCategories' => $skillsByCategory,
+            "profile" => $boardRequest
         ]);
     }
 
@@ -74,13 +74,25 @@ class ProfileController extends AbstractController
         $profile = new Profile();
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
+        // code for travis control refused beacause object or null  returned
+
+        $enterprise = null;
+        $user = $this->getUser();
+        if ($user) {
+            $enterprise = $user->getEnterprise();
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $profile->setIsRequest(true);
+            $profile->setIsPropose(false);
+            $profile->setPaymentType("Vide");
+            $profile->setDateCreation(new DateTime("now"));
+            $profile->setEnterprise($enterprise);
             $entityManager->persist($profile);
             $entityManager->flush();
 
-            return $this->redirectToRoute('profile_index');
+            return $this->redirectToRoute('profile_editSkillBoardRequest', ["id" => $profile->getId()]);
         }
 
         return $this->render('profile/new.html.twig', [
@@ -106,10 +118,8 @@ class ProfileController extends AbstractController
     {
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('profile_index');
         }
 
@@ -131,5 +141,54 @@ class ProfileController extends AbstractController
         }
 
         return $this->redirectToRoute('profile_index');
+    }
+
+    /**
+     * @Route("/{id}/addSkill/{skillId}", name="addSkill")
+     * @IsGranted("ROLE_USER")
+     * @ParamConverter("profile", options={"id" = "id"})
+     * @ParamConverter("skill", options={"id" = "skillId"})
+     */
+    public function addSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    {
+        // todo add advisor or enterprise detection
+        $profile->addSkill($skill);
+        $manager->persist($profile);
+        $manager->flush();
+
+        return $this->json([
+            'isChecked' => true
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/removeSkill/{skillId}", name="removeSkill")
+     * @IsGranted("ROLE_USER")
+     * @ParamConverter("profile", options={"id" = "id"})
+     * @ParamConverter("skill", options={"id" = "skillId"})
+     */
+    public function removeSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    {
+        // todo add advisor or enterprise detection
+        $profile->removeSkill($skill);
+        $manager->persist($profile);
+        $manager->flush();
+
+        return $this->json([
+            'isChecked' => false
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/checkSkill/{skillId}", name="checkSkill")
+     * @IsGranted("ROLE_USER")
+     * @ParamConverter("profile", options={"id" = "id"})
+     * @ParamConverter("skill", options={"id" = "skillId"})
+     */
+    public function checkSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    {
+        return $this->json([
+            'isChecked' => $profile->isInSkillList($skill)
+        ]);
     }
 }

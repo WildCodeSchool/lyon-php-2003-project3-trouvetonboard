@@ -37,11 +37,15 @@
         color: $style-guide-dark;
         text-shadow: $cust-container-std-text-shadow;
         border-radius: $cust-border-radius $cust-border-radius 0 0;
+        word-wrap: break-word;
+
     }
 
     a:hover {
         color: $style-guide-blue;
         text-shadow: $cust-container-std-text-shadow;
+        text-decoration: none !important;
+        cursor: pointer;
     }
 }
 
@@ -108,4 +112,27 @@
     }
 }
 
+// used for tab in user profile
+.container-tab {
+    height: 100%;
+    min-height: 75vh !important;
+    -webkit-box-shadow: inset -32px -6px 0px -31px rgba(207, 207, 207, 1);
+    -moz-box-shadow: inset -32px -6px 0px -31px rgba(207, 207, 207, 1);
+    border-radius: 0px 0px 0px $cust-border-radius;
+}
 
+// lg boot strap
+@media screen and (max-width: 920px) {
+
+    .container-a {
+        div {
+            a {
+                word-wrap: break-word;
+                font-size: 0.8rem;
+            }
+        }
+    }
+
+
+
+}

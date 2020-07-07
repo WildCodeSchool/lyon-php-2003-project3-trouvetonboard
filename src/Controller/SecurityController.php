@@ -35,17 +35,21 @@ class SecurityController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        $errors = null;
         if ($error) {
-            if ($error == "Invalid credentials.") {
-                $error = "Identifiants invalides.";
+            if ($error->getMessageKey() == "Invalid credentials.") {
+                $errors = "Mot de passe invalide.";
+            } else {
+                $errors = "Email inconnu.";
             }
         }
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
 
         return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername, 'error' => $error
+            'last_username' => $lastUsername, 'error' => $errors
         ]);
     }
 
@@ -184,7 +188,6 @@ class SecurityController extends AbstractController
             return $this->render('security/reset_password.html.twig', ['token' => $token]);
         } else {
             // Si on n'a pas reçu les données, on affiche le formulaire
-            $this->addFlash('danger', 'Mot de passe non identique');
             return $this->render('security/reset_password.html.twig', ['token' => $token]);
         }
     }

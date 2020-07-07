@@ -69,6 +69,16 @@ class Profile
      */
     private $advisorProfiles;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $archived;
+
 
     public function __construct()
     {
@@ -242,6 +252,45 @@ class Profile
             $this->advisorProfiles->removeElement($advisorProfile);
             $advisorProfile->removeEnterpriseProfile($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @param \App\Entity\Skill $skill
+     *
+     * @return bool
+     */
+    public function isInSkillList(Skill $skill)
+    {
+
+        if ($this->skills->contains($skill)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(?bool $archived): self
+    {
+        $this->archived = $archived;
 
         return $this;
     }
