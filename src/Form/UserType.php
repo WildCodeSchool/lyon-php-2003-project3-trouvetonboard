@@ -35,7 +35,7 @@ class UserType extends AbstractType
                 "label" => "Date de naissance ",
                 'format' => 'dd MM yyyy',
                 "placeholder"  => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
-                'years' => range(1930, 2020),
+                'years' => range(2020, 1920),
             ])
             ->add('phone', null, ["label" => "Téléphone"])
             ->add('address', null, ["label" => "Adresse"])
