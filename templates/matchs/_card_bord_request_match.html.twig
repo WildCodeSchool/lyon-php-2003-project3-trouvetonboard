@@ -1,0 +1,17 @@
+<div class="card shadow card-custom" style="width: 16rem;">
+     <div class="{{ titleBlock }} d-flex- justify-content-between align-items-center align-content-center">
+        {{ include('components/_icon_board_request_txt.html.twig') }}
+        <h5 class="card-title m-0 center-h-text align-self-center">{{ match.title }}</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{ match.description | default("Pas de description") }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Nombre de compétences communes : {{ match.SCORE }} </li>
+        <li class="list-group-item">Date de creation : {{ match.date_creation | date("d/m/Y", "Europe/Paris") }}</li>
+    </ul>
+    <div class="card-body container-a">
+        <a href="#" class="card-link">Afficher les details</a>
+    </div>
+</div>
+

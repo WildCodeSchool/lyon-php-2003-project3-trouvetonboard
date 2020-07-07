@@ -16,7 +16,7 @@ class MatchsController extends AbstractController
     /**
      * @Route("/matchs", name="matchs_index")
      */
-    public function index(AdvisorRepository $advisorRepository, ProfileRepository $profileRepository) :Response
+    public function index(AdvisorRepository $advisorRepository, ProfileRepository $profileRepository): Response
     {
 //        $user = $this->getUser();
 //        $enterprise = $user->getEnterprise();
@@ -45,23 +45,36 @@ class MatchsController extends AbstractController
 //        var_dump($query->getDQL());
 
 
-
-
-
-
         return $this->render('matchs/index.html.twig');
     }
 
     /**
-     * @param int $id
+     * @param int               $id
      * @param ProfileRepository $profileRepository
+     *
      * @return Response
-     * @Route("/matchs/{id}", name="match_boardrequest")
+     * @Route("/matchs/{id<[0-9]{1,}>}", name="match_boardrequest")
      */
     public function matchsAdvisorByBoardRequest(int $id, ProfileRepository $profileRepository)
     {
         $matchs = $profileRepository->findAdvisorMatchsByBoardRequest($id);
-
         return $this->render('matchs/matchsBoardRequest.html.twig', ['matchs' => $matchs]);
+    }
+
+    /**
+     * @param ProfileRepository $profileRepository
+     *
+     * @return Response
+     * @Route("/matchs/advisor", name="match_advisor_boardRequest")
+     */
+    public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository)
+    {
+        $idProfileAdvisor = null;
+        $logUser = $this->getUser();
+        if ($logUser) {
+            $idProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+        }
+        $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
+        return $this->render('matchs/matchAdvisorBoardRequest.html.twig', ['matchs' => $matchs]);
     }
 }

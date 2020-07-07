@@ -64,8 +64,12 @@ class ProfileRepository extends ServiceEntityRepository
      */
     public function findEnterpriseMatchsByAdvisor(int $id)
     {
-        $rawSql = "SELECT PE.id as board_request_id , PE.title, PE.enterprise_id, 
-                    E.name as enterprise_name, COUNT(DISTINCT PSE.skill_id) as SCORE
+        $rawSql = "SELECT PE.id as board_request_id,
+        PE.title, PE.enterprise_id,
+        E.name as enterprise_name, 
+        PE.description,
+        PE.date_creation,  
+        COUNT(DISTINCT PSE.skill_id) as SCORE
         FROM profile PA
         JOIN profile_skill PSA ON PSA.profile_id = PA.id # tous les skill de PA.id
         JOIN profile_skill PSE ON PSA.skill_id = PSE.skill_id # tous les skill seulement si  PA les a
