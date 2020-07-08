@@ -7,6 +7,7 @@ use App\Entity\Skill;
 use App\Repository\AdvisorRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -76,5 +77,21 @@ class MatchsController extends AbstractController
         }
         $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
         return $this->render('matchs/matchAdvisorBoardRequest.html.twig', ['matchs' => $matchs]);
+    }
+
+    /**
+     * @param ProfileRepository $profileRepository
+     *
+     * @return Response
+     * @Route("/matchs/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_details")
+     * @ParamConverter("aProfile", options={"id" = "aProfile"})
+     * @ParamConverter("eProfile", options={"id" = "eProfile"})
+     */
+    public function matchDetails(Profile $aProfile, Profile $eProfile, ProfileRepository $profileRepository)
+    {
+        return $this->render('matchs/matchDetails.html.twig', [
+            'aProfile' => $aProfile,
+            "eProfile" => $eProfile
+        ]);
     }
 }

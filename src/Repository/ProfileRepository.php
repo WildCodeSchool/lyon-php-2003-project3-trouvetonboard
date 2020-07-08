@@ -64,11 +64,13 @@ class ProfileRepository extends ServiceEntityRepository
      */
     public function findEnterpriseMatchsByAdvisor(int $id)
     {
-        $rawSql = "SELECT PE.id as board_request_id,
+        $rawSql = "SELECT 
+        PE.id as board_request_id,
+        PA.id as advisor_id,
         PE.title, PE.enterprise_id,
         E.name as enterprise_name, 
         PE.description,
-        PE.date_creation,  
+        PE.date_creation,
         COUNT(DISTINCT PSE.skill_id) as SCORE
         FROM profile PA
         JOIN profile_skill PSA ON PSA.profile_id = PA.id # tous les skill de PA.id
@@ -76,7 +78,7 @@ class ProfileRepository extends ServiceEntityRepository
         JOIN profile PE ON PE.id = PSE.profile_id # toutes les profils qui contiennent des skills que PA a.
         JOIN enterprise E ON PE.enterprise_id = E.id
         JOIN user UE ON UE.enterprise_id = E.id
-        WHERE PA.id = 2517 # ID de la Board request
+        WHERE PA.id = $id # ID de la Board request
         GROUP BY PE.id
         ORDER BY SCORE DESC";
         $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);

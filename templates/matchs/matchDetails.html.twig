@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matchs{% endblock %}
+
+{% block body %}
+    <div class="matchs-title">
+        <h3>Details pour la Bord Request {{ eProfile.title }}</h3>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="container-std-onecol-bootstrap">
+            <div class="title-block-around-bootstrap">
+                <h5 class="m-0 align-self-center">Information et details pour le match</h5>
+                <i class="fas fa-user-tie fa-3x"></i>
+            </div>
+            <div>
+                <table class="table table-match-details">
+                    <tbody>
+                    <tr>
+                        <th>Nom de l'entreprise</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    {{ eProfile.enterprise.name }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Titre de la demande</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    {{ eProfile.title }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date de de la demande</th>
+                        <td>
+                            {{ eProfile.dateCreation | date("d/m/Y", "Europe/Paris") }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description de la demande</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    {{ eProfile.description | default("Pas de details") }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Competences couvertes</th>
+                        <td>
+                            <ul class="list-unstyled">
+                                {% for skill in aProfile.skills %}
+                                    {% if skill in eProfile.skills %}
+                                        <li>
+                                            <div class="d-inline-flex">
+                                                <p class="color-success mr-1">
+                                                    {{ include('components/_icon_add.html.twig') }}</p>
+                                                {{ skill.name }}
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% else %}
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><p>Competences non couvertes</p></th>
+                        <td>
+                            {% set noNoSkill = 1 %}
+                            <ul>
+                                {% for skill in eProfile.skills %}
+                                    {% if skill not in aProfile.skills %}
+                                        <li >
+                                            <div class="d-inline-flex">
+                                                <p class="color-danger mr-1">
+                                                    {{ include('components/_icon_minus.html.twig') }}</p>
+                                                {{ skill.name }}
+                                                {% set noNoSkill = 0 %}
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% else %}
+                                {% endfor %}
+                                {% if noNoSkill == 1 %}
+                                    <li><p class="pt-1 text-0dot8em">Toutes les competences sont couvertes.</p></li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="container-btn-bootstrap">
+                    <a class="m-4 text-center" href="{{ path('user_profile_show') }}">
+                    <div class="d-inline-flex ml-2 flex-fill align-items-center align-content-center text-center">
+                        {{ include('components/_icon_email_closed.html.twig') }}
+                        <p class="ml-3 m-0 text-center">Demander une mise en relation</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

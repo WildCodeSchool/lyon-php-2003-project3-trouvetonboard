@@ -11,7 +11,11 @@
         <li class="list-group-item">Date de creation : {{ match.date_creation | date("d/m/Y", "Europe/Paris") }}</li>
     </ul>
     <div class="card-body container-a">
-        <a href="#" class="card-link">Afficher les details</a>
+        <a href="{{ path("match_details",
+            { "aProfile": match.advisor_id, "eProfile": match.board_request_id }) }}"
+           class="card-link">
+            Afficher les details
+        </a>
     </div>
 </div>
 
