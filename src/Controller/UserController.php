@@ -58,10 +58,18 @@ class UserController extends AbstractController
      * @Route("/{id}", name="show", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function show(User $user): Response
+    public function show(User $user, CategoryRepository $categoryRepository): Response
     {
+        $categories = $categoryRepository->findAll();
+        $profile = null;
+        $roles = $user->getRoles();
+        if (array_search("ROLE_ADVISOR", $roles)) {
+            $profile = $user->getAdvisor()->getProfiles()[0];
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'categories' => $categories,
+            'profile' => $profile
         ]);
     }
 
