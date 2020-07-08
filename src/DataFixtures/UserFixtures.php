@@ -71,7 +71,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user = new User();
             $status = $i - self::NB_REF_START_ADVISOR;
             $user->setEmail("user$status@ttb.com");
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_ADVISOR']);
             $user->setIsVerified(1);
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
@@ -94,8 +94,10 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($profile);
             $user->setAdvisor($this->getReference("advisor_$i"));
             $advisor->addProfile($this->getReference("profile_$i"));
-            for ($k = 0; $k < rand(1, SkillFixtures::NB_MAX_SKIILS); $k++) {
-                $profile->addSkill($this->getReference("skillNb_$k"));
+            for ($k = 0; $k < rand(10, SkillFixtures::NB_MAX_SKIILS); $k++) {
+                if (rand(0, 3)) {
+                    $profile->addSkill($this->getReference("skillNb_$k"));
+                }
             }
         }
         $enterpriseUser = new User(); // Enterprise type user creation for dev , no  loop  , just one at this time
