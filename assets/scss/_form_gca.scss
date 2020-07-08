@@ -120,7 +120,8 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
     }
 }
 
-@media screen and (max-width: 900px) {
+// lg boot strap
+@media screen and (max-width: 992px) {
     .form-gca {
         width: 90%;
 

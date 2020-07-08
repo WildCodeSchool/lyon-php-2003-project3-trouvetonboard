@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Mon Profil {% endblock %}
+{% block title %}Mon Profil{% endblock %}
 
 {% block body %}
     {% set thWidth = "40%" %}
-    <div class="container-fluid row">
+    <div class="container-fluid">
+    <div class="row">
         <!-- col 1 -->
         <div class="col-lg-4 col-md-12">
             <div class="{{ formBlockStd }}">
@@ -25,8 +26,15 @@
 
         </div>
         <!-- col 2 -->
-        <div class="col-lg-8 col-md-12 {{ formBlockStd }}">
+        <div class="col-lg-8 col-md-12">
+            <div class="{{ formBlockStd }}">
             {% include 'user/_profile_show_board_request.html.twig' %}
+            </div>
         </div>
     </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('userProfileSkills') }}
+    {{ encore_entry_script_tags('addSkill') }}
 {% endblock %}
