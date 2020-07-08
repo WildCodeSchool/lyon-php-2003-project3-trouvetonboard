@@ -34,7 +34,13 @@ class ProfileRepository extends ServiceEntityRepository
         if (!$id) {
             return [];
         }
-        $rawSql = "SELECT PE.title, UA.id, UA.first_name, UA.last_name,
+        $rawSql = "SELECT 
+        PE.id as board_request_id,
+        PA.id as advisor_id,
+        PA.title,
+        UA.id,
+        UA.first_name,
+        UA.last_name,
         COUNT(DISTINCT PSA.skill_id) as SCORE
         FROM profile PE
         JOIN profile_skill PSE ON PSE.profile_id = PE.id
@@ -44,7 +50,7 @@ class ProfileRepository extends ServiceEntityRepository
         JOIN user UA ON UA.advisor_id = A.id
         WHERE
         PE.id = $id
-        GROUP BY UA.id
+        GROUP BY UA.id, PA.id
         ORDER BY SCORE DESC";
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);

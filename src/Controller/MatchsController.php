@@ -25,33 +25,6 @@ class MatchsController extends AbstractController
      */
     public function index(AdvisorRepository $advisorRepository, ProfileRepository $profileRepository): Response
     {
-//        $user = $this->getUser();
-//        $enterprise = $user->getEnterprise();
-//        $boardRequests = $enterprise->getProfiles();
-//        $skillsBoardRequest = $boardRequests[0]->getSkills();
-//
-//        $advisors = $advisorRepository->findAll();
-//
-//
-//        foreach ($advisors as $advisor) {
-//            $skills = $advisor->getProfiles()[0]->getSkills();
-//            $matchs = 0;
-//            foreach ($skillsBoardRequest as $skill) {
-//                if ($skills->contains($skill)) {
-//                    $matchs++;
-//                    $bdTitle = 'board request name: ' . $boardRequests[0]->getTitle();
-//                    $adName = 'advisor name: ' . $advisor->getUser()->getFirstName();
-//                    var_dump($bdTitle, $adName);
-//                }
-//            }
-//            $br = '------------------------------------------------------';
-//            var_dump("nombre de matchs: $matchs", $br);
-//        }
-//        $test = $profileRepository->findAdvisorMatchsByBoardRequest(31);
-//        $query = $test->getQuery();
-//        var_dump($query->getDQL());
-
-
         return $this->render('matchs/index.html.twig');
     }
 
@@ -59,14 +32,26 @@ class MatchsController extends AbstractController
      * @param ProfileRepository $profileRepository
      *
      * @return Response
-     * @Route("/matchs/enterprise", name="match_boardrequest")
+     * @Route("/matchs/enterprise", name="match_board_request_one")
      */
     public function matchsFirstAdvisorByBoardRequest(ProfileRepository $profileRepository)
     {
-        $boardRequestOne = $matchsBordRequestOne = null;
+        $boardRequestOne = $matchsBordRequestOne = $idEnterprise = null;
         $bordRequestOneId = 0;
 
-        $boardRequests = $profileRepository->findBy(["archived" => false], ["dateCreation" => "DESC"]);
+        $logUser = $this->getUser();
+        if ($logUser) {
+            $idEnterprise = $logUser->getEnterprise()->getId();
+        }
+        $boardRequests = $profileRepository->findBy(
+            [
+                "archived" => false,
+                "enterprise" => $idEnterprise
+            ],
+            [
+                "dateCreation" => "DESC"
+            ]
+        );
 
         if (!empty($boardRequests)) {
             $boardRequestOne = $boardRequests[0];
@@ -87,14 +72,42 @@ class MatchsController extends AbstractController
      * @param ProfileRepository $profileRepository
      *
      * @return Response
-     * @Route("/matchs/enterprise/{id}", name="match_boardrequest")
+     * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
      */
-    public function matchsAdvisorByBoardRequest(Profile $boardRequest, ProfileRepository $profileRepository)
+    public function matchsAdvisorByBoardRequest(Profile $bordRequest, ProfileRepository $profileRepository)
     {
+        $boardRequestOne = $matchsBordRequestOne = $idEnterprise = null;
+        $bordRequestOneId = 0;
 
-        $matchs = $profileRepository->findAdvisorMatchsByBoardRequest($boardRequest->getId());
-        return $this->render('matchs/matchsBoardRequest.html.twig', ['matchs' => $matchs]);
+        $logUser = $this->getUser();
+        if ($logUser) {
+            $idEnterprise = $logUser->getEnterprise()->getId();
+        }
+        $boardRequests = $profileRepository->findBy(
+            [
+                "archived" => false,
+                "enterprise" => $idEnterprise
+            ],
+            [
+                "dateCreation" => "DESC"
+            ]
+        );
+
+        if (!empty($boardRequests)) {
+            $boardRequestOne = $boardRequests[0];
+            $bordRequestOneId = $boardRequestOne->getId();
+            $matchsBordRequestOne = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequest->getId());
+        }
+
+        return $this->render(
+            'matchs/matchsBoardRequest.html.twig',
+            [
+                'boardRequests' => $boardRequests,
+                'matchs' => $matchsBordRequestOne
+            ]
+        );
     }
+
 
     /**
      * @param ProfileRepository $profileRepository
@@ -151,6 +164,30 @@ class MatchsController extends AbstractController
         );
     }
 
+
+    /**
+     * @param \App\Entity\Profile $eProfile Enterprise profile
+     * @param \App\Entity\Profile $aProfile Advisor profile
+     *
+     * @return Response
+     * @Route("/matchs/enterprise/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_details_enterprise")
+     * @ParamConverter("aProfile", options={"id" = "aProfile"})
+     * @ParamConverter("eProfile", options={"id" = "eProfile"})
+     * @IsGranted("ROLE_ENTERPRISE")
+     */
+    public function matchDetailsEnterprise(Profile $aProfile, Profile $eProfile)
+    {
+        // todo secure access by  other logged enterprise
+
+        return $this->render(
+            'matchs/matchDetailsEnterprise.html.twig',
+            [
+                'aProfile' => $aProfile,
+                "eProfile" => $eProfile
+            ]
+        );
+    }
+
     /**
      * @param \App\Entity\Profile $eProfile Enterprise profile
      * @param \App\Entity\Profile $aProfile Advisor profile
@@ -184,7 +221,7 @@ class MatchsController extends AbstractController
             ->to($this->getParameter("mailer_cedric"))
             ->subject('Nouvelle demande de mise en relation')
             // path of the Twig template to render
-            ->htmlTemplate('matchs/match_request_email.html.twig')
+            ->htmlTemplate('matchs/matchRequestEmail.html.twig')
             // pass variables (name => value) to the template
             ->context([
                 'date' => new DateTime('now'),

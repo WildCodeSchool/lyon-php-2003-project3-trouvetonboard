@@ -1,22 +1,20 @@
 <div class="card shadow card-custom" style="width: 16rem;">
      <div class="{{ titleBlock }} d-flex- justify-content-between align-items-center align-content-center">
         {{ include('components/_icon_board_request_txt.html.twig') }}
-        <h5 class="card-title m-0 center-h-text align-self-center">{{ match.title }}</h5>
+        <h5 class="card-title m-0 center-h-text align-self-center">{{ match.first_name }}</h5>
     </div>
     <div class="card-body">
         <p class="card-text">{{ match.description | default("Pas de description") }}</p>
     </div>
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Nombre de compétences communes : {{ match.SCORE }} </li>
-        {% if is_granted('ROLE_ADVISOR') %}
-            <li class="list-group-item">Date de creation
-                : {{ match.date_creation | date("d/m/Y", "Europe/Paris") }}</li>
-        {% endif %}
-
+    </ul>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Titre : {{ match.title }} </li>
     </ul>
     <div class="card-body container-a">
-        {% if is_granted('ROLE_ADVISOR') %}
-            <a href="{{ path("match_details",
+        {% if is_granted('ROLE_ENTERPRISE') %}
+            <a href="{{ path("match_details_enterprise",
                 { "aProfile": match.advisor_id, "eProfile": match.board_request_id }) }}"
                class="card-link">
                 Afficher les details
