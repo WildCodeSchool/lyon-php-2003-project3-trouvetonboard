@@ -117,7 +117,7 @@ class User implements UserInterface
     private $address;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $postCode;
 

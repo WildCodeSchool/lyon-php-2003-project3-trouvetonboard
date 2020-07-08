@@ -70,7 +70,7 @@ class Enterprise
     private $linkedinLink;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $zipCode;
 
