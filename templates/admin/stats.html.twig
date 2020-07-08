@@ -18,13 +18,13 @@
                     <div class="col-sm">
                         <div class="center-stats">
                             <h1>{{ advisors.1 }}</h1>
-                            <p>Advisors sur le site</p>
+                            <p>Advisors inscrit</p>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="center-stats">
                             <h1>{{ enterprises.1 }}</h1>
-                            <p>Entreprises sur le site</p>
+                            <p>Entreprises inscrite</p>
                         </div>
                     </div>
                 </div>
@@ -35,26 +35,25 @@
                     <div class="col-sm">
                         <div class="center-stats">
                             <h1>{{ boardRequest.1 }}</h1>
-                            <p>Board Request sur le site</p>
+                            <p>Board Request total</p>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="center-stats">
-                            <h1>548</h1>
-                            <p>Board request sur le site</p>
+                            <h1>{{ boardRequest.1 - boardRequestArchived.1 }}</h1>
+                            <p>Board Request Active</p>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="center-stats">
-                            <h1>989</h1>
-                            <p>Entreprises sur le site</p>
+                            <h1>{{ boardRequestArchived.1 }}</h1>
+                            <p>Board Request Archivé</p>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-
     </div>
 
 {% endblock %}

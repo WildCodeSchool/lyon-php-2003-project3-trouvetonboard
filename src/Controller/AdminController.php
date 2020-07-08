@@ -33,13 +33,15 @@ class AdminController extends AbstractController
         $advisors = $userRepository->countByRole("ROLE_ADVISOR");
         $users = $userRepository->countAllUsers();
         $boardRequest = $profileRepository->countBoardRequest();
+        $boardRequestArchived = $profileRepository->countBoardRequestArchived();
 
 
         return $this->render("admin/stats.html.twig", [
             'enterprises' => end($enterprises),
             'advisors' => end($advisors),
             'users' => end($users),
-            'boardRequest' => end($boardRequest)
+            'boardRequest' => end($boardRequest),
+            'boardRequestArchived' => end($boardRequestArchived)
         ]);
     }
 
@@ -50,7 +52,7 @@ class AdminController extends AbstractController
     {
         $users = $userRepository->findAll();
         dump($users);
-        return $this->render("admin/stats.html.twig", [
+        return $this->render("admin/users.html.twig", [
             'users' => $users,
         ]);
     }

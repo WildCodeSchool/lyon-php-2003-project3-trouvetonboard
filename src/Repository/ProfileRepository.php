@@ -33,6 +33,21 @@ class ProfileRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     *
+     * @return array
+     */
+    public function countBoardRequestArchived()
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('count(u)')
+            ->from($this->_entityName, 'u')
+            ->where('u.isRequest = 1')
+            ->andWhere('u.archived = 1');
+
+        return $qb->getQuery()->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Profile
