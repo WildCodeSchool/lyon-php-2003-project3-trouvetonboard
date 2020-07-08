@@ -82,11 +82,11 @@ class User implements UserInterface
     private $advisor;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="string", length=1, nullable=true)
      * @Assert\Regex(
-     *     pattern="/Monsieur|Madame/",
+     *     pattern="/H|F/",
      *     match=true,
-     *     message="Le genre ne peut etre Homme , Femme ou Autre."
+     *     message="Le genre ne peut être que H ou F."
      * )
      */
     private $gender;

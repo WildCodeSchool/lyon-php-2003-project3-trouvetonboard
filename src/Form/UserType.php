@@ -21,8 +21,8 @@ class UserType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 "label" => "Civilité",
                 "choices" => [
-                    "Monsieur" => "Monsieur",
-                    "Madame" => "Madame",
+                    "Monsieur" => "H",
+                    "Madame" => "F",
                 ]
             ])
             ->add('firstName', null, ["label" => "Prénom "])
