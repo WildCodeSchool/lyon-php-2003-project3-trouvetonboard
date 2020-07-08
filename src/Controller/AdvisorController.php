@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Advisor;
 use App\Form\AdvisorType;
+use App\Kernel;
 use App\Repository\AdvisorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Spatie\PdfToImage\Pdf;
+use Imagick;
 
 /**
  * @Route("/advisor")
@@ -62,15 +65,17 @@ class AdvisorController extends AbstractController
     /**
      * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Advisor $advisor): Response
+    public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
     {
         $form = $this->createForm(AdvisorType::class, $advisor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $pdf = new Pdf('public/uploads/images/users/'.$advisor->getCvLink());
-            $pdf->saveImage('public/uploads/images/users/');
+            $projectRoot = $kernel->getProjectDir();
+            var_dump($projectRoot);
+            $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$advisor->getCvLink());
+            $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
 
             return $this->redirectToRoute('user_profile_show');
         }
