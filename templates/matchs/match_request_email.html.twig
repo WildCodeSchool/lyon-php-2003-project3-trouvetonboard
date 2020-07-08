@@ -103,7 +103,8 @@
                                     <table class="w325" width="350" cellpadding="0" cellspacing="0" border="0">
                                         <tbody><tr><td class="w325" width="350" height="8"></td></tr>
                                         </tbody></table>
-                                    <div class="header-content"><webversion>Version web</webversion><span class="hide">&nbsp;&nbsp;|&nbsp; <preferences lang="fr-FR">Mettre &agrave; jour les pr&eacute;f&eacute;rences</preferences>&nbsp;&nbsp;|&nbsp; <unsubscribe>Se d&eacute;sinscrire</unsubscribe></span></div>
+                                    <div class="header-content"><webversion>Demande de mise en
+                                            relation</webversion></div>
                                     <table class="w325" width="350" cellpadding="0" cellspacing="0" border="0">
                                         <tbody><tr><td class="w325" width="350" height="8"></td></tr>
                                         </tbody></table>
@@ -115,23 +116,7 @@
                                         </tbody></table>
                                     <table cellpadding="0" cellspacing="0" border="0">
                                         <tbody><tr>
-
-                                            <td valign="middle"><fblike><img src="https://img.createsend1.com/img/templatebuilder/like-glyph.png" border="0" width="8" height="14" alt="Facebook icon"=""></fblike></td>
-                                            <td width="3"></td>
-                                            <td valign="middle"><div class="header-content"><fblike>Share</fblike></div></td>
-
-
-                                            <td class="w10" width="10"></td>
-                                            <td valign="middle"><tweet><img src="https://img.createsend1.com/img/templatebuilder/tweet-glyph.png" border="0" width="17" height="13" alt="Twitter icon"=""></tweet></td>
-                                            <td width="3"></td>
-                                            <td valign="middle"><div class="header-content"><tweet>Tweet</tweet></div></td>
-
-
-                                            <td class="w10" width="10"></td>
-                                            <td valign="middle"><forwardtoafriend lang="fr-FR"><img src="https://img.createsend1.com/img/templatebuilder/forward-glyph.png" border="0" width="19" height="14" alt="Forward icon"=""></forwardtoafriend></td>
-                                            <td width="3"></td>
-                                            <td valign="middle"><div class="header-content"><forwardtoafriend lang="fr-FR">Transf&eacute;rer</forwardtoafriend></div></td>
-
+                                            <td valign="middle"><fblike>{{ include('components/_icon_research_advisor.html.twig') }}</fblike></td>
                                         </tr>
                                         </tbody></table>
                                     <table class="w255" width="255" cellpadding="0" cellspacing="0" border="0">
@@ -167,7 +152,6 @@
 
                     </td>
                 </tr>
-
                 <tr><td class="w640" width="640" height="30" bgcolor="#ffffff"></td></tr>
                 <tr id="simple-content-row"><td class="w640" width="640" bgcolor="#ffffff">
                         <table align="left" class="w640" width="640" cellpadding="0" cellspacing="0" border="0">
@@ -180,9 +164,43 @@
                                             <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                                                 <tbody><tr>
                                                     <td class="w580" width="580">
-                                                        <p align="left" class="article-title"><singleline label="Title">Bienvenue sur TTB !</singleline></p>
+                                                        <p align="left" class="article-title"><singleline
+                                                                    label="Title">Une demande de mise
+                                                                en relation a été formuler par {{ aProfile.advisor.user.firstName ~
+                                                                " "~ aProfile.advisor.user.lastName }} </singleline></p>
                                                         <div align="left" class="article-content">
-                                                            <multiline label="Description"><p>Votre inscription a bien été prise en compte. Pour activer votre compte, merci de <a href="{{ signedUrl|raw }}">cliquer ici</a> .</p></multiline>
+                                                            <multiline label="Description">
+                                                                Auteur:
+                                                                <span style="color: #6E9DB8"> {{ aProfile.advisor.user
+                                                                        .firstName ~ " "~ aProfile.advisor.user
+                                                                    .lastName }}.
+                                                                </span><br>
+                                                                Email auteur:
+                                                                <span style="color: #6E9DB8">
+                                                                    {{ aProfile.advisor.user.email }}
+                                                                </span><br>
+                                                                Tel. auteur:<span style="color: #6E9DB8">
+                                                                    {{ aProfile.advisor.user.phone }}
+                                                                </span><br>
+                                                                <hr>
+                                                                Pour la Board Request :<span style="color: #6E9DB8">
+                                                                    {{ eProfile.title }}
+                                                                </span><br>
+                                                                concernant l'entreprise :<span style="color: #6E9DB8">
+                                                                    {{ eProfile.enterprise.name }}
+                                                                </span><br>
+                                                                Contact :<span style="color: #6E9DB8">
+                                                                    {{ eProfile.enterprise.users[0].firstName ~
+                                                                    " " ~  eProfile.enterprise.users[0].lastName }}
+                                                                </span><br>
+                                                                Email contact:<span style="color: #6E9DB8">
+                                                                    {{ eProfile.enterprise.users[0].email }}
+                                                                </span><br>
+                                                                Tel contact: <span style="color: #6E9DB8">
+                                                                    {{ eProfile.enterprise.users[0].phone }}
+                                                                </span>
+
+                                                            </multiline>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -205,7 +223,11 @@
                                 <td class="w30" width="30"></td>
                                 <td class="w580" width="360" valign="top">
                                     <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"></p></span>
-                                    <p align="left" class="footer-content-left"><preferences lang="fr-FR">Modifier mon abonnement</preferences> | <unsubscribe>Se d&eacute;sinscrire</unsubscribe></p>
+                                    {% set waySite = app.request.schemeAndHttpHost ~ path('app_login') %}
+                                    <p align="left" class="footer-content-left">
+                                        <a href="{{ waySite }} ">Connexion au  site
+                                        </a>
+                                    </p>
                                 </td>
                                 <td class="hide w0" width="60"></td>
                                 <td class="hide w0" width="160" valign="top">

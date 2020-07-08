@@ -7,10 +7,15 @@ use App\Entity\Skill;
 use App\Repository\AdvisorRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use \DateTime;
 
 class MatchsController extends AbstractController
 {
@@ -80,18 +85,54 @@ class MatchsController extends AbstractController
     }
 
     /**
-     * @param ProfileRepository $profileRepository
+     * @param \App\Entity\Profile $eProfile Enterprise profile
+     * @param \App\Entity\Profile $aProfile Advisor profile
      *
      * @return Response
      * @Route("/matchs/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_details")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
      */
-    public function matchDetails(Profile $aProfile, Profile $eProfile, ProfileRepository $profileRepository)
+    public function matchDetails(Profile $aProfile, Profile $eProfile)
     {
-        return $this->render('matchs/matchDetails.html.twig', [
-            'aProfile' => $aProfile,
-            "eProfile" => $eProfile
-        ]);
+        return $this->render(
+            'matchs/matchDetails.html.twig',
+            [
+                'aProfile' => $aProfile,
+                "eProfile" => $eProfile
+            ]
+        );
+    }
+
+    /**
+     * @param \App\Entity\Profile $eProfile Enterprise profile
+     * @param \App\Entity\Profile $aProfile Advisor profile
+     *
+     * @return Response
+     * @Route("/matchs/requestemail/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_request_email")
+     * @ParamConverter("aProfile", options={"id" = "aProfile"})
+     * @ParamConverter("eProfile", options={"id" = "eProfile"})
+     */
+    public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
+    {
+        //$advisorEmail = $aProfile->getAdvisor()->getUser()->getEmail();
+        $email = (new TemplatedEmail())
+            ->from($this->getParameter("mailer_from"))
+            ->to($this->getParameter("mailer_cedric"))
+            ->subject('Nouvelle demande de mise en relation')
+            // path of the Twig template to render
+            ->htmlTemplate('matchs/match_request_email.html.twig')
+            // pass variables (name => value) to the template
+            ->context([
+                'date' => new DateTime('now'),
+                "eProfile" => $eProfile,
+                "aProfile" => $aProfile,
+            ]);
+
+        $mailer->send($email);
+        $this->addFlash('success', "Un email de demande de mise en relation a été envoyé 
+        a l'administrateur. Vous serez recontacter dans les plus bref delais.");
+
+        return $this->redirectToRoute("match_advisor_boardRequest");
     }
 }
