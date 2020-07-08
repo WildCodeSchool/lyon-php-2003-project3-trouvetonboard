@@ -23,8 +23,17 @@ class ProfileRepository extends ServiceEntityRepository
         parent::__construct($registry, Profile::class);
     }
 
-    public function findAdvisorMatchsByBoardRequest(int $id)
+    /**
+     * @param int|null $id nullable because passed parameter could be null
+     *
+     * @return mixed[]
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findAdvisorMatchsByBoardRequest(?int $id = 0)
     {
+        if (!$id) {
+            return [];
+        }
         $rawSql = "SELECT PE.title, UA.id, UA.first_name, UA.last_name,
         COUNT(DISTINCT PSA.skill_id) as SCORE
         FROM profile PE
@@ -62,7 +71,7 @@ class ProfileRepository extends ServiceEntityRepository
      * @return mixed[] array of result request
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findEnterpriseMatchsByAdvisor(int $id)
+    public function findEnterpriseMatchsByAdvisor(int $id = 0)
     {
         $rawSql = "SELECT 
         PE.id as board_request_id,

@@ -90,6 +90,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $profile->setIsPropose(true);
             $profile->setIsRequest(false);
             $profile->setDateCreation($faker->dateTime);
+            $profile->setArchived(false);
             $this->addReference("profile_$i", $profile);
             $manager->persist($profile);
             $user->setAdvisor($this->getReference("advisor_$i"));
@@ -124,6 +125,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $profile->setTitle($faker->jobTitle);
             $profile->setIsPropose(false);
             $profile->setIsRequest(true);
+            $profile->setArchived(false);
             $profile->setDateCreation($faker->dateTime);
             $this->addReference("profileEnt_$l", $profile);
             $manager->persist($profile);

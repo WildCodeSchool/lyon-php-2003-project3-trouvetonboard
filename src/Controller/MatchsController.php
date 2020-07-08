@@ -56,15 +56,43 @@ class MatchsController extends AbstractController
     }
 
     /**
-     * @param int               $id
      * @param ProfileRepository $profileRepository
      *
      * @return Response
-     * @Route("/matchs/{id<[0-9]{1,}>}", name="match_boardrequest")
+     * @Route("/matchs/enterprise", name="match_boardrequest")
      */
-    public function matchsAdvisorByBoardRequest(int $id, ProfileRepository $profileRepository)
+    public function matchsFirstAdvisorByBoardRequest(ProfileRepository $profileRepository)
     {
-        $matchs = $profileRepository->findAdvisorMatchsByBoardRequest($id);
+        $boardRequestOne = $matchsBordRequestOne = null;
+        $bordRequestOneId = 0;
+
+        $boardRequests = $profileRepository->findBy(["archived" => false], ["dateCreation" => "DESC"]);
+
+        if (!empty($boardRequests)) {
+            $boardRequestOne = $boardRequests[0];
+            $bordRequestOneId = $boardRequestOne->getId();
+            $matchsBordRequestOne = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequestOneId);
+        }
+
+        return $this->render(
+            'matchs/matchsBoardRequest.html.twig',
+            [
+                'boardRequests' => $boardRequests,
+                'matchs' => $matchsBordRequestOne
+            ]
+        );
+    }
+
+    /**
+     * @param ProfileRepository $profileRepository
+     *
+     * @return Response
+     * @Route("/matchs/enterprise/{id}", name="match_boardrequest")
+     */
+    public function matchsAdvisorByBoardRequest(Profile $boardRequest, ProfileRepository $profileRepository)
+    {
+
+        $matchs = $profileRepository->findAdvisorMatchsByBoardRequest($boardRequest->getId());
         return $this->render('matchs/matchsBoardRequest.html.twig', ['matchs' => $matchs]);
     }
 
