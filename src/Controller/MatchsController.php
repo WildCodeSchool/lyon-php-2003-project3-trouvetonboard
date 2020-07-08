@@ -16,6 +16,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use \DateTime;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MatchsController extends AbstractController
 {
@@ -72,9 +73,11 @@ class MatchsController extends AbstractController
      *
      * @return Response
      * @Route("/matchs/advisor", name="match_advisor_boardRequest")
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository)
     {
+
         $idProfileAdvisor = null;
         $logUser = $this->getUser();
         if ($logUser) {
@@ -92,9 +95,25 @@ class MatchsController extends AbstractController
      * @Route("/matchs/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_details")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function matchDetails(Profile $aProfile, Profile $eProfile)
     {
+        $idLogProfileAdvisor = null;
+        $logUser = $this->getUser();
+        if ($logUser) {
+            $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+        }
+
+        try {
+            if ($idLogProfileAdvisor != $aProfile->getId()) {
+                throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", "Acces refusé, tentative d'accés a un emplacement non autorisé");
+            return $this->redirectToRoute('match_advisor_boardRequest');
+        }
+
         return $this->render(
             'matchs/matchDetails.html.twig',
             [
@@ -112,9 +131,25 @@ class MatchsController extends AbstractController
      * @Route("/matchs/requestemail/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_request_email")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
+        $idLogProfileAdvisor = null;
+        $logUser = $this->getUser();
+        if ($logUser) {
+            $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+        }
+
+        try {
+            if ($idLogProfileAdvisor != $aProfile->getId()) {
+                throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", "Acces refusé, tentative d'accés a un emplacement non autorisé");
+            return $this->redirectToRoute('match_advisor_boardRequest');
+        }
+
         //$advisorEmail = $aProfile->getAdvisor()->getUser()->getEmail();
         $email = (new TemplatedEmail())
             ->from($this->getParameter("mailer_from"))
