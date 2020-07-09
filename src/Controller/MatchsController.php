@@ -70,7 +70,6 @@ class MatchsController extends AbstractController
 
     /**
      * @param ProfileRepository $profileRepository
-     *
      * @return Response
      * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
      */
@@ -196,15 +195,23 @@ class MatchsController extends AbstractController
      * @Route("/matchs/requestemail/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_request_email")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
-     * @IsGranted("ROLE_ADVISOR")
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
         $idLogProfileAdvisor = null;
+        $templatePath = 'matchs/match_advisor_boardRequest.html.twig';
         $logUser = $this->getUser();
         if ($logUser) {
-            $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+
+
+            if (in_array('ROLE_ENTREPRISE', $logUser->getRoles())) {
+                $templatePath = 'matchs/matchRequestEmailEnterprise.html.twig';
+            }
+            else {
+                $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+            }
         }
+
 
         try {
             if ($idLogProfileAdvisor != $aProfile->getId()) {
@@ -221,7 +228,7 @@ class MatchsController extends AbstractController
             ->to($this->getParameter("mailer_cedric"))
             ->subject('Nouvelle demande de mise en relation')
             // path of the Twig template to render
-            ->htmlTemplate('matchs/matchRequestEmail.html.twig')
+            ->htmlTemplate($templatePath)
             // pass variables (name => value) to the template
             ->context([
                 'date' => new DateTime('now'),
