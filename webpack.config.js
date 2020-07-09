@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('addSkill', './assets/js/addSkill.js')
     .addEntry('userProfileSkills', './assets/js/userProfileSkills.js')
+    .addEntry('enterpriseMatch', './assets/js/enterpriseMatch.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

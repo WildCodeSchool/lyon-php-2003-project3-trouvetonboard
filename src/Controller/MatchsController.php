@@ -18,65 +18,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use \DateTime;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
+/**
+ * Class MatchsController
+ *
+ * @package App\Controller
+ */
 class MatchsController extends AbstractController
 {
-    /**
-     * @Route("/matchs", name="matchs_index")
-     */
-    public function index(AdvisorRepository $advisorRepository, ProfileRepository $profileRepository): Response
-    {
-        return $this->render('matchs/index.html.twig');
-    }
 
     /**
      * @param ProfileRepository $profileRepository
-     *
      * @return Response
      * @Route("/matchs/enterprise", name="match_board_request_one")
-     */
-    public function matchsFirstAdvisorByBoardRequest(ProfileRepository $profileRepository)
-    {
-        $boardRequestOne = $matchsBordRequestOne = $idEnterprise = null;
-        $bordRequestOneId = 0;
-
-        $logUser = $this->getUser();
-        if ($logUser) {
-            $idEnterprise = $logUser->getEnterprise()->getId();
-        }
-        $boardRequests = $profileRepository->findBy(
-            [
-                "archived" => false,
-                "enterprise" => $idEnterprise
-            ],
-            [
-                "dateCreation" => "DESC"
-            ]
-        );
-
-        if (!empty($boardRequests)) {
-            $boardRequestOne = $boardRequests[0];
-            $bordRequestOneId = $boardRequestOne->getId();
-            $matchsBordRequestOne = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequestOneId);
-        }
-
-        return $this->render(
-            'matchs/matchsBoardRequest.html.twig',
-            [
-                'boardRequests' => $boardRequests,
-                'matchs' => $matchsBordRequestOne
-            ]
-        );
-    }
-
-    /**
-     * @param ProfileRepository $profileRepository
-     * @return Response
      * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
      */
-    public function matchsAdvisorByBoardRequest(Profile $bordRequest, ProfileRepository $profileRepository)
+    public function matchsAdvisorByBoardRequest(?Profile $bordRequest, ProfileRepository $profileRepository)
     {
-        $boardRequestOne = $matchsBordRequestOne = $idEnterprise = null;
-        $bordRequestOneId = 0;
+        $bordRequestId = $matchsBordRequest = $idEnterprise = null;
+
 
         $logUser = $this->getUser();
         if ($logUser) {
@@ -94,15 +53,18 @@ class MatchsController extends AbstractController
 
         if (!empty($boardRequests)) {
             $boardRequestOne = $boardRequests[0];
-            $bordRequestOneId = $boardRequestOne->getId();
-            $matchsBordRequestOne = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequest->getId());
+            $bordRequestId = $bordRequest ? $bordRequest->getId() : $boardRequestOne->getId();
+            //$skills = $bordRequest ? $bordRequest->getSkills() : $boardRequestOne->getSkills();
+            $matchsBordRequest = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequestId);
+            //$matchsBordRequestFullSkill = $profileRepository->findMatchsFullMatchs($bordRequestId, count($skills));
         }
 
         return $this->render(
-            'matchs/matchsBoardRequest.html.twig',
+            'matchs/matchsBoardRequestEnterprise.html.twig',
             [
                 'boardRequests' => $boardRequests,
-                'matchs' => $matchsBordRequestOne
+                'matchs' => $matchsBordRequest,
+                'activceBoardRequestId' => $bordRequestId,
             ]
         );
     }
@@ -227,7 +189,6 @@ class MatchsController extends AbstractController
             return $this->redirectToRoute($route);
         }
 
-        //$advisorEmail = $aProfile->getAdvisor()->getUser()->getEmail();
         $email = (new TemplatedEmail())
             ->from($this->getParameter("mailer_from"))
             ->to($this->getParameter("mailer_cedric"))
@@ -246,5 +207,37 @@ class MatchsController extends AbstractController
         a l'administrateur. Vous serez recontacter dans les plus bref delais.");
 
         return $this->redirectToRoute($route);
+    }
+
+    /**
+     * @param \App\Entity\Profile $eProfile Enterprise profile
+     *
+     * @return Response
+     * @Route("/matchs/paymentemail/{id<[0-9]{1,}>}", name="match_request_payment_email")
+     */
+    public function matchRequestPaymentEmail(Profile $eProfile, MailerInterface $mailer)
+    {
+
+        $logUser = $this->getUser();
+
+
+        $email = (new TemplatedEmail())
+            ->from($this->getParameter("mailer_from"))
+            ->to($this->getParameter("mailer_cedric"))
+            ->subject('Nouvelle demande de mise en relation')
+            // path of the Twig template to render
+            ->htmlTemplate("matchs/matchRequestPaymentEmail.hmtl.twig")
+            // pass variables (name => value) to the template
+            ->context([
+                'date' => new DateTime('now'),
+                "user" => $logUser,
+            ]);
+
+        $mailer->send($email);
+        $this->addFlash('success', "Un email de demande de contact a été envoyé 
+        a l'administrateur. Vous serez recontacter dans les plus brefs delais.");
+
+        // todo  midifier la valeur id
+        return $this->redirectToRoute("match_board_request_enterprise", ["id" => $eProfile->getId()]);
     }
 }

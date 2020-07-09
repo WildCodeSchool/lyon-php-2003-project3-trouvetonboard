@@ -1,0 +1,31 @@
+.board-title {
+        div{
+            div{
+                p{
+                    display: block;
+                }
+                overflow: hidden;
+                @extend .pb-3;
+            }
+        }
+}
+
+.card-width {
+    width: 16rem;
+    max-width: 16rem;
+}
+
+// lg boot strap
+@media screen and (max-width: 992px) {
+
+    .board-title {
+        div {
+            div {
+                p {
+                    display: none;
+                }
+
+            }
+        }
+    }
+}

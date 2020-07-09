@@ -41,6 +41,7 @@ class ProfileRepository extends ServiceEntityRepository
         UA.id,
         UA.first_name,
         UA.last_name,
+        E.payment_status AS enterprise_payment_status,
         COUNT(DISTINCT PSA.skill_id) as SCORE
         FROM profile PE
         JOIN profile_skill PSE ON PSE.profile_id = PE.id
@@ -48,8 +49,8 @@ class ProfileRepository extends ServiceEntityRepository
         JOIN profile PA ON PA.id = PSA.profile_id
         JOIN advisor A ON PA.advisor_id = A.id
         JOIN user UA ON UA.advisor_id = A.id
-        WHERE
-        PE.id = $id
+        JOIN enterprise E on PE.enterprise_id = E.id
+        WHERE PE.id = $id 
         GROUP BY UA.id, PA.id
         ORDER BY SCORE DESC";
 
@@ -57,19 +58,6 @@ class ProfileRepository extends ServiceEntityRepository
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
-
-    /*
-    public function findOneBySomeField($value): ?Profile
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
 
     /**
      * @param int $id Advisor id

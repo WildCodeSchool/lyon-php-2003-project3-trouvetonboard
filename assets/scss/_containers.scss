@@ -152,7 +152,6 @@
     background-color: $cust-container-std-bgcolor;
     box-shadow: $cust-box-shadow;
     border-radius: $cust-border-radius;
-
 }
 
 // containers title block
@@ -174,6 +173,20 @@
     border-radius: 0 0 $cust-border-radius $cust-border-radius;
 }
 
+.containerBtnMajCancelNoMr {
+    @extend .d-flex;
+    @extend .justify-content-center;
+    @extend .container-btn;
+    @extend .bg-light;
+}
+
+.containerStdProfile {
+    @extend .mb-2;
+    @extend .mt-4;
+    @extend .d-flex;
+    @extend .container-std-bg-white-bootstrap;
+}
+
 // lg boot strap
 @media screen and (max-width: 992px) {
 
@@ -186,5 +199,13 @@
         }
     }
 
+    .container-a {
+        div {
+            a {
+                word-wrap: break-word;
+                font-size: 0.8rem;
+            }
+        }
+    }
 
 }
