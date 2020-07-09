@@ -198,28 +198,33 @@ class MatchsController extends AbstractController
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
-        $idLogProfileAdvisor = null;
-        $templatePath = 'matchs/match_advisor_boardRequest.html.twig';
+        $idLogedUser = $idUserProfile = $templatePath = null;
+        $route = "home";
         $logUser = $this->getUser();
         if ($logUser) {
-
-
-            if (in_array('ROLE_ENTREPRISE', $logUser->getRoles())) {
+            if (in_array('ROLE_ENTERPRISE', $logUser->getRoles())) {
                 $templatePath = 'matchs/matchRequestEmailEnterprise.html.twig';
-            }
-            else {
-                $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+                $route = "match_board_request_one";
+                $idLogedUser = $logUser->getId();
+                $enterprise = $eProfile->getEnterprise();
+                $idUserProfile = $enterprise ? $enterprise->getUsers()[0]->getId() : 0;
+            } else {
+                $templatePath = 'matchs/match_advisor_boardRequest.html.twig';
+                $route = "match_advisor_boardRequest";
+                $idLogedUser = $logUser->getId();
+                $advisor = $eProfile->getAdvisor();
+                $advisorUser = $advisor ? $advisor->getUser() : 0;
+                $idUserProfile = $advisorUser ? $advisorUser->getId() : 0;
             }
         }
 
-
         try {
-            if ($idLogProfileAdvisor != $aProfile->getId()) {
+            if ($idLogedUser != $idUserProfile) {
                 throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
             $this->addFlash("danger", "Acces refusé, tentative d'accés a un emplacement non autorisé");
-            return $this->redirectToRoute('match_advisor_boardRequest');
+            return $this->redirectToRoute($route);
         }
 
         //$advisorEmail = $aProfile->getAdvisor()->getUser()->getEmail();
@@ -240,6 +245,6 @@ class MatchsController extends AbstractController
         $this->addFlash('success', "Un email de demande de mise en relation a été envoyé 
         a l'administrateur. Vous serez recontacter dans les plus bref delais.");
 
-        return $this->redirectToRoute("match_advisor_boardRequest");
+        return $this->redirectToRoute($route);
     }
 }
