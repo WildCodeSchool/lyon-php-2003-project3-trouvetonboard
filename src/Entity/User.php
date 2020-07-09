@@ -41,6 +41,10 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Merci de saisir un mot de passe")
+     * @Assert\NotNull(message="Merci de saisir un mot de passe")
+     * @Assert\Length(min="8", max="40", minMessage="Votre mot de passe doit comporter au minimum {{ limit }}
+     * caractères.", maxMessage="Votre mot de passe doit comporter au maximum {{ limit }} caractères.")
      */
     private $password;
 
@@ -52,21 +56,33 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Merci de renseigner votre prénom")
+     * @Assert\NotNull()
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match=false,
      *     message="Il ne peut y avoir de nombre dans votre prénom"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^(\s)+/",
+     *     match=false,
+     *     message="Il ne peut y avoir d'espaces dans votre prénom'"
      * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Merci de renseigner votre prénom")
+     * @Assert\NotBlank(message="Merci de renseigner votre nom")
+     * @Assert\NotNull()
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match=false,
-     *     message="Il ne peut y avoir de nombre dans votre prénom"
+     *     message="Il ne peut y avoir de nombre dans votre nom"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^(\s)+/",
+     *     match=false,
+     *     message="Il ne peut y avoir d'espaces dans votre nom"
      * )
      */
     private $lastName;
