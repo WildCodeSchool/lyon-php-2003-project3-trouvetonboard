@@ -71,6 +71,7 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        $formerMail = $user->getEmail();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -78,6 +79,11 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $newMail = $user->getEmail();
+            if ($formerMail !== $newMail) {
+                $user->setIsVerified(false);
+            }
 
             return $this->redirectToRoute('user_index');
         }
