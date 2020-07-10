@@ -13,6 +13,12 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
 
+/**
+ * Class UserFixtures
+ *
+ * @package App\DataFixtures
+ * @SuppressWarnings(PHPMD)
+ */
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     // static nb ref for addref static users
@@ -71,7 +77,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user = new User();
             $status = $i - self::NB_REF_START_ADVISOR;
             $user->setEmail("user$status@ttb.com");
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_ADVISOR']);
             $user->setIsVerified(1);
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
@@ -90,12 +96,15 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $profile->setIsPropose(true);
             $profile->setIsRequest(false);
             $profile->setDateCreation($faker->dateTime);
+            $profile->setArchived(false);
             $this->addReference("profile_$i", $profile);
             $manager->persist($profile);
             $user->setAdvisor($this->getReference("advisor_$i"));
             $advisor->addProfile($this->getReference("profile_$i"));
-            for ($k = 0; $k < rand(1, SkillFixtures::NB_MAX_SKIILS); $k++) {
-                $profile->addSkill($this->getReference("skillNb_$k"));
+            for ($k = 0; $k < rand(10, SkillFixtures::NB_MAX_SKIILS); $k++) {
+                if (rand(0, 3)) {
+                    $profile->addSkill($this->getReference("skillNb_$k"));
+                }
             }
         }
         $enterpriseUser = new User(); // Enterprise type user creation for dev , no  loop  , just one at this time
@@ -122,6 +131,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $profile->setTitle($faker->jobTitle);
             $profile->setIsPropose(false);
             $profile->setIsRequest(true);
+            $profile->setArchived(false);
             $profile->setDateCreation($faker->dateTime);
             $this->addReference("profileEnt_$l", $profile);
             $manager->persist($profile);

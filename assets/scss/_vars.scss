@@ -38,3 +38,25 @@ $cust-formBlock-input-borderstyle: solid;
 $cust-formBlock-input-textcolor: white;
 $cust-formBlock-input-bgcolor: $style-guide-blue;
 
+// varialbes en tant que classe
+.color-success {
+    color:$success;
+}
+
+.color-danger {
+    color: $danger;
+}
+
+.text-0dot8em {
+    font-size: 0.8em;
+}
+
+.color-styleGuideBlue {
+    color: $style-guide-blue;
+}
+
+.bg-color-styleGuideGray {
+    background: rgb(176, 176, 176);
+    background: linear-gradient(94deg, rgba(176, 176, 176, 1) 0%, rgba(214, 214, 214, 1) 7%, rgba(223, 223, 223, 1) 16%, rgba(255, 255, 255, 1) 55%);
+}
+
