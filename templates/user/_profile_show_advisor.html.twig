@@ -44,7 +44,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <img src="/uploads/images/users/{{ user.advisor.cvLink }}" alt="{{ user.advisor.cvLink }}" />
+                                    <img src="/uploads/images/users/{{ user.advisor.cvLink|replace({'pdf': 'jpg'})}}" alt="{{ user.advisor.cvLink }}" />
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
