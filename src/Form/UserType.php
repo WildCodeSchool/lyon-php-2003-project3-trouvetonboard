@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -21,12 +22,28 @@ class UserType extends AbstractType
             ->add('gender', ChoiceType::class, [
                 "label" => "Civilité",
                 "choices" => [
-                    "Monsieur" => "Monsieur",
-                    "Madame" => "Madame",
+                    "Monsieur" => "H",
+                    "Madame" => "F",
                 ]
             ])
-            ->add('firstName', null, ["label" => "Prénom "])
-            ->add('lastName', null, ["label" => "Nom "])
+            ->add('firstName', null, [
+                "label" => "Prénom ",
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner votre prénom.',
+                        'normalizer' => 'trim',
+                    ]),
+                ]
+            ])
+            ->add('lastName', null, [
+                "label" => "Nom ",
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner votre prénom.',
+                        'normalizer' => 'trim',
+                    ]),
+                ]
+            ])
             ->add('email', null, ["label" => "Adresse mail "])
             //->add('roles')
             ->add('nationality', null, ["label" => "Nationalité "])

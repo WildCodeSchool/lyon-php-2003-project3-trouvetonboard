@@ -30,7 +30,7 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Email',
                 ],
             ])
-            ->add('first_name', null, [
+            ->add('firstName', null, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Prénom',
@@ -46,7 +46,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('last_name', null, [
+            ->add('lastName', null, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom',
@@ -62,12 +62,12 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'required' => true,
-                'mapped' => false,
+                'mapped' => true,
                 'first_options'  => [
                     'label' => false,
                     'help' => 'Votre mot de passe doit comporter au moins 8 caractères',
