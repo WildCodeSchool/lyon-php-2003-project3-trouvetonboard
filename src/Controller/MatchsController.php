@@ -157,6 +157,7 @@ class MatchsController extends AbstractController
      * @Route("/matchs/requestemail/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_request_email")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
@@ -171,10 +172,10 @@ class MatchsController extends AbstractController
                 $enterprise = $eProfile->getEnterprise();
                 $idUserProfile = $enterprise ? $enterprise->getUsers()[0]->getId() : 0;
             } else {
-                $templatePath = 'matchs/match_advisor_boardRequest.html.twig';
+                $templatePath = 'matchs/matchRequestEmail.html.twig';
                 $route = "match_advisor_boardRequest";
                 $idLogedUser = $logUser->getId();
-                $advisor = $eProfile->getAdvisor();
+                $advisor = $aProfile->getAdvisor();
                 $advisorUser = $advisor ? $advisor->getUser() : 0;
                 $idUserProfile = $advisorUser ? $advisorUser->getId() : 0;
             }

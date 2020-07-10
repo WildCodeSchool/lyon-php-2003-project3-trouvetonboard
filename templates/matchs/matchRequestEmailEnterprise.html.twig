@@ -166,42 +166,39 @@
                                                     <td class="w580" width="580">
                                                         <p align="left" class="article-title"><singleline
                                                                     label="Title">Une demande de mise
-                                                                en relation a été formulé par {{ eProfile.enterprise
+                                                                en relation a été formulée par {{ eProfile.enterprise
                                                                 .users[0].firstName ~ " " ~ eProfile.enterprise
                                                                 .users[0].lastName }} </singleline></p>
                                                         <div align="left" class="article-content">
                                                             <multiline label="Description">
-                                                                Auteur:
-                                                                <span style="color: #6E9DB8"> {{ eProfile.enterprise
-                                                                    .users[0]
-                                                                    .firstName ~ " "~ eProfile.enterprise.users[0]
-                                                                    .lastName }}.
+                                                                De la part de <span style="color: #6E9DB8">
+                                                                    {{ eProfile.enterprise.users[0].firstName
+                                                                    ~ " " ~ eProfile.enterprise.users[0].lastName }}.
                                                                 </span><br>
-                                                                Email auteur:
-                                                                <span style="color: #6E9DB8">
+                                                                Email : <span style="color: #6E9DB8">
                                                                     {{ eProfile.enterprise.users[0].email }}
                                                                 </span><br>
-                                                                Tel. auteur:<span style="color: #6E9DB8">
+                                                                Tel. :<span style="color: #6E9DB8">
                                                                     {{ eProfile.enterprise.users[0].phone }}
                                                                 </span><br>
-                                                                Pour la Board Request :<span style="color: #6E9DB8">
+                                                                Pour la Board Request <span style="color: #6E9DB8">
                                                                     {{ eProfile.title }}
                                                                 </span><br>
-                                                                concernant l'entreprise :<span style="color: #6E9DB8">
+                                                                Concernant l'entreprise <span style="color: #6E9DB8">
                                                                     {{ eProfile.enterprise.name }}
                                                                 </span><br>
                                                                 <hr>
-                                                                Pour l'advisor :<span style="color: #6E9DB8">
+                                                                Pour l'advisor <span style="color: #6E9DB8">
                                                                     {{ aProfile.advisor.user.firstName ~
                                                                     " " ~  aProfile.advisor.user.lastName }}
                                                                 </span><br>
-                                                                Email contact:<span style="color: #6E9DB8">
+                                                                Email contact :
+                                                                <span style="color: #6E9DB8">
                                                                     {{ aProfile.advisor.user.email }}
                                                                 </span><br>
-                                                                Tel contact: <span style="color: #6E9DB8">
+                                                                Tel. contact : <span style="color: #6E9DB8">
                                                                     {{ aProfile.advisor.user.phone }}
                                                                 </span>
-
                                                             </multiline>
                                                         </div>
                                                     </td>
@@ -227,8 +224,7 @@
                                     <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"></p></span>
                                     {% set waySite = app.request.schemeAndHttpHost ~ path('app_login') %}
                                     <p align="left" class="footer-content-left">
-                                        <a href="{{ waySite }} ">Connexion au  site
-                                        </a>
+                                        <a href="{{ waySite }} ">Accéder au site </a>
                                     </p>
                                 </td>
                                 <td class="hide w0" width="60"></td>
