@@ -13,6 +13,12 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
 
+/**
+ * Class UserFixtures
+ *
+ * @package App\DataFixtures
+ * @SuppressWarnings(PHPMD)
+ */
 class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     // static nb ref for addref static users
