@@ -60,7 +60,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($cedric);
         $numRefAdmin = self::NB_REF_CEDRIC;
         $this->addReference("user_$numRefAdmin", $cedric);
-        $gender = ["Homme", "Femme", "Autre"];
+        $gender = ["H", "F"];
         for ($i = self::NB_REF_START_ADVISOR; $i < self::NB_REF_END_ADVISOR; $i++) {
             $advisor = new Advisor();
             $advisor->setPaymentStatus(1);
@@ -77,7 +77,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setLastName($faker->lastName);
             $user->setPictureLink($faker->imageUrl());
             $user->getPostCode($faker->postcode);
-            $user->setGender($gender[rand(0, 2)]);
+            $user->setGender($gender[rand(0, 1)]);
             $user->setCity($faker->city);
             $user->setAddress($faker->address);
             $user->setType("Advisor");

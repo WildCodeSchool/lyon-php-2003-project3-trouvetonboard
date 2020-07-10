@@ -87,7 +87,7 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
 
             textarea {
                 padding: $cust-formBlock-input-padding;
-                color: $cust-formBlock-input-textcolor;
+                //color: $cust-formBlock-input-textcolor;
                 font-weight: unset;
                 border-style: $cust-formBlock-input-borderstyle;
                 border-width: $style-guide-button-border-width;
