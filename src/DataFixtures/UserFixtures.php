@@ -87,6 +87,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setCity($faker->city);
             $user->setAddress($faker->address);
             $user->setType("Advisor");
+            $user->setBirthday($faker->dateTime);
             $user->setPassword($this->passwordEncoder->encodePassword($user, "pwd"));
             $manager->persist($user);
             $this->addReference("user_$i", $user);
@@ -113,6 +114,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $enterpriseUser->setIsVerified(0);
         $enterpriseUser->setFirstName("Wilding");
         $enterpriseUser->setLastName("Coder");
+        $enterpriseUser->setType("Enterprise");
+        $enterpriseUser->setBirthday($faker->dateTime);
         $enterpriseUser->setPassword($this->passwordEncoder->encodePassword($enterpriseUser, "pwd"));
         $manager->persist($enterpriseUser);
         $numEnt = 1;
@@ -128,6 +131,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         for ($l = 0; $l < self::NB_PROFILE_BY_ENTERPRISE; $l++) {
             $profile = new Profile();
             $profile->setPaymentType("All");
+            $profile->setTitle($faker->jobTitle);
             $profile->setTitle($faker->jobTitle);
             $profile->setIsPropose(false);
             $profile->setIsRequest(true);
