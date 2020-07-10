@@ -1,13 +1,14 @@
 .board-title {
-        div{
-            div{
-                p{
-                    display: block;
-                }
-                overflow: hidden;
-                @extend .pb-3;
+    div {
+        div {
+            p {
+                display: block;
             }
+
+            overflow: hidden;
+            @extend .pb-3;
         }
+    }
 }
 
 .card-width {
