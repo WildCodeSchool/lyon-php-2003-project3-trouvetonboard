@@ -41,7 +41,11 @@
     <tbody>
     <tr>
         <th width="{{ thWidth }}">Civilité :</th>
-        <td>{{ user.gender }}</td>
+        {% if user.gender == "H" %}
+            <td>Monsieur</td>
+        {% else %}
+            <td>Madame</td>
+        {% endif %}
     </tr>
     <tr>
         <th width="{{ thWidth }}">Téléphone :</th>
