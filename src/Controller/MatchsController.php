@@ -54,9 +54,7 @@ class MatchsController extends AbstractController
         if (!empty($boardRequests)) {
             $boardRequestOne = $boardRequests[0];
             $bordRequestId = $bordRequest ? $bordRequest->getId() : $boardRequestOne->getId();
-            //$skills = $bordRequest ? $bordRequest->getSkills() : $boardRequestOne->getSkills();
             $matchsBordRequest = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequestId);
-            //$matchsBordRequestFullSkill = $profileRepository->findMatchsFullMatchs($bordRequestId, count($skills));
         }
 
         return $this->render(
