@@ -144,11 +144,8 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
 @media screen and (max-width: 992px) {
     .form-gca {
         width: 90%;
-
         form {
-            // each form in coantainerr
             width: 100%;
-
             h1 {
                 margin-top: $cust-container-std-childs-margin-top;
             }
