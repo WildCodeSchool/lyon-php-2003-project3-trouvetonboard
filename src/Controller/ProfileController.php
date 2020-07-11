@@ -119,13 +119,12 @@ class ProfileController extends AbstractController
     public function edit(Request $request, Profile $profile): Response
     {
         $logUser = $this->getUser();
-        $logProfile = $logUser ? $logUser->getEnterprise() : null;
         $roles = $logUser ? $logUser->getRoles() : null;
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
         $method = in_array('ROLE_ENTERPRISE', $roles) ? "Enterprise" : "Advisor";
 
         try {
-            if ($logProfile->getId() != $profile->{"get".$method}()->getId()) {
+            if ($logUser->{"get" . $method}()->getId() != $profile->{"get".$method}()->getId()) {
                 throw new AccessDeniedException($msg);
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
