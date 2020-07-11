@@ -113,8 +113,7 @@ class UserController extends AbstractController
      * @Route("/profile/show", name="profile_show", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function profileShow(Request $request, CategoryRepository $categoryRepository, ProfileRepository
-    $profileRepository): Response
+    public function profileShow(CategoryRepository $categoryRepository): Response
     {
         $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
         $logUser = $this->getUser();
