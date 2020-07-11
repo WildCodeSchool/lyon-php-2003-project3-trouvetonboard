@@ -25,8 +25,7 @@ class ProfileType extends AbstractType
                 [
                     "label" => "Titre :",
                     'attr' => [
-                        'placeholder' => 'Veuillez saisir un titre en rapport avec un poste
-                         ou une definition de profil proffesstionnel'
+                        'placeholder' => 'Veuillez saisir un intitulé de poste ou titre'
                     ],
                 ]
             )

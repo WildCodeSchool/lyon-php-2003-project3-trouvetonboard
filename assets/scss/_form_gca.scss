@@ -62,8 +62,6 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
                 padding: $cust-formBlock-input-padding;
 
                 legend {
-
-
                 }
 
                 div {
@@ -117,6 +115,28 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
 
     a {
         color: $style-guide-blue !important;
+    }
+}
+
+.form-advisor-gca {
+    @extend .form-gca;
+
+    form {
+        div {
+            fieldset {
+                div {
+                    margin: 0px;
+                    div {
+                        margin: 0px;
+                    }
+
+                    select {
+                        margin: 0px;
+                    }
+                }
+
+            }
+        }
     }
 }
 
