@@ -50,7 +50,7 @@ class ProfileRepository extends ServiceEntityRepository
         JOIN advisor A ON PA.advisor_id = A.id
         JOIN user UA ON UA.advisor_id = A.id
         JOIN enterprise E on PE.enterprise_id = E.id
-        WHERE PE.id = $id 
+        WHERE PE.id = $id AND PA.archived = 0
         GROUP BY UA.id, PA.id
         ORDER BY SCORE DESC";
 
@@ -62,7 +62,7 @@ class ProfileRepository extends ServiceEntityRepository
     /**
      * @param int $id Advisor id
      *
-     * @return mixed[] array of result request
+     * @return mixed[] array of resulgit request
      * @throws \Doctrine\DBAL\DBALException
      */
     public function findEnterpriseMatchsByAdvisor(int $id = 0)
@@ -81,7 +81,7 @@ class ProfileRepository extends ServiceEntityRepository
         JOIN profile PE ON PE.id = PSE.profile_id # toutes les profils qui contiennent des skills que PA a.
         JOIN enterprise E ON PE.enterprise_id = E.id
         JOIN user UE ON UE.enterprise_id = E.id
-        WHERE PA.id = $id # ID de la Board request
+        WHERE PA.id = $id AND PE.archived = 0# ID de la Board request
         GROUP BY PE.id
         ORDER BY SCORE DESC";
         $stmt = $this->getEntityManager()->getConnection()->prepare($rawSql);

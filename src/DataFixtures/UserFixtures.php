@@ -26,7 +26,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     const NB_REF_CEDRIC = 2;
     // fix the number of advisor to create , number is end - start
     const NB_REF_START_ADVISOR = 100;
-    const NB_REF_END_ADVISOR = 130;
+    const NB_REF_END_ADVISOR = 105;
     // fix the number of board request by enterprise profile
     const NB_PROFILE_BY_ENTERPRISE = 5;
     const NB_REF_START_ENTERPRISE = 1000;
