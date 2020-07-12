@@ -33,6 +33,33 @@
 
 {% block javascripts %}
     <script>
+
+        function fade(element) {
+            let op = 1;  // initial opacity
+            let timer = setInterval(function () {
+                if (op <= 0.1){
+                    clearInterval(timer);
+                    element.style.display = 'none';
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op -= op * 0.1;
+            }, 5);
+        }
+
+        function unfade(element) {
+            let op = 0.1;  // initial opacity
+            element.style.display = 'block';
+            let timer = setInterval(function () {
+                if (op >= 1){
+                    clearInterval(timer);
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op += op * 0.1;
+            }, 10);
+        }
+
         // Get the modal
         const modal = document.getElementById("CVAdvisor");
 
@@ -47,23 +74,23 @@
 
         // When the user clicks the "Voir mon CV" button, open the modal
         showBtn.onclick = function() {
-            modal.style.display = "block";
+            unfade(modal);
         }
 
         // When the user clicks on "x", close the modal
         closeBtn.onclick = function() {
-            modal.style.display = "none";
+            fade(modal);
         }
 
         // When the user clicks on "Fermer", close the modal
         closeBtnBis.onclick = function() {
-            modal.style.display = "none";
+            fade(modal);
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
-                modal.style.display = "none";
+                fade(modal);
             }
         }
     </script>

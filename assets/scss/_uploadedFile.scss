@@ -1,9 +1,14 @@
 #CVAdvisor {
-  display: none;
+  opacity: 0;
+  transition: opacity 800ms;
+}
+
+#CVAdvisor.fadeIn {
+  opacity: 1;
 }
 
 .bnj-modal-dialog {
-  overflow-y: initial;
+
 }
 
 .bnj-modal-content {
@@ -14,5 +19,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
+}
+
+img {
+  width: 400px;
 }
