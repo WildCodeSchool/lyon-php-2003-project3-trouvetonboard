@@ -10,8 +10,18 @@
             {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
     </div>
 {% else %}
-    <table class="table">
+    <table class="table container-table">
         <tbody>
+        <tr>
+            <th width="{{ thWidth }}">Titre :</th>
+            <!-- TODO rajouter oui/non selon le choix -->
+            <td>{{ user.advisor.profiles[0].title }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Description :</th>
+            <!-- TODO rajouter oui/non selon le choix -->
+            <td>{{ user.advisor.profiles[0].description }}</td>
+        </tr>
         <tr>
             <th width="{{ thWidth }}">Votre historique de board :</th>
             <!-- TODO rajouter oui/non selon le choix -->

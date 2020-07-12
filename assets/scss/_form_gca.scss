@@ -62,8 +62,6 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
                 padding: $cust-formBlock-input-padding;
 
                 legend {
-
-
                 }
 
                 div {
@@ -120,13 +118,35 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
     }
 }
 
+.form-advisor-gca {
+    @extend .form-gca;
+
+    form {
+        div {
+            fieldset {
+                div {
+                    margin: 0px;
+
+                    div {
+                        margin: 0px;
+                    }
+
+                    select {
+                        margin: 0px;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
 // lg boot strap
 @media screen and (max-width: 992px) {
     .form-gca {
         width: 90%;
 
         form {
-            // each form in coantainerr
             width: 100%;
 
             h1 {
