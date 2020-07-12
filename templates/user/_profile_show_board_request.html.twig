@@ -19,9 +19,11 @@
 <div class="container-fluid row m-0 p-0 justify-content-between">
     {% if app.user.enterprise is not null %}
         {% for profile in app.user.enterprise.profiles %}
+            {% if not profile.archived %}
             <div class="m-3">
                 {% include "profile/_board_card.html.twig" %}
             </div>
+            {% endif %}
         {% else  %}
             <div class="d-flex p-2 justify-content-around ml-1 container-a">
                 <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>

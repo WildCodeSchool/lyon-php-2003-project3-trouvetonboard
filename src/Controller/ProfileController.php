@@ -146,6 +146,22 @@ class ProfileController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/archive/{id}", name="archive", methods={"GET"})
+     */
+    public function archive(Request $request, Profile $profile): Response
+    {
+        //if ($this->isCsrfTokenValid('delete' . $profile->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $profile->setArchived(true);
+            $entityManager->flush();
+       // }
+
+        return $this->redirectToRoute('user_profile_show');
+    }
+
+
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
      */
