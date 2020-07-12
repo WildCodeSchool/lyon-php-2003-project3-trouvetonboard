@@ -137,28 +137,67 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/archive/{id}", name="archive", methods={"GET"})
+     * @IsGranted("ROLE_ENTERPRISE")
      */
-    public function archive(Request $request, Profile $profile): Response
+    public function archive(Profile $profile): Response
     {
-        //if ($this->isCsrfTokenValid('delete' . $profile->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+
+        $logUser = $this->getUser();
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        try {
+            $enterprise = $logUser ? $logUser->getEnterprise() : null;
+            if (!$enterprise) {
+                throw new AccessDeniedException($msg);
+            }
+            if ($enterprise->getId() != $enterprise->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('user_profile_show');
+        }
+
+
+        $entityManager = $this->getDoctrine()->getManager();
             $profile->setArchived(true);
             $entityManager->flush();
-       // }
+            $this->addFlash(
+                "warning",
+                "Le profil a été archivé, il ne sera plus inclus dans les recherches des Advisors."
+            );
+
 
         return $this->redirectToRoute('user_profile_show');
     }
 
     /**
      * @Route("/restore/{id}", name="restore", methods={"GET"})
+     * @IsGranted("ROLE_ENTERPRISE")
      */
-    public function restore(Request $request, Profile $profile): Response
+    public function restore(Profile $profile): Response
     {
-        //if ($this->isCsrfTokenValid('delete' . $profile->getId(), $request->request->get('_token'))) {
+        $logUser = $this->getUser();
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        try {
+            $enterprise = $logUser ? $logUser->getEnterprise() : null;
+            if (!$enterprise) {
+                throw new AccessDeniedException($msg);
+            }
+            if ($enterprise->getId() != $enterprise->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('user_profile_show');
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
         $profile->setArchived(false);
         $entityManager->flush();
-        // }
+        $this->addFlash(
+            "success",
+            "Le profil a été restauré, il est à nouveau inclus dans les recherches des Advisors."
+        );
 
         return $this->redirectToRoute('user_profile_show');
     }
