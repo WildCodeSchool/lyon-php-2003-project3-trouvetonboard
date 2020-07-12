@@ -6,14 +6,7 @@
     {% block navbar %}
     {% endblock %}
 
-
-    <div class="{{ containerStd }} login">
-        <div class="d-flex justify-content-around align-items-center align-content-center login bnj-form-width">
-            {% for category, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endfor %}
+    <div class="container-std-fluid-bootstrap login">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error }}</div>
@@ -39,19 +32,7 @@
                     {#<label for="inputPassword">Mot de passe:</label>#}
                     <input type="password" name="password" id="inputPassword" class="form-control pwd" required
                            placeholder="mot de passe">
-
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                    {#
-                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                        See https://symfony.com/doc/current/security/remember_me.html
-
-                        <div class="checkbox mb-3">
-                            <label>
-                                <input type="checkbox" name="_remember_me"> Remember me
-                            </label>
-                        </div>
-                    #}
                     <div class="d-flex justify-content-around">
                         <button class="" type="submit">
                             Je me connecte
@@ -60,9 +41,8 @@
 
                 <p class="reset-password"> Mot de passe oublié ? <a href="{{ path('app_forgotten_password') }}">Cliquez ici</a></p>
             </form>
-
         </div>
-    </div>
+
 
     {% block footer %}
 
