@@ -183,12 +183,19 @@
 .form-block-std {
     @extend .container-std-bg-white-bootstrap;
     @extend .mt-2;
-    @extend .mb-2;
+    @extend .mb-
     @extend .p-0;
     @extend .justify-content-start;
 }
 
-.form-one-col-
+.form-one-col-block {
+    @extend .m-2;
+    @extend .p-0;
+    @extend .d-flex;
+    @extend .flex-column;
+    @extend .flex-fill;
+    @extend .container-std-bg-white-bootstrap;
+}
 
 .containerBtnMajCancelNoMr {
     @extend .d-flex;
@@ -197,13 +204,27 @@
     @extend .bg-light;
 }
 
+.container-btn-maj-cancel {
+    @extend .d-flex;
+    @extend .justify-content-between;
+    @extend .container-btn;
+    @extend .mr-2;
+}
+
+.titleBlock {
+    @extend .p-2;
+    @extend .d-flex;
+    @extend .align-items-stretch;
+    @extend .container-title-block;
+}
+
 .containerStdProfile {
     @extend .container-std-bg-white-bootstrap;
     @extend .mb-2;
     @extend .mt-4;
     @extend .d-flex;
-
 }
+
 
 // lg boot strap
 @media screen and (max-width: 992px) {
