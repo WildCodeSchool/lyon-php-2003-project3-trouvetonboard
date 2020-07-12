@@ -78,15 +78,12 @@ class AdvisorController extends AbstractController
             $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$advisor->getCvLink());
             $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
 
-            $finder = new Finder();
             $filesystem = new Filesystem();
 
-            $folder = $finder->in($projectRoot.'/public/uploads/images/users/');
-            $image = $folder->files()->name('1.jpg');
             if ($advisor->getCvLink() !== null) {
                 $uniqueCV = explode('.', $advisor->getCvLink());
                 $filesystem->copy(
-                    $projectRoot.'/public/uploads/images/users/'.$image->getFileName(),
+                    $projectRoot.'/public/uploads/images/users/1.jpg',
                     $projectRoot.'/public/uploads/images/users/'.$uniqueCV[0].'.jpg'
                 );
             }
