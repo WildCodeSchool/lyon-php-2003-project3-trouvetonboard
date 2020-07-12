@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use \DateTime;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/profile" , name="profile_")
@@ -113,14 +114,30 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
      */
     public function edit(Request $request, Profile $profile): Response
     {
+        $logUser = $this->getUser();
+        $roles = $logUser ? $logUser->getRoles() : null;
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        $method = in_array('ROLE_ENTERPRISE', $roles) ? "Enterprise" : "Advisor";
+
+        try {
+            if ($logUser->{"get" . $method}()->getId() != $profile->{"get".$method}()->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('home');
+        }
+
+
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('profile_index');
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('profile/edit.html.twig', [
