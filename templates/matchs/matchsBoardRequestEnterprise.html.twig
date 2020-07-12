@@ -6,12 +6,17 @@
     <div class="matchs-title">
         <h3>Selectionner un match pour afficher les Advisors compatibles</h3>
     </div>
+    {% set activeBoardRequest = "non-acttive" %}
+    {% set nbActiveBoardRequestSkills = 0 %}
     <div class="d-flex flex-fill flex-row containerStdProfile m-2 p-0 board-title">
         <div class="d-flex flex-column w-25 bg-light container-a container-tab" name="allBordRequest">
-            {% set activeBoardRequest = "non-acttive" %}
+
             {% for boardRequest in boardRequests %}
                 {% if activceBoardRequestId ==  boardRequest.id %}
+                    {# for js #}
                     {% set activeBoardRequest = "boardRequestActive" %}
+                    {# for calculate board % covered match in card  #}
+                    {% set nbActiveBoardRequestSkills = boardRequest.skills|length %}
                 {% endif %}
 
                 <div class="border-bottom border-style-blue" id="boardRequest-{{ boardRequest.id }}" name="{{
@@ -44,7 +49,9 @@
         </div>
         <div class="w-75">
             <div class="d-flex flex-wrap flex-collumn m-3">
+
                 {% for match in matchs %}
+                    {% set percentCoveredSkill = (match.SCORE/nbActiveBoardRequestSkills) * 100 %}
                     <div class="d-flex flex-wrap flex-collumn m-1 zoom">
                         {% include "matchs/_card_enterprise_advisor_match.html.twig" %}
                     </div>

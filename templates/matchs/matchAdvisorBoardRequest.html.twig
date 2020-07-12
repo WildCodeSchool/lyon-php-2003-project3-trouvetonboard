@@ -9,6 +9,7 @@
     <div class="d-flex flex-wrap flex-collumn m-3">
         {% for match in matchs %}
         <div class="d-flex flex-wrap flex-collumn m-1 zoom">
+            {% set percentCoveredSkill = (match.SCORE/nbSkillAdvisor) * 100 %}
              {% include "matchs/_card_bord_request_match.html.twig" %}
         </div>
         {% else %}
