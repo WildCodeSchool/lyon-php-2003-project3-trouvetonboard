@@ -64,3 +64,18 @@ $cust-formBlock-input-bgcolor: $style-guide-blue;
 .bg-color-gray {
     background: $style-guide-gray;
 }
+
+.width-50-percent {
+   width: 50%;
+}
+
+// lg boot strap
+@media screen and (max-width: 992px) {
+
+    .width-50-percent {
+        width: 90%;
+    }
+
+
+}
+

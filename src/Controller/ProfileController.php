@@ -58,7 +58,7 @@ class ProfileController extends AbstractController
             ];
         }
 
-        return $this->render('profile/editBordRequest.html.twig', [
+        return $this->render('profile/editBordRequestEnterprise.html.twig', [
             'skillsByCategories' => $skillsByCategory,
             "profile" => $boardRequest
         ]);
@@ -263,6 +263,22 @@ class ProfileController extends AbstractController
     {
         return $this->json([
             'isChecked' => $profile->isInSkillList($skill)
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/checkAllSkill", name="checkAllSkill")
+     * @IsGranted({"ROLE_USER"})
+     */
+    public function checkAllSkills(Profile $profile)
+    {
+        $skillsId = [];
+        foreach ($profile->getSkills() as $skill) {
+            $skillsId[] =  $skill->getId();
+        }
+
+        return $this->json([
+            'skillsId' => $skillsId
         ]);
     }
 }
