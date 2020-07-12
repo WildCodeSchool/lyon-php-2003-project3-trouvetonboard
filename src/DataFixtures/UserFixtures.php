@@ -15,6 +15,8 @@ use Faker;
 
 /**
  * Class UserFixtures
+ *
+ * @package App\DataFixtures
  * @SuppressWarnings(PHPMD)
  */
 class UserFixtures extends Fixture implements DependentFixtureInterface
@@ -66,7 +68,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($cedric);
         $numRefAdmin = self::NB_REF_CEDRIC;
         $this->addReference("user_$numRefAdmin", $cedric);
-        $gender = ["Homme", "Femme", "Autre"];
+        $gender = ["H", "F"];
         for ($i = self::NB_REF_START_ADVISOR; $i < self::NB_REF_END_ADVISOR; $i++) {
             $advisor = new Advisor();
             $advisor->setPaymentStatus(1);
@@ -77,16 +79,17 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user = new User();
             $status = $i - self::NB_REF_START_ADVISOR;
             $user->setEmail("user$status@ttb.com");
-            $user->setRoles(['ROLE_USER', "ROLE_ADVISOR"]);
+            $user->setRoles(['ROLE_ADVISOR']);
             $user->setIsVerified(1);
             $user->setFirstName($faker->firstName);
             $user->setLastName($faker->lastName);
             $user->setPictureLink($faker->imageUrl());
             $user->getPostCode($faker->postcode);
-            $user->setGender($gender[rand(0, 2)]);
+            $user->setGender($gender[rand(0, 1)]);
             $user->setCity($faker->city);
             $user->setAddress($faker->address);
             $user->setType("Advisor");
+            $user->setBirthday($faker->dateTime);
             $user->setPassword($this->passwordEncoder->encodePassword($user, "pwd"));
             $manager->persist($user);
             $this->addReference("user_$i", $user);
@@ -96,12 +99,15 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $profile->setIsPropose(true);
             $profile->setIsRequest(false);
             $profile->setDateCreation($faker->dateTime);
+            $profile->setArchived(false);
             $this->addReference("profile_$i", $profile);
             $manager->persist($profile);
             $user->setAdvisor($this->getReference("advisor_$i"));
             $advisor->addProfile($this->getReference("profile_$i"));
-            for ($k = 0; $k < rand(1, SkillFixtures::NB_MAX_SKIILS); $k++) {
-                $profile->addSkill($this->getReference("skillNb_$k"));
+            for ($k = 0; $k < rand(10, SkillFixtures::NB_MAX_SKIILS); $k++) {
+                if (rand(0, 3)) {
+                    $profile->addSkill($this->getReference("skillNb_$k"));
+                }
             }
         }
         $enterpriseUser = new User(); // Enterprise type user creation for dev , no  loop  , just one at this time
@@ -110,6 +116,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $enterpriseUser->setIsVerified(0);
         $enterpriseUser->setFirstName("Wilding");
         $enterpriseUser->setLastName("Coder");
+        $enterpriseUser->setType("Enterprise");
+        $enterpriseUser->setBirthday($faker->dateTime);
         $enterpriseUser->setPassword($this->passwordEncoder->encodePassword($enterpriseUser, "pwd"));
         $enterpriseUser->setType("Entreprise");
 
@@ -128,8 +136,10 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $profile = new Profile();
             $profile->setPaymentType("All");
             $profile->setTitle($faker->jobTitle);
+            $profile->setTitle($faker->jobTitle);
             $profile->setIsPropose(false);
             $profile->setIsRequest(true);
+            $profile->setArchived(false);
             $profile->setDateCreation($faker->dateTime);
             $this->addReference("profileEnt_$l", $profile);
             $manager->persist($profile);

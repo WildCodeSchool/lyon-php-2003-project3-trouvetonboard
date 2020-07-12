@@ -15,7 +15,7 @@ use Faker;
 
 class SkillFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_MAX_SKIILS = 11;
+    const NB_MAX_SKIILS = 80;
 
 
     public function load(ObjectManager $manager)

@@ -25,7 +25,7 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -79,11 +79,19 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        $formerMail = $user->getEmail();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $newMail = $user->getEmail();
+            if ($formerMail !== $newMail) {
+                $user->setIsVerified(false);
+            }
 
             return $this->redirectToRoute('user_index');
         }

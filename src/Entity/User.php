@@ -41,6 +41,10 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Merci de saisir un mot de passe")
+     * @Assert\NotNull(message="Merci de saisir un mot de passe")
+     * @Assert\Length(min="8", max="255", minMessage="Votre mot de passe doit comporter au minimum {{ limit }}
+     * caractères.", maxMessage="Votre mot de passe doit comporter au maximum {{ limit }} caractères.")
      */
     private $password;
 
@@ -52,21 +56,33 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Merci de renseigner votre prénom")
+     * @Assert\NotNull()
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match=false,
      *     message="Il ne peut y avoir de nombre dans votre prénom"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^(\s)+/",
+     *     match=false,
+     *     message="Il ne peut y avoir d'espaces dans votre prénom'"
      * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Merci de renseigner votre prénom")
+     * @Assert\NotBlank(message="Merci de renseigner votre nom")
+     * @Assert\NotNull()
      * @Assert\Regex(
      *     pattern="/\d/",
      *     match=false,
-     *     message="Il ne peut y avoir de nombre dans votre prénom"
+     *     message="Il ne peut y avoir de nombre dans votre nom"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^(\s)+/",
+     *     match=false,
+     *     message="Il ne peut y avoir d'espaces dans votre nom"
      * )
      */
     private $lastName;
@@ -82,11 +98,11 @@ class User implements UserInterface
     private $advisor;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="string", length=1, nullable=true)
      * @Assert\Regex(
-     *     pattern="/Monsieur|Madame/",
+     *     pattern="/H|F/",
      *     match=true,
-     *     message="Le genre ne peut etre Homme , Femme ou Autre."
+     *     message="Le genre ne peut être que H ou F."
      * )
      */
     private $gender;
@@ -117,7 +133,7 @@ class User implements UserInterface
     private $address;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $postCode;
 
