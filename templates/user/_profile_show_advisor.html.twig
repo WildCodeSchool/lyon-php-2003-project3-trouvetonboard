@@ -31,8 +31,11 @@
         </tr>
         </tbody>
     </table>
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
-            Modifier mes informations Advisor</a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') == false %}
+        <div class="d-flex p-2 justify-content-around ml-1 container-a">
+            <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
+                Modifier mes informations Advisor</a>
+        </div>
+    {% endif %}
+
 {% endif %}

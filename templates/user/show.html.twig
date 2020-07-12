@@ -3,110 +3,30 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>{{ user.firstName ~ " " ~ user.lastName }}</h1>
+    <div class="container-info-profil">
+        <h1>{{ user.firstName ~ " " ~ user.lastName }}</h1>
+        <img width="200px" src="{{ user.pictureLink }}">
+        <div class="container-info">
+            <p>Email: {{ user.email }}</p>
+            <p>Type: {{ user.type }}</p>
+            <p>Compte vérifié: {{ user.isVerified ? 'Oui' : 'Non' }}</p>
+            <p>Adresse: {{ user.address }}</p>
+            <p>Ville: {{ user.city }}</p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <td><img src="{{ user.pictureLink }}"></td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ user.type }}</td>
-            </tr>
-            <tr>
-                <th>Compte vérifié</th>
-                <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ user.address }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ user.city }}</td>
-            </tr>
+            <label for="payment">Statut payment:</label>
 
-
-        </tbody>
-    </table>
-    <div class="{{ formBlockStd }}">
-        <div class="{{ titleBlock }}">
-            <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-                <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Compétences &
-        Expériences"
-                    }}</h3>
-                <div>
-                    {{ include('components/_icon_board_request.html.twig') }}
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid row m-0 p-0 justify-content-between">
-
-            <div class="d-flex flex-fill flex-row p-0">
-                <div id="listCategoryDiv" class="d-flex flex-column w-25
-                    container-a bg-light container-tab">
-                    {% for category in categories %}
-                        <div name="profileUserCategory" id="category-{{ category.id }}" class="p-3">
-                            <a class="h5" name="categoryLink" id="{{ category.id }}" href="#">{{ category.name }}</a>
-                            <div name="divSkillsInCategory" id="skills-{{ category.id }}" class="d-none">
-                                <div class="d-flex flex-column flex-fill w-auto form-gca p-0 ml-1 m-lg-1">
-                                    <p class="m-2 question">{{ category.advisorQuestion }}</p>
-                                    {% for skill in category.skills %}
-
-                                        {% set wayAdd = app.request.schemeAndHttpHost ~ path('profile_addSkill',
-                                            {'id': user.advisor.profiles[0].id, 'skillId': skill.id }) %}
-                                        {% set wayRemove = app.request.schemeAndHttpHost ~
-                                            path('profile_removeSkill', {'id': user.advisor.profiles[0].id,
-                                            'skillId': skill.id }) %}
-                                        {% set wayCheck = app.request.schemeAndHttpHost ~
-                                            path('profile_checkSkill', {'id': user.advisor.profiles[0].id,
-                                            'skillId': skill.id }) %}
-
-                                        <div class="m-0 p-3 p-sm-3 p-lg-2  border-bottom border-style-blue">
-                                            <div id="skillGroup-{{ skill.id }}" name="skillGroup" class="ml-5 d-flex flex-fill
-                                            align-items-stretch align-content-center">
-                                                <label id="skillLabel" for="skillCheckbox-{{ skill.id }}"
-                                                       name="skillLabel"
-                                                       class="m-0 align-self-center w-75"> {{ skill.name }}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    {% else %}
-                                        <h4>Aucune compétence à afficher.</h4>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                    {% endfor %}
-                </div>
-                <div id="tableSkills" class="w-75">
-                    <div>
-                        <p class="m-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
-                            Depuis ce menu, vous pouvez sélectionner vos compétences et aptitudes en tant qu'Advisor.
-                        </p>
-                        <p class="ml-5  text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
-                            Ces données permettent de vous relier aux recherches des entreprises.
-                        </p>
-                        <p class="ml-5 mt-5 text-secondary font-weight-light font-weight-lighter font-weight-lighter font-italic">
-                            Merci de choisir une catégorie dans le menu latéral pour afficher la liste des compétences
-                            associées.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
+            <select name="status" id="payment" placeholder="zefzfefzfze">
+                <option value="" selected data-default>Changer statut de payment</option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select>
         </div>
     </div>
-    {% for skill in user.advisor.profiles[0].skills %}
-        {{ skill.name }}
-    {% endfor %}
+    {% if  user.advisor%}
+        {% include "user/_skills_profil_advisor.html.twig" %}
+    {% elseif user.enterprise %}
+        {{ include("user/_profile_show_enterprise.html.twig", {'type': 'admin'}) }}
+    {% endif %}
 {% endblock %}
 
 

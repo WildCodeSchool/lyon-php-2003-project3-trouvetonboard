@@ -10,10 +10,13 @@
         <div class="col-lg-4 col-md-12">
             <div class="{{ formBlockStd }}">
                 {% include 'user/_profile_show_base_user.html.twig' %}
-                <div class="d-flex p-2 justify-content-around ml-1 container-a">
-                    <a href="{{ path('user_profile_edit' , { "id": app.user.id }) }}">
-                        Modifier mon profil</a>
-                </div>
+
+                {% if is_granted('ROLE_ADMIN') == false %}
+                    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                        <a href="{{ path('user_profile_edit' , { "id": app.user.id }) }}">
+                            Modifier mon profil</a>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="{{ formBlockStd }}">

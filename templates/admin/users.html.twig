@@ -25,7 +25,7 @@
                                 <li>Email: {{ user.email }}</li>
                                 <li>Ville: {% if user.city %} {{ user.city }} {% else %} Non renseigné {% endif %}</li>
                             </ul>
-                            <a href="{{ path("user_show", {"id": user.id}) }}">Plus d'info</a>
+                            <a href="{{ path("user_show_id", {"id": user.id}) }}">Plus d'info</a>
                         </div>
                     </div>
 

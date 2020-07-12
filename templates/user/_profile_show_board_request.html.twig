@@ -27,10 +27,14 @@
         {% endfor %}
     {% elseif app.user.advisor is not null %}
             {% include "user/_profile_edit_advisor_skills.html.twig" %}
-    {% else %}
-        <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            {{ is_granted('ROLE_ENTERPRISE') ?
-            "Aucune information disponible pour votre profil." }}
-        </div>
-    {% endif %}
+    {% elseif user.advisor %}
+        {% include "user/_skills_profil_advisor.html.twig" %}
+    {% elseif user.enterprise %}
+        {% for profile in user.enterprise.profiles %}
+            {% include "profile/_board_card.html.twig" %}
+        {% else  %}
+            <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
+            </div>
+        {% endfor %}    {% endif %}
 </div>
