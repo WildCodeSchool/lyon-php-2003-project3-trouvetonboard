@@ -6,13 +6,7 @@
     {% block navbar %}
     {% endblock %}
 
-    <div class="containerStd-bootstrap login">
-        <div class="d-flex justify-content-around align-items-center align-content-center login">
-            {% for category, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endfor %}
+    <div class="container-std-fluid-bootstrap login">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error }}</div>
@@ -47,9 +41,8 @@
 
                 <p class="reset-password"> Mot de passe oublié ? <a href="{{ path('app_forgotten_password') }}">Cliquez ici</a></p>
             </form>
-
         </div>
-    </div>
+
 
     {% block footer %}
 

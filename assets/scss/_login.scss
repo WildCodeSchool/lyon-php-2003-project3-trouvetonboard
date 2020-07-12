@@ -1,7 +1,20 @@
 .login {
-    form {
-        width: 50%;
 
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .justify-content-center;
+    @extend .align-items-center;
+    margin: 5%;
+    min-height: 80vh;
+    color: $cust-container-std-text-color;
+    text-shadow: $cust-container-std-text-shadow;
+    background-color: $cust-container-std-bgcolor;
+    box-shadow: $cust-box-shadow;
+    border-radius: $cust-container-std-radius;
+
+    form {
+        @extend .pb-5;
+        width: 50%;
         div {
             margin-top: $cust-container-std-childs-margin-top;
         }
@@ -85,4 +98,33 @@
 .bnj-form-width {
     flex-direction: column;
     width: 80%;
+}
+
+// lg boot strap
+@media screen and (max-width: 992px) {
+    .login {
+        width: 90%;
+
+        form {
+            width:90%;
+
+            h1 {
+                margin-top: $cust-container-std-childs-margin-top;
+            }
+
+            div {
+                // form  global  container
+
+                div {
+                    flex-wrap: wrap;
+                    //background-color: #718C00;
+
+                    input {
+                        padding: 10px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }
