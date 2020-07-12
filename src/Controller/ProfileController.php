@@ -45,8 +45,6 @@ class ProfileController extends AbstractController
         SkillRepository $skillRepository
     ): Response {
 
-
-
         // get the skill type list.
         $categories = $categoryRepository->findAll();
 
@@ -103,16 +101,6 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
-     */
-    public function show(Profile $profile): Response
-    {
-        return $this->render('profile/show.html.twig', [
-            'profile' => $profile,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
      */
@@ -157,6 +145,20 @@ class ProfileController extends AbstractController
             $profile->setArchived(true);
             $entityManager->flush();
        // }
+
+        return $this->redirectToRoute('user_profile_show');
+    }
+
+    /**
+     * @Route("/restore/{id}", name="restore", methods={"GET"})
+     */
+    public function restore(Request $request, Profile $profile): Response
+    {
+        //if ($this->isCsrfTokenValid('delete' . $profile->getId(), $request->request->get('_token'))) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $profile->setArchived(false);
+        $entityManager->flush();
+        // }
 
         return $this->redirectToRoute('user_profile_show');
     }

@@ -29,6 +29,17 @@
                 <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
             </div>
         {% endfor %}
+        {% for profile in app.user.enterprise.profiles %}
+            {% if profile.archived %}
+                <div class="m-3">
+                    {% include "profile/_board_card.html.twig" %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
+            </div>
+        {% endfor %}
     {% elseif app.user.advisor is not null %}
             {% include "user/_profile_edit_advisor_skills.html.twig" %}
     {% else %}

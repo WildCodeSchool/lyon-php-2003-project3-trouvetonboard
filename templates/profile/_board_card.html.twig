@@ -1,21 +1,43 @@
 <div class="card shadow card-custom zoom" style="width: 14rem;">
-    <div class="{{ titleBlock }} d-flex- justify-content-between align-items-center align-content-center">
-        {{ include('components/_icon_board_request_tick.html.twig') }}
-        <h5 class="card-title m-0 center-h-text align-self-center">{{ profile.title }}</h5>
+    {% set backgroudColor = "" %}
+    {% set textColor = "" %}
+    {% set archived = "" %}
+    {% if profile.archived %}
+        {% set backgroudColor = "bg-secondary" %}
+        {% set textColor = "text-muted" %}
+    {% endif %}
+
+    <div class="{{ titleBlock }} d-flex- justify-content-between align-items-center align-content-center {{ backgroudColor }}">
+        {% if not profile.archived %}
+            {{ include('components/_icon_board_request_tick.html.twig') }}
+        {% else %}
+            {% set archived = "(Archive) " %}
+            {{ include('components/_icon_card_archived.html.twig') }}
+        {% endif %}
+        <h5 class="card-title m-0 center-h-text align-self-center">{{ archived }}{{ profile.title }}</h5>
     </div>
+
     <div class="m-2 border border-style-blue">
-    <div class="card-body">
-        <p class="card-text">Description: {{ profile.description | default("Pas de description") }}</p>
-    </div>
-    <div class="card-body">
-        <p class="card-text">Date de creation: {{ profile.dateCreation|date("m/d/Y") }}</p>
-    </div>
+        {% if not profile.archived %}
+        <div class="card-body">
+            <p class="card-text">Description: {{ profile.description | default("Pas de description") }}</p>
+        </div>
+        {% endif %}
+        <div class="card-body">
+            <p class="card-text {{ textColor }}">Date de creation: {{ profile.dateCreation|date("m/d/Y") }}</p>
+        </div>
     </div>
 
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
+        {% if not profile.archived %}
         <a href="{{ path('profile_archive', { "id": profile.id }) }}">
             Archiver</a>
+        {% else %}
+        <a href="{{ path('profile_restore', { "id": profile.id }) }}">
+            Restaurer</a>
+        {% endif %}
     </div>
+    {% if not profile.archived %}
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
         <a href="{{ path('profile_edit' , { "id":profile.id }) }}">
             Modifier la Board Request</a>
@@ -24,6 +46,6 @@
         <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id }) }}">
             Modifier les compétences</a>
     </div>
-
+    {% endif %}
 </div>
 
