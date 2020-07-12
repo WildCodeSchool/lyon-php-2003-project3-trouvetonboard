@@ -173,13 +173,22 @@
     border-radius: 0 0 $cust-border-radius $cust-border-radius;
 }
 
-.containerStd-bootstrap{
+.containerStd-bootstrap {
     @extend .container;
     @extend .mb-2;
     @extend .mt-4;
     @extend .container-std-bg-white;
 }
 
+.form-block-std {
+    @extend .container-std-bg-white-bootstrap;
+    @extend .mt-2;
+    @extend .mb-2;
+    @extend .p-0;
+    @extend .justify-content-start;
+}
+
+.form-one-col-
 
 .containerBtnMajCancelNoMr {
     @extend .d-flex;
@@ -189,10 +198,11 @@
 }
 
 .containerStdProfile {
+    @extend .container-std-bg-white-bootstrap;
     @extend .mb-2;
     @extend .mt-4;
     @extend .d-flex;
-    @extend .container-std-bg-white-bootstrap;
+
 }
 
 // lg boot strap
