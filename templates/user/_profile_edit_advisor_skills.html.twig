@@ -1,5 +1,5 @@
 <div class="d-flex flex-fill flex-row p-0">
-    <div id="listCategoryDiv" class="d-flex flex-column w-25
+    <div id="listCategoryDiv" class="d-flex flex-column
     container-a bg-light container-tab">
         {% for category in categories %}
             <div name="profileUserCategory" id="category-{{ category.id }}" class="p-3">
@@ -19,7 +19,7 @@
                                 'skillId': skill.id }) %}
 
                             <div class="m-0 p-3 p-sm-3 p-lg-2  border-bottom border-style-blue">
-                                <div id="skillGroup-{{ skill.id }}" name="skillGroup" class="ml-5 d-flex flex-fill
+                                <div id="skillGroup-{{ skill.id }}" name="skillGroup" class="d-flex flex-fill
                                             align-items-stretch align-content-center">
                                     <label id="skillLabel" for="skillCheckbox-{{ skill.id }}" name="skillLabel"
                                            class="m-0 align-self-center w-75"> {{ skill.name }}
