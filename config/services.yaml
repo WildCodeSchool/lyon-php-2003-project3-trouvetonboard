@@ -6,6 +6,7 @@
 parameters:
     locale: 'en'
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
+    mailer_cedric: '%env(resolve:MAILER_CEDRIC)%'
     upload_directory: '%kernel.project_dir%/public/uploads/images/users'
 
 services:

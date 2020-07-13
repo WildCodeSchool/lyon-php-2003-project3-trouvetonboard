@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use \DateTime;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/profile" , name="profile_")
@@ -29,7 +30,7 @@ class ProfileController extends AbstractController
      */
     public function index(ProfileRepository $profileRepository): Response
     {
-        return $this->render('profile/index.html.twig', [
+        return $this->render('profile/index.php', [
             'profiles' => $profileRepository->findAll(),
         ]);
     }
@@ -43,8 +44,6 @@ class ProfileController extends AbstractController
         CategoryRepository $categoryRepository,
         SkillRepository $skillRepository
     ): Response {
-
-
 
         // get the skill type list.
         $categories = $categoryRepository->findAll();
@@ -102,25 +101,31 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
-     */
-    public function show(Profile $profile): Response
-    {
-        return $this->render('profile/show.html.twig', [
-            'profile' => $profile,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
      */
     public function edit(Request $request, Profile $profile): Response
     {
+        $logUser = $this->getUser();
+        $roles = $logUser ? $logUser->getRoles() : null;
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        $method = in_array('ROLE_ENTERPRISE', $roles) ? "Enterprise" : "Advisor";
+
+        try {
+            if ($logUser->{"get" . $method}()->getId() != $profile->{"get".$method}()->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('home');
+        }
+
+
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('profile_index');
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('profile/edit.html.twig', [
@@ -128,6 +133,75 @@ class ProfileController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/archive/{id}", name="archive", methods={"GET"})
+     * @IsGranted("ROLE_ENTERPRISE")
+     */
+    public function archive(Profile $profile): Response
+    {
+
+        $logUser = $this->getUser();
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        try {
+            $enterprise = $logUser ? $logUser->getEnterprise() : null;
+            if (!$enterprise) {
+                throw new AccessDeniedException($msg);
+            }
+            if ($enterprise->getId() != $enterprise->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('user_profile_show');
+        }
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+            $profile->setArchived(true);
+            $entityManager->flush();
+            $this->addFlash(
+                "warning",
+                "Le profil a été archivé, il ne sera plus inclus dans les recherches des Advisors."
+            );
+
+
+        return $this->redirectToRoute('user_profile_show');
+    }
+
+    /**
+     * @Route("/restore/{id}", name="restore", methods={"GET"})
+     * @IsGranted("ROLE_ENTERPRISE")
+     */
+    public function restore(Profile $profile): Response
+    {
+        $logUser = $this->getUser();
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        try {
+            $enterprise = $logUser ? $logUser->getEnterprise() : null;
+            if (!$enterprise) {
+                throw new AccessDeniedException($msg);
+            }
+            if ($enterprise->getId() != $enterprise->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('user_profile_show');
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $profile->setArchived(false);
+        $entityManager->flush();
+        $this->addFlash(
+            "success",
+            "Le profil a été restauré, il est à nouveau inclus dans les recherches des Advisors."
+        );
+
+        return $this->redirectToRoute('user_profile_show');
+    }
+
 
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})

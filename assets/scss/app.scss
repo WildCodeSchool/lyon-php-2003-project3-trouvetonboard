@@ -11,11 +11,13 @@
 @import "home";
 @import "pagesInfo";
 @import "uploadedFile";
+@import "matchs";
+@import "card_match_advisors";
+@import "matchEnterprise";
 
 body {
     background-color: $cust-bg-page;
     font-family: 'Roboto', sans-serif;
-
 }
 
 a {
@@ -28,13 +30,15 @@ a {
 
 
 .footer-container {
+    display: block;
+    bottom:0;
     width: 100%;
     min-height: 150px;
     background-color: #6E9DB8;
-    display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px 100px;
+    margin-top: 10px;
 
     li {
         list-style: none;

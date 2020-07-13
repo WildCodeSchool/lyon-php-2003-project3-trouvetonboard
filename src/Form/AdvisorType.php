@@ -3,17 +3,28 @@
 namespace App\Form;
 
 use App\Entity\Advisor;
+use App\Entity\Profile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\CallbackTransformer;
 
 class AdvisorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(
+                'profiles',
+                ProfileType::class,
+                [
+                    "label" => " ",
+                    'by_reference' => false
+
+                ]
+            )
             ->add(
                 'isAlreadyBoardMember',
                 ChoiceType::class,
@@ -38,7 +49,22 @@ class AdvisorType extends AbstractType
                 'allow_delete' => false,
                 'download_uri' => false,
             ])
-        ;
+        ;            
+
+        $builder->get('profiles')->addModelTransformer(
+            new CallbackTransformer(
+                function ($profilesAsProfile) {
+                    // transform the array to an instace of
+                    return $profilesAsProfile[0];
+                },
+                function ($profileAsProfiles) {
+                    // transform an instance to array
+                    $profiles = [];
+                    $profiles[] = $profileAsProfiles;
+                    return $profiles;
+                },
+            )
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)

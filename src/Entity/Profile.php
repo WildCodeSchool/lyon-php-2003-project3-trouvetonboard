@@ -77,7 +77,7 @@ class Profile
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $archived;
+    private $archived = 0;
 
 
     public function __construct()

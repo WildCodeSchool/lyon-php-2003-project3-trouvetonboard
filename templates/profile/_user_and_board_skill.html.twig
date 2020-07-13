@@ -1,15 +1,13 @@
 <div class="m-0 m-sm-1 m-lg-3 d-flex justify-content-center flex-column flex-wrap">
-
     {% set idCategoryBefore = -1 %}
     {% set idLevelBefore = -1 %}
     {% for aSkillBy in skillsByCategories %}
-        <div class="{{ formFullColBlock }} w-auto form-gca p-0 ml-1 m-lg-1">
+        <div class="form-one-col-block w-auto form-gca p-0 ml-1 m-lg-1">
             <div class="p-2 d-flex align-items-start align-content-start container-title-block">
                 <h5>{{ aSkillBy.category.name }}</h5>
             </div>
             <p class="m-2 question">{{ aSkillBy.category.EnterpriseQuestion }}</p>
             {% set before = "" %}
-
             {% for aSkill in aSkillBy.skills %}
                 {# it is five same skill with a level for each one  on to  five but at this time there is
                  implemented and we keep  just one of five same name skill #}
@@ -40,11 +38,8 @@
                         </div>
                     </div>
                 {% endif %}
-
-
             {% else %}
             {% endfor %}
-
         </div>
     {% else %}
         <h1> Aucun skill detecter</h1>

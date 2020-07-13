@@ -165,27 +165,32 @@ class SecurityController extends AbstractController
 
         // Si le formulaire est envoyé en méthode post
         if ($request->isMethod('POST')) {
-            if ($request->request->get('password') == $request->request->get('passwordRepeat')) {
-                // On supprime le token
+            if (strlen($request->request->get('password')) >= 8) {
+                if ($request->request->get('password') == $request->request->get('passwordRepeat')) {
+                    // On supprime le token
 
-                $user->setResetToken(null);
+                    $user->setResetToken(null);
 
-                // On chiffre le mot de passe
-                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+                    // On chiffre le mot de passe
+                    $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
 
-                // On stocke
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
+                    // On stocke
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-                // On crée le message flash
-                $this->addFlash('success', 'Mot de passe mis à jour');
+                    // On crée le message flash
+                    $this->addFlash('success', 'Mot de passe mis à jour');
 
-                // On redirige vers la page de connexion
-                return $this->redirectToRoute('app_login');
+                    // On redirige vers la page de connexion
+                    return $this->redirectToRoute('app_login');
+                }
+                $this->addFlash('danger', 'Les mots de passe doivent etre identique');
+                return $this->render('security/reset_password.html.twig', ['token' => $token]);
+            } else {
+                $this->addFlash('danger', 'Votre mot de passe doit comporter au minimum 8 caractères');
+                return $this->render('security/reset_password.html.twig', ['token' => $token]);
             }
-            $this->addFlash('danger', 'Les mots de passe doivent etre identique');
-            return $this->render('security/reset_password.html.twig', ['token' => $token]);
         } else {
             // Si on n'a pas reçu les données, on affiche le formulaire
             return $this->render('security/reset_password.html.twig', ['token' => $token]);
