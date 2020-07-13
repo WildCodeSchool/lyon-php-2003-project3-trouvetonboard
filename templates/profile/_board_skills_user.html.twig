@@ -3,6 +3,7 @@
     {% set idLevelBefore = -1 %}
     {% set wayCheck = app.request.schemeAndHttpHost ~ path('profile_checkAllSkill',
         {'id': profile.id }) %}
+    <input id="linkCheck" name="linkCheck" type="hidden" data-token="{{ csrf_token('requestToken') value="{{ wayCheck }}">
     {% for aSkillBy in skillsByCategories %}
         <div class="form-one-col-block w-auto form-gca p-0 ml-1 m-lg-1">
             <div class="p-2 d-flex align-items-start align-content-start container-title-block">
@@ -13,20 +14,17 @@
             {% for aSkill in aSkillBy.skills %}
                 {# it is five same skill with a level for each one  on to  five but at this time there is
                  implemented and we keep  just one of five same name skill #}
-
                 {% if before != aSkill.name %}
                     {% set wayAdd = app.request.schemeAndHttpHost ~ path('profile_addSkill', {'id': profile.id,
                         'skillId': aSkill.id }) %}
                     {% set wayRemove = app.request.schemeAndHttpHost ~ path('profile_removeSkill', {'id': profile.id ,
                         'skillId': aSkill.id }) %}
-
                     <div class="m-0 p-3 p-sm-3 p-lg-2  border-bottom border-style-blue">
                         <div id="skillGroup-{{ aSkill.id }}" name="skillGroup" class="ml-5 d-flex flex-fill
                         align-items-stretch align-content-center">
                             <label id="skillLabel" for="skillCheckbox-{{ aSkill.id }}" name="skillLabel" class="m-0
                             align-self-center w-75">
                                 {{ aSkill.name }}</label>
-                            <input id="linkCheck" name="linkCheck" type="hidden" value="{{ wayCheck }}">
                             <input id="skillCheckbox-{{ aSkill.id }}" name="skillCheckbox" class="m-0
                             align-self-center"
                                    type="checkbox">

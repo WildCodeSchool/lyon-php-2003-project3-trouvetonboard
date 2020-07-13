@@ -4,7 +4,8 @@ flex-wrap">
     {% set idLevelBefore = -1 %}
     {% set wayCheck = app.request.schemeAndHttpHost ~ path('profile_checkAllSkill',
         {'id': profile.id }) %}
-    <input id="linkCheck" name="linkCheck" type="hidden" data-link="{{ wayCheck }}">
+    <input id="linkCheck" name="linkCheck" type="hidden" data-link="{{ wayCheck }}"
+           data-token="{{ csrf_token('requestToken') }}">
     {% for aSkillBy in skillsByCategories %}
         <div id="skillGroupParent-{{ loop.index0 }}" name="skillGroupParent" class="form-one-col-block w-auto form-gca
         p-0 ml-1

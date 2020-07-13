@@ -3,7 +3,8 @@
     container-a bg-light container-tab">
         {% set wayCheck = app.request.schemeAndHttpHost ~ path('profile_checkAllSkill',
             {'id': user.advisor.profiles[0].id }) %}
-        <input id="linkCheck" name="linkCheck" type="hidden" data-advisor="true" data-link="{{ wayCheck }}">
+        <input id="linkCheck" name="linkCheck" type="hidden" data-token="{{ csrf_token('requestToken')}}"
+        data-advisor="true" data-link="{{ wayCheck }}">
         {% for category in categories %}
             <div name="profileUserCategory" id="category-{{ category.id }}" class="p-3">
                 <a class="h5" name="categoryLink" id="{{ category.id }}" href="#">{{ category.name }}</a>
