@@ -19,10 +19,10 @@ flex-wrap">
                  implemented and we keep  just one of five same name skill #}
 
                 {% if before != aSkill.name %}
-                    {% set wayAdd = app.request.schemeAndHttpHost ~ path('profile_addSkill', {'id': profile.id,
-                        'skillId': aSkill.id }) %}
-                    {% set wayRemove = app.request.schemeAndHttpHost ~ path('profile_removeSkill', {'id': profile.id ,
-                        'skillId': aSkill.id }) %}
+                    {% set wayAdd = app.request.schemeAndHttpHost ~ path('profile_addSkill',
+                        {'id': profile.id, 'skillId': aSkill.id }) %}
+                    {% set wayRemove = app.request.schemeAndHttpHost ~ path('profile_removeSkill',
+                        {'id': profile.id , 'skillId': aSkill.id }) %}
                     <div class="m-0 p-3 p-sm-3 p-lg-2 border-bottom border-style-blue">
                         <div id="skillGroup-{{ aSkill.id }}" name="skillGroup" class="ml-5 d-flex flex-fill
                         align-items-stretch align-content-center">

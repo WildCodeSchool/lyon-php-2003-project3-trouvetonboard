@@ -10,14 +10,17 @@
             </div>
             <div class="d-flex justify-content-center bg-light">
                 <div class="containerBtnMajCancelNoMr">
-                    <a id="category-back" class="m-4" href="#">Pécédent</a>
+
+                    <a id="category-back" class="m-4 text-center" href="#">  {{ include('components/_icon_back.html.twig') }}
+                        Pécédent</a>
                 </div>
                 <div class="containerBtnMajCancelNoMr">
                     <a class="m-4"
-                       href="{{ path('match_board_request_enterprise', { "id": profile.id }) }}">Terminer</a>
+                       href="{{ path('match_board_request_enterprise', { "id": profile.id }) }}">Terminer </a>
                 </div>
                 <div class="containerBtnMajCancelNoMr">
-                    <a id="category-next" class="m-4" href="#">Suivant</a>
+                    <a id="category-next" class="m-4" href="#">Suivant {{ include('components/_icon_next.html.twig')
+                        }}</a>
                 </div>
             </div>
             <div class="d-flex justify-content-center flex-row">
