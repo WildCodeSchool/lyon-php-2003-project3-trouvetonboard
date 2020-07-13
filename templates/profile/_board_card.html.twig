@@ -4,12 +4,12 @@
         <h5 class="card-title m-0 center-h-text align-self-center">{{ profile.title }}</h5>
     </div>
     <div class="m-2 border border-style-blue">
-    <div class="card-body">
-        <p class="card-text">Description: {{ profile.description | default("Pas de description") }}</p>
-    </div>
-    <div class="card-body">
-        <p class="card-text">Date de creation: {{ profile.dateCreation|date("m/d/Y") }}</p>
-    </div>
+        <div class="card-body">
+            <p class="card-text">Description: {{ profile.description | default("Pas de description") }}</p>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Date de creation: {{ profile.dateCreation|date("m/d/Y") }}</p>
+        </div>
     </div>
 
 
