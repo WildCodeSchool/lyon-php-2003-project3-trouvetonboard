@@ -15,7 +15,7 @@ use Faker;
 
 class SkillFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_MAX_SKIILS = 11;
+    const NB_MAX_SKIILS = 80;
 
 
     public function load(ObjectManager $manager)
@@ -82,18 +82,13 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                 } elseif (preg_match("/{$search2}/i", $categorys[$a])) {
                     $category->setAdvisorQuestion(str_replace($search2, "", $categorys[$a]));
                 } else {
-                    for ($i = 0; $i < 5; $i++) {
                         $skill = new Skill();
                         $skill->setName($categorys[$a]);
                         $skill->setCategory($this->getReference("category_" . $cat));
-                        $skill->setLevel($this->getReference("level_" . $i));
-                        if ($i == 0) {
-                            $this->addReference("skill_" . $cat . "_" . $a, $skill);
-                            $this->addReference("skillNb_$skillNb", $skill);
-                            $skillNb++;
-                        }
+                        $this->addReference("skill_" . $cat . "_" . $a, $skill);
+                        $this->addReference("skillNb_$skillNb", $skill);
+                        $skillNb++;
                         $manager->persist($skill);
-                    }
                 }
             }
             $cat++;
@@ -205,7 +200,6 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
             "Russe",
             "Suédois",
             "Taiwanais",
-            "Mandarin",
         ];
     }
 
@@ -222,11 +216,6 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
             "Russie",
             "Australie",
             "Moyen Orient",
-            "Services à la personne",
-            "Technologie / Internet",
-            "Immobilier",
-            "Télécommunications",
-            "Autre"
         ];
     }
 

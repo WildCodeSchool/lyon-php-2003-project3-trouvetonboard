@@ -12,36 +12,54 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', null, ["label" => "Prénom : "])
-            ->add('lastName', null, ["label" => "Nom : "])
-            ->add('email', null, ["label" => "Adesse mail : "])
-            //->add('roles')
             ->add('gender', ChoiceType::class, [
-                "label" => "Genre :",
+                "label" => "Civilité",
                 "choices" => [
-                    "Homme" => "Homme",
-                    "Femme" => "Femme",
-                    "Autre" => "Autre",
-                    ]
+                    "Monsieur" => "H",
+                    "Madame" => "F",
+                ]
             ])
-            ->add('nationality', null, ["label" => "Nationalité : "])
-            ->add('lastName', null, ["label" => "Nom : "])
+            ->add('firstName', null, [
+                "label" => "Prénom ",
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner votre prénom.',
+                        'normalizer' => 'trim',
+                    ]),
+                ]
+            ])
+            ->add('lastName', null, [
+                "label" => "Nom ",
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner votre prénom.',
+                        'normalizer' => 'trim',
+                    ]),
+                ]
+            ])
+            ->add('email', null, ["label" => "Adresse mail "])
+            //->add('roles')
+            ->add('nationality', null, ["label" => "Nationalité "])
+            ->add('lastName', null, ["label" => "Nom "])
             ->add('birthday', DateType::class, [
-                "label" => "Date de naissance : ",
-                "placeholder"  => ['year' => 'Année :', 'month' => 'Mois :', 'day' => 'Jour :'],
-                'years' => range(1900, 2020),
+                "label" => "Date de naissance ",
+                'format' => 'dd MM yyyy',
+                "placeholder"  => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
+                'years' => range(2020, 1920),
             ])
-            ->add('phone', null, ["label" => "Téléphone :"])
-            ->add('address', null, ["label" => "Adresse :"])
-            ->add('postCode', null, ["label" => "Code postal :"])
-            ->add('city', null, ["label" => "Ville :"])
-            ->add('pictureLink', null, ["label" => "Photo :"])
+            ->add('phone', null, ["label" => "Téléphone"])
+            ->add('address', null, ["label" => "Adresse"])
+            ->add('postCode', null, ["label" => "Code postal"])
+            ->add('city', null, ["label" => "Ville"])
+            ->add('country', null, ["label" => "Pays de résidence"])
+            ->add('pictureLink', null, ["label" => "Photo"])
         ;
     }
 

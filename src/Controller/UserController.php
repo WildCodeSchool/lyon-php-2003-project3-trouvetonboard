@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Advisor;
+use App\Repository\CategoryRepository;
+use App\Repository\ProfileRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +25,7 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -68,11 +71,19 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        $formerMail = $user->getEmail();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $newMail = $user->getEmail();
+            if ($formerMail !== $newMail) {
+                $user->setIsVerified(false);
+            }
 
             return $this->redirectToRoute('user_index');
         }
@@ -102,10 +113,23 @@ class UserController extends AbstractController
      * @Route("/profile/show", name="profile_show", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function profileShow(Request $request): Response
+    public function profileShow(CategoryRepository $categoryRepository): Response
     {
         $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
         $logUser = $this->getUser();
+        $categories = $categoryRepository->findAll();
+        $profileType = null;
+        $profile = null;
+        $roles = null;
+        if ($logUser) {
+            $roles = $logUser->getRoles();
+        }
+        if (array_search("ROLE_ADVISOR", $roles)) {
+            if ($logUser) {
+                $profileType = $logUser->getAdvisor();
+            }
+            $profile = $profileType->getProfiles()[0];
+        }
         $email = "";
         if (isset($logUser)) {
             $email = $logUser->getUsername();
@@ -115,10 +139,10 @@ class UserController extends AbstractController
                 $user = $userRepo->findOneBy(["email" => $email]);
         }
 
-
-       // $enterprise = $loggedUser ? $loggedUser->getEnterprise() : null;
         return $this->render('user/profileShow.html.twig', [
             'user' => $user,
+            'categories' => $categories,
+            "profile" => $profile
         ]);
     }
 
@@ -127,15 +151,8 @@ class UserController extends AbstractController
      */
     public function profileEdit(Request $request, User $user): Response
     {
-
-
-        /*$loggedUser = ($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(["id" =>
-        $this->getUser())
-            ->getId()]);*/
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
