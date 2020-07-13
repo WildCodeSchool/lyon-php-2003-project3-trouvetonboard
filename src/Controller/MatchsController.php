@@ -78,13 +78,20 @@ class MatchsController extends AbstractController
     public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository)
     {
 
-        $idProfileAdvisor = null;
+        $idProfileAdvisor = $nbSkillAdvisor = null;
         $logUser = $this->getUser();
         if ($logUser) {
             $idProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+            $nbSkillAdvisor = count($logUser->getAdvisor()->getProfiles()[0]->getSkills());
         }
         $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
-        return $this->render('matchs/matchAdvisorBoardRequest.html.twig', ['matchs' => $matchs]);
+        return $this->render(
+            'matchs/matchAdvisorBoardRequest.html.twig',
+            [
+                'matchs' => $matchs,
+                'nbSkillAdvisor' => $nbSkillAdvisor,
+            ]
+        );
     }
 
     /**
