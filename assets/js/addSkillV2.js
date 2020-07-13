@@ -46,9 +46,7 @@ async function checkHasSkillAsynch(skillBlocks) {
         // get the path for obtain skill list
         const way = $('#linkCheck');
         const wayLink = way.data("link");
-        console.log('___ Check Skills All ___', wayLink);
         const skillsId = await getSkillList(wayLink);
-        console.log(skillsId);
         for (let i = 0; i < skillBlocks.length; i += 1) {
             // get one skillBlock witch it containt multiple elements
             const aSkill = skillBlocks[i];
@@ -56,9 +54,7 @@ async function checkHasSkillAsynch(skillBlocks) {
             const checkbox = aSkill.querySelector('input[name="skillCheckbox"]');
             // get the skillid in hidden input
             const skillId = aSkill.querySelector('#skillId').value;
-            console.log(" controle pour ", skillId)
             for (let p = 0 ; p< skillsId.length ; p +=1 ) {
-                console.log(" controle 2 pour ",skillsId[p])
                 if (skillsId[p] == skillId) {
                     checkbox.checked = true;
                 }
@@ -67,7 +63,6 @@ async function checkHasSkillAsynch(skillBlocks) {
 }
 
 function buildScreenByCategories() {
-
     const divConstainAllCategory = $('#conatainer-category-skills');
     divConstainAllCategory.children().removeClass('form-one-col-block').addClass('d-none');
     let visibleGroupCategory = $('#skillGroupParent-0');
@@ -126,10 +121,16 @@ function buildScreenByCategories() {
 }
 
 $(document).ready(() => {
-    buildScreenByCategories();
+    console.log("___ Add Skill ___" , "debut");
+    // check if view page is enterprise or advisor , if data-advisor exist , is advisor and if not exist enterprise
+    const way = $('#linkCheck');
+    const isAdvisorView = way.data("advisor");
+    if (!isAdvisorView) {
+        buildScreenByCategories();
+    }
     // get all skill group , each skillGroup contain , hiden , label and checkbox
     const skillBlocks = document.querySelectorAll('div[name="skillGroup"]');
-    // console.log("___ Add Skill ___" , skillBlocks);
+    console.log("___ Add Skill ___" , skillBlocks);
     checkHasSkillAsynch(skillBlocks);
     // for each skillgroup  add event listener
     for (let j = 0; j < skillBlocks.length; j += 1) {

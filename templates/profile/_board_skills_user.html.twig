@@ -1,6 +1,8 @@
 <div class="m-0 m-sm-1 m-lg-3 d-flex justify-content-center flex-column flex-wrap">
     {% set idCategoryBefore = -1 %}
     {% set idLevelBefore = -1 %}
+    {% set wayCheck = app.request.schemeAndHttpHost ~ path('profile_checkAllSkill',
+        {'id': profile.id }) %}
     {% for aSkillBy in skillsByCategories %}
         <div class="form-one-col-block w-auto form-gca p-0 ml-1 m-lg-1">
             <div class="p-2 d-flex align-items-start align-content-start container-title-block">
@@ -16,8 +18,6 @@
                     {% set wayAdd = app.request.schemeAndHttpHost ~ path('profile_addSkill', {'id': profile.id,
                         'skillId': aSkill.id }) %}
                     {% set wayRemove = app.request.schemeAndHttpHost ~ path('profile_removeSkill', {'id': profile.id ,
-                        'skillId': aSkill.id }) %}
-                    {% set wayCheck = app.request.schemeAndHttpHost ~ path('profile_checkSkill', {'id': profile.id ,
                         'skillId': aSkill.id }) %}
 
                     <div class="m-0 p-3 p-sm-3 p-lg-2  border-bottom border-style-blue">
