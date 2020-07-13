@@ -39,7 +39,7 @@ class UserType extends AbstractType
                 "label" => "Nom ",
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de renseigner votre prénom.',
+                        'message' => 'Merci de renseigner votre nom.',
                         'normalizer' => 'trim',
                     ]),
                 ]
