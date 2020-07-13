@@ -6,6 +6,7 @@ use App\Entity\Enterprise;
 use App\Entity\User;
 use App\Form\EnterpriseType;
 use App\Repository\EnterpriseRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
@@ -132,5 +133,22 @@ class EnterpriseController extends AbstractController
         }
 
         return $this->redirectToRoute('enterprise_index');
+    }
+
+    /**
+     * @Route("/{id}/payment/{status}", name="enterprise_payment_status")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function changePaymentStatus(
+        Enterprise $enterprise,
+        int $status = 0,
+        EntityManagerInterface $entityManager
+    ) :Response {
+
+        $enterprise->setPaymentStatus($status);
+        $entityManager->persist($enterprise);
+        $entityManager->flush();
+
+        return new Response("Ok");
     }
 }

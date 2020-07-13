@@ -130,11 +130,12 @@ class UserController extends AbstractController
     ): Response {
 
         $categories = $categoryRepository->findAll();
-        $userRepo = $roles = $profile = $profileType = $user = null;
+        $userRepo = $roles = $profile = $profileType = $user = $userType = "";
 
 
         if ($userId) {
             $user = $logUser = $userId;
+            $userType = $user->getType();
         } else {
             $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
             $logUser = $this->getUser();
@@ -165,7 +166,8 @@ class UserController extends AbstractController
         return $this->render('user/profileShow.html.twig', [
             'user' => $user,
             'categories' => $categories,
-            "profile" => $profile
+            'profile' => $profile,
+            'userType' => $userType
         ]);
     }
 

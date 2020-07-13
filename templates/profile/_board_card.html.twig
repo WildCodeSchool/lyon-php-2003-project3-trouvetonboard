@@ -12,8 +12,8 @@
     </div>
     </div>
 
-    {% if not is_granted("ROLE_ADMIN") %}
 
+    {% if not is_granted("ROLE_ADMIN") %}
     <div class="d-flex p-2 justify-content-around ml-1 container-a">
         <a href="{{ path('user_profile_show') }}">
             Archiver</a>
@@ -26,6 +26,11 @@
         <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id }) }}">
             Modifier les compétences</a>
     </div>
+    {% else %}
+        <div class="d-flex p-2 justify-content-around ml-1 container-a">
+            <a href="{{ path('match_board_request_enterprise' , { "id": profile.id }) }}">
+                Détails des match </a>
+        </div>
     {% endif %}
 
 </div>

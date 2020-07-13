@@ -181,3 +181,14 @@ hr.rounded {
         align-self: center;
     }
 }
+.btn-admin {
+    padding: 0 !important;
+    margin-left: 20px;
+    text-align: center;
+
+    a {
+        border-color: #000;
+        margin: 0;
+        padding: 10px 5px;
+    }
+}

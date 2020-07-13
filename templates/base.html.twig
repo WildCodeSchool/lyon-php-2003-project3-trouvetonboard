@@ -35,8 +35,6 @@
                         <a class="nav-item nav-link" href="{{ path('match_advisor_boardRequest') }}">Mes Matchs</a>
                     {% elseif app.user.enterprise %}
                         <a class="nav-item nav-link" href="{{ path('match_board_request_one') }}">Mes Matchs</a>
-                    {% else %}
-                        <a class="nav-item nav-link" href="#">Mes Matchs</a>
                     {% endif %}
                     <a class="nav-item nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}

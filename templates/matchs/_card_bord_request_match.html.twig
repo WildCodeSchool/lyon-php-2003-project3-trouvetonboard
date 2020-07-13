@@ -15,7 +15,7 @@
 
     </ul>
     <div class="card-body container-a">
-        {% if is_granted('ROLE_ADVISOR') %}
+        {% if is_granted('ROLE_ADVISOR') or is_granted('ROLE_ADMIN') %}
             <a href="{{ path("match_details",
                 { "aProfile": match.advisor_id, "eProfile": match.board_request_id }) }}"
                class="card-link">

@@ -37,10 +37,16 @@ class MatchsController extends AbstractController
         $bordRequestId = $matchsBordRequest = $idEnterprise = null;
 
 
-        $logUser = $this->getUser();
-        if ($logUser) {
-            $idEnterprise = $logUser->getEnterprise()->getId();
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+            $idEnterprise = $bordRequest->getEnterprise()->getId();
+        } else {
+            $logUser = $this->getUser();
+
+            if ($logUser) {
+                $idEnterprise = $logUser->getEnterprise()->getId();
+            }
         }
+
         $boardRequests = $profileRepository->findBy(
             [
                 "archived" => false,
@@ -73,16 +79,23 @@ class MatchsController extends AbstractController
      *
      * @return Response
      * @Route("/matchs/advisor", name="match_advisor_boardRequest")
-     * @IsGranted("ROLE_ADVISOR")
+     * @Route("/{id}/matchs/advisor", name="match_advisor_id")
+     * @IsGranted({"ROLE_ADVISOR" , "ROLE_ADMIN"})
      */
-    public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository)
+    public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository, ?Profile $profile)
     {
 
         $idProfileAdvisor = null;
-        $logUser = $this->getUser();
-        if ($logUser) {
-            $idProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+            $idProfileAdvisor = $profile->getId();
+        } else {
+            $logUser = $this->getUser();
+            if ($logUser) {
+                $idProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+            }
         }
+
         $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
         return $this->render('matchs/matchAdvisorBoardRequest.html.twig', ['matchs' => $matchs]);
     }
@@ -95,14 +108,18 @@ class MatchsController extends AbstractController
      * @Route("/matchs/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_details")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
-     * @IsGranted("ROLE_ADVISOR")
+     * @IsGranted({"ROLE_ADVISOR" , "ROLE_ADMIN"})
      */
     public function matchDetails(Profile $aProfile, Profile $eProfile)
     {
         $idLogProfileAdvisor = null;
-        $logUser = $this->getUser();
-        if ($logUser) {
-            $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+            $idLogProfileAdvisor = $aProfile->getId();
+        } else {
+            $logUser = $this->getUser();
+            if ($logUser) {
+                $idLogProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+            }
         }
 
         try {
@@ -132,7 +149,7 @@ class MatchsController extends AbstractController
      * @Route("/matchs/enterprise/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_details_enterprise")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
-     * @IsGranted("ROLE_ENTERPRISE")
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
      */
     public function matchDetailsEnterprise(Profile $aProfile, Profile $eProfile)
     {
