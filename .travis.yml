@@ -10,7 +10,7 @@ before_install:
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
     - sudo apt-get install libmagickwand-dev
     - sudo apt-get install imagemagick
-    - pecl install php-http
+    - sudo apt install php-http
 
 install:
     - composer install
