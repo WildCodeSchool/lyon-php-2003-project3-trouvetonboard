@@ -42,7 +42,7 @@ class RegistrationFormType extends AbstractType
                     new Regex([
                         'pattern' => '/\d/',
                         'match' => false,
-                        'message' => 'Il ne peut y avoir de nombre dans votre prénom.',
+                        'message' => 'Il ne peut y avoir de chiffre dans votre prénom.',
                     ]),
                 ],
             ])
@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
                     new Regex([
                         'pattern' => '/\d/',
                         'match' => false,
-                        'message' => 'Il ne peut y avoir de nombre dans votre nom.',
+                        'message' => 'Il ne peut y avoir de chiffre dans votre nom.',
                     ]),
                 ],
             ])
@@ -77,7 +77,7 @@ class RegistrationFormType extends AbstractType
                     'label' => false,
                     'attr' => [
                         'placeholder' => 'Confirmez votre mot de passe']],
-                'invalid_message' => 'Les mots de passe doivent être identiques !',
+                'invalid_message' => 'Les mots de passe doivent être identiques',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de renseigner votre mot de passe.',

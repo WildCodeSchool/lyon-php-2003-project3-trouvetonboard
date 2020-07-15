@@ -151,10 +151,10 @@ class MatchsController extends AbstractController
 
         try {
             if ($idLogProfileAdvisor != $aProfile->getId()) {
-                throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
+                throw new AccessDeniedException("Accès refusé, tentative d'accès à un emplacement non autorisé");
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
-            $this->addFlash("danger", "Acces refusé, tentative d'accés a un emplacement non autorisé");
+            $this->addFlash("danger", "Accès refusé, tentative d'accès à un emplacement non autorisé");
             return $this->redirectToRoute('match_advisor_boardRequest');
         }
 
@@ -225,10 +225,10 @@ class MatchsController extends AbstractController
 
         try {
             if ($idLogedUser != $idUserProfile) {
-                throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
+                throw new AccessDeniedException("Accès refusé, tentative d'accès à un emplacement non autorisé");
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
-            $this->addFlash("danger", "Acces refusé, tentative d'accés a un emplacement non autorisé");
+            $this->addFlash("danger", "Accès refusé, tentative d'accès à un emplacement non autorisé");
             return $this->redirectToRoute($route);
         }
 
@@ -247,7 +247,7 @@ class MatchsController extends AbstractController
 
         $mailer->send($email);
         $this->addFlash('success', "Un email de demande de mise en relation a été envoyé 
-        a l'administrateur. Vous serez recontacter dans les plus bref delais.");
+        à l'administrateur. Vous serez recontacté dans les plus brefs délais.");
 
         return $this->redirectToRoute($route);
     }
@@ -278,9 +278,9 @@ class MatchsController extends AbstractController
 
         $mailer->send($email);
         $this->addFlash('success', "Un email de demande de contact a été envoyé 
-        a l'administrateur. Vous serez recontacter dans les plus brefs delais.");
+        à l'administrateur. Vous serez recontacté dans les plus brefs delais.");
 
-        // todo  midifier la valeur id
+        // todo  modifier la valeur id
         return $this->redirectToRoute("match_board_request_enterprise", ["id" => $eProfile->getId()]);
     }
 }
