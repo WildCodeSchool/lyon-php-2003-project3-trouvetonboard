@@ -8,7 +8,6 @@ before_install:
     - if [ -d "./.env.local" ]; then echo "Forbidden configuration file found !"; exit 2; fi
     - if [ -d "./vendor" ]; then echo "Forbidden external libs folder found !"; exit 2; fi
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
-    - pecl install libmagickwand-dev
     - pecl install imagemagick
     - pecl install php-http
 
