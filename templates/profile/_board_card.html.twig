@@ -57,10 +57,12 @@
           </div>
         {% endif %}
       {% else %}
-        <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            <a href="{{ path('match_board_request_enterprise' , { "id": profile.id }) }}">
-                Détails des match </a>
-        </div>
+        {% if not profile.archived %}
+            <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                <a href="{{ path('match_board_request_enterprise' , { "id": profile.id }) }}">
+                    Détails des match </a>
+            </div>
+        {% endif %}
     {% endif %}
 
 </div>

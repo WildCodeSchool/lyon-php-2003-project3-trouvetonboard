@@ -31,14 +31,20 @@
         <tr>
             <th width="{{ thWidth }}">Status du payment :</th>
             {% if is_granted("ROLE_ADVISOR") %}
-                <td>{{ user.advisor.paymentStatus }}</td>
+                <td>
+                    {% if user.advisor.paymentStatus == 0 %}
+                        Non Abonné
+                    {% else %}
+                        En cours
+                    {% endif %}
+                </td>
             {% else %}
                 {% set linkPaymentStatus = app.request.schemeAndHttpHost ~ path('advisor_payment_status',
                     {'id': user.advisor.id, 'status': null }) %}
                 <td>
-                    <select name="payment" id="payment" data-link="{{ linkPaymentStatus }}">
-                        <option value="0" {% if user.advisor.paymentStatus == 0 %} selected {% endif %}>Pas Payé</option>
-                        <option value="1" {% if user.advisor.paymentStatus == 1 %} selected {% endif %}>Payé</option>
+                    <select name="payment" id="payment" data-link="{{ linkPaymentStatus }}" class="form-control select-payment">
+                        <option value="0" {% if user.advisor.paymentStatus == 0 %} selected {% endif %}>Non Abonné</option>
+                        <option value="1" {% if user.advisor.paymentStatus == 1 %} selected {% endif %}>Paiement validé</option>
                     </select>
                 </td>
             {% endif %}
