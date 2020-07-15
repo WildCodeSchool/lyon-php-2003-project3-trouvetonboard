@@ -37,7 +37,6 @@ a {
     justify-content: center;
     align-items: center;
     padding: 40px 100px;
-    margin-top: 10px;
 
     li {
         list-style: none;
@@ -58,6 +57,14 @@ a {
         li {
             margin: 5px 20px;
         }
+    }
+
+    #skillLabel{
+        width: 100% !important;
+    }
+
+    .BtnCreatBoardRequest{
+        justify-content: center;
     }
 }
 
