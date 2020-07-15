@@ -5,13 +5,19 @@ namespace App\Controller;
 use App\Entity\Advisor;
 use App\Entity\User;
 use App\Form\AdvisorType;
+use App\Kernel;
 use App\Repository\AdvisorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Spatie\PdfToImage\Pdf;
+use Imagick;
 
 /**
  * @Route("/advisor")
@@ -64,13 +70,26 @@ class AdvisorController extends AbstractController
     /**
      * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Advisor $advisor): Response
+    public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
     {
         $form = $this->createForm(AdvisorType::class, $advisor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $projectRoot = $kernel->getProjectDir();
+            $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$advisor->getCvLink());
+            $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
+
+            $filesystem = new Filesystem();
+
+            if ($advisor->getCvLink() !== null) {
+                $uniqueCV = explode('.', $advisor->getCvLink());
+                $filesystem->copy(
+                    $projectRoot.'/public/uploads/images/users/1.jpg',
+                    $projectRoot.'/public/uploads/images/users/'.$uniqueCV[0].'.jpg'
+                );
+            }
 
             return $this->redirectToRoute('user_profile_show');
         }
