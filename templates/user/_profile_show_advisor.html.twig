@@ -27,10 +27,23 @@
             <!-- TODO rajouter oui/non selon le choix -->
             <td>{{ user.advisor.isAlreadyBoardMember ? "Historique" : "Vous n'êtes pas encore membre d'un board" }}</td>
         </tr>
+
         <tr>
             <th width="{{ thWidth }}">Status du payment :</th>
-            <td>{{ user.advisor.paymentStatus }}</td>
+            {% if is_granted("ROLE_ADVISOR") %}
+                <td>{{ user.advisor.paymentStatus }}</td>
+            {% else %}
+                {% set linkPaymentStatus = app.request.schemeAndHttpHost ~ path('advisor_payment_status',
+                    {'id': user.advisor.id, 'status': null }) %}
+                <td>
+                    <select name="payment" id="payment" data-link="{{ linkPaymentStatus }}">
+                        <option value="0" {% if user.advisor.paymentStatus == 0 %} selected {% endif %}>Pas Payé</option>
+                        <option value="1" {% if user.advisor.paymentStatus == 1 %} selected {% endif %}>Payé</option>
+                    </select>
+                </td>
+            {% endif %}
         </tr>
+
         <tr>
             <th width="{{ thWidth }}">LinkedIn :</th>
             <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Rajoutez un lien vers votre LinkedIn" }}</td>
@@ -41,8 +54,11 @@
         </tr>
         </tbody>
     </table>
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
-            Modifier mes informations Advisor</a>
-    </div>
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div class="d-flex p-2 justify-content-around ml-1 container-a">
+            <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
+                Modifier mes informations Advisor</a>
+        </div>
+    {% endif %}
+
 {% endif %}

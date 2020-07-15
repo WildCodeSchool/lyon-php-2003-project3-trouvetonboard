@@ -37,7 +37,6 @@ a {
     justify-content: center;
     align-items: center;
     padding: 40px 100px;
-    margin-top: 10px;
 
     li {
         list-style: none;
@@ -51,6 +50,104 @@ a {
     }
 }
 
+
+
+.container-back-home,
+.container-back-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-back {
+    background-color: white;
+    color: #6E9DB8;
+    border-style: solid;
+    border-color: $style-guide-blue;
+    border-width: $style-guide-button-border-width;
+    border-radius: $cust-container-std-radius;
+    margin: 20px;
+    width: 20%;
+    padding: 20px;
+    height: auto;
+    font-size: 20px;
+    text-align: center;
+
+    &:hover {
+        box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.container-stats {
+    width: 70%;
+    padding: 50px;
+    box-shadow: 0px 0px 20px #0000001a;
+    margin: 50px 0;
+
+    .center-stats {
+        margin: auto;
+        width: 70%;
+
+        h1 {
+            color: $style-guide-dark;
+        }
+    }
+
+    p {
+        font-size: 15px;
+        color: #979797;
+    }
+}
+
+hr.rounded {
+    border-top: 8px solid #bbb;
+    border-radius: 5px;
+}
+
+.card-profil {
+    box-shadow: 0px 0px 20px #0000001a;
+    margin: 20px;
+    padding: 10px;
+    padding-top: 60px;
+    min-height: 180px;
+
+    div {
+        text-align: center;
+
+        h5 {
+            padding: 10px 0;
+            background: #6e9cb8;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .type {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: #1fb41f;
+            color: white;
+            padding: 2px 10px;
+            margin: 0;
+        }
+
+        a {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 2px 20px;
+        }
+
+        ul {
+            text-align: left;
+            padding: 0;
+            list-style: none;
+        }
+    }
+}
+
 @media screen and (max-width: 992px) {
     .footer-container {
         flex-direction: column;
@@ -59,5 +156,54 @@ a {
             margin: 5px 20px;
         }
     }
+
+    .container-stats {
+        padding: 10px;
+        width: 90%;
+
+        .card-profil {
+            margin: 10px;
+        }
+    }
+
 }
 
+.container-profil {
+    width: 90%;
+    margin: auto;
+}
+
+.container-info-profil {
+    width: 90%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.4);
+
+    h1 {
+        align-self: center;
+    }
+
+    #skillLabel{
+        width: 100% !important;
+    }
+
+    .BtnCreatBoardRequest{
+        justify-content: center;
+    }
+}
+
+.btn-admin {
+    padding: 0 !important;
+    margin-left: 20px;
+    text-align: center;
+
+    a {
+        border-color: #000;
+        margin: 0;
+        padding: 10px 5px;
+    }
+}

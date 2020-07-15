@@ -3,6 +3,11 @@
         <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Compétences &
         Expériences"
             }}</h3>
+        {% if is_granted("ROLE_ADMIN") and user.advisor %}
+            <div class="d-flex flex-fill container-btn p-3 btn-admin">
+                <a href="{{ path("match_advisor_id", {"id": user.advisor.profiles[0].id} ) }}">Voir les matchs</a>
+            </div>
+        {% endif %}
         <div>
             {{ include('components/_icon_board_request.html.twig') }}
         </div>
@@ -10,13 +15,13 @@
 </div>
 
 {% if is_granted('ROLE_ENTERPRISE') %}
-<div class="d-flex flex-fill container-btn p-3">
+<div class="BtnCreatBoardRequest d-flex flex-fill container-btn p-3">
         <a href="{{ path('profile_new') }}">
         {{ include('components/_icon_new.html.twig') }} Créer une
             {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 {% endif %}
-<div class="container-fluid row m-0 p-0 justify-content-between">
+<div class="container-fluid row m-0 p-0 justify-content-center">
     {% if app.user.enterprise is not null %}
         {% for profile in app.user.enterprise.profiles %}
             {% if not profile.archived %}
@@ -42,10 +47,19 @@
         {% endfor %}
     {% elseif app.user.advisor is not null %}
             {% include "user/_profile_edit_advisor_skills.html.twig" %}
-    {% else %}
+    {% elseif user.advisor %}
+        {% include "user/_skills_profil_advisor.html.twig" %}
+    {% elseif user.enterprise %}
+            {% for profile in user.enterprise.profiles %}
+                <div class="m-3">
+                    {% include "profile/_board_card.html.twig" %}
+                </div>
+            {% endfor %}
+    {% else  %}
         <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            {{ is_granted('ROLE_ENTERPRISE') ?
-            "Aucune information disponible pour votre profil." }}
+            <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
         </div>
+
     {% endif %}
+
 </div>
