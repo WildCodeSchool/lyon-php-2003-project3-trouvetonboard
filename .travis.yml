@@ -8,12 +8,8 @@ before_install:
     - if [ -d "./.env.local" ]; then echo "Forbidden configuration file found !"; exit 2; fi
     - if [ -d "./vendor" ]; then echo "Forbidden external libs folder found !"; exit 2; fi
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
-    - sudo apt-get install libmagickwand-dev
-    - sudo apt-get install imagemagick
+    - pecl install imagick
     - sudo apt install php-http
-    - php -info
-    - echo "extension=imagick.so" >> /home/travis/.phpenv/versions/7.4.8/etc/php.ini
-    - echo "extension=http.so" >> /home/travis/.phpenv/versions/7.4.8/etc/php.ini
 
 install:
     - composer install
