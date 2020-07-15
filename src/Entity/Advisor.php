@@ -6,11 +6,17 @@ use App\Repository\AdvisorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AdvisorRepository::class)
+ * @Vich\Uploadable
  */
-class Advisor
+class Advisor implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -35,6 +41,17 @@ class Advisor
     private $cvLink;
 
     /**
+     * @Vich\UploadableField(mapping="user_file", fileNameProperty="cvLink")
+     * @var File|null
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Seul les fichiers PDF sont autorisés"
+     * )
+     */
+    private $cvLinkFile;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $paymentStatus = 0;
@@ -48,6 +65,12 @@ class Advisor
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="advisor", cascade={"persist", "remove"})
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -94,6 +117,23 @@ class Advisor
 
         return $this;
     }
+
+    /**
+     * @param File|UploadedFile|null $file
+     */
+    public function setCvLinkFile(?File $file = null): void
+    {
+        $this->cvLinkFile = $file;
+        if ($file) {
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getCvLinkFile(): ?File
+    {
+        return $this->cvLinkFile;
+    }
+
 
     public function getPaymentStatus(): ?int
     {
@@ -154,5 +194,36 @@ class Advisor
         }
 
         return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt = null): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->cvLink,
+        ]);
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        $this->id = unserialize($serialized);
     }
 }
