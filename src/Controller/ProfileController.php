@@ -73,7 +73,7 @@ class ProfileController extends AbstractController
         $profile = new Profile();
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
-        // code for travis control refused beacause object or null  returned
+        // code for travis control refused because object or null returned
 
         $enterprise = null;
         $user = $this->getUser();
@@ -163,7 +163,7 @@ class ProfileController extends AbstractController
             $entityManager->flush();
             $this->addFlash(
                 "warning",
-                "Le profil a été archivé, il ne sera plus inclus dans les recherches des Advisors."
+                "Le profil a été archivé, il ne sera plus affiché dans les recherches des Advisors."
             );
 
 
@@ -196,7 +196,7 @@ class ProfileController extends AbstractController
         $entityManager->flush();
         $this->addFlash(
             "success",
-            "Le profil a été restauré, il est à nouveau inclus dans les recherches des Advisors."
+            "Le profil a été restauré, il est à nouveau proposé dans les recherches des Advisors."
         );
 
         return $this->redirectToRoute('user_profile_show');

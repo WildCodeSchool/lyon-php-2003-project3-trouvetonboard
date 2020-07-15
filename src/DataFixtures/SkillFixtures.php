@@ -48,7 +48,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                 ],
             "Missions de conseil" =>
                 [
-                    "enterpriseQuestion=Pour quelle missions recherchez-vous un consultant ?",
+                    "enterpriseQuestion=Pour quelle mission recherchez-vous un consultant ?",
                     "advisorQuestion=Quelles missions recherchez-vous ?",
                     "Développement Durable",
                     "R&D",
@@ -106,7 +106,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             "enterpriseQuestion=Quel type de mission d’advisor proposez-vous ?",
-            "advisorQuestion=Vous recherchez des missions d’advisor ?",
+            "advisorQuestion=Vous recherchez des missions d’advisor :",
             "Payantes",
             "Bénévoles",
             "Bénévoles puis payantes"
@@ -207,7 +207,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             "enterpriseQuestion=De quelles zones géographiques votre advisor doit-il être expert ?",
-            "advisorQuestion=Vous êtes experts des zones géographiques suivantes :",
+            "advisorQuestion=Vous êtes expert des zones géographiques suivantes :",
             "Europe",
             "Asie",
             "U.S. / Canada",

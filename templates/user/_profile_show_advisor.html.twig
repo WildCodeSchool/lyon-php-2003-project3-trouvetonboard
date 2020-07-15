@@ -1,6 +1,6 @@
 <div class="titleBlock">
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-        <h3 class="m-0 align-self-center">Advisor :</h3>
+        <h3 class="m-0 align-self-center">Advisor</h3>
         <i class="fas fa-user-tie fa-3x"></i>
     </div>
 </div>
@@ -28,7 +28,7 @@
             <td>{{ user.advisor.isAlreadyBoardMember ? "Historique" : "Vous n'êtes pas encore membre d'un board" }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Status du payment :</th>
+            <th width="{{ thWidth }}">Mon abonnement :</th>
             <td>{{ user.advisor.paymentStatus }}</td>
         </tr>
         <tr>
@@ -36,7 +36,7 @@
             <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Ajoutez un lien vers votre LinkedIn" }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">CV:</th>
+            <th width="{{ thWidth }}">CV :</th>
             <td>{{ user.advisor.cvLink ? "CV" : "Ajoutez votre CV" }}</td>
         </tr>
         </tbody>

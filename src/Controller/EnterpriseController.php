@@ -93,7 +93,7 @@ class EnterpriseController extends AbstractController
 
         try {
             if ($connectedEnterprise->getId() != $enterprise->getId()) {
-                throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
+                throw new AccessDeniedException("Accès refusé, tentative d'accès à un emplacement non autorisé");
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
             return $this->redirectToRoute('home');
