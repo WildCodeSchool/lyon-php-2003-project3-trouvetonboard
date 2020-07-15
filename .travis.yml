@@ -15,8 +15,8 @@ before_install:
     - sudo apt-get install libmagickwand-dev
     - sudo apt-get install imagemagick
     - sudo apt install php-http
-    - sudo echo "extension = imagick.so" >> ~/travis/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - sudo echo "extension = http.so" >> ~/travis/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - sudo echo "extension = imagick.so" >> ~/travis/.phpenv/7.4/etc/php.ini
+    - sudo echo "extension = http.so" >> ~/travis/.phpenv/7.4/etc/php.ini
 
 install:
     - composer install
