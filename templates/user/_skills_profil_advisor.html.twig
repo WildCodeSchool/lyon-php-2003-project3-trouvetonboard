@@ -15,7 +15,7 @@
                                         path('profile_removeSkill', {'id': user.advisor.profiles[0].id,
                                         'skillId': skill.id }) %}
                                     {% set wayCheck = app.request.schemeAndHttpHost ~
-                                        path('profile_checkSkill', {'id': user.advisor.profiles[0].id,
+                                        path('profile_checkAllSkill', {'id': user.advisor.profiles[0].id,
                                         'skillId': skill.id }) %}
 
                                     <div class="m-0 p-3 p-sm-3 p-lg-2  border-bottom border-style-blue">
