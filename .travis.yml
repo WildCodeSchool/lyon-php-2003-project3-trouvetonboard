@@ -8,6 +8,7 @@ before_install:
     - if [ -d "./.env.local" ]; then echo "Forbidden configuration file found !"; exit 2; fi
     - if [ -d "./vendor" ]; then echo "Forbidden external libs folder found !"; exit 2; fi
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
+    - sudo apt-get install zlib1g-dev
     - printf "\n" | pecl install imagick
     - printf "\n" | pecl install pecl_http
 
