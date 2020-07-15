@@ -10,8 +10,8 @@ before_install:
     - sudo apt-get install libmagickwand-dev
     - sudo apt-get install imagemagick
     - sudo apt install php-http
-    - echo "extension = imagick.so" >> ~/.phpenv/$(phpenv version-name)/etc/php.ini
-    - echo "extension = http.so" >> ~/.phpenv/$(phpenv version-name)/etc/php.ini
+    - echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - echo "extension = http.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 install:
     - composer install
