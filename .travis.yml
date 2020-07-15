@@ -9,7 +9,7 @@ before_install:
     - if [ -d "./vendor" ]; then echo "Forbidden external libs folder found !"; exit 2; fi
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
     - printf "\n" | pecl install imagick
-    - pecl install http
+    - pecl install php-http
 
 install:
     - composer install
