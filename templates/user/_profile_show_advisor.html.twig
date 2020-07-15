@@ -1,6 +1,6 @@
 <div class="titleBlock">
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
-        <h3 class="m-0 align-self-center">Advisor :</h3>
+        <h3 class="m-0 align-self-center">Advisor</h3>
         <i class="fas fa-user-tie fa-3x"></i>
     </div>
 </div>
@@ -29,7 +29,7 @@
         </tr>
 
         <tr>
-            <th width="{{ thWidth }}">Status du payment :</th>
+            <th width="{{ thWidth }}">Mon abonnement :</th>
             {% if is_granted("ROLE_ADVISOR") %}
                 <td>
                     {% if user.advisor.paymentStatus == 0 %}
@@ -52,11 +52,39 @@
 
         <tr>
             <th width="{{ thWidth }}">LinkedIn :</th>
-            <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Rajoutez un lien vers votre LinkedIn" }}</td>
+            <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Ajoutez un lien vers votre LinkedIn" }}</td>
         </tr>
         <tr>
             <th width="{{ thWidth }}">CV:</th>
-            <td>{{ user.advisor.cvLink ? "CV" : "Rajoutez votre CV" }}</td>
+            {% if user.advisor.cvLink %}
+                <td>
+                    <!-- Button trigger modal -->
+                    <button id="showCVButton" type="button" class="btn btn-primary">
+                        Voir mon CV
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal" id="CVAdvisor">
+                        <div class="modal-dialog bnj-modal-dialog">
+                            <div class="modal-content bnj-modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title bnj-modal-title">Mon CV</h5>
+                                    <button type="button" class="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body bnj-modal-body">
+                                    <img src="/uploads/images/users/{{ user.advisor.cvLink|replace({'pdf': 'jpg'})}}" alt="{{ user.advisor.cvLink }}" class="img-fluid"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="hideCVButton" type="button" class="btn btn-secondary">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            {% else %}
+                <td>Rajoutez votre CV</td>
+            {% endif %}
         </tr>
         </tbody>
     </table>

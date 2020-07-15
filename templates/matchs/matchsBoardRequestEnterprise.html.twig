@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="matchs-title">
-        <h3>Selectionner un match pour afficher les Advisors compatibles</h3>
+        <h3>Sélectionner un match pour afficher les Advisors compatibles</h3>
     </div>
     {% set activeBoardRequest = "non-acttive" %}
     {% set nbActiveBoardRequestSkills = 0 %}
@@ -25,10 +25,10 @@
                         <a class="d-inline-flex flex-fill h4 pl-3 pt-3 p w-100 zoom" name="boardRequest" href="{{ path
                             ('match_board_request_enterprise',
                             { "id": boardRequest.id }) }}">{{ boardRequest.title }}</a>
-                        <p class="text-0dot8em pl-5 mb-0">Dater de creation: {{ boardRequest.dateCreation | date
+                        <p class="text-0dot8em pl-5 mb-0">Date de création : {{ boardRequest.dateCreation | date
                                 ("d/m/Y", "Europe/Paris")
                             }}</p>
-                        <p class="text-0dot8em pl-5 mb-0">Nb. competence requises: {{ boardRequest.skills|length }}</p>
+                        <p class="text-0dot8em pl-5 mb-0">Nb. compétences requises : {{ boardRequest.skills|length }}</p>
                         {% set total = 0 %}
                         {% set nbSkills = boardRequest.skills|length %}
                         {% for match in matchs %}
@@ -38,7 +38,7 @@
                         {% else %}
                         {% endfor %}
                     {% if activceBoardRequestId == boardRequest.id %}
-                        <p class="text-0dot8em pl-5">Nb. profil full match: {{ total }}</p>
+                        <p class="text-0dot8em pl-5">Nb. profil complet : {{ total }}</p>
                     {% endif %}
 
 

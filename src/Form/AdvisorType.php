@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\CallbackTransformer;
 
 class AdvisorType extends AbstractType
@@ -28,7 +29,7 @@ class AdvisorType extends AbstractType
                 'isAlreadyBoardMember',
                 ChoiceType::class,
                 [
-                    "label" => "Avez-vous déjà pris part à un board d'advisor ?",
+                    "label" => "Avez-vous déjà pris part à un board d'Advisors ?",
                     'choices' => [
                         ' ' => null,
                         'Oui' => true,
@@ -36,8 +37,19 @@ class AdvisorType extends AbstractType
                     ]
                 ]
             )
-            ->add('linkedinLink', null, ['label' => "LinkedIn :"])
-            ->add('cvLink', null, ['label' => "CV :"]);
+            ->add('linkedinLink', null, [
+                'label' => "LinkedIn :",
+                'attr' => [
+                    'placeholder' => 'Insérez ici le lien vers votre profil LinkedIn',
+                ],
+                ])
+            ->add('cvLinkFile', VichFileType::class, [
+                'label' => "CV :",
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+            ])
+        ;
 
         $builder->get('profiles')->addModelTransformer(
             new CallbackTransformer(
