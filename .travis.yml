@@ -2,21 +2,15 @@ language: php
 php:
     - '7.4'
 
-cache:
-    directories:
-        - /home/travis/.phpenv/versions/7.4.8/etc/php.ini
-
 before_install:
     - if [ -d "./.idea" ]; then echo "Forbidden idea folder found ! Please, ignore them globaly..."; exit 2; fi
     - if [ -d "./.vscode" ]; then echo "Forbidden vscode folder found ! Please, ignore them globaly..."; exit 2; fi
     - if [ -d "./.env.local" ]; then echo "Forbidden configuration file found !"; exit 2; fi
     - if [ -d "./vendor" ]; then echo "Forbidden external libs folder found !"; exit 2; fi
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
-    - sudo apt-get install libmagickwand-dev
-    - sudo apt-get install imagemagick
-    - sudo apt install php-http
-    - sudo echo "extension = imagick.so" >> ~/travis/.phpenv/7.4/etc/php.ini
-    - sudo echo "extension = http.so" >> ~/travis/.phpenv/7.4/etc/php.ini
+    - pecl install libmagickwand-dev
+    - pecl install imagemagick
+    - pecl install php-http
 
 install:
     - composer install
