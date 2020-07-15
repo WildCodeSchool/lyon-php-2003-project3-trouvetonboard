@@ -1,4 +1,4 @@
-<div class="{{ titleBlock }}">
+<div class="titleBlock">
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
         <h3 class="m-0 align-self-center">Advisor :</h3>
         <i class="fas fa-user-tie fa-3x"></i>
@@ -10,8 +10,18 @@
             {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
     </div>
 {% else %}
-    <table class="table">
+    <table class="table container-table">
         <tbody>
+        <tr>
+            <th width="{{ thWidth }}">Titre :</th>
+            <!-- TODO rajouter oui/non selon le choix -->
+            <td>{{ user.advisor.profiles[0].title }}</td>
+        </tr>
+        <tr>
+            <th width="{{ thWidth }}">Description :</th>
+            <!-- TODO rajouter oui/non selon le choix -->
+            <td>{{ user.advisor.profiles[0].description }}</td>
+        </tr>
         <tr>
             <th width="{{ thWidth }}">Votre historique de board :</th>
             <!-- TODO rajouter oui/non selon le choix -->

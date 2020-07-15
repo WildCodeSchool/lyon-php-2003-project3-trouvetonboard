@@ -1,4 +1,4 @@
-<div class="{{ titleBlock }}">
+<div class="titleBlock">
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
         <h3 class="m-0 align-self-center">{{ is_granted('ROLE_ENTERPRISE') ? "Board Request" : "Compétences &
         Expériences"
@@ -24,10 +24,23 @@
 <div class="container-fluid row m-0 p-0 justify-content-between">
     {% if app.user.enterprise is not null %}
         {% for profile in app.user.enterprise.profiles %}
+            {% if not profile.archived %}
             <div class="m-3">
                 {% include "profile/_board_card.html.twig" %}
             </div>
+            {% endif %}
         {% else  %}
+            <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
+            </div>
+        {% endfor %}
+        {% for profile in app.user.enterprise.profiles %}
+            {% if profile.archived %}
+                <div class="m-3">
+                    {% include "profile/_board_card.html.twig" %}
+                </div>
+            {% endif %}
+        {% else %}
             <div class="d-flex p-2 justify-content-around ml-1 container-a">
                 <p>Aucune recherche active, cliquer sur le lien pour créer une recherche.</p>
             </div>

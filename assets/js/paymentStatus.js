@@ -1,22 +1,18 @@
 /* global $ */
 /* eslint-disable no-param-reassign */
 /* eslint-disable arrow-parens */
-console.log('start');
 
 $('#payment').change(() => {
     const controller = $('#payment').data('link');
 
-    let status = $('#payment option:selected').val();
+    const status = $('#payment option:selected').val();
 
-    const link = controller + "/" + status;
-    console.log(link);
-    console.log("dedeedefe");
+    const link = `${controller}/${status}`;
+
 
     try {
         return fetch(link)
-            .then((data) => {
-                return data;
-            });
+            .then((data) => data);
         // console.log('___ Add skill Data asynch___', datas);
     } catch (error) {
         // console.log('___ Add skill ___', ' Serveur error no

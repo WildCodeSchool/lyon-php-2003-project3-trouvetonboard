@@ -48,20 +48,23 @@
 {% endblock %}
 
 
-{% set containerStd = "mb-2 mt-4 container container-std-bg-white" %}
-{% set formBlock = "m-4 p-0 d-flex flex-column justify-content-start container-std-bg-white-bootstrap" %}
-{% set formBlockStd = "mt-2 mb-2 p-0 justify-content-start container-std-bg-white-bootstrap" %}
-{% set formFullCol = "d-flex flex-row flex-fill align-items-stretch" %}
-{% set formFullColBlock = "m-2 p-0 d-flex flex-column flex-fill container-std-bg-white-bootstrap" %}
-{% set titleBlock = "p-2 d-flex align-items-stretch container-title-block" %}
-{% set titleBlock2 = "p-2 d-flex align-items-start container-title-block" %}
-{% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}
+{#{% set containerStd = "mb-2 mt-4 container container-std-bg-white" %}#}
+{#{% set formBlock = "m-4 p-0 d-flex flex-column justify-content-start container-std-bg-white-bootstrap" %}#}
+{#{% set formBlockStd = "mt-2 mb-2 p-0 justify-content-start container-std-bg-white-bootstrap" %}#}
+{#{% set formFullCol = "d-flex flex-row flex-fill align-items-stretch" %}#}
+{#{% set formFullColBlock = "m-2 p-0 d-flex flex-column flex-fill container-std-bg-white-bootstrap" %}#}
+{#{% set titleBlock = "p-2 d-flex align-items-stretch container-title-block" %}#}
+{#{% set titleBlock2 = "p-2 d-flex align-items-start container-title-block" %}#}
+{#{% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}#}
 
 
 {% for category, messages in app.flashes %}
     {% for message in messages %}
-        <div class="alert alert-{{ category }}">
+        <div class="alert alert-{{ category }} alert-dismissible fade show">
             {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     {% endfor %}
 {% endfor %}

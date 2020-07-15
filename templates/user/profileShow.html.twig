@@ -5,42 +5,42 @@
 {% block body %}
     {% set thWidth = "40%" %}
     <div class="container-fluid">
-    <div class="row">
-        <!-- col 1 -->
-        <div class="col-lg-4 col-md-12">
-            <div class="{{ formBlockStd }}">
-                {% include 'user/_profile_show_base_user.html.twig' %}
+        <div class="row">
+            <!-- col 1 -->
+            <div class="col-lg-4 col-md-12">
+                <div class="form-block-std">
+                    {% include 'user/_profile_show_base_user.html.twig' %}
 
-                {% if not is_granted('ROLE_ADMIN')%}
-                    <div class="d-flex p-2 justify-content-around ml-1 container-a">
-                        <a href="{{ path('user_profile_edit' , { "id": app.user.id }) }}">
-                            Modifier mon profil</a>
-                    </div>
-                {% endif %}
+                    {% if not is_granted('ROLE_ADMIN')%}
+                        <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                            <a href="{{ path('user_profile_edit' , { "id": app.user.id }) }}">
+                                Modifier mon profil</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-block-std">
+                    {% if is_granted('ROLE_ENTERPRISE') or userType == 'Entreprise' %}
+                        {% include 'user/_profile_show_enterprise.html.twig' %}
+                    {% elseif is_granted('ROLE_ADVISOR') or userType == 'Advisor' %}
+                        {% include 'user/_profile_show_advisor.html.twig' %}
+                    {% endif %}
+                </div>
+
+            </div>
+            <!-- col 2 -->
+            <div class="col-lg-8 col-md-12">
+
+                <div class="form-block-std">
+                    {% include 'user/_profile_show_board_request.html.twig' %}
+                </div>
+
+
             </div>
 
-            <div class="{{ formBlockStd }}">
-                {% if is_granted('ROLE_ENTERPRISE') or userType == 'Entreprise' %}
-                    {% include 'user/_profile_show_enterprise.html.twig' %}
-                {% elseif is_granted('ROLE_ADVISOR') or userType == 'Advisor' %}
-                    {% include 'user/_profile_show_advisor.html.twig' %}
-                {% endif %}
-            </div>
+
 
         </div>
-        <!-- col 2 -->
-        <div class="col-lg-8 col-md-12">
-
-            <div class="{{ formBlockStd }}">
-            {% include 'user/_profile_show_board_request.html.twig' %}
-            </div>
-
-
-        </div>
-
-
-
-    </div>
     </div>
 {% endblock %}
 {% block javascripts %}

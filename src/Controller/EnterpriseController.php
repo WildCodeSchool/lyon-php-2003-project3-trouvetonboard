@@ -141,8 +141,8 @@ class EnterpriseController extends AbstractController
      */
     public function changePaymentStatus(
         Enterprise $enterprise,
-        int $status = 0,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        int $status = 0
     ) :Response {
 
         $enterprise->setPaymentStatus($status);

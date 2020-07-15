@@ -37,13 +37,26 @@ class MatchsController extends AbstractController
         $bordRequestId = $matchsBordRequest = $idEnterprise = null;
 
 
-        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
-            $idEnterprise = $bordRequest->getEnterprise()->getId();
+        $getUser = $this->getUser();
+        $getRoles = null;
+        if ($getUser) {
+            $getRoles = $getUser->getRoles();
+        }
+
+        if (in_array("ROLE_ADMIN", $getRoles)) {
+            $getEnterpriseId = $getEnterprise = null;
+
+            $getEnterprise = ($bordRequest) ? $bordRequest->getEnterprise(): null;
+            $getEnterpriseId = ($getEnterprise)? $getEnterpriseId = $getEnterprise->getId(): null;
+
+
+            $idEnterprise = $getEnterpriseId;
         } else {
             $logUser = $this->getUser();
 
             if ($logUser) {
-                $idEnterprise = $logUser->getEnterprise()->getId();
+                $getEnterpriseId= $logUser->getEnterprise()->getId();
+                $idEnterprise = $getEnterpriseId;
             }
         }
 
@@ -85,19 +98,30 @@ class MatchsController extends AbstractController
     public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository, ?Profile $profile)
     {
 
-        $idProfileAdvisor = null;
+        $idProfileAdvisor = $nbSkillAdvisor = null;
 
-        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
-            $idProfileAdvisor = $profile->getId();
+        $getUser = $this->getUser();
+        $getRoles = ($getUser)? $getUser->getRoles(): null;
+
+        if (in_array("ROLE_ADMIN", $getRoles)) {
+            $idProfileAdvisor = ($profile)? $profile->getId(): null;
+            $nbSkillAdvisor = ($profile)? count($profile->getSkills()): null;
         } else {
             $logUser = $this->getUser();
             if ($logUser) {
                 $idProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
+                $nbSkillAdvisor = count($logUser->getAdvisor()->getProfiles()[0]->getSkills());
             }
         }
 
         $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
-        return $this->render('matchs/matchAdvisorBoardRequest.html.twig', ['matchs' => $matchs]);
+        return $this->render(
+            'matchs/matchAdvisorBoardRequest.html.twig',
+            [
+                'matchs' => $matchs,
+                'nbSkillAdvisor' => $nbSkillAdvisor,
+            ]
+        );
     }
 
     /**
@@ -113,7 +137,10 @@ class MatchsController extends AbstractController
     public function matchDetails(Profile $aProfile, Profile $eProfile)
     {
         $idLogProfileAdvisor = null;
-        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+        $getUser = $this->getUser();
+        $getRoles = ($getUser)?$getUser->getRoles(): null;
+
+        if (in_array("ROLE_ADMIN", $getRoles)) {
             $idLogProfileAdvisor = $aProfile->getId();
         } else {
             $logUser = $this->getUser();

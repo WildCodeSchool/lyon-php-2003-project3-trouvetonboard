@@ -64,7 +64,8 @@ class UserController extends AbstractController
         $profile = null;
         $roles = $user->getRoles();
         if (array_search("ROLE_ADVISOR", $roles)) {
-            $profile = $user->getAdvisor()->getProfiles()[0];
+            $advisor = $user->getAdvisor();
+            $profile = ($advisor)? $advisor->getProfiles()[0]: null;
         }
         return $this->render('user/show.html.twig', [
             'user' => $user,
@@ -128,7 +129,6 @@ class UserController extends AbstractController
         ProfileRepository $profileRepository,
         ?User $userId
     ): Response {
-
         $categories = $categoryRepository->findAll();
         $userRepo = $roles = $profile = $profileType = $user = $userType = "";
 

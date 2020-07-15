@@ -29,13 +29,15 @@ a {
 
 
 .footer-container {
+    display: block;
+    bottom:0;
     width: 100%;
     min-height: 150px;
     background-color: #6E9DB8;
-    display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px 100px;
+    margin-top: 10px;
 
     li {
         list-style: none;
@@ -109,6 +111,7 @@ hr.rounded {
     padding: 10px;
     padding-top: 60px;
     min-height: 180px;
+
     div {
         text-align: center;
 
@@ -120,6 +123,7 @@ hr.rounded {
             top: 0;
             left: 0;
         }
+
         .type {
             position: absolute;
             bottom: 0;
@@ -129,12 +133,14 @@ hr.rounded {
             padding: 2px 10px;
             margin: 0;
         }
+
         a {
             position: absolute;
             bottom: 0;
             right: 0;
             padding: 2px 20px;
         }
+
         ul {
             text-align: left;
             padding: 0;
@@ -167,6 +173,7 @@ hr.rounded {
     width: 90%;
     margin: auto;
 }
+
 .container-info-profil {
     width: 90%;
     justify-content: center;
@@ -180,7 +187,9 @@ hr.rounded {
     h1 {
         align-self: center;
     }
+
 }
+
 .btn-admin {
     padding: 0 !important;
     margin-left: 20px;
