@@ -49,7 +49,7 @@ class AdvisorType extends AbstractType
                 'allow_delete' => false,
                 'download_uri' => false,
             ])
-        ;            
+        ;
 
         $builder->get('profiles')->addModelTransformer(
             new CallbackTransformer(

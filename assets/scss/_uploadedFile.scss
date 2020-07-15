@@ -1,10 +1,10 @@
 #CVAdvisor {
-  opacity: 0;
-  transition: opacity 800ms;
+    opacity: 0;
+    transition: opacity 800ms;
 }
 
 #CVAdvisor.fadeIn {
-  opacity: 1;
+    opacity: 1;
 }
 
 .bnj-modal-dialog {
@@ -12,19 +12,19 @@
 }
 
 .bnj-modal-content {
-  width: 55vw;
+    width: 55vw;
 }
 
 .bnj-modal-title {
-  color: $style-guide-blue;
+    color: $style-guide-blue;
 }
 
 .bnj-modal-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 img {
-  width: 400px;
+    width: 400px;
 }
