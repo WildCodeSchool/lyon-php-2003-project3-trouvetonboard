@@ -9,8 +9,8 @@ before_install:
     - if [ -d "./vendor" ]; then echo "Forbidden external libs folder found !"; exit 2; fi
     - if [ $(find ./ -name .DS_Store) ]; then echo "Forbidden MacOS boring file found ! Please, ignore them globaly..."; exit 2; fi
     - sudo apt install zlib1g-dev
-    - sudo apt install libgnutls28-dev
     - sudo apt install libgnutls-dev
+    - sudo apt install libgnutls28-dev
     - sudo apt install libssl-dev
     - printf "\n" | pecl install imagick
     - printf "\n" | pecl install pecl_http
