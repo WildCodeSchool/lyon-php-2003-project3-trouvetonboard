@@ -19,10 +19,10 @@
 
     <div class="m-2 border border-style-blue">
         <div class="card-body">
-            <p class="card-text {{ textColor }}">Description: {{ profile.description | default("Pas de description") }}</p>
+            <p class="card-text {{ textColor }}">Description : {{ profile.description | default("Pas de description") }}</p>
         </div>
         <div class="card-body">
-            <p class="card-text {{ textColor }}">Date de creation: {{ profile.dateCreation|date("m/d/Y") }}</p>
+            <p class="card-text {{ textColor }}">Date de creation : {{ profile.dateCreation|date("m/d/Y") }}</p>
         </div>
     </div>
 
