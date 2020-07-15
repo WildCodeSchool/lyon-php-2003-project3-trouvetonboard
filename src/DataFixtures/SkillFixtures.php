@@ -29,7 +29,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                 $this::getDataTailleDeLentreprise(),
             "Type de l'entreprise" =>
                 $this::getDataTypeDeLentreprise(),
-            "Secteur d'activité" =>
+            "Secteurs d'activité" =>
                 $this::getDataSecteurActivite(),
             "Langues" =>
                 $this::getDataLangue(),
@@ -37,18 +37,18 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
                 $this::getDataZoneGeo(),
             "Expériences" =>
                 $this::getDataExprerience(),
-            "Interet" =>
+            "Intêrets" =>
                 [
-                    "enterpriseQuestion=Si ce n’est un advisor que recherchez-vous ?",
+                    "enterpriseQuestion=Si ce n’est un advisor, que recherchez-vous ?",
                     "advisorQuestion=Quelles autres missions pourraient vous intéresser ?",
                     "Président de comité d'audit",
                     "Président de Conseil Administration",
                     "Administrateur indépendant",
                     "Président de comité de rémunération",
                 ],
-            "Mission de conseil" =>
+            "Missions de conseil" =>
                 [
-                    "enterpriseQuestion=Pour quelle missions recherchez-vous un consultant ?",
+                    "enterpriseQuestion=Pour quelle mission recherchez-vous un consultant ?",
                     "advisorQuestion=Quelles missions recherchez-vous ?",
                     "Développement Durable",
                     "R&D",
@@ -106,7 +106,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             "enterpriseQuestion=Quel type de mission d’advisor proposez-vous ?",
-            "advisorQuestion=Vous recherchez des missions d’advisor ?",
+            "advisorQuestion=Vous recherchez des missions d’advisor :",
             "Payantes",
             "Bénévoles",
             "Bénévoles puis payantes"
@@ -127,8 +127,8 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     private static function getDataTailleDeLentreprise(): array
     {
         return [
-            "enterpriseQuestion=Vous recherchez un advisor pour votre entreprise * 
-            ou pour un nouveau projet au stade de ?",
+            "enterpriseQuestion=Vous recherchez un advisor pour votre entreprise 
+            ou pour un nouveau projet au stade de :",
             "advisorQuestion=Quel type de projet / d’entreprise souhaitez-vous accompagner ?",
             "Idéation",
             "Start-up",
@@ -142,7 +142,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     private static function getDataTypeDeLentreprise() : array
     {
         return [
-            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements",
+            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit connaitre les environnements suivants :",
             "advisorQuestion=Vous avez travaillé dans quel type d’entreprise pendant votre carrière ?",
             "Start-up",
             "Société cotée",
@@ -157,8 +157,8 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             "enterpriseQuestion=L’advisor que vous souhaitez recruter doit avoir travaillé 
-             dans les secteurs suivants",
-            "advisorQuestion=Vous avez travaillé dans quels secteurs pendant votre carrière ?",
+             dans les secteurs suivants :",
+            "advisorQuestion=Dans quels secteurs avez-vous travaillé pendant votre carrière ?",
             "Biens de consommation",
             "Éducation",
             "Énergie et ressources naturelles",
@@ -180,7 +180,7 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             "enterpriseQuestion=Quelles compétences linguistiques sont nécessaires pour vous accompagner ?",
-            "advisorQuestion=Pour vous les langues suivantes sont des langues de travail ? :",
+            "advisorQuestion=Pour vous, les langues suivantes sont des langues de travail ? :",
             "Français",
             "Anglais",
             "Allemand",
@@ -206,12 +206,12 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     public static function getDataZoneGeo()
     {
         return [
-            "enterpriseQuestion=De quelles zones géographiques, votre advisor doit-il être expert ? :",
-            "advisorQuestion=Vous êtes experts des zones géographiques suivantes :",
+            "enterpriseQuestion=De quelles zones géographiques votre advisor doit-il être expert ?",
+            "advisorQuestion=Vous êtes expert des zones géographiques suivantes :",
             "Europe",
             "Asie",
             "U.S. / Canada",
-            "Affrique",
+            "Afrique",
             "Amérique Sud / Centrale",
             "Russie",
             "Australie",
@@ -222,9 +222,8 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
     public static function getDataExprerience()
     {
         return [
-            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit maitriser les expertises suivantes",
-            "advisorQuestion=Quelles sont vos expertises métier – 
-                    justifiées par des expériences / missions réussies :",
+            "enterpriseQuestion=L’advisor que vous souhaitez recruter doit maitriser les expertises suivantes :",
+            "advisorQuestion=Quelles sont vos expertises métier justifiées par des expériences / missions réussies ?",
             "Mandataire social",
             "Gouvernance d’entreprise",
             "Responsabilité sociale des entreprises (RSE)",

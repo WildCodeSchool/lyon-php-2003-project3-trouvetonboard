@@ -15,7 +15,7 @@ class LevelFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $value = ["Inconnu", "Notions", "Debutant", "Intermediaire", "Expert"];
+        $value = ["Inconnu", "Notions", "Débutant", "Intermédiaire", "Expert"];
         // Création du  level 1
         for ($a = 0; $a < count($value); $a++) {
             $level = new Level();

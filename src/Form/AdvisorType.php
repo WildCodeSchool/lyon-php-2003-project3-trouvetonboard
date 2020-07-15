@@ -29,7 +29,7 @@ class AdvisorType extends AbstractType
                 'isAlreadyBoardMember',
                 ChoiceType::class,
                 [
-                    "label" => "Avez-vous déjà pris part à un board d'advisor ?",
+                    "label" => "Avez-vous déjà pris part à un board d'Advisors ?",
                     'choices' => [
                         ' ' => null,
                         'Oui' => true,

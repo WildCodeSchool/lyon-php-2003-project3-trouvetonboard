@@ -9,21 +9,21 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">Nombre de compétences communes : {{ match.SCORE }} </li>
         {% if is_granted('ROLE_ADVISOR') %}
-            <li class="list-group-item">Date de creation
+            <li class="list-group-item">Date de création
                 : {{ match.date_creation | date("d/m/Y", "Europe/Paris") }}</li>
         {% endif %}
 
     </ul>
     <div class="card-body container-a">
-        {% if is_granted('ROLE_ADVISOR') %}
+        {% if is_granted('ROLE_ADVISOR') or is_granted('ROLE_ADMIN') %}
             <a href="{{ path("match_details",
                 { "aProfile": match.advisor_id, "eProfile": match.board_request_id }) }}"
                class="card-link">
-                Afficher les details
+                Afficher les détails
             </a>
         {% else %}
             <a href="#"  class="card-link">
-                Vous n'avez pas access aux details
+                Vous n'avez pas accès aux détails
             </a>
         {% endif %}
 

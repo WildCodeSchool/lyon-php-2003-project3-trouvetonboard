@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Advisor;
+use App\Entity\User;
 use App\Form\AdvisorType;
 use App\Kernel;
 use App\Repository\AdvisorRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
@@ -109,5 +112,22 @@ class AdvisorController extends AbstractController
         }
 
         return $this->redirectToRoute('advisor_index');
+    }
+
+    /**
+     * @Route("/{id}/payment/{status}", name="advisor_payment_status")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function changePaymentStatus(
+        Advisor $advisor,
+        EntityManagerInterface $entityManager,
+        int $status = 0
+    ) :Response {
+
+        $advisor->setPaymentStatus($status);
+        $entityManager->persist($advisor);
+        $entityManager->flush();
+
+        return new Response("Ok");
     }
 }

@@ -132,7 +132,7 @@ class SecurityController extends AbstractController
             $mailer->send($message);
 
             // On crée le message flash de confirmation
-            $this->addFlash('success', 'E-mail de réinitialisation du mot de passe envoyé !');
+            $this->addFlash('success', 'E-mail de réinitialisation du mot de passe envoyé');
 
             // On redirige vers la page de login
             return $this->redirectToRoute('app_login');
@@ -185,7 +185,7 @@ class SecurityController extends AbstractController
                     // On redirige vers la page de connexion
                     return $this->redirectToRoute('app_login');
                 }
-                $this->addFlash('danger', 'Les mots de passe doivent etre identique');
+                $this->addFlash('danger', 'Les mots de passe doivent être identiques');
                 return $this->render('security/reset_password.html.twig', ['token' => $token]);
             } else {
                 $this->addFlash('danger', 'Votre mot de passe doit comporter au minimum 8 caractères');

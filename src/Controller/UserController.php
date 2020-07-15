@@ -58,10 +58,19 @@ class UserController extends AbstractController
      * @Route("/{id}", name="show", methods={"GET"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function show(User $user): Response
+    public function show(User $user, CategoryRepository $categoryRepository): Response
     {
+        $categories = $categoryRepository->findAll();
+        $profile = null;
+        $roles = $user->getRoles();
+        if (array_search("ROLE_ADVISOR", $roles)) {
+            $advisor = $user->getAdvisor();
+            $profile = ($advisor)? $advisor->getProfiles()[0]: null;
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'categories' => $categories,
+            'profile' => $profile
         ]);
     }
 
@@ -111,16 +120,28 @@ class UserController extends AbstractController
 
     /**
      * @Route("/profile/show", name="profile_show", methods={"GET","POST"})
+     * @Route("/{id}}/show", name="show_id", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
-    public function profileShow(CategoryRepository $categoryRepository): Response
-    {
-        $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
-        $logUser = $this->getUser();
+    public function profileShow(
+        Request $request,
+        CategoryRepository $categoryRepository,
+        ProfileRepository $profileRepository,
+        ?User $userId
+    ): Response {
         $categories = $categoryRepository->findAll();
-        $profileType = null;
-        $profile = null;
-        $roles = null;
+        $userRepo = $roles = $profile = $profileType = $user = $userType = "";
+
+
+        if ($userId) {
+            $user = $logUser = $userId;
+            $userType = $user->getType();
+        } else {
+            $userRepo= $this->getDoctrine()->getManager()->getRepository(User::class);
+            $logUser = $this->getUser();
+        }
+
+
         if ($logUser) {
             $roles = $logUser->getRoles();
         }
@@ -134,20 +155,25 @@ class UserController extends AbstractController
         if (isset($logUser)) {
             $email = $logUser->getUsername();
         }
-        $user = $logUser;
-        if (method_exists($userRepo, "findOneBy")) {
+        if (!$userId) {
+            $user = $logUser;
+            if (method_exists($userRepo, "findOneBy")) {
                 $user = $userRepo->findOneBy(["email" => $email]);
+            }
         }
+
 
         return $this->render('user/profileShow.html.twig', [
             'user' => $user,
             'categories' => $categories,
-            "profile" => $profile
+            'profile' => $profile,
+            'userType' => $userType
         ]);
     }
 
     /**
      * @Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function profileEdit(Request $request, User $user): Response
     {
