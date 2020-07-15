@@ -12,8 +12,8 @@ before_install:
     - sudo apt-get install imagemagick
     - sudo apt install php-http
     - php -info
-    - echo "extension=imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - echo "extension=http.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - echo "extension=imagick.so" >> /home/travis/.phpenv/versions/7.4.8/etc/php.ini
+    - echo "extension=http.so" >> /home/travis/.phpenv/versions/7.4.8/etc/php.ini
 
 install:
     - composer install
