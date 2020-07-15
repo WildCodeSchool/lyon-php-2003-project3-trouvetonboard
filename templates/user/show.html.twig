@@ -3,44 +3,35 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <div class="container-info-profil">
+        <h1>{{ user.firstName ~ " " ~ user.lastName }}</h1>
+        <img width="200px" src="{{ user.pictureLink }}">
+        <div class="container-info">
+            <p>Email: {{ user.email }}</p>
+            <p>Type: {{ user.type }}</p>
+            <p>Compte vérifié: {{ user.isVerified ? 'Oui' : 'Non' }}</p>
+            <p>Adresse: {{ user.address }}</p>
+            <p>Ville: {{ user.city }}</p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>IsVerified</th>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <label for="payment">Statut payment:</label>
 
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+            <select name="status" id="payment" placeholder="zefzfefzfze">
+                <option value="" selected data-default>Changer statut de payment</option>
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select>
+        </div>
+    </div>
+    {% if  user.advisor%}
+        {% include "user/_skills_profil_advisor.html.twig" %}
+    {% elseif user.enterprise %}
+        {{ include("user/_profile_show_enterprise.html.twig", {'type': 'admin'}) }}
+    {% endif %}
 {% endblock %}
+
+
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('userProfileSkills') }}
+{% endblock %}
+

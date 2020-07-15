@@ -47,6 +47,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setRoles(['ROLE_ADMIN', "ROLE_SUBSCRIBER", "ROLE_ENTERRPRISE", "ROLE_USER"]);
         $admin->setIsVerified(0);
         $admin->setFirstName("admin");
+        $admin->setType("Admin");
         $admin->setLastName("last");
         $admin->setPassword($this->passwordEncoder->encodePassword($admin, "pwd"));
         $admin->setFirstName($faker->firstName);
@@ -58,6 +59,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $cedric->setEmail('cedric@ttb.com');
         $cedric->setRoles(['ROLE_ADMIN']);
         $cedric->setIsVerified(0);
+        $cedric->setType("Admin");
         $cedric->setFirstName("admin");
         $cedric->setLastName("last");
         $cedric->setPassword($this->passwordEncoder->encodePassword($cedric, "pwd"));
@@ -117,6 +119,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $enterpriseUser->setType("Enterprise");
         $enterpriseUser->setBirthday($faker->dateTime);
         $enterpriseUser->setPassword($this->passwordEncoder->encodePassword($enterpriseUser, "pwd"));
+        $enterpriseUser->setType("Entreprise");
+
         $manager->persist($enterpriseUser);
         $numEnt = 1;
         $this->addReference("entUser_$numEnt", $enterpriseUser);

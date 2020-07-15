@@ -28,26 +28,15 @@ class UserType extends AbstractType
             ])
             ->add('firstName', null, [
                 "label" => "Prénom ",
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de renseigner votre prénom.',
-                        'normalizer' => 'trim',
-                    ]),
-                ]
+                'empty_data' => '',
             ])
             ->add('lastName', null, [
                 "label" => "Nom ",
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de renseigner votre nom.',
-                        'normalizer' => 'trim',
-                    ]),
-                ]
+                'empty_data' => '',
             ])
             ->add('email', null, ["label" => "Adresse mail "])
             //->add('roles')
             ->add('nationality', null, ["label" => "Nationalité "])
-            ->add('lastName', null, ["label" => "Nom "])
             ->add('birthday', DateType::class, [
                 "label" => "Date de naissance ",
                 'format' => 'dd MM yyyy',
