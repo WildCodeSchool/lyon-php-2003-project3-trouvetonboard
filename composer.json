@@ -4,9 +4,9 @@
     "require": {
         "php": "^7.3 | ^7.4",
         "ext-ctype": "*",
-        "ext-http": "*" --ignore-platform-reqs,
+        "ext-http": "*",
         "ext-iconv": "*",
-        "ext-imagick": "*" --ignore-platform-reqs,
+        "ext-imagick": "*",
         "egulias/email-validator": "^2.1",
         "laminas/laminas-code": "^3.4",
         "laminas/laminas-eventmanager": "^3.2",

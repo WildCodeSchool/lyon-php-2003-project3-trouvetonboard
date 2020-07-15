@@ -1,6 +1,11 @@
 language: php
 php:
     - '7.4'
+
+cache:
+    directories:
+        - /home/travis/.phpenv/versions/7.4.8/etc/php.ini
+
 before_install:
     - if [ -d "./.idea" ]; then echo "Forbidden idea folder found ! Please, ignore them globaly..."; exit 2; fi
     - if [ -d "./.vscode" ]; then echo "Forbidden vscode folder found ! Please, ignore them globaly..."; exit 2; fi
@@ -10,8 +15,8 @@ before_install:
     - sudo apt-get install libmagickwand-dev
     - sudo apt-get install imagemagick
     - sudo apt install php-http
-    - sudo echo "extension = imagick.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - sudo echo "extension = http.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - sudo echo "extension = imagick.so" >> ~/travis/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - sudo echo "extension = http.so" >> ~/travis/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 install:
     - composer install
