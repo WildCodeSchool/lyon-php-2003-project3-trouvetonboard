@@ -14,15 +14,13 @@
             {% set archived = "(Archive) " %}
             {{ include('components/_icon_card_archived.html.twig') }}
         {% endif %}
-        <h5 class="card-title m-0 center-h-text align-self-center">{{ archived }}{{ profile.title }}</h5>
+        <h6  class="card-title m-0 center-h-text align-self-center">{{ archived }}{{ profile.title }}</h6>
     </div>
 
     <div class="m-2 border border-style-blue">
-        {% if not profile.archived %}
         <div class="card-body">
-            <p class="card-text">Description: {{ profile.description | default("Pas de description") }}</p>
+            <p class="card-text {{ textColor }}">Description: {{ profile.description | default("Pas de description") }}</p>
         </div>
-        {% endif %}
         <div class="card-body">
             <p class="card-text {{ textColor }}">Date de creation: {{ profile.dateCreation|date("m/d/Y") }}</p>
         </div>
@@ -30,31 +28,39 @@
 
 
     {% if not is_granted("ROLE_ADMIN") %}
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
+      <div class="d-flex p-2 justify-content-around ml-1 container-a">
+          {% if not profile.archived %}
+          <a href="{{ path('profile_archive', { "id": profile.id }) }}">
+              Archiver</a>
+          {% else %}
+          <a href="{{ path('profile_restore', { "id": profile.id }) }}">
+              Restaurer</a>
+          {% endif %}
+      </div>
         {% if not profile.archived %}
-        <a href="{{ path('profile_archive', { "id": profile.id }) }}">
-            Archiver</a>
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a href="{{ path('profile_edit' , { "id":profile.id }) }}">
+                  Modifier la Board Request</a>
+          </div>
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id }) }}">
+                  Modifier les compétences</a>
+          </div>
         {% else %}
-        <a href="{{ path('profile_restore', { "id": profile.id }) }}">
-            Restaurer</a>
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a class="{{ textColor }}" href="#">
+                  Modifier la Board Request</a>
+          </div>
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a class="{{ textColor }}" href="#">
+                  Modifier les compétences</a>
+          </div>
         {% endif %}
-    </div>
-    {% if not profile.archived %}
-        <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            <a href="{{ path('profile_edit' , { "id":profile.id }) }}">
-                Modifier la Board Request</a>
-        </div>
-        <div class="d-flex p-2 justify-content-around ml-1 container-a">
-            <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id }) }}">
-                Modifier les compétences</a>
-        </div>
-
-    {% else %}
+      {% else %}
         <div class="d-flex p-2 justify-content-around ml-1 container-a">
             <a href="{{ path('match_board_request_enterprise' , { "id": profile.id }) }}">
                 Détails des match </a>
         </div>
-    {% endif %}
     {% endif %}
 
 </div>

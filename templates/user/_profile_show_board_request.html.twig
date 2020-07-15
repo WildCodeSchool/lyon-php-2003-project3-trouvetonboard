@@ -15,13 +15,13 @@
 </div>
 
 {% if is_granted('ROLE_ENTERPRISE') %}
-<div class="d-flex flex-fill container-btn p-3">
+<div class="BtnCreatBoardRequest d-flex flex-fill container-btn p-3">
         <a href="{{ path('profile_new') }}">
         {{ include('components/_icon_new.html.twig') }} Créer une
             {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 {% endif %}
-<div class="container-fluid row m-0 p-0 justify-content-between">
+<div class="container-fluid row m-0 p-0 justify-content-center">
     {% if app.user.enterprise is not null %}
         {% for profile in app.user.enterprise.profiles %}
             {% if not profile.archived %}

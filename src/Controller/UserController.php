@@ -173,6 +173,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/profile/{id<[0-9]{1,}>}", name="profile_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function profileEdit(Request $request, User $user): Response
     {

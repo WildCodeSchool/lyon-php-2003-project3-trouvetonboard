@@ -37,7 +37,6 @@ a {
     justify-content: center;
     align-items: center;
     padding: 40px 100px;
-    margin-top: 10px;
 
     li {
         list-style: none;
@@ -188,6 +187,13 @@ hr.rounded {
         align-self: center;
     }
 
+    #skillLabel{
+        width: 100% !important;
+    }
+
+    .BtnCreatBoardRequest{
+        justify-content: center;
+    }
 }
 
 .btn-admin {
