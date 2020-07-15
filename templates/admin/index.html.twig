@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+   <div class="container-back-home">
+      <h1>Back-office</h1>
+
+      <a class="button-back" href="{{ path("admin_stats") }}" >Statistiques</a>
+      <a class="button-back" href="{{ path("admin_users") }}" >Utilisateurs</a>
+      <a class="button-back">Aperçu des matchs</a>
+   </div>
+
+{% endblock %}

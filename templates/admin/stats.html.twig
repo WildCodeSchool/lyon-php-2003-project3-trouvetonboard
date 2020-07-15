@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="container-back-stats">
+        <h1>Back-Statistiques</h1>
+
+        <div class="container-stats">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ users.1 }}</h1>
+                            <p>Utilisateurs sur le site</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ advisors.1 }}</h1>
+                            <p>Advisors inscrit</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ enterprises.1 }}</h1>
+                            <p>Entreprises inscrite</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="rounded">
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ boardRequest.1 }}</h1>
+                            <p>Board Request total</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ boardRequest.1 - boardRequestArchived.1 }}</h1>
+                            <p>Board Request Active</p>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="center-stats">
+                            <h1>{{ boardRequestArchived.1 }}</h1>
+                            <p>Board Request Archivé</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
