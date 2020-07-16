@@ -6,12 +6,17 @@ use App\Repository\EnterpriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use DateTimeImmutable;
 
 /**
  * @ORM\Entity(repositoryClass=EnterpriseRepository::class)
+ * @Vich\Uploadable()
  */
-class Enterprise
+class Enterprise implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -99,6 +104,23 @@ class Enterprise
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="enterprise")
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $brochure;
+
+    /**
+     * @Vich\UploadableField(mapping="user_file", fileNameProperty="brochure")
+     * @var File|null
+     */
+    private $brochureFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -282,5 +304,64 @@ class Enterprise
         } else {
             return "";
         }
+    }
+
+    public function getBrochure(): ?string
+    {
+        return $this->brochure;
+    }
+
+    public function setBrochure(?string $brochure): self
+    {
+        $this->brochure = $brochure;
+
+        return $this;
+    }
+
+    /**
+     * @param File|UploadedFile|null $file
+     */
+    public function setBrochureFile(?File $file = null): void
+    {
+        $this->brochureFile = $file;
+        if ($file) {
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getBrochureFile(): ?File
+    {
+        return $this->brochureFile;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt = null): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->brochure,
+        ]);
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        $this->id = unserialize($serialized);
     }
 }

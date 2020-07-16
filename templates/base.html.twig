@@ -26,6 +26,8 @@
                     {#  _____Display if connected_____ #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a class="nav-item nav-link" href="#">Mon Profil</a>
+                        <a class="nav-item nav-link" href="{{ path("admin_index") }}" >Administration</a>
+
                     {% else %}
                         <a class="nav-item nav-link" href="{{ path('user_profile_show') }}">Mon Profil</a>
                     {% endif %}
@@ -33,8 +35,6 @@
                         <a class="nav-item nav-link" href="{{ path('match_advisor_boardRequest') }}">Mes Matchs</a>
                     {% elseif app.user.enterprise %}
                         <a class="nav-item nav-link" href="{{ path('match_board_request_one') }}">Mes Matchs</a>
-                    {% else %}
-                        <a class="nav-item nav-link" href="#">Mes Matchs</a>
                     {% endif %}
                     <a class="nav-item nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
@@ -81,8 +81,6 @@
 
     </footer>
 {% endblock %}
-
-
 
 {{ encore_entry_script_tags('app') }}
 {% block javascripts %}

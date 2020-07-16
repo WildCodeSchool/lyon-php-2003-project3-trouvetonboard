@@ -17,14 +17,14 @@
             <a href="{{ path("match_details_enterprise",
                 { "aProfile": match.advisor_id, "eProfile": match.board_request_id }) }}"
                class="card-link">
-                Afficher les details
+                Afficher les détails
             </a>
         {% else %}
-            <p class="text-0dot8em">L'affichage des details est soumis a un paiement,
-                pour demander un changement de status , merci de cliquer sur le lien ci-dessous.</p>
+            <p class="text-0dot8em">Votre abonnement actuel ne vous permet pas de visualiser les détails de ce match.</p>
+            <p class="text-0dot8em">Pour modifier votre abonnement, merci de cliquer sur le lien ci-dessous.</p>
             <a href="{{ path("match_request_payment_email", { "id": match.board_request_id }) }}"
                class="card-link">
-                 Demander changement de status
+                 Modifier mon abonnement
             </a>
         {% endif %}
 

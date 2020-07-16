@@ -15,37 +15,52 @@
     <table class="table container-table">
         <tbody>
         <tr>
-            <th width="{{ thWidth }}">Nom de l'entreprise&nbsp:</th>
+            <th width="40%">Nom de l'entreprise&nbsp:</th>
             <td>{{ user.enterprise.name }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Adresse&nbsp:</th>
+            <th width="40%">Adresse&nbsp:</th>
             <td>
                 {{ user.enterprise.address }}
                 {{ user.enterprise.zipCode ~ " " ~ user.enterprise.city }}
             </td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Représentant légal&nbsp:</th>
+            <th width="40%">Représentant légal&nbsp:</th>
             <td>{{ user.enterprise.legelRepresentative }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Lien linkedIn&nbsp:</th>
+            <th width="40%">Lien linkedIn&nbsp:</th>
             <td>{{ user.enterprise.linkedinLink }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Site Web&nbsp:</th>
+            <th width="40%">Site Web&nbsp:</th>
             <td>{{ user.enterprise.websiteLink }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Status du paiement&nbsp:</th>
-            <td>{{ user.enterprise.paymentStatus }}</td>
+            <th width="40%">Mon abonnement&nbsp:</th>
+            {% if is_granted("ROLE_ENTERPRISE") %}
+                <td>{{ user.enterprise.paymentStatus }}</td>
+            {% else %}
+                {% set linkPaymentStatus = app.request.schemeAndHttpHost ~ path('enterprise_payment_status',
+                    {'id': user.enterprise.id, 'status': null }) %}
+                <td>
+                    <select name="payment" id="payment" data-link="{{ linkPaymentStatus }}">
+                        <option value="0" {% if user.enterprise.paymentStatus == 0 %} selected {% endif %}>Pas Payé</option>
+                        <option value="1" {% if user.enterprise.paymentStatus == 1 %} selected {% endif %}>Payé</option>
+                    </select>
+                </td>
+            {% endif %}
         </tr>
         </tbody>
     </table>
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
-            Modifier les informations de l'entreprise</a>
-    </div>
+    {% if type is not defined %}
+        {% if not is_granted('ROLE_ADMIN') %}
+            <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
+                    Modifier les informations de l'entreprise</a>
+            </div>
+        {% endif %}
+    {% endif %}
 
 {% endif %}

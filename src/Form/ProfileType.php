@@ -34,7 +34,7 @@ class ProfileType extends AbstractType
                 TextareaType::class,
                 [
                     "label" => "Description :",
-                    'attr' => ['placeholder' => 'Veuillez saisir un descriptif de votre profil professionnel.'],
+                    'attr' => ['placeholder' => 'Veuillez décrire votre profil professionnel'],
                 ]
             );
     }

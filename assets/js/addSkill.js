@@ -23,7 +23,7 @@ function setCheckBox(link, checkbox) {
         // console.log('___ Add skill Data asynch___', datas);
     } catch (error) {
         // console.log('___ Add skill ___', ' Serveur error no
-        // repsonse in skill Asych function control');
+        // repsonse in skill Asych function control'); -git
     }
     return null;
 }
