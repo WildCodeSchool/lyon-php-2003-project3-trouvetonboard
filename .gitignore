@@ -37,3 +37,7 @@ yarn-error.log
 ###> Composer PHAR
 /composer.phar
 ###< composer ###
+
+###> VichUpload ###
+/public/uploads
+###< VichUpload ###
