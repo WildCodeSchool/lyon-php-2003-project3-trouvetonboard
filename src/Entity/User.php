@@ -361,12 +361,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPostCode(): ?int
+    public function getPostCode(): ?string
     {
         return $this->postCode;
     }
 
-    public function setPostCode(?int $postCode): self
+    public function setPostCode(?string $postCode): self
     {
         $this->postCode = $postCode;
 

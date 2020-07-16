@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserType extends AbstractType
 {
@@ -45,11 +47,19 @@ class UserType extends AbstractType
             ])
             ->add('phone', null, ["label" => "Téléphone"])
             ->add('address', null, ["label" => "Adresse"])
-            ->add('postCode', null, ["label" => "Code postal"])
+            ->add(
+                'postCode',
+                TextType::class,
+                [
+                "label" => "Code postal",
+                'constraints' => [
+                    new Length(['max' => 10]),
+                    ],
+                ]
+            )
             ->add('city', null, ["label" => "Ville"])
             ->add('country', null, ["label" => "Pays de résidence"])
-            ->add('pictureLink', null, ["label" => "Photo"])
-        ;
+            ->add('pictureLink', null, ["label" => "Photo"]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
