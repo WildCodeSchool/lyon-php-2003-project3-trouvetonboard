@@ -52,9 +52,6 @@ class UserType extends AbstractType
                 TextType::class,
                 [
                 "label" => "Code postal",
-                'constraints' => [
-                    new Length(['max' => 10]),
-                    ],
                 ]
             )
             ->add('city', null, ["label" => "Ville"])

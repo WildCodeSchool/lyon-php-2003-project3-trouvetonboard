@@ -134,6 +134,11 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(
+     * max = 10,
+     * maxMessage = "Le code postal  ne peut dépasser {{ limit }} caractéres",
+     * allowEmptyString = true
+     * )
      */
     private $postCode;
 
