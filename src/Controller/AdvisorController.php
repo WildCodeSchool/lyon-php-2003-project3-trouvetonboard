@@ -61,6 +61,7 @@ class AdvisorController extends AbstractController
 
     /**
      * @Route("/{id}", name="advisor_show", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function show(Advisor $advisor): Response
     {
@@ -70,7 +71,8 @@ class AdvisorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"}
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
     {
