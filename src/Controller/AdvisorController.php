@@ -37,6 +37,7 @@ class AdvisorController extends AbstractController
 
     /**
      * @Route("/new", name="advisor_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
