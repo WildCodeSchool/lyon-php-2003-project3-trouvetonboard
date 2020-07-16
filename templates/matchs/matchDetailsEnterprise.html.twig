@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Matchs{% endblock %}
-
 {% block body %}
+
     <div class="matchs-title justify-content-center">
         <h3 class="text-center">Détails Bord Request {{ eProfile.title }}</h3>
     </div>
@@ -40,7 +40,43 @@
                         <td>
                             <ul>
                                 <li>
-                                    {{ aProfile.description | default("Pas de details") }}
+                                    {{ aProfile.description | default("Pas de détails") }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>CV</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    {% if aProfile.advisor.cvLink %}
+                                        <!-- Button trigger modal -->
+                                        <button id="showCVButton" type="button" class="btn btn-primary">
+                                            Voir le CV
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal" id="CVAdvisor">
+                                            <div class="modal-dialog bnj-modal-dialog">
+                                                <div class="modal-content bnj-modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title bnj-modal-title">CV de {{ aProfile.advisor.user.firstName }} {{ aProfile.advisor.user.lastName }}</h5>
+                                                        <button type="button" class="close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body bnj-modal-body">
+                                                        <img src="/uploads/images/users/{{ aProfile.advisor.cvLink|replace({'pdf': 'jpg'})}}" alt="{{ aProfile.advisor.cvLink }}" class="img-fluid"/>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button id="hideCVButton" type="button" class="btn btn-secondary">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        Aucun CV uploadé
+                                    {% endif %}
                                 </li>
                             </ul>
                         </td>
@@ -102,4 +138,68 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+
+        function fade(element) {
+            let op = 1;  // initial opacity
+            let timer = setInterval(function () {
+                if (op <= 0.1){
+                    clearInterval(timer);
+                    element.style.display = 'none';
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op -= op * 0.1;
+            }, 5);
+        }
+
+        function unfade(element) {
+            let op = 0.1;  // initial opacity
+            element.style.display = 'block';
+            let timer = setInterval(function () {
+                if (op >= 1){
+                    clearInterval(timer);
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op += op * 0.1;
+            }, 10);
+        }
+
+        // Get the modal
+        const modal = document.getElementById("CVAdvisor");
+
+        // Get the button that opens the modal
+        const showBtn = document.getElementById("showCVButton");
+
+        // Get the <span> element that closes the modal
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        // Get the button that closes the modal
+        const closeBtnBis = document.getElementById("hideCVButton");
+
+        // When the user clicks the "Voir mon CV" button, open the modal
+        showBtn.onclick = function() {
+            unfade(modal);
+        }
+
+        // When the user clicks on "x", close the modal
+        closeBtn.onclick = function() {
+            fade(modal);
+        }
+
+        // When the user clicks on "Fermer", close the modal
+        closeBtnBis.onclick = function() {
+            fade(modal);
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                fade(modal);
+            }
+        }
+    </script>
 {% endblock %}
