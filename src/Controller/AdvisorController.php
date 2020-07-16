@@ -61,7 +61,7 @@ class AdvisorController extends AbstractController
 
     /**
      * @Route("/{id}", name="advisor_show", methods={"GET"})
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function show(Advisor $advisor): Response
     {
@@ -71,7 +71,7 @@ class AdvisorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"}
+     * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADVISOR")
      */
     public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
@@ -106,7 +106,7 @@ class AdvisorController extends AbstractController
 
     /**
      * @Route("/{id}", name="advisor_delete", methods={"DELETE"})
-     */
+     */ /*
     public function delete(Request $request, Advisor $advisor): Response
     {
         if ($this->isCsrfTokenValid('delete'.$advisor->getId(), $request->request->get('_token'))) {
@@ -116,7 +116,7 @@ class AdvisorController extends AbstractController
         }
 
         return $this->redirectToRoute('advisor_index');
-    }
+    }*/
 
     /**
      * @Route("/{id}/payment/{status}", name="advisor_payment_status")
