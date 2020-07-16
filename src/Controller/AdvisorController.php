@@ -24,15 +24,16 @@ use Imagick;
  */
 class AdvisorController extends AbstractController
 {
+
     /**
      * @Route("/", name="advisor_index", methods={"GET"})
-     */
+     */ /*
     public function index(AdvisorRepository $advisorRepository): Response
     {
         return $this->render('advisor/index.php', [
             'advisors' => $advisorRepository->findAll(),
         ]);
-    }
+    }*/
 
     /**
      * @Route("/new", name="advisor_new", methods={"GET","POST"})
