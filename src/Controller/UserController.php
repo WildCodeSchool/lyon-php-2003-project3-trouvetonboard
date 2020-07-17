@@ -8,6 +8,7 @@ use App\Entity\Advisor;
 use App\Repository\CategoryRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\UserRepository;
+use App\Service\CheckRoles;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -127,8 +128,14 @@ class UserController extends AbstractController
         Request $request,
         CategoryRepository $categoryRepository,
         ProfileRepository $profileRepository,
+        CheckRoles $checkRoles,
         ?User $userId
     ): Response {
+
+        if ($checkRoles->check($request, "user_show_id")) {
+            return $this->redirectToRoute("home");
+        }
+
         $categories = $categoryRepository->findAll();
         $userRepo = $roles = $profile = $profileType = $user = $userType = "";
 
@@ -177,6 +184,13 @@ class UserController extends AbstractController
      */
     public function profileEdit(Request $request, User $user): Response
     {
+        $currentUser = $this->getUser();
+        $currentUserId = ($currentUser)? $currentUser->getId(): null;
+        $userId = $user->getId();
+        if ($userId !== $currentUserId) {
+            $this->addFlash("danger", "Vous n'avez pas les accès à cette route");
+            return $this->redirectToRoute("home");
+        }
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

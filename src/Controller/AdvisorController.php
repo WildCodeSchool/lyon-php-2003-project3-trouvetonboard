@@ -26,6 +26,7 @@ class AdvisorController extends AbstractController
 {
     /**
      * @Route("/", name="advisor_index", methods={"GET"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function index(AdvisorRepository $advisorRepository): Response
     {
@@ -69,6 +70,7 @@ class AdvisorController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
     {
@@ -102,6 +104,7 @@ class AdvisorController extends AbstractController
 
     /**
      * @Route("/{id}", name="advisor_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function delete(Request $request, Advisor $advisor): Response
     {

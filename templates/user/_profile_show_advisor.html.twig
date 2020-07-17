@@ -5,10 +5,12 @@
     </div>
 </div>
 {% if user.advisor.isAlreadyBoardMember is same as(null) and user.advisor.linkedinLink == null and user.advisor.cvLink == null %}
-    <div class="d-flex flex-fill justify-content-center container-btn p-3">
-        <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
-            {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
-    </div>
+        {% if not is_granted('ROLE_ADMIN') %}
+            <div class="d-flex flex-fill justify-content-center container-btn p-3">
+                <a href="{{ path('advisor_edit' , { "id": app.user.advisor.id }) }}">
+                {{ include('components/_icon_new.html.twig') }} Ajouter mes informations Advisor</a>
+            </div>
+        {% endif %}
 {% else %}
     <table class="table container-table">
         <tbody>
