@@ -38,13 +38,13 @@ class AdvisorType extends AbstractType
                 ]
             )
             ->add('linkedinLink', null, [
-                'label' => "LinkedIn :",
+                'label' => "LinkedIn",
                 'attr' => [
                     'placeholder' => 'Insérez ici le lien vers votre profil LinkedIn',
                 ],
                 ])
             ->add('cvLinkFile', VichFileType::class, [
-                'label' => "CV :",
+                'label' => "CV",
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,

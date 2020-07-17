@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Matchs{% endblock %}
-
 {% block body %}
+
     <div class="matchs-title justify-content-center">
         <h3 class="text-center">Détails Bord Request {{ eProfile.title }}</h3>
     </div>
@@ -40,7 +40,21 @@
                         <td>
                             <ul>
                                 <li>
-                                    {{ aProfile.description | default("Pas de details") }}
+                                    {{ aProfile.description | default("Pas de détails") }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>CV</th>
+                        <td>
+                            <ul>
+                                <li>
+                                    {% if aProfile.advisor.cvLink %}
+                                        {{ include('matchs/_CV_modal_match.html.twig') }}
+                                    {% else %}
+                                        Aucun CV uploadé
+                                    {% endif %}
                                 </li>
                             </ul>
                         </td>
@@ -102,4 +116,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('CVModal') }}
 {% endblock %}

@@ -34,7 +34,7 @@ class EnterpriseType extends AbstractType
                 'label' => "Plaquette",
                 'required' => false,
                 'allow_delete' => false,
-                'download_uri' => true,
+                'download_uri' => false,
             ])
         ;
     }

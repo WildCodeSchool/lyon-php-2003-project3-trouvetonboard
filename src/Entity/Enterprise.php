@@ -113,6 +113,12 @@ class Enterprise implements \Serializable
     /**
      * @Vich\UploadableField(mapping="user_file", fileNameProperty="brochure")
      * @var File|null
+     * @Assert\File(
+     *     maxSize = "12000k",
+     *     maxSizeMessage= "Les fichiers de plus de 12M ne sont pas autorisés",
+     *     mimeTypes = {"application/pdf", "application/x-pdf"},
+     *     mimeTypesMessage = "Seul les fichiers PDF sont autorisés"
+     * )
      */
     private $brochureFile;
 
