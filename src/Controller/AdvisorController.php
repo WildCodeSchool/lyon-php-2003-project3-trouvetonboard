@@ -60,18 +60,19 @@ class AdvisorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="advisor_show", methods={"GET"})
+     * @Route("/{id<[0-9]{1,}>}", name="advisor_show", methods={"GET"})
      * @IsGranted("ROLE_ADVISOR")
      */
     public function show(Advisor $advisor): Response
     {
+
         return $this->render('advisor/show.html.twig', [
             'advisor' => $advisor,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
+     * @Route("/{id<[0-9]{1,}>}/edit", name="advisor_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADVISOR")
      */
     public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
