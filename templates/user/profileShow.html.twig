@@ -44,5 +44,13 @@
     </div>
 {% endblock %}
 {% block javascripts %}
+    {{ encore_entry_script_tags('userProfileSkills') }}
+
+    {% if is_granted("ROLE_ADMIN") %}
+        {{ encore_entry_script_tags('paymentStatus') }}
+    {% endif %}
+
+    {{ encore_entry_script_tags('addSkillV2') }}
+
     {{ encore_entry_script_tags('CVModal') }}
 {% endblock %}
