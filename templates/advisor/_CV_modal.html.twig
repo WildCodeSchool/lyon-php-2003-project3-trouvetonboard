@@ -1,0 +1,23 @@
+<!-- Button trigger modal -->
+<button id="showCVButton" type="button" class="btn btn-primary">
+    Voir mon CV
+</button>
+<!-- Modal -->
+<div class="modal" id="CVAdvisor">
+    <div class="modal-dialog bnj-modal-dialog">
+        <div class="modal-content bnj-modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bnj-modal-title">Mon CV</h5>
+                <button type="button" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bnj-modal-body">
+                <img src="/uploads/images/users/{{ user.advisor.cvLink|replace({'pdf': 'jpg'})}}" alt="{{ user.advisor.cvLink }}" class="img-fluid"/>
+            </div>
+            <div class="modal-footer">
+                <button id="hideCVButton" type="button" class="btn btn-secondary">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
