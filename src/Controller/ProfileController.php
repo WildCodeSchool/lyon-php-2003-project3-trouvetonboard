@@ -178,6 +178,7 @@ class ProfileController extends AbstractController
     {
         $logUser = $this->getUser();
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
         try {
             $enterprise = $logUser ? $logUser->getEnterprise() : null;
             if (!$enterprise) {

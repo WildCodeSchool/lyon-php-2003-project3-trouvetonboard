@@ -105,6 +105,7 @@ class AdvisorController extends AbstractController
         ]);
     }
 
+    // todo delte this function before end debug
     /**
      * @Route("/{id}", name="advisor_delete", methods={"DELETE"})
      */ /*
