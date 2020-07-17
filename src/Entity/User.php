@@ -134,6 +134,11 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @Assert\Length(
+     * max = 10,
+     * maxMessage = "Le code postal  ne peut dépasser {{ limit }} caractéres",
+     * allowEmptyString = true
+     * )
      */
     private $postCode;
 
@@ -361,12 +366,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPostCode(): ?int
+    public function getPostCode(): ?string
     {
         return $this->postCode;
     }
 
-    public function setPostCode(?int $postCode): self
+    public function setPostCode(?string $postCode): self
     {
         $this->postCode = $postCode;
 

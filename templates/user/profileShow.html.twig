@@ -45,7 +45,6 @@
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('userProfileSkills') }}
-    {# {{ encore_entry_script_tags('addSkill') }} #}
 
     {% if is_granted("ROLE_ADMIN") %}
         {{ encore_entry_script_tags('paymentStatus') }}

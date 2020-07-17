@@ -20,16 +20,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class EnterpriseController extends AbstractController
 {
+
+
+    // todo delte at end debug  ,  no detected usage
     /**
-     * @Route("/", name="enterprise_index", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     */
+     * Route("/", name="enterprise_index", methods={"GET"})
+     * IsGranted("ROLE_ADMIN")
+     *//*
     public function index(EnterpriseRepository $enterpriseRepository): Response
     {
         return $this->render('enterprise/index.php', [
             'enterprises' => $enterpriseRepository->findAll(),
         ]);
-    }
+    }*/
 
     /**
      * @Route("/new", name="enterprise_new", methods={"GET","POST"})
@@ -62,7 +65,7 @@ class EnterpriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="enterprise_show", methods={"GET"})
+     * @Route("/{id<[0-9]{1,}>}", name="enterprise_show", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
     public function show(Enterprise $enterprise): Response
@@ -84,7 +87,7 @@ class EnterpriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="enterprise_edit", methods={"GET","POST"})
+     * @Route("/{id<[0-9]{1,}>}/edit", name="enterprise_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ENTERPRISE")
      */
     public function edit(Request $request, Enterprise $enterprise): Response
@@ -120,23 +123,26 @@ class EnterpriseController extends AbstractController
         ]);
     }
 
+
+
+    // todo delete at end debug , no detected usage
     /**
-     * @Route("/{id}", name="enterprise_delete", methods={"DELETE"})
-     * @IsGranted("ROLE_ADMIN")
-     */
+     * Route("/{id}", name="enterprise_delete", methods={"DELETE"})
+     * IsGranted("ROLE_ADMIN")
+     *//*
     public function delete(Request $request, Enterprise $enterprise): Response
     {
         if ($this->isCsrfTokenValid('delete' . $enterprise->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($enterprise);
-            $entityManager->flush();
+            $entityManager->flush();git
         }
 
         return $this->redirectToRoute('enterprise_index');
-    }
+    }*/
 
     /**
-     * @Route("/{id}/payment/{status}", name="enterprise_payment_status")
+     * @Route("/{id<[0-9]{1,}>}/payment/{status<[0-1]>}", name="enterprise_payment_status")
      * @IsGranted("ROLE_ADMIN")
      */
     public function changePaymentStatus(
