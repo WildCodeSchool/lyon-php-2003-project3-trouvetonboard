@@ -20,16 +20,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class EnterpriseController extends AbstractController
 {
+
+
+    // todo delte at end debug  ,  no detected usage
     /**
-     * @Route("/", name="enterprise_index", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     */
+     * Route("/", name="enterprise_index", methods={"GET"})
+     * IsGranted("ROLE_ADMIN")
+     *//*
     public function index(EnterpriseRepository $enterpriseRepository): Response
     {
         return $this->render('enterprise/index.php', [
             'enterprises' => $enterpriseRepository->findAll(),
         ]);
-    }
+    }*/
 
     /**
      * @Route("/new", name="enterprise_new", methods={"GET","POST"})
@@ -84,7 +87,7 @@ class EnterpriseController extends AbstractController
     }
 
     /**
-     * @Route("/<[0-9]{1,}>/edit", name="enterprise_edit", methods={"GET","POST"})
+     * @Route("/{id<[0-9]{1,}>}/edit", name="enterprise_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ENTERPRISE")
      */
     public function edit(Request $request, Enterprise $enterprise): Response
@@ -122,6 +125,7 @@ class EnterpriseController extends AbstractController
 
 
 
+    // todo delete at end debug , no detected usage
     /**
      * Route("/{id}", name="enterprise_delete", methods={"DELETE"})
      * IsGranted("ROLE_ADMIN")
