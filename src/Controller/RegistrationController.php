@@ -71,7 +71,7 @@ class RegistrationController extends AbstractController
                 $user->setRoles(['ROLE_ADVISOR']);
                 $profile = new Profile();
                 $profile->setPaymentType("All");
-                $profile->setTitle($user->getFirstName() . " " . $user->getLastName());
+                $profile->setTitle('');
                 $profile->setIsPropose(true);
                 $profile->setIsRequest(false);
                 $profile->setDateCreation(new DateTime("now"));
