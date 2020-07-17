@@ -58,7 +58,7 @@
             <th width="{{ thWidth }}">CV:</th>
             {% if user.advisor.cvLink %}
                 <td>
-                   {% include '../advisor/_CV_modal.html.twig' %}
+                    {{ include('advisor/_CV_modal.html.twig') }}
                 </td>
             {% else %}
                 <td>Ajoutez votre CV</td>
