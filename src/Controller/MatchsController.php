@@ -262,8 +262,6 @@ class MatchsController extends AbstractController
     {
 
         $logUser = $this->getUser();
-
-
         $email = (new TemplatedEmail())
             ->from($this->getParameter("mailer_from"))
             ->to($this->getParameter("mailer_cedric"))
