@@ -25,8 +25,10 @@ use Imagick;
 class AdvisorController extends AbstractController
 {
 
+
     /**
      * @Route("/", name="advisor_index", methods={"GET"})
+     * @IsGranted("ROLE_ADVISOR")
      */ /*
     public function index(AdvisorRepository $advisorRepository): Response
     {
@@ -108,6 +110,7 @@ class AdvisorController extends AbstractController
     // todo delte this function before end debug
     /**
      * @Route("/{id}", name="advisor_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADVISOR")
      */ /*
     public function delete(Request $request, Advisor $advisor): Response
     {

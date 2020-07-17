@@ -7,10 +7,12 @@ use App\Entity\Skill;
 use App\Repository\AdvisorRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
+use App\Service\CheckRoles;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -95,8 +97,15 @@ class MatchsController extends AbstractController
      * @Route("/{id}/matchs/advisor", name="match_advisor_id")
      * @IsGranted({"ROLE_ADVISOR" , "ROLE_ADMIN"})
      */
-    public function matchsEnterpriseByAdvisor(ProfileRepository $profileRepository, ?Profile $profile)
-    {
+    public function matchsEnterpriseByAdvisor(
+        Request $request,
+        ProfileRepository $profileRepository,
+        CheckRoles $checkRoles,
+        ?Profile $profile
+    ) {
+        if ($checkRoles->check($request, "match_advisor_id")) {
+            return $this->redirectToRoute("home");
+        }
 
         $idProfileAdvisor = $nbSkillAdvisor = null;
 

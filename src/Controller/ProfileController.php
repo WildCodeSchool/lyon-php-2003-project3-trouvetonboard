@@ -139,7 +139,7 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/archive/{id}", name="archive", methods={"GET"})
-     * @IsGranted("ROLE_ENTERPRISE")
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
      */
     public function archive(Profile $profile): Response
     {
@@ -176,7 +176,7 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/restore/{id}", name="restore", methods={"GET"})
-     * @IsGranted("ROLE_ENTERPRISE")
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
      */
     public function restore(Profile $profile): Response
     {
