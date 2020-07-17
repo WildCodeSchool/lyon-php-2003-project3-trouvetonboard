@@ -135,7 +135,7 @@ class EnterpriseController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $enterprise->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($enterprise);
-            $entityManager->flush();
+            $entityManager->flush();git
         }
 
         return $this->redirectToRoute('enterprise_index');
