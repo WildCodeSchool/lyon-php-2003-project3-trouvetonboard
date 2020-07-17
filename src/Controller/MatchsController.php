@@ -122,12 +122,19 @@ class MatchsController extends AbstractController
                 $nbSkillAdvisor = count($logUser->getAdvisor()->getProfiles()[0]->getSkills());
             }
         }
-
+        $newMatch = [];
         $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
+        for ($i = 0; $i < count($matchs); $i++) {
+            $match = $matchs[$i];
+            $eProfile = $profileRepository->findOneBy(["id" => $match["board_request_id"]]);
+            $match["TOT"] = $eProfile ? count($eProfile->getSkills()) : 0;
+            $newMatch[] = $match;
+        }
+
         return $this->render(
             'matchs/matchAdvisorBoardRequest.html.twig',
             [
-                'matchs' => $matchs,
+                'matchs' => $newMatch,
                 'nbSkillAdvisor' => $nbSkillAdvisor,
             ]
         );
