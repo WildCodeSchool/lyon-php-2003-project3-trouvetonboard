@@ -119,7 +119,6 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -143,6 +142,8 @@ class ProfileController extends AbstractController
 
         $logUser = $this->getUser();
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
+        // todo give admin right
         try {
             $enterprise = $logUser ? $logUser->getEnterprise() : null;
             if (!$enterprise) {
@@ -155,7 +156,6 @@ class ProfileController extends AbstractController
             $this->addFlash("danger", $msg);
             return $this->redirectToRoute('user_profile_show');
         }
-
 
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -178,6 +178,7 @@ class ProfileController extends AbstractController
     {
         $logUser = $this->getUser();
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
         try {
             $enterprise = $logUser ? $logUser->getEnterprise() : null;
             if (!$enterprise) {
