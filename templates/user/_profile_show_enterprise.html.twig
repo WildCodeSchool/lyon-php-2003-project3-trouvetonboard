@@ -7,10 +7,13 @@
     </div>
 </div>
 {% if user.enterprise.address == null and user.enterprise.zipCode == null and user.enterprise.city == null and user.enterprise.legelRepresentative == null and user.enterprise.linkedinLink == null and user.enterprise.websiteLink == null %}
-<div class="d-flex flex-fill justify-content-center container-btn p-3">
-    <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
-        {{ include('components/_icon_new.html.twig') }} Ajouter mon entreprise</a>
-</div>
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div class="d-flex flex-fill justify-content-center container-btn p-3">
+            <a href="{{ path('enterprise_edit' , { "id": app.user.enterprise.id }) }}">
+                {{ include('components/_icon_new.html.twig') }} Ajouter mon entreprise</a>
+        </div>
+    {% endif %}
+
 {% else %}
     <table class="table container-table">
         <tbody>
@@ -40,14 +43,20 @@
         <tr>
             <th width="40%">Mon abonnement&nbsp:</th>
             {% if is_granted("ROLE_ENTERPRISE") %}
-                <td>{{ user.enterprise.paymentStatus }}</td>
+                <td>
+                    {% if  user.enterprise.paymentStatus == 0 %}
+                        Non Abonné
+                    {% else %}
+                        En cours
+                    {% endif %}
+                </td>
             {% else %}
                 {% set linkPaymentStatus = app.request.schemeAndHttpHost ~ path('enterprise_payment_status',
                     {'id': user.enterprise.id, 'status': null }) %}
                 <td>
-                    <select name="payment" id="payment" data-link="{{ linkPaymentStatus }}">
-                        <option value="0" {% if user.enterprise.paymentStatus == 0 %} selected {% endif %}>Pas Payé</option>
-                        <option value="1" {% if user.enterprise.paymentStatus == 1 %} selected {% endif %}>Payé</option>
+                    <select name="payment" id="payment" data-link="{{ linkPaymentStatus }}" class="form-control select-payment">
+                        <option value="0" {% if user.enterprise.paymentStatus == 0 %} selected {% endif %}>Non Abonné</option>
+                        <option value="1" {% if user.enterprise.paymentStatus == 1 %} selected {% endif %}>Paiement validé</option>
                     </select>
                 </td>
             {% endif %}

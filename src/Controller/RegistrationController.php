@@ -47,7 +47,7 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        dump($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $entityManager = $this->getDoctrine()->getManager();
@@ -64,14 +64,17 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($enterprise);
                 $user->setEnterprise($enterprise);
                 $user->setRoles(['ROLE_ENTERPRISE']);
+                $user->setType('Entreprise');
             } else {
                 $advisor = new Advisor();
                 $entityManager->persist($advisor);
                 $user->setAdvisor($advisor);
                 $user->setRoles(['ROLE_ADVISOR']);
+                $user->setType('Advisor');
+
                 $profile = new Profile();
                 $profile->setPaymentType("All");
-                $profile->setTitle($user->getFirstName() . " " . $user->getLastName());
+                $profile->setTitle('');
                 $profile->setIsPropose(true);
                 $profile->setIsRequest(false);
                 $profile->setDateCreation(new DateTime("now"));

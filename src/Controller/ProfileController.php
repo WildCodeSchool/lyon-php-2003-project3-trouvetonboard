@@ -25,19 +25,22 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class ProfileController extends AbstractController
 {
+
+    // todo  delete end of debug , no usage
     /**
      * @Route("/", name="index", methods={"GET"})
-     */
+     *//*
     public function index(ProfileRepository $profileRepository): Response
     {
         return $this->render('profile/index.php', [
             'profiles' => $profileRepository->findAll(),
         ]);
-    }
+    }*/
 
 
     /**
      * @Route("/editSkillBoardRequest/{id}", name="editSkillBoardRequest", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ADVISOR","ROLE_ENTERPRISE"})
      */
     public function editSkillBoardRequest(
         Profile $boardRequest,
@@ -66,6 +69,7 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ADVISOR","ROLE_ENTERPRISE"})
      */
     public function new(Request $request): Response
     {
@@ -119,7 +123,6 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -136,13 +139,15 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/archive/{id}", name="archive", methods={"GET"})
-     * @IsGranted("ROLE_ENTERPRISE")
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
      */
     public function archive(Profile $profile): Response
     {
 
         $logUser = $this->getUser();
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
+        // todo give admin right
         try {
             $enterprise = $logUser ? $logUser->getEnterprise() : null;
             if (!$enterprise) {
@@ -155,7 +160,6 @@ class ProfileController extends AbstractController
             $this->addFlash("danger", $msg);
             return $this->redirectToRoute('user_profile_show');
         }
-
 
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -172,12 +176,13 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/restore/{id}", name="restore", methods={"GET"})
-     * @IsGranted("ROLE_ENTERPRISE")
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
      */
     public function restore(Profile $profile): Response
     {
         $logUser = $this->getUser();
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
         try {
             $enterprise = $logUser ? $logUser->getEnterprise() : null;
             if (!$enterprise) {
@@ -202,6 +207,7 @@ class ProfileController extends AbstractController
         return $this->redirectToRoute('user_profile_show');
     }
 
+    // todo delete at end of debug , no usage
 //    /**
 //     * @Route("/{id}", name="delete", methods={"DELETE"})
 //     */
