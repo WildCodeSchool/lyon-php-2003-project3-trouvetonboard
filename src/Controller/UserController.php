@@ -8,6 +8,7 @@ use App\Entity\Advisor;
 use App\Repository\CategoryRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\UserRepository;
+use App\Service\CheckRoles;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -132,8 +133,14 @@ class UserController extends AbstractController
         Request $request,
         CategoryRepository $categoryRepository,
         ProfileRepository $profileRepository,
+        CheckRoles $checkRoles,
         ?User $userId
     ): Response {
+
+        if ($checkRoles->check($request, "user_show_id")) {
+            return $this->redirectToRoute("home");
+        }
+
         $categories = $categoryRepository->findAll();
         $userRepo = $roles = $profile = $profileType = $user = $userType = "";
 
