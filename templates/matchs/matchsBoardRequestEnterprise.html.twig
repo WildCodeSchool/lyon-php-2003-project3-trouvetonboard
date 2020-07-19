@@ -3,12 +3,13 @@
 {% block title %}Matchs{% endblock %}
 
 {% block body %}
+    <article>
     <div class="matchs-title">
         <h3>Sélectionner un match pour afficher les Advisors compatibles</h3>
     </div>
     {% set activeBoardRequest = "non-acttive" %}
     {% set nbActiveBoardRequestSkills = 0 %}
-    <div class="d-flex flex-fill flex-row containerStdProfile m-2 p-0 board-title">
+    <div class="d-flex flex-fill flex-row containerStdProfile m-2 p-0 board-title ">
         <div class="d-flex flex-column w-25 bg-light container-a container-tab" name="allBordRequest">
             {% for boardRequest in boardRequests %}
             {% if activceBoardRequestId ==  boardRequest.id %}
@@ -60,6 +61,7 @@
         </div>
 
     </div>
+    </article>
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('enterpriseMatch') }}
