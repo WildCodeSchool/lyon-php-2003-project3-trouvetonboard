@@ -103,11 +103,11 @@ class ProfileRepository extends ServiceEntityRepository
         E.name as enterprise_name, 
         PE.description,
         PE.date_creation,
-        (SELECT COUNT(DISTINCT PSA2.skill_id)
+        /*(SELECT COUNT(DISTINCT PSA2.skill_id)
             FROM profile PA2 
             JOIN profile_skill PSA2 ON PSA2.profile_id = PA2.id
             WHERE PA2.id = $id
-            )as TOTAL,
+            )as TOTAL,*/
         COUNT(DISTINCT PSE.skill_id) as SCORE
         FROM profile PA
         JOIN profile_skill PSA ON PSA.profile_id = PA.id # tous les skill de PA.id
