@@ -10,8 +10,7 @@
         {% for match in matchs %}
             <div class="d-flex flex-wrap flex-collumn m-1 zoom">
                 {% if is_granted('ROLE_ADVISOR') or is_granted('ROLE_ADMIN') %}
-                    {{ dump( match.percent) }}
-                    {% set percentCoveredSkill = (match.SCORE/match.TOTAL) * 100 %}
+                    {% set percentCoveredSkill = match.percent %}
                 {% else %}
                     {% set percentCoveredSkill = (match.SCORE/nbSkillAdvisor) * 100 %}
                 {% endif %}
