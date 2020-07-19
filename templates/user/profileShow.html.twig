@@ -11,7 +11,7 @@
                 <div class="form-block-std">
                     {% include 'user/_profile_show_base_user.html.twig' %}
 
-                    {% if not is_granted('ROLE_ADMIN')%}
+                    {% if not is_granted('ROLE_ADMIN') %}
                         <div class="d-flex p-2 justify-content-around ml-1 container-a">
                             <a href="{{ path('user_profile_edit' , { "id": app.user.id }) }}">
                                 Modifier mon profil</a>
@@ -42,16 +42,17 @@
 
     {% if is_granted("ROLE_ADMIN") %}
         {{ encore_entry_script_tags('paymentStatus') }}
+        {{ encore_entry_script_tags('addSkillV2') }}
+    {% elseif is_granted("ROLE_ADVISOR") %}
+        {{ encore_entry_script_tags('addSkillV2') }}
     {% endif %}
-
-    {{ encore_entry_script_tags('addSkillV2') }}
-
+git
     <script>
 
         function fade(element) {
             let op = 1;  // initial opacity
             let timer = setInterval(function () {
-                if (op <= 0.1){
+                if (op <= 0.1) {
                     clearInterval(timer);
                     element.style.display = 'none';
                 }
@@ -65,7 +66,7 @@
             let op = 0.1;  // initial opacity
             element.style.display = 'block';
             let timer = setInterval(function () {
-                if (op >= 1){
+                if (op >= 1) {
                     clearInterval(timer);
                 }
                 element.style.opacity = op;
@@ -87,22 +88,22 @@
         const closeBtnBis = document.getElementById("hideCVButton");
 
         // When the user clicks the "Voir mon CV" button, open the modal
-        showBtn.onclick = function() {
+        showBtn.onclick = function () {
             unfade(modal);
         }
 
         // When the user clicks on "x", close the modal
-        closeBtn.onclick = function() {
+        closeBtn.onclick = function () {
             fade(modal);
         }
 
         // When the user clicks on "Fermer", close the modal
-        closeBtnBis.onclick = function() {
+        closeBtnBis.onclick = function () {
             fade(modal);
         }
 
         // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 fade(modal);
             }
