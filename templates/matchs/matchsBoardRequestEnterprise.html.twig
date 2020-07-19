@@ -12,39 +12,40 @@
         <div class="d-flex flex-column w-25 bg-light container-a container-tab" name="allBordRequest">
 
             {% for boardRequest in boardRequests %}
-                {% if activceBoardRequestId ==  boardRequest.id %}
-                    {# for js #}
-                    {% set activeBoardRequest = "boardRequestActive" %}
-                    {# for calculate board % covered match in card  #}
-                    {% set nbActiveBoardRequestSkills = boardRequest.skills|length %}
+            {% if activceBoardRequestId ==  boardRequest.id %}
+                {# for js #}
+                {% set activeBoardRequest = "boardRequestActive" %}
+                {# for calculate board % covered match in card  #}
+                {% set nbActiveBoardRequestSkills = boardRequest.skills|length %}
+            {% endif %}
+
+            <div class="border-bottom border-style-blue" id="boardRequest-{{ boardRequest.id }}"
+                 name="{{ activeBoardRequest }}">
+
+                <a class="d-inline-flex flex-fill h4 pl-3 pt-3 p w-100 zoom" name="boardRequest" href="{{ path
+                    ('match_board_request_enterprise',
+                    { "id": boardRequest.id }) }}">{{ boardRequest.title }}</a>
+                <p class="text-0dot8em pl-5 mb-0">Date de création : {{ boardRequest.dateCreation | date
+                        ("d/m/Y", "Europe/Paris") }}</p>
+                <p class="text-0dot8em pl-5 mb-0">Nb. compétences requises : {{ boardRequest.skills|length }}</p>
+                {% set total = 0 %}
+                {% set nbSkills = boardRequest.skills|length %}
+                {% for match in matchs %}
+                    {% if match.SCORE == nbSkills %}
+                        {% set total = total + 1 %}
+                    {% endif %}
+                {% else %}
+                {% endfor %}
+                {% if activceBoardRequestId == boardRequest.id %}
+                    <p class="text-0dot8em pl-5">Nb. profil complet : {{ total }}</p>
                 {% endif %}
 
-                <div class="border-bottom border-style-blue" id="boardRequest-{{ boardRequest.id }}" name="{{
-                activeBoardRequest }}">
 
-                        <a class="d-inline-flex flex-fill h4 pl-3 pt-3 p w-100 zoom" name="boardRequest" href="{{ path
-                            ('match_board_request_enterprise',
-                            { "id": boardRequest.id }) }}">{{ boardRequest.title }}</a>
-                        <p class="text-0dot8em pl-5 mb-0">Date de création : {{ boardRequest.dateCreation | date
-                                ("d/m/Y", "Europe/Paris")
-                            }}</p>
-                        <p class="text-0dot8em pl-5 mb-0">Nb. compétences requises : {{ boardRequest.skills|length }}</p>
-                        {% set total = 0 %}
-                        {% set nbSkills = boardRequest.skills|length %}
-                        {% for match in matchs %}
-                            {% if match.SCORE == nbSkills %}
-                                {% set total = total + 1 %}
-                            {% endif %}
-                        {% else %}
-                        {% endfor %}
-                    {% if activceBoardRequestId == boardRequest.id %}
-                        <p class="text-0dot8em pl-5">Nb. profil complet : {{ total }}</p>
-                    {% endif %}
-
-
-                </div>
-                {% set activeBoardRequest = "non-acttive" %}
+            </div>
+            {% set activeBoardRequest = "non-acttive" %}
             {% else %}
+                    <p class="h5 m-3">Vous devez créer une Board Request pour visualiser les Matchs.
+                    <p>
             {% endfor %}
         </div>
         <div class="w-75">
@@ -56,6 +57,10 @@
                         {% include "matchs/_card_enterprise_advisor_match.html.twig" %}
                     </div>
                 {% else %}
+                    {% if boardRequests is not empty and matchs is empty %}
+                        <p class="h5 m-3">Aucun matchs pour cette Board Request.
+                        <p>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
