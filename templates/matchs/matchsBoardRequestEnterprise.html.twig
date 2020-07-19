@@ -10,7 +10,6 @@
     {% set nbActiveBoardRequestSkills = 0 %}
     <div class="d-flex flex-fill flex-row containerStdProfile m-2 p-0 board-title">
         <div class="d-flex flex-column w-25 bg-light container-a container-tab" name="allBordRequest">
-
             {% for boardRequest in boardRequests %}
             {% if activceBoardRequestId ==  boardRequest.id %}
                 {# for js #}
@@ -18,10 +17,8 @@
                 {# for calculate board % covered match in card  #}
                 {% set nbActiveBoardRequestSkills = boardRequest.skills|length %}
             {% endif %}
-
             <div class="border-bottom border-style-blue" id="boardRequest-{{ boardRequest.id }}"
                  name="{{ activeBoardRequest }}">
-
                 <a class="d-inline-flex flex-fill h4 pl-3 pt-3 p w-100 zoom" name="boardRequest" href="{{ path
                     ('match_board_request_enterprise',
                     { "id": boardRequest.id }) }}">{{ boardRequest.title }}</a>
@@ -39,8 +36,6 @@
                 {% if activceBoardRequestId == boardRequest.id %}
                     <p class="text-0dot8em pl-5">Nb. profil complet : {{ total }}</p>
                 {% endif %}
-
-
             </div>
             {% set activeBoardRequest = "non-acttive" %}
             {% else %}
@@ -50,7 +45,6 @@
         </div>
         <div class="w-75">
             <div class="d-flex flex-wrap flex-collumn m-3">
-
                 {% for match in matchs %}
                     {% set percentCoveredSkill = (match.SCORE/nbActiveBoardRequestSkills) * 100 %}
                     <div class="d-flex flex-wrap flex-collumn m-1 zoom">
