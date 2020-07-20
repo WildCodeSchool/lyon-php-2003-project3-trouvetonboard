@@ -55,8 +55,7 @@ class UserType extends AbstractType
                 ]
             )
             ->add('city', null, ["label" => "Ville"])
-            ->add('country', null, ["label" => "Pays de résidence"])
-            ->add('pictureLink', null, ["label" => "Photo"]);
+            ->add('country', null, ["label" => "Pays de résidence"]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

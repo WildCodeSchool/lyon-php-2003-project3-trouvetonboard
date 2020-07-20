@@ -21,13 +21,13 @@
             {{ is_granted('ROLE_ENTERPRISE') ? "board request" : "advisor proposition" }}</a>
 </div>
 {% endif %}
-<div class="container-fluid row m-0 p-0 justify-content-center">
+<div class="container-fluid row m-0 p-0 justify-content-center align-items-stretch">
     {% if app.user.enterprise is not null %}
         {% for profile in app.user.enterprise.profiles %}
             {% if not profile.archived %}
-            <div class="m-3">
+
                 {% include "profile/_board_card.html.twig" %}
-            </div>
+
             {% endif %}
         {% else  %}
             <div class="d-flex p-2 justify-content-around ml-1 container-a">
@@ -36,9 +36,9 @@
         {% endfor %}
         {% for profile in app.user.enterprise.profiles %}
             {% if profile.archived %}
-                <div class="m-3">
+
                     {% include "profile/_board_card.html.twig" %}
-                </div>
+
             {% endif %}
         {% endfor %}
     {% elseif app.user.advisor is not null %}

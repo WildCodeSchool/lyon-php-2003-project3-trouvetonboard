@@ -8,6 +8,7 @@ use App\Repository\AdvisorRepository;
 use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
 use App\Service\CheckRoles;
+use App\Service\MatchArraySort;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -37,7 +38,6 @@ class MatchsController extends AbstractController
     public function matchsAdvisorByBoardRequest(?Profile $bordRequest, ProfileRepository $profileRepository)
     {
         $bordRequestId = $matchsBordRequest = $idEnterprise = null;
-
 
         $getUser = $this->getUser();
         $getRoles = null;
@@ -107,31 +107,44 @@ class MatchsController extends AbstractController
             return $this->redirectToRoute("home");
         }
 
-        $idProfileAdvisor = $nbSkillAdvisor = null;
-
+        $idProfileAdvisor = null;
         $getUser = $this->getUser();
         $getRoles = ($getUser)? $getUser->getRoles(): null;
 
         if (in_array("ROLE_ADMIN", $getRoles)) {
             $idProfileAdvisor = ($profile)? $profile->getId(): null;
-            $nbSkillAdvisor = ($profile)? count($profile->getSkills()): null;
         } else {
             $logUser = $this->getUser();
             if ($logUser) {
                 $idProfileAdvisor = $logUser->getAdvisor()->getProfiles()[0]->getId();
-                $nbSkillAdvisor = count($logUser->getAdvisor()->getProfiles()[0]->getSkills());
+                // used for calculate % match in bordRequestMatch match for enterprise
             }
         }
 
+        // newMatchs exsist for pronlem to calculate % in advisor match
+        $newMatch = [];
         $matchs = $profileRepository->findEnterpriseMatchsByAdvisor($idProfileAdvisor);
+        for ($i = 0; $i < count($matchs); $i++) {
+            $match = $matchs[$i];
+            $eProfile = $profileRepository->findOneBy(["id" => $match["board_request_id"]]);
+            $total = $eProfile ? count($eProfile->getSkills()) : 0;
+            $match["TOTAL"] = $eProfile ? count($eProfile->getSkills()) : 0;
+            $match["percent"] = ($match["SCORE"] / $total) * 100;
+            $newMatch[] = $match;
+        }
+
+        $sorter = new MatchArraySort();
+
         return $this->render(
             'matchs/matchAdvisorBoardRequest.html.twig',
             [
-                'matchs' => $matchs,
-                'nbSkillAdvisor' => $nbSkillAdvisor,
+                'matchs' => $sorter->arraySort($newMatch, 'percent', SORT_DESC),
+                //'nbSkillAdvisor' => $nbSkillAdvisor,
             ]
         );
     }
+
+
 
     /**
      * @param \App\Entity\Profile $eProfile Enterprise profile
