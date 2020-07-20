@@ -27,7 +27,7 @@
     </div>
 
 
-    {% if not is_granted("ROLE_ADMIN") %}
+
       <div class="d-flex p-2 justify-content-around ml-1 container-a">
           {% if not profile.archived %}
           <a href="{{ path('profile_archive', { "id": profile.id }) }}">
@@ -37,6 +37,7 @@
               Restaurer</a>
           {% endif %}
       </div>
+    {% if not is_granted("ROLE_ADMIN") %}
         {% if not profile.archived %}
           <div class="d-flex p-2 justify-content-around ml-1 container-a">
               <a href="{{ path('profile_edit' , { "id":profile.id }) }}">

@@ -24,18 +24,22 @@ use Imagick;
  */
 class AdvisorController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="advisor_index", methods={"GET"})
-     */
+     * @IsGranted("ROLE_ADVISOR")
+     */ /*
     public function index(AdvisorRepository $advisorRepository): Response
     {
         return $this->render('advisor/index.php', [
             'advisors' => $advisorRepository->findAll(),
         ]);
-    }
+    }*/
 
     /**
      * @Route("/new", name="advisor_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -58,17 +62,20 @@ class AdvisorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="advisor_show", methods={"GET"})
+     * @Route("/{id<[0-9]{1,}>}", name="advisor_show", methods={"GET"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function show(Advisor $advisor): Response
     {
+
         return $this->render('advisor/show.html.twig', [
             'advisor' => $advisor,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="advisor_edit", methods={"GET","POST"})
+     * @Route("/{id<[0-9]{1,}>}/edit", name="advisor_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADVISOR")
      */
     public function edit(Request $request, Advisor $advisor, KernelInterface $kernel): Response
     {
@@ -100,9 +107,11 @@ class AdvisorController extends AbstractController
         ]);
     }
 
+    // todo delte this function before end debug
     /**
      * @Route("/{id}", name="advisor_delete", methods={"DELETE"})
-     */
+     * @IsGranted("ROLE_ADVISOR")
+     */ /*
     public function delete(Request $request, Advisor $advisor): Response
     {
         if ($this->isCsrfTokenValid('delete'.$advisor->getId(), $request->request->get('_token'))) {
@@ -112,7 +121,7 @@ class AdvisorController extends AbstractController
         }
 
         return $this->redirectToRoute('advisor_index');
-    }
+    }*/
 
     /**
      * @Route("/{id}/payment/{status}", name="advisor_payment_status")

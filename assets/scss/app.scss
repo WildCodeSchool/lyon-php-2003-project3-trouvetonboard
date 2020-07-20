@@ -51,7 +51,9 @@ a {
     }
 }
 
-
+.container-back-home {
+    min-height: 600px;
+}
 
 .container-back-home,
 .container-back-stats {
@@ -150,6 +152,10 @@ hr.rounded {
 }
 
 @media screen and (max-width: 992px) {
+    .button-back {
+        width: 200px;
+    }
+
     .footer-container {
         flex-direction: column;
 
