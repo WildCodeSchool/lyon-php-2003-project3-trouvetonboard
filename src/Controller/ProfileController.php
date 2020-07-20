@@ -26,19 +26,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ProfileController extends AbstractController
 {
 
-    // todo  delete end of debug , no usage
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     *//*
-    public function index(ProfileRepository $profileRepository): Response
-    {
-        return $this->render('profile/index.php', [
-            'profiles' => $profileRepository->findAll(),
-        ]);
-    }*/
-
-
-    /**
+      /**
      * @Route("/editSkillBoardRequest/{id}", name="editSkillBoardRequest", methods={"GET","POST"})
      * @IsGranted({"ROLE_ADVISOR","ROLE_ENTERPRISE"})
      */
@@ -65,7 +53,6 @@ class ProfileController extends AbstractController
             "profile" => $boardRequest
         ]);
     }
-
 
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
@@ -170,7 +157,6 @@ class ProfileController extends AbstractController
             "Le profil a été archivé, il ne sera plus affiché dans les recherches des Advisors."
         );
 
-
         return $this->redirectToRoute('user_profile_show');
     }
 
@@ -206,21 +192,6 @@ class ProfileController extends AbstractController
 
         return $this->redirectToRoute('user_profile_show');
     }
-
-    // todo delete at end of debug , no usage
-//    /**
-//     * @Route("/{id}", name="delete", methods={"DELETE"})
-//     */
-//    public function delete(Request $request, Profile $profile): Response
-//    {
-//        if ($this->isCsrfTokenValid('delete' . $profile->getId(), $request->request->get('_token'))) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->remove($profile);
-//            $entityManager->flush();
-//        }
-//
-//        return $this->redirectToRoute('profile_index');
-//    }
 
     /**
      * @Route("/{id}/addSkill/{skillId}", name="addSkill")
@@ -307,7 +278,6 @@ class ProfileController extends AbstractController
      */
     public function checkAllSkills(Request $request, Profile $profile)
     {
-
         $token = $request->request->get("token");
         $skillsId = [];
         if ($this->isCsrfTokenValid('requestToken', $token)) {
