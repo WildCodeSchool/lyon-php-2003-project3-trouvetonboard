@@ -21,7 +21,6 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('addSkill', './assets/js/addSkill.js')
     .addEntry('addSkillV2', './assets/js/addSkillV2.js')
     .addEntry('userProfileSkills', './assets/js/userProfileSkills.js')
     .addEntry('enterpriseMatch', './assets/js/enterpriseMatch.js')

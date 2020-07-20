@@ -25,18 +25,6 @@ use Imagick;
 class AdvisorController extends AbstractController
 {
 
-
-    /**
-     * @Route("/", name="advisor_index", methods={"GET"})
-     * @IsGranted("ROLE_ADVISOR")
-     */ /*
-    public function index(AdvisorRepository $advisorRepository): Response
-    {
-        return $this->render('advisor/index.php', [
-            'advisors' => $advisorRepository->findAll(),
-        ]);
-    }*/
-
     /**
      * @Route("/new", name="advisor_new", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
@@ -106,22 +94,6 @@ class AdvisorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    // todo delte this function before end debug
-    /**
-     * @Route("/{id}", name="advisor_delete", methods={"DELETE"})
-     * @IsGranted("ROLE_ADVISOR")
-     */ /*
-    public function delete(Request $request, Advisor $advisor): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$advisor->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($advisor);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('advisor_index');
-    }*/
 
     /**
      * @Route("/{id}/payment/{status}", name="advisor_payment_status")

@@ -22,61 +22,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class UserController extends AbstractController
 {
 
-    // todo  delete at end debug , no use
-//    /**
-//     * @Route("/", name="index", methods={"GET"})
-//     * @IsGranted("ROLE_ADMIN")
-//     */
-//    public function index(UserRepository $userRepository): Response
-//    {
-//        return $this->render('user/index.php', [
-//            'users' => $userRepository->findAll(),
-//        ]);
-//    }
-//
-//    /**
-//     * @Route("/new", name="new", methods={"GET","POST"})
-//     * @IsGranted("ROLE_ADMIN")
-//     */
-//    public function new(Request $request): Response
-//    {
-//        $user = new User();
-//        $form = $this->createForm(UserType::class, $user);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->persist($user);
-//            $entityManager->flush();
-//            return $this->redirectToRoute('user_index');
-//        }
-//
-//        return $this->render('user/new.html.twig', [
-//            'user' => $user,
-//            'form' => $form->createView(),
-//        ]);
-//    }
-
-//    /**
-//     * @Route("/{id}", name="show", methods={"GET"})
-//     * @IsGranted("ROLE_ADMIN")
-//     */
-//    public function show(User $user, CategoryRepository $categoryRepository): Response
-//    {
-//        $categories = $categoryRepository->findAll();
-//        $profile = null;
-//        $roles = $user->getRoles();
-//        if (array_search("ROLE_ADVISOR", $roles)) {
-//            $advisor = $user->getAdvisor();
-//            $profile = ($advisor)? $advisor->getProfiles()[0]: null;
-//        }
-//        return $this->render('user/show.html.twig', [
-//            'user' => $user,
-//            'categories' => $categories,
-//            'profile' => $profile
-//        ]);
-//    }
-
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
@@ -105,24 +50,6 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
-// todo  delete at end debug , no use
-
-//    /**
-//     * @Route("/{id}", name="delete", methods={"DELETE"})
-//     * @IsGranted("ROLE_ADMIN")
-//     */
-//    public function delete(Request $request, User $user): Response
-//    {
-//        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->remove($user);
-//            $entityManager->flush();
-//        }
-//
-//        return $this->redirectToRoute('user_index');
-//    }
 
     /**
      * @Route("/profile/show", name="profile_show", methods={"GET","POST"})

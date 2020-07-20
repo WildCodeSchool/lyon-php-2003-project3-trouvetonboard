@@ -24,19 +24,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class EnterpriseController extends AbstractController
 {
 
-
-    // todo delte at end debug  ,  no detected usage
-    /**
-     * Route("/", name="enterprise_index", methods={"GET"})
-     * IsGranted("ROLE_ADMIN")
-     *//*
-    public function index(EnterpriseRepository $enterpriseRepository): Response
-    {
-        return $this->render('enterprise/index.php', [
-            'enterprises' => $enterpriseRepository->findAll(),
-        ]);
-    }*/
-
     /**
      * @Route("/new", name="enterprise_new", methods={"GET","POST"})
      * @IsGranted("ROLE_ENTERPRISE")
@@ -140,24 +127,6 @@ class EnterpriseController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
-
-    // todo delete at end debug , no detected usage
-    /**
-     * Route("/{id}", name="enterprise_delete", methods={"DELETE"})
-     * IsGranted("ROLE_ADMIN")
-     *//*
-    public function delete(Request $request, Enterprise $enterprise): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $enterprise->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($enterprise);
-            $entityManager->flush();git
-        }
-
-        return $this->redirectToRoute('enterprise_index');
-    }*/
 
     /**
      * @Route("/{id<[0-9]{1,}>}/payment/{status<[0-1]>}", name="enterprise_payment_status")

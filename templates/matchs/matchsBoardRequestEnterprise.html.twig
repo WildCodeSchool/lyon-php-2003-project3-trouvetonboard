@@ -5,7 +5,7 @@
 {% block body %}
     <article>
     <div class="matchs-title">
-        <h3>Sélectionner un match pour afficher les Advisors compatibles</h3>
+        <h3>Sélectionner une Board request pour afficher les Advisors compatibles</h3>
     </div>
     {% set activeBoardRequest = "non-acttive" %}
     {% set nbActiveBoardRequestSkills = 0 %}
@@ -40,7 +40,7 @@
             </div>
             {% set activeBoardRequest = "non-acttive" %}
             {% else %}
-                    <p class="h5 m-3">Vous devez créer une Board Request pour visualiser les Matchs.
+                    <p class="h5 m-3">Vous devez créer une Board Request pour visualiser les matchs.
                     <p>
             {% endfor %}
         </div>
@@ -53,7 +53,7 @@
                     </div>
                 {% else %}
                     {% if boardRequests is not empty and matchs is empty %}
-                        <p class="h5 m-3">Aucun matchs pour cette Board Request.
+                        <p class="h5 m-3">Aucun match pour cette Board Request.
                         <p>
                     {% endif %}
                 {% endfor %}
