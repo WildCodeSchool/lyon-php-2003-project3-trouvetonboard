@@ -11,79 +11,45 @@
     {% endblock %}
 </head>
 <body>
-{% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-custom">
-        <a class="navbar-brand" href="{{ path('home') }}"><span class="first-T">T</span><span
-                    class="second-T">T</span><span class="first-B">B</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+<article>
+    <header>
+        {% block navbar %}
 
-                {% if app.user %}
-                    {#  _____Display if connected_____ #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a class="nav-item nav-link" href="#">Mon Profil</a>
-                        <a class="nav-item nav-link" href="{{ path("admin_index") }}" >Administration</a>
+            {{ include('_navbar.html.twig') }}
+        {% endblock %}
+    </header>
 
-                    {% else %}
-                        <a class="nav-item nav-link" href="{{ path('user_profile_show') }}">Mon Profil</a>
-                    {% endif %}
-                    {% if app.user.advisor %}
-                        <a class="nav-item nav-link" href="{{ path('match_advisor_boardRequest') }}">Mes Matchs</a>
-                    {% elseif app.user.enterprise %}
-                        <a class="nav-item nav-link" href="{{ path('match_board_request_one') }}">Mes Matchs</a>
-                    {% endif %}
-                    <a class="nav-item nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-                {% else %}
-                    {#  _____Display if is not connected_____ #}
-                    <a class="nav-item nav-link" href="{{ path('app_login') }}">Connexion</a>
-                {% endif %}
-
-            </div>
-        </div>
-    </nav>
-{% endblock %}
+    <main>
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
 
 
-{#{% set containerStd = "mb-2 mt-4 container container-std-bg-white" %}#}
-{#{% set formBlock = "m-4 p-0 d-flex flex-column justify-content-start container-std-bg-white-bootstrap" %}#}
-{#{% set formBlockStd = "mt-2 mb-2 p-0 justify-content-start container-std-bg-white-bootstrap" %}#}
-{#{% set formFullCol = "d-flex flex-row flex-fill align-items-stretch" %}#}
-{#{% set formFullColBlock = "m-2 p-0 d-flex flex-column flex-fill container-std-bg-white-bootstrap" %}#}
-{#{% set titleBlock = "p-2 d-flex align-items-stretch container-title-block" %}#}
-{#{% set titleBlock2 = "p-2 d-flex align-items-start container-title-block" %}#}
-{#{% set containerBtnMajCancel = "d-flex justify-content-between container-btn mr-2" %}#}
+    {% block body %}{% endblock %}
+    </main>
+    <footer>
+        {% block footer %}
+            <footer class="footer-container">
 
+                <li><a href="">Mentions légales</a></li>
+                <li><a href="">CGU</a></li>
+                <li><a href="">Contact</a></li>
+                <li><a href="">FAQ</a></li>
 
-{% for category, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endfor %}
-{% endfor %}
-
-{% block body %}{% endblock %}
-
-{% block footer %}
-    <footer class="footer-container">
-
-        <li><a href="">Mentions légales</a></li>
-        <li><a href="">CGU</a></li>
-        <li><a href="">Contact</a></li>
-        <li><a href="">FAQ</a></li>
-
+            </footer>
+        {% endblock %}
     </footer>
-{% endblock %}
 
-{{ encore_entry_script_tags('app') }}
-{% block javascripts %}
-{% endblock %}
+    {{ encore_entry_script_tags('app') }}
+    {% block javascripts %}
+    {% endblock %}
+</article>
 </body>
 </html>

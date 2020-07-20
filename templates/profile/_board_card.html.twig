@@ -1,4 +1,5 @@
-<div class="card shadow card-custom zoom" style="width: 14rem;">
+<div class="d-flex flex-column justify-content-between align-items-stretch shadow card-custom zoom m-3" style="width:
+ 14rem;">
     {% set backgroudColor = "" %}
     {% set textColor = "" %}
     {% set archived = "" %}
@@ -7,7 +8,8 @@
         {% set textColor = "text-muted" %}
     {% endif %}
 
-    <div class="titleBlock d-flex- justify-content-between align-items-center align-content-center {{ backgroudColor }}">
+    <div class="card-title titleBlock d-flex- justify-content-between align-items-center align-content-center {{
+    backgroudColor }}">
         {% if not profile.archived %}
             {{ include('components/_icon_board_request_tick.html.twig') }}
         {% else %}
@@ -18,16 +20,15 @@
     </div>
 
     <div class="m-2 border border-style-blue">
-        <div class="card-body">
+        <div class="m-2">
             <p class="card-text {{ textColor }}">Description : {{ profile.description | default("Pas de description") }}</p>
         </div>
-        <div class="card-body">
+        <div class="m-2">
             <p class="card-text {{ textColor }}">Date de creation : {{ profile.dateCreation|date("m/d/Y") }}</p>
         </div>
     </div>
 
-
-
+    <div class="align-self-center">
       <div class="d-flex p-2 justify-content-around ml-1 container-a">
           {% if not profile.archived %}
           <a href="{{ path('profile_archive', { "id": profile.id }) }}">
@@ -57,7 +58,7 @@
                   Modifier les compétences</a>
           </div>
         {% endif %}
-      {% else %}
+    {% else %}
         {% if not profile.archived %}
             <div class="d-flex p-2 justify-content-around ml-1 container-a">
                 <a href="{{ path('match_board_request_enterprise' , { "id": profile.id }) }}">
@@ -66,5 +67,6 @@
         {% endif %}
     {% endif %}
 
+    </div>
 </div>
 
