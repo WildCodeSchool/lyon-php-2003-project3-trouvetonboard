@@ -114,15 +114,15 @@ class EnterpriseController extends AbstractController
 
             if ($enterprise->getBrochure() !== null) {
                 $projectRoot = $kernel->getProjectDir();
-                $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$enterprise->getBrochure());
-                $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
+                $pdf = new Pdf($projectRoot.'/public/uploads/enterprises/brochure/'.$enterprise->getBrochure());
+                $pdf->saveImage($projectRoot.'/public/uploads/enterprises/brochure/');
 
                 $filesystem = new Filesystem();
 
                 $uniqueBrochure = explode('.', $enterprise->getBrochure());
                 $filesystem->copy(
-                    $projectRoot.'/public/uploads/images/users/1.jpg',
-                    $projectRoot.'/public/uploads/images/users/'.$uniqueBrochure[0].'.jpg'
+                    $projectRoot.'/public/uploads/enterprises/brochure/1.jpg',
+                    $projectRoot.'/public/uploads/enterprises/brochure/'.$uniqueBrochure[0].'.jpg'
                 );
             }
 

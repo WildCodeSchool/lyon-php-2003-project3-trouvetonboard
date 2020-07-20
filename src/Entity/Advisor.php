@@ -41,7 +41,7 @@ class Advisor implements \Serializable
     private $cvLink;
 
     /**
-     * @Vich\UploadableField(mapping="user_file", fileNameProperty="cvLink")
+     * @Vich\UploadableField(mapping="advisors_cv", fileNameProperty="cvLink")
      * @var File|null
      * @Assert\File(
      *     maxSize = "1024k",

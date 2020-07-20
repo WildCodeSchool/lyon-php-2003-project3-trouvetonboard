@@ -2,9 +2,18 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        user_file:
-            uri_prefix: uploads/images/users
-            upload_destination: '%upload_directory%'
+        advisors_cv:
+            uri_prefix: uploads/advisors/cv
+            upload_destination: '%upload_advisors_cv_directory%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        enterprises_brochure:
+            uri_prefix: uploads/enterprises/brochure
+            upload_destination: '%upload_enterprises_brochure_directory%'
             namer: Vich\UploaderBundle\Naming\UniqidNamer
 
             inject_on_load: false

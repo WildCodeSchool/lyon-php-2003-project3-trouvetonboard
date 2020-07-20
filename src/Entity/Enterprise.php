@@ -111,7 +111,7 @@ class Enterprise implements \Serializable
     private $brochure;
 
     /**
-     * @Vich\UploadableField(mapping="user_file", fileNameProperty="brochure")
+     * @Vich\UploadableField(mapping="enterprises_brochure", fileNameProperty="brochure")
      * @var File|null
      * @Assert\File(
      *     maxSize="12M",
