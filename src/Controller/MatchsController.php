@@ -34,6 +34,7 @@ class MatchsController extends AbstractController
      * @return Response
      * @Route("/matchs/enterprise", name="match_board_request_one")
      * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADMIN"})
      */
     public function matchsAdvisorByBoardRequest(?Profile $bordRequest, ProfileRepository $profileRepository)
     {
@@ -55,7 +56,6 @@ class MatchsController extends AbstractController
             $idEnterprise = $getEnterpriseId;
         } else {
             $logUser = $this->getUser();
-
             if ($logUser) {
                 $getEnterpriseId= $logUser->getEnterprise()->getId();
                 $idEnterprise = $getEnterpriseId;
