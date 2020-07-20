@@ -31,6 +31,7 @@ class MatchsController extends AbstractController
 
     /**
      * @param ProfileRepository $profileRepository
+     *
      * @return Response
      * @Route("/matchs/enterprise", name="match_board_request_one")
      * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
@@ -48,20 +49,34 @@ class MatchsController extends AbstractController
 
         if (in_array("ROLE_ADMIN", $getRoles)) {
             $getEnterpriseId = $getEnterprise = null;
-
-            $getEnterprise = ($bordRequest) ? $bordRequest->getEnterprise(): null;
-            $getEnterpriseId = ($getEnterprise)? $getEnterpriseId = $getEnterprise->getId(): null;
-
-
+            $getEnterprise = ($bordRequest) ? $bordRequest->getEnterprise() : null;
+            $getEnterpriseId = ($getEnterprise) ? $getEnterpriseId = $getEnterprise->getId() : null;
             $idEnterprise = $getEnterpriseId;
         } else {
             $logUser = $this->getUser();
             if ($logUser) {
-                $getEnterpriseId= $logUser->getEnterprise()->getId();
+                $getEnterpriseId = $logUser->getEnterprise()->getId();
+                $entBoardRequests = $logUser->getEnterprise()->getProfiles();
+                if ($bordRequest) {
+                    $valid = false;
+                    foreach ($entBoardRequests as $aBoardRequest) {
+                        $aBoardRequest->getId() == $bordRequest->getId() ? $valid = true : $valid = false;
+                        if ($valid) {
+                            break;
+                        }
+                    }
+                    if (!$valid) {
+                        $this->addFlash(
+                            "danger",
+                            "Accès refusé, tentative d'accès à un emplacement non autorisé"
+                        );
+
+                        return $this->redirectToRoute('match_board_request_one');
+                    }
+                }
                 $idEnterprise = $getEnterpriseId;
             }
         }
-
         $boardRequests = $profileRepository->findBy(
             [
                 "archived" => false,
@@ -109,10 +124,10 @@ class MatchsController extends AbstractController
 
         $idProfileAdvisor = null;
         $getUser = $this->getUser();
-        $getRoles = ($getUser)? $getUser->getRoles(): null;
+        $getRoles = ($getUser) ? $getUser->getRoles() : null;
 
         if (in_array("ROLE_ADMIN", $getRoles)) {
-            $idProfileAdvisor = ($profile)? $profile->getId(): null;
+            $idProfileAdvisor = ($profile) ? $profile->getId() : null;
         } else {
             $logUser = $this->getUser();
             if ($logUser) {
@@ -145,7 +160,6 @@ class MatchsController extends AbstractController
     }
 
 
-
     /**
      * @param \App\Entity\Profile $eProfile Enterprise profile
      * @param \App\Entity\Profile $aProfile Advisor profile
@@ -160,7 +174,7 @@ class MatchsController extends AbstractController
     {
         $idLogProfileAdvisor = null;
         $getUser = $this->getUser();
-        $getRoles = ($getUser)?$getUser->getRoles(): null;
+        $getRoles = ($getUser) ? $getUser->getRoles() : null;
 
         if (in_array("ROLE_ADMIN", $getRoles)) {
             $idLogProfileAdvisor = $aProfile->getId();
