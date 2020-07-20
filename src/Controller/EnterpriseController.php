@@ -7,10 +7,13 @@ use App\Entity\User;
 use App\Form\EnterpriseType;
 use App\Repository\EnterpriseRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Spatie\PdfToImage\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -90,7 +93,7 @@ class EnterpriseController extends AbstractController
      * @Route("/{id<[0-9]{1,}>}/edit", name="enterprise_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ENTERPRISE")
      */
-    public function edit(Request $request, Enterprise $enterprise): Response
+    public function edit(Request $request, Enterprise $enterprise, KernelInterface $kernel): Response
     {
         $connectedUser = $this->getUser();
         $connectedEnterprise = $connectedUser ? $connectedUser->getEnterprise() : null;
@@ -108,6 +111,21 @@ class EnterpriseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $roles = [];
+
+            $projectRoot = $kernel->getProjectDir();
+            $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$enterprise->getBrochure());
+            $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
+
+            $filesystem = new Filesystem();
+
+            if ($enterprise->getBrochure() !== null) {
+                $uniqueBrochure = explode('.', $enterprise->getBrochure());
+                $filesystem->copy(
+                    $projectRoot.'/public/uploads/images/users/1.jpg',
+                    $projectRoot.'/public/uploads/images/users/'.$uniqueBrochure[0].'.jpg'
+                );
+            }
+
             if ($connectedUser) {
                 $roles = $connectedUser->getRoles();
             }
