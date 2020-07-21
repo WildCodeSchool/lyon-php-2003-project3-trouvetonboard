@@ -27,6 +27,7 @@ Encore
     .addEntry('enterpriseMatch', './assets/js/enterpriseMatch.js')
     .addEntry('paymentStatus', './assets/js/paymentStatus.js')
     .addEntry('CVModal', './assets/js/CVModal.js')
+    .addEntry('uploadedFileValue', './assets/js/uploadedFileValue.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
