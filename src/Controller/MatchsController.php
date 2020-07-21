@@ -37,50 +37,30 @@ class MatchsController extends AbstractController
      * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
      * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADMIN"})
      */
-    public function matchsAdvisorByBoardRequest(?Profile $bordRequest, ProfileRepository $profileRepository)
+    public function matchsAdvisorByBoardRequest(?Profile $boardRequest, ProfileRepository $profileRepository)
     {
-        $bordRequestId = $matchsBordRequest = $idEnterprise = null;
+        $boardRequestId = $matchsBoardRequest  = null;
+        $logUser = $this->getUser();
+        $roles = $logUser ? $logUser->getRoles() : [];
+        if ($logUser && !in_array("ROLE_ADMIN", $roles)) {
+            if ($boardRequest) {
+                if (!$logUser->getEnterprise()->getProfiles()->contains($boardRequest)) {
+                    $this->addFlash(
+                        "danger",
+                        "Accès refusé, tentative d'accès à un emplacement non autorisé"
+                    );
 
-        $getUser = $this->getUser();
-        $getRoles = null;
-        if ($getUser) {
-            $getRoles = $getUser->getRoles();
-        }
-
-        if (in_array("ROLE_ADMIN", $getRoles)) {
-            $getEnterpriseId = $getEnterprise = null;
-            $getEnterprise = ($bordRequest) ? $bordRequest->getEnterprise() : null;
-            $getEnterpriseId = ($getEnterprise) ? $getEnterpriseId = $getEnterprise->getId() : null;
-            $idEnterprise = $getEnterpriseId;
-        } else {
-            $logUser = $this->getUser();
-            if ($logUser) {
-                $getEnterpriseId = $logUser->getEnterprise()->getId();
-                $entBoardRequests = $logUser->getEnterprise()->getProfiles();
-                if ($bordRequest) {
-                    $valid = false;
-                    foreach ($entBoardRequests as $aBoardRequest) {
-                        $aBoardRequest->getId() == $bordRequest->getId() ? $valid = true : $valid = false;
-                        if ($valid) {
-                            break;
-                        }
-                    }
-                    if (!$valid) {
-                        $this->addFlash(
-                            "danger",
-                            "Accès refusé, tentative d'accès à un emplacement non autorisé"
-                        );
-
-                        return $this->redirectToRoute('match_board_request_one');
-                    }
+                    return $this->redirectToRoute('match_board_request_one');
                 }
-                $idEnterprise = $getEnterpriseId;
             }
+            $enterprise = $logUser->getEnterprise();
+        } else {
+            $enterprise = $boardRequest ? $boardRequest->getEnterprise() : null;
         }
         $boardRequests = $profileRepository->findBy(
             [
                 "archived" => false,
-                "enterprise" => $idEnterprise
+                "enterprise" => $enterprise
             ],
             [
                 "dateCreation" => "DESC"
@@ -88,17 +68,16 @@ class MatchsController extends AbstractController
         );
 
         if (!empty($boardRequests)) {
-            $boardRequestOne = $boardRequests[0];
-            $bordRequestId = $bordRequest ? $bordRequest->getId() : $boardRequestOne->getId();
-            $matchsBordRequest = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequestId);
+            $boardRequestId = $boardRequest ? $boardRequest->getId() : $boardRequests[0]->getId();
+            $matchsBoardRequest = $profileRepository->findAdvisorMatchsByBoardRequest($boardRequestId);
         }
 
         return $this->render(
             'matchs/matchsBoardRequestEnterprise.html.twig',
             [
                 'boardRequests' => $boardRequests,
-                'matchs' => $matchsBordRequest,
-                'activceBoardRequestId' => $bordRequestId,
+                'matchs' => $matchsBoardRequest,
+                'activeBoardRequestId' => $boardRequestId,
             ]
         );
     }
