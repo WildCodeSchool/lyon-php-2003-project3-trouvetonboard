@@ -31,41 +31,36 @@ class MatchsController extends AbstractController
 
     /**
      * @param ProfileRepository $profileRepository
+     *
      * @return Response
      * @Route("/matchs/enterprise", name="match_board_request_one")
      * @Route("/matchs/enterprise/{id<[0-9]{1,}>}", name="match_board_request_enterprise")
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADMIN"})
      */
-    public function matchsAdvisorByBoardRequest(?Profile $bordRequest, ProfileRepository $profileRepository)
+    public function matchsAdvisorByBoardRequest(?Profile $boardRequest, ProfileRepository $profileRepository)
     {
-        $bordRequestId = $matchsBordRequest = $idEnterprise = null;
+        $boardRequestId = $matchsBoardRequest  = null;
+        $logUser = $this->getUser();
+        $roles = $logUser ? $logUser->getRoles() : [];
+        if ($logUser && !in_array("ROLE_ADMIN", $roles)) {
+            if ($boardRequest) {
+                if (!$logUser->getEnterprise()->getProfiles()->contains($boardRequest)) {
+                    $this->addFlash(
+                        "danger",
+                        "Accès refusé, tentative d'accès à un emplacement non autorisé"
+                    );
 
-        $getUser = $this->getUser();
-        $getRoles = null;
-        if ($getUser) {
-            $getRoles = $getUser->getRoles();
-        }
-
-        if (in_array("ROLE_ADMIN", $getRoles)) {
-            $getEnterpriseId = $getEnterprise = null;
-
-            $getEnterprise = ($bordRequest) ? $bordRequest->getEnterprise(): null;
-            $getEnterpriseId = ($getEnterprise)? $getEnterpriseId = $getEnterprise->getId(): null;
-
-
-            $idEnterprise = $getEnterpriseId;
-        } else {
-            $logUser = $this->getUser();
-
-            if ($logUser) {
-                $getEnterpriseId= $logUser->getEnterprise()->getId();
-                $idEnterprise = $getEnterpriseId;
+                    return $this->redirectToRoute('match_board_request_one');
+                }
             }
+            $enterprise = $logUser->getEnterprise();
+        } else {
+            $enterprise = $boardRequest ? $boardRequest->getEnterprise() : null;
         }
-
         $boardRequests = $profileRepository->findBy(
             [
                 "archived" => false,
-                "enterprise" => $idEnterprise
+                "enterprise" => $enterprise
             ],
             [
                 "dateCreation" => "DESC"
@@ -73,17 +68,16 @@ class MatchsController extends AbstractController
         );
 
         if (!empty($boardRequests)) {
-            $boardRequestOne = $boardRequests[0];
-            $bordRequestId = $bordRequest ? $bordRequest->getId() : $boardRequestOne->getId();
-            $matchsBordRequest = $profileRepository->findAdvisorMatchsByBoardRequest($bordRequestId);
+            $boardRequestId = $boardRequest ? $boardRequest->getId() : $boardRequests[0]->getId();
+            $matchsBoardRequest = $profileRepository->findAdvisorMatchsByBoardRequest($boardRequestId);
         }
 
         return $this->render(
             'matchs/matchsBoardRequestEnterprise.html.twig',
             [
                 'boardRequests' => $boardRequests,
-                'matchs' => $matchsBordRequest,
-                'activceBoardRequestId' => $bordRequestId,
+                'matchs' => $matchsBoardRequest,
+                'activeBoardRequestId' => $boardRequestId,
             ]
         );
     }
@@ -109,10 +103,10 @@ class MatchsController extends AbstractController
 
         $idProfileAdvisor = null;
         $getUser = $this->getUser();
-        $getRoles = ($getUser)? $getUser->getRoles(): null;
+        $getRoles = ($getUser) ? $getUser->getRoles() : null;
 
         if (in_array("ROLE_ADMIN", $getRoles)) {
-            $idProfileAdvisor = ($profile)? $profile->getId(): null;
+            $idProfileAdvisor = ($profile) ? $profile->getId() : null;
         } else {
             $logUser = $this->getUser();
             if ($logUser) {
@@ -145,7 +139,6 @@ class MatchsController extends AbstractController
     }
 
 
-
     /**
      * @param \App\Entity\Profile $eProfile Enterprise profile
      * @param \App\Entity\Profile $aProfile Advisor profile
@@ -160,7 +153,7 @@ class MatchsController extends AbstractController
     {
         $idLogProfileAdvisor = null;
         $getUser = $this->getUser();
-        $getRoles = ($getUser)?$getUser->getRoles(): null;
+        $getRoles = ($getUser) ? $getUser->getRoles() : null;
 
         if (in_array("ROLE_ADMIN", $getRoles)) {
             $idLogProfileAdvisor = $aProfile->getId();

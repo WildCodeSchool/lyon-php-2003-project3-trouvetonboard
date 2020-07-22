@@ -27,6 +27,7 @@ class ProfileType extends AbstractType
                     'attr' => [
                         'placeholder' => 'Veuillez saisir un intitulé de poste ou titre'
                     ],
+                    'empty_data' => '',
                 ]
             )
             ->add(
@@ -35,6 +36,7 @@ class ProfileType extends AbstractType
                 [
                     "label" => "Description :",
                     'attr' => ['placeholder' => 'Veuillez décrire votre profil professionnel'],
+                    'empty_data' => '',
                 ]
             );
     }
