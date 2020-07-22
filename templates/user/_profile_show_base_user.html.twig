@@ -1,4 +1,4 @@
-<div class="{{ titleBlock }}">
+<div class="titleBlock">
     <div class="d-flex flex-fill align-items-stretch align-content-center justify-content-between">
         <h3 class="m-0 align-self-center">Mon Profil</h3>
         <div>
@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<table class="table table container-fluid container-table">
+<table class="table container-fluid container-table">
     <tbody>
     <tr>
         <th width="{{ thWidth }}">Prénom :</th>
@@ -21,7 +21,7 @@
         <td>{{ user.email }}</td>
     </tr>
     <tr>
-        <th width="{{ thWidth }}">Compte verifié :</th>
+        <th width="{{ thWidth }}">Compte vérifié :</th>
         <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
     </tr>
     <tr>
@@ -33,19 +33,25 @@
     </tr>
     </tbody>
 </table>
-<div class="{{ titleBlock }} rounded-0 p-0">
+<div class="titleBlock rounded-0 p-0">
     <h6 class="m-0 align-self-center">Infos complémentaires</h6>
 </div>
 
 <table class="table container-fluid container-table">
     <tbody>
     <tr>
-        <th width="{{ thWidth }}">Téléphone :</th>
-        <td>{{ user.phone }}</td>
+        <th width="{{ thWidth }}">Civilité :</th>
+        {% if user.gender == "H" %}
+            <td>Monsieur</td>
+        {% elseif user.gender == "F" %}
+            <td>Madame</td>
+        {% else %}
+            <td></td>
+        {% endif %}
     </tr>
     <tr>
-        <th width="{{ thWidth }}">Genre :</th>
-        <td>{{ user.gender }}</td>
+        <th width="{{ thWidth }}">Téléphone :</th>
+        <td>{{ user.phone }}</td>
     </tr>
     <tr>
         <th width="{{ thWidth }}">Nationalité :</th>
@@ -62,11 +68,6 @@
         <th width="{{ thWidth }}">Pays :</th>
         <td>{{ user.country }}</td>
     </tr>
-    <tr>
-        <th width="{{ thWidth }}">Photo :</th>
-        <td>{{ user.pictureLink }}</td>
-    </tr>
-
     </tbody>
 </table>
 

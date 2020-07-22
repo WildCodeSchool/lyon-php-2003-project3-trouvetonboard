@@ -4,12 +4,12 @@
 
 {% block body %}
     <div class="container-fluid p-0 p-sm-1 p-lg-2">
-        <div class="{{ formFullColBlock }}">
+        <div class="form-one-col-block">
             <div class="p-2 d-flex align-items-start justify-content-center align-content-start container-title-block">
-                <h3>Sélèction des compétences Board Request ' {{ profile.title }} ' :</h3>
+                <h3>Sélection des compétences Board Request ' {{ profile.title }} ' :</h3>
             </div>
-            <div class="{{ containerBtnMajCancelNoMr }}">
-                <a class="m-4" href="{{ path('user_profile_show') }}">Terminer</a>
+            <div class="containerBtnMajCancelNoMr">
+                <a class="m-4" href="{{ path('match_board_request_enterprise', { "id": profile.id }) }}">Terminer</a>
             </div>
             <div class="d-flex justify-content-center flex-row">
                 {{ include('profile/_user_and_board_skill.html.twig') }}
@@ -18,5 +18,5 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('addSkill') }}
+{#    {{ encore_entry_script_tags('addSkill') }}#}
 {% endblock %}

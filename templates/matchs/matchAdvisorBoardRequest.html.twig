@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matchs{% endblock %}
+
+{% block body %}
+    <div class="matchs-title ">
+        <h3>Mes matchs</h3>
+    </div>
+    <div class="d-flex flex-wrap flex-collumn m-3 justify-content-center">
+        {% for match in matchs %}
+            <div class="d-flex flex-wrap flex-collumn m-1 zoom">
+                {% if is_granted('ROLE_ADVISOR') or is_granted('ROLE_ADMIN') %}
+                     {% set percentCoveredSkill = match.percent %}
+                {% else %}
+                    {% set percentCoveredSkill = (match.SCORE/nbSkillAdvisor) * 100 %}
+                {% endif %}
+                {% include "matchs/_card_bord_request_match.html.twig" %}
+            </div>
+        {% else %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -6,10 +6,14 @@ use App\Entity\Enterprise;
 use App\Entity\User;
 use App\Form\EnterpriseType;
 use App\Repository\EnterpriseRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Spatie\PdfToImage\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -19,16 +23,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class EnterpriseController extends AbstractController
 {
-    /**
-     * @Route("/", name="enterprise_index", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function index(EnterpriseRepository $enterpriseRepository): Response
-    {
-        return $this->render('enterprise/index.html.twig', [
-            'enterprises' => $enterpriseRepository->findAll(),
-        ]);
-    }
 
     /**
      * @Route("/new", name="enterprise_new", methods={"GET","POST"})
@@ -61,7 +55,7 @@ class EnterpriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="enterprise_show", methods={"GET"})
+     * @Route("/{id<[0-9]{1,}>}", name="enterprise_show", methods={"GET"})
      * @IsGranted("ROLE_USER")
      */
     public function show(Enterprise $enterprise): Response
@@ -83,17 +77,17 @@ class EnterpriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="enterprise_edit", methods={"GET","POST"})
+     * @Route("/{id<[0-9]{1,}>}/edit", name="enterprise_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ENTERPRISE")
      */
-    public function edit(Request $request, Enterprise $enterprise): Response
+    public function edit(Request $request, Enterprise $enterprise, KernelInterface $kernel): Response
     {
         $connectedUser = $this->getUser();
         $connectedEnterprise = $connectedUser ? $connectedUser->getEnterprise() : null;
 
         try {
             if ($connectedEnterprise->getId() != $enterprise->getId()) {
-                throw new AccessDeniedException("Acces refusé, tentative d'accés a un emplacement non autorisé");
+                throw new AccessDeniedException("Accès refusé, tentative d'accès à un emplacement non autorisé");
             }
         } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
             return $this->redirectToRoute('home');
@@ -104,6 +98,21 @@ class EnterpriseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $roles = [];
+
+            $projectRoot = $kernel->getProjectDir();
+            $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$enterprise->getBrochure());
+            $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
+
+            $filesystem = new Filesystem();
+
+            if ($enterprise->getBrochure() !== null) {
+                $uniqueBrochure = explode('.', $enterprise->getBrochure());
+                $filesystem->copy(
+                    $projectRoot.'/public/uploads/images/users/1.jpg',
+                    $projectRoot.'/public/uploads/images/users/'.$uniqueBrochure[0].'.jpg'
+                );
+            }
+
             if ($connectedUser) {
                 $roles = $connectedUser->getRoles();
             }
@@ -120,17 +129,19 @@ class EnterpriseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="enterprise_delete", methods={"DELETE"})
+     * @Route("/{id<[0-9]{1,}>}/payment/{status<[0-1]>}", name="enterprise_payment_status")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Enterprise $enterprise): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $enterprise->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($enterprise);
-            $entityManager->flush();
-        }
+    public function changePaymentStatus(
+        Enterprise $enterprise,
+        EntityManagerInterface $entityManager,
+        int $status = 0
+    ) :Response {
 
-        return $this->redirectToRoute('enterprise_index');
+        $enterprise->setPaymentStatus($status);
+        $entityManager->persist($enterprise);
+        $entityManager->flush();
+
+        return new Response("Ok");
     }
 }

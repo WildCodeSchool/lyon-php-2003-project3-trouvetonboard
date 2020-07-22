@@ -30,7 +30,7 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Email',
                 ],
             ])
-            ->add('first_name', null, [
+            ->add('firstName', null, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Prénom',
@@ -42,11 +42,11 @@ class RegistrationFormType extends AbstractType
                     new Regex([
                         'pattern' => '/\d/',
                         'match' => false,
-                        'message' => 'Il ne peut y avoir de nombre dans votre prénom.',
+                        'message' => 'Il ne peut y avoir de chiffre dans votre prénom.',
                     ]),
                 ],
             ])
-            ->add('last_name', null, [
+            ->add('lastName', null, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom',
@@ -58,25 +58,26 @@ class RegistrationFormType extends AbstractType
                     new Regex([
                         'pattern' => '/\d/',
                         'match' => false,
-                        'message' => 'Il ne peut y avoir de nombre dans votre nom.',
+                        'message' => 'Il ne peut y avoir de chiffre dans votre nom.',
                     ]),
                 ],
             ])
-            ->add('plainPassword', RepeatedType::class, [
+            ->add('password', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'required' => true,
-                'mapped' => false,
+                'mapped' => true,
                 'first_options'  => [
                     'label' => false,
+                    'help' => 'Votre mot de passe doit comporter au moins 8 caractères',
                     'attr' => [
                         'placeholder' => 'Mot de passe']],
                 'second_options' => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Repetez votre mot de passe']],
-                'invalid_message' => 'Les mots de passes doivent etre identique !',
+                        'placeholder' => 'Confirmez votre mot de passe']],
+                'invalid_message' => 'Les mots de passe doivent être identiques',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de renseigner votre mot de passe.',
@@ -92,10 +93,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'label' => false,
-                'placeholder' => 'Sélectionner votre type',
+                'placeholder' => 'Vous êtes',
                 'choices'  => [
-                    'Entreprise' => 'enterprise',
-                    'Advisor' => 'advisor',
+                    'une entreprise' => 'enterprise',
+                    'un advisor' => 'advisor',
                 ],
             ]);
     }

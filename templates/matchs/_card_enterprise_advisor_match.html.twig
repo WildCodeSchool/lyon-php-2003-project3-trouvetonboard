@@ -1,0 +1,33 @@
+<div class="card shadow card-custom card-width">
+     <div class="titleBlock d-flex- justify-content-between align-items-center align-content-center">
+        {{ include('components/_icon_board_request_txt.html.twig') }}
+        <h5 class="card-title m-0 center-h-text align-self-center">{{ match.first_name }}</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{ match.description | default("Pas de description") }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Nombre de compétences communes : {{ match.SCORE }} </li>
+    </ul>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Titre : {{ match.title }} </li>
+    </ul>
+    <div class="card-body container-a">
+        {% if match.enterprise_payment_status %}
+            <a href="{{ path("match_details_enterprise",
+                { "aProfile": match.advisor_id, "eProfile": match.board_request_id }) }}"
+               class="card-link">
+                Afficher les détails
+            </a>
+        {% else %}
+            <p class="text-0dot8em">Votre abonnement actuel ne vous permet pas de visualiser les détails de ce match.</p>
+            <p class="text-0dot8em">Pour modifier votre abonnement, merci de cliquer sur le lien ci-dessous.</p>
+            <a href="{{ path("match_request_payment_email", { "id": match.board_request_id }) }}"
+               class="card-link">
+                 Modifier mon abonnement
+            </a>
+        {% endif %}
+
+    </div>
+</div>
+

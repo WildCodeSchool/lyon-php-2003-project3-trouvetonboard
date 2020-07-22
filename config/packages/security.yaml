@@ -39,8 +39,9 @@ security:
     # custom add US_05 exemple , TODO more role and hierarchy will be add ROLE_ENTERPRISE / ADVISOR ...
     role_hierarchy:
         ROLE_ADVISOR:   ROLE_USER
-        ROLE_ENTREPRISE:    ROLE_USER
-        ROLE_ADMIN: [ROLE_USER,ROLE_ADVISOR,ROLE_ENTREPRISE]
+        ROLE_ENTERPRISE:    ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+
 
     access_control:
     # - { path: ^/admin, roles: ROLE_ADMIN }

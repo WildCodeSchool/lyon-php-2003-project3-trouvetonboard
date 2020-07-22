@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <a class="navbar-brand" href="{{ path('home') }}"><span class="first-T">T</span><span
+                class="second-T">T</span><span class="first-B">B</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+
+            {% if app.user %}
+                {#  _____Display if connected_____ #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="nav-item nav-link" href="#">Mon Profil</a>
+                    <a class="nav-item nav-link" href="{{ path("admin_index") }}">Administration</a>
+
+                {% else %}
+                    <a class="nav-item nav-link" href="{{ path('user_profile_show') }}">Mon Profil</a>
+                {% endif %}
+                {% if app.user.advisor %}
+                    <a class="nav-item nav-link" href="{{ path('match_advisor_boardRequest') }}">Mes Matchs</a>
+                {% elseif app.user.enterprise %}
+                    <a class="nav-item nav-link" href="{{ path('match_board_request_one') }}">Mes Matchs</a>
+                {% endif %}
+                <a class="nav-item nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            {% else %}
+                {#  _____Display if is not connected_____ #}
+                <a class="nav-item nav-link" href="{{ path('app_login') }}">Connexion</a>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>

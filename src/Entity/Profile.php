@@ -6,6 +6,7 @@ use App\Repository\ProfileRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProfileRepository::class)
@@ -36,6 +37,7 @@ class Profile
 
     /**
      * @ORM\Column(type="string", length=45)
+     * @Assert\NotBlank(message="Merci de renseigner un titre")
      */
     private $title;
 
@@ -71,13 +73,14 @@ class Profile
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(message="Merci de saisir une description")
      */
     private $description;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $archived;
+    private $archived = 0;
 
 
     public function __construct()

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
     {% block navbar %}
@@ -13,7 +13,7 @@
 
 
 
-    <div class="{{ containerStd }} login">
+    <div class="d-flex justify-content-center">
         <div class="d-flex justify-content-around align-items-center align-content-center login bnj-form-width">
 
 
@@ -29,16 +29,16 @@
                 {{ form_row(registrationForm.type, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
-            {% if form_errors(registrationForm.first_name) %}
+            {% if form_errors(registrationForm.firstName) %}
                 <div class="alert alert-danger">{{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
             {% else %}
-                {{ form_row(registrationForm.first_name, {'attr' : {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.firstName, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
-            {% if form_errors(registrationForm.last_name) %}
-                <div class="alert alert-danger">{{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
+            {% if form_errors(registrationForm.lastName) %}
+                <div class="alert alert-danger">{{ form_row(registrationForm.lastName, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}</div>
             {% else %}
-                {{ form_row(registrationForm.last_name, {'attr' : {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.lastName, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
             {% if form_errors(registrationForm.email) %}
@@ -47,14 +47,14 @@
                 {{ form_row(registrationForm.email, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
-            {% if form_errors(registrationForm.plainPassword.first) or form_errors(registrationForm.plainPassword.second) %}
+            {% if form_errors(registrationForm.password.first) or form_errors(registrationForm.password.second) %}
                 <div class="alert alert-danger">
-                    {{ form_row(registrationForm.plainPassword.first, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}
-                    {{ form_row(registrationForm.plainPassword.second, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}
+                    {{ form_row(registrationForm.password.first, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}
+                    {{ form_row(registrationForm.password.second, {'attr' : {'class': 'form-control bnj-register-form-error'}}) }}
                 </div>
             {% else %}
-                {{ form_row(registrationForm.plainPassword.first, {'attr' : {'class': 'form-control'}}) }}
-                {{ form_row(registrationForm.plainPassword.second, {'attr' : {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.password.first, {'attr' : {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.password.second, {'attr' : {'class': 'form-control'}}) }}
             {% endif %}
 
 

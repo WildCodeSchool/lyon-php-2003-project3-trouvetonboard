@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Advisor;
 use App\Entity\Enterprise;
 use App\Entity\User;
+use App\Entity\Profile;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use App\Security\LoginAuthenticator;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use \DateTime;
 
 class RegistrationController extends AbstractController
 {
@@ -45,7 +47,6 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $entityManager = $this->getDoctrine()->getManager();
@@ -53,7 +54,7 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
             if ($form->get('type')->getData() == "enterprise") {
@@ -62,11 +63,22 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($enterprise);
                 $user->setEnterprise($enterprise);
                 $user->setRoles(['ROLE_ENTERPRISE']);
+                $user->setType('Entreprise');
             } else {
                 $advisor = new Advisor();
                 $entityManager->persist($advisor);
                 $user->setAdvisor($advisor);
                 $user->setRoles(['ROLE_ADVISOR']);
+                $user->setType('Advisor');
+
+                $profile = new Profile();
+                $profile->setPaymentType("All");
+                $profile->setTitle('');
+                $profile->setIsPropose(true);
+                $profile->setIsRequest(false);
+                $profile->setDateCreation(new DateTime("now"));
+                $profile->setAdvisor($advisor);
+                $entityManager->persist($profile);
             }
 
             $entityManager->persist($user);
@@ -89,7 +101,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-
+            $this->addFlash("success", "Veuillez valider votre compte en cliquant sur le lien envoyé.");
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

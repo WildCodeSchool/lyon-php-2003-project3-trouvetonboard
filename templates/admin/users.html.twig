@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="container-back-home">
+        <h1>All users</h1>
+        <div class="container-stats">
+            <div class="container">
+                {% set i = 0 %}
+                {% for user in users  %}
+
+                    {% if i == 0 %}
+                         <div class="row">
+                    {% endif %}
+
+                    {% set i = i +1 %}
+
+                    <div class="col-sm card-profil">
+                        <div class="center-stats">
+                            <h5>{{ user.firstName ~ " " ~ user.lastName }}</h5>
+                            <p class="type">{{ user.type }}</p>
+                            <ul>
+                                <li>Vérifié: {% if user.isVerified == 1 %} Oui {% else %} Non {% endif %}</li>
+                                <li>Email: {{ user.email }}</li>
+                                <li>Ville: {% if user.city %} {{ user.city }} {% else %} Non renseigné {% endif %}</li>
+                            </ul>
+                            <a href="{{ path("user_show_id", {"id": user.id}) }}">Plus d'info</a>
+                        </div>
+                    </div>
+
+                     {% if i == 3 %}
+                         {% set i = 0 %}
+                        </div>
+                     {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

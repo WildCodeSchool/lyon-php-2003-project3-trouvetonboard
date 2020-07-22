@@ -65,6 +65,54 @@ Add additional notes about how to deploy this on a live system
 * [Sass-Lint](https://github.com/sasstools/sass-lint)
 * [Travis CI](https://github.com/marketplace/travis-ci)
 
+## Possible Issues
+
+* PHP-http
+
+This project requires php-http extension.
+
+You can install it quickly by running:
+
+`sudo apt install php-http`
+
+* Imagick
+
+This project works with spatie/pdf-to-image wich requires imagick extension in your php.ini.
+
+To install imagick you first need to run:
+
+`sudo apt install imagemagick`
+
+Then run:
+
+`sudo apt install php-imagick`
+
+You then need to access to your php.ini file and enable the extension by adding `extension = imagick.so` in the extensions section of the file.
+
+Then don't forget to restart apache:
+
+`sudo systemctl restart apache2`
+
+You might get an issue trying to turn an uploaded pdf into a jpg file. To fix that you need to access to your /etc/ImageMagick-6/policy.xml.
+
+Locate the line:
+ 
+ `<policy domain="coder" rights="none" pattern="PDF" />`
+
+Comment out this line by replacing it with the following:
+
+`<!--<policy domain="coder" rights="none" pattern="PDF" />-->`
+
+Don't forget to restart your server !
+
+You now need to run:
+
+`composer install`
+
+That's it ! By following these steps it should work now!
+
+
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.

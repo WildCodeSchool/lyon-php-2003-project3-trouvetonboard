@@ -1,34 +1,72 @@
-{% set card = "col-lg-3 col-md-12" %}
-<div class="{{ card }} {{ formBlockStd }} m-2 p-0">
+<div class="d-flex flex-column justify-content-between align-items-stretch shadow card-custom zoom m-3" style="width:
+ 14rem;">
+    {% set backgroudColor = "" %}
+    {% set textColor = "" %}
+    {% set archived = "" %}
+    {% if profile.archived %}
+        {% set backgroudColor = "bg-secondary" %}
+        {% set textColor = "text-muted" %}
+    {% endif %}
 
-    <div class="rounded">
-        <div class="{{ titleBlock }} ">
-            <h4 class="col-10">{{ profile.title }} </h4>
-            <button type="button" class="btn btn-info">
-                <span class="badge badge-light">9</span>
-            </button>
+    <div class="card-title titleBlock d-flex- justify-content-between align-items-center align-content-center {{
+    backgroudColor }}">
+        {% if not profile.archived %}
+            {{ include('components/_icon_board_request_tick.html.twig') }}
+        {% else %}
+            {% set archived = "(Archive) " %}
+            {{ include('components/_icon_card_archived.html.twig') }}
+        {% endif %}
+        <h6  class="card-title m-0 center-h-text align-self-center">{{ archived }}{{ profile.title }}</h6>
+    </div>
+
+    <div class="m-2 border border-style-blue">
+        <div class="m-2">
+            <p class="card-text {{ textColor }}">Description : {{ profile.description | default("Pas de description") }}</p>
         </div>
-
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Date de creation:</th>
-                <td><span class="font-weight-light h-1">{{ profile.dateCreation|date("m/d/Y") }}</span></td>
-            </tr>
-            <tr>
-                <th>Details:</th>
-                <td>...</td>
-            </tr>
-            </tbody>
-        </table>
-
+        <div class="m-2">
+            <p class="card-text {{ textColor }}">Date de création : {{ profile.dateCreation|date("d/m/Y") }}</p>
+        </div>
     </div>
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id }) }}">
-            Archiver</a>
-    </div>
-    <div class="d-flex p-2 justify-content-around ml-1 container-a">
-        <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id })}}">
-            Modifier les compétences</a>
+
+    <div class="align-self-center">
+      <div class="d-flex p-2 justify-content-around ml-1 container-a">
+          {% if not profile.archived %}
+          <a href="{{ path('profile_archive', { "id": profile.id }) }}">
+              Archiver</a>
+          {% else %}
+          <a href="{{ path('profile_restore', { "id": profile.id }) }}">
+              Restaurer</a>
+          {% endif %}
+      </div>
+    {% if not is_granted("ROLE_ADMIN") %}
+        {% if not profile.archived %}
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a href="{{ path('profile_edit' , { "id":profile.id }) }}">
+                  Modifier la Board Request</a>
+          </div>
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a href="{{ path('profile_editSkillBoardRequest' , { "id":profile.id }) }}">
+                  Modifier les compétences</a>
+          </div>
+        {% else %}
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a class="{{ textColor }}" href="#">
+                  Modifier la Board Request</a>
+          </div>
+          <div class="d-flex p-2 justify-content-around ml-1 container-a">
+              <a class="{{ textColor }}" href="#">
+                  Modifier les compétences</a>
+          </div>
+        {% endif %}
+    {% else %}
+        {% if not profile.archived %}
+            <div class="d-flex p-2 justify-content-around ml-1 container-a">
+                <a href="{{ path('match_board_request_enterprise' , { "id": profile.id }) }}">
+                    Détails des match </a>
+            </div>
+        {% endif %}
+    {% endif %}
+
     </div>
 </div>
+

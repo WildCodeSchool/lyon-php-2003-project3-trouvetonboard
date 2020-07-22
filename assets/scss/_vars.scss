@@ -38,3 +38,43 @@ $cust-formBlock-input-borderstyle: solid;
 $cust-formBlock-input-textcolor: white;
 $cust-formBlock-input-bgcolor: $style-guide-blue;
 
+// varialbes en tant que classe
+.color-success {
+    color:$success;
+}
+
+.color-danger {
+    color: $danger;
+}
+
+.text-0dot8em {
+    font-size: 0.8em;
+}
+
+.color-styleGuideBlue {
+    color: $style-guide-blue;
+}
+
+.bg-color-styleGuideGray {
+    background: rgb(110, 157, 184);
+    background: linear-gradient(90deg, rgba(110, 157, 184, 1) 2%, rgba(255, 255, 255, 1) 2%);
+}
+
+.bg-color-gray {
+    background: $style-guide-gray;
+}
+
+.width-50-percent {
+    width: 50%;
+}
+
+// lg boot strap
+@media screen and (max-width: 992px) {
+
+    .width-50-percent {
+        width: 90%;
+    }
+
+
+}
+

@@ -18,34 +18,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use \DateTime;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/profile" , name="profile_")
  */
 class ProfileController extends AbstractController
 {
-    /**
-     * @Route("/", name="index", methods={"GET"})
-     */
-    public function index(ProfileRepository $profileRepository): Response
-    {
-        return $this->render('profile/index.html.twig', [
-            'profiles' => $profileRepository->findAll(),
-        ]);
-    }
 
-
-    /**
+      /**
      * @Route("/editSkillBoardRequest/{id}", name="editSkillBoardRequest", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ADVISOR","ROLE_ENTERPRISE"})
      */
     public function editSkillBoardRequest(
         Profile $boardRequest,
         CategoryRepository $categoryRepository,
         SkillRepository $skillRepository
-    ): Response {
-
-
-
+    ) : Response {
         // get the skill type list.
         $categories = $categoryRepository->findAll();
 
@@ -59,22 +48,22 @@ class ProfileController extends AbstractController
             ];
         }
 
-        return $this->render('profile/editBordRequest.html.twig', [
+        return $this->render('profile/editBordRequestEnterprise.html.twig', [
             'skillsByCategories' => $skillsByCategory,
             "profile" => $boardRequest
         ]);
     }
 
-
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ADVISOR","ROLE_ENTERPRISE"})
      */
     public function new(Request $request): Response
     {
         $profile = new Profile();
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
-        // code for travis control refused beacause object or null  returned
+        // code for travis control refused because object or null returned
 
         $enterprise = null;
         $user = $this->getUser();
@@ -102,25 +91,30 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
-     */
-    public function show(Profile $profile): Response
-    {
-        return $this->render('profile/show.html.twig', [
-            'profile' => $profile,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
      */
     public function edit(Request $request, Profile $profile): Response
     {
+        $logUser = $this->getUser();
+        $roles = $logUser ? $logUser->getRoles() : null;
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+        $method = in_array('ROLE_ENTERPRISE', $roles) ? "Enterprise" : "Advisor";
+
+        try {
+            if ($logUser->{"get" . $method}()->getId() != $profile->{"get" . $method}()->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('home');
+        }
+
         $form = $this->createForm(ProfileType::class, $profile);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('profile_index');
+            return $this->redirectToRoute('user_profile_show');
         }
 
         return $this->render('profile/edit.html.twig', [
@@ -129,18 +123,74 @@ class ProfileController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/archive/{id}", name="archive", methods={"GET"})
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
      */
-    public function delete(Request $request, Profile $profile): Response
+    public function archive(Profile $profile): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $profile->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($profile);
-            $entityManager->flush();
+
+        $logUser = $this->getUser();
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
+        // todo give admin right
+        try {
+            $enterprise = $logUser ? $logUser->getEnterprise() : null;
+            if (!$enterprise) {
+                throw new AccessDeniedException($msg);
+            }
+            if ($enterprise->getId() != $enterprise->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('user_profile_show');
         }
 
-        return $this->redirectToRoute('profile_index');
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $profile->setArchived(true);
+        $entityManager->flush();
+        $this->addFlash(
+            "warning",
+            "Le profil a été archivé, il ne sera plus affiché dans les recherches des Advisors."
+        );
+
+        return $this->redirectToRoute('user_profile_show');
+    }
+
+    /**
+     * @Route("/restore/{id}", name="restore", methods={"GET"})
+     * @IsGranted({"ROLE_ENTERPRISE", "ROLE_ADMIN"})
+     */
+    public function restore(Profile $profile): Response
+    {
+        $logUser = $this->getUser();
+        $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+
+        try {
+            $enterprise = $logUser ? $logUser->getEnterprise() : null;
+            if (!$enterprise) {
+                throw new AccessDeniedException($msg);
+            }
+            if ($enterprise->getId() != $enterprise->getId()) {
+                throw new AccessDeniedException($msg);
+            }
+        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+            $this->addFlash("danger", $msg);
+            return $this->redirectToRoute('user_profile_show');
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $profile->setArchived(false);
+        $entityManager->flush();
+        $this->addFlash(
+            "success",
+            "Le profil a été restauré, il est à nouveau proposé dans les recherches des Advisors."
+        );
+
+        return $this->redirectToRoute('user_profile_show');
     }
 
     /**
@@ -149,16 +199,40 @@ class ProfileController extends AbstractController
      * @ParamConverter("profile", options={"id" = "id"})
      * @ParamConverter("skill", options={"id" = "skillId"})
      */
-    public function addSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    public function addSkill(Request $request, Profile $profile, Skill $skill, EntityManagerInterface $manager)
     {
-        // todo add advisor or enterprise detection
-        $profile->addSkill($skill);
-        $manager->persist($profile);
-        $manager->flush();
+        $token = $request->request->get("token");
+        // check if token is valid
 
-        return $this->json([
-            'isChecked' => true
-        ]);
+        if ($this->isCsrfTokenValid('requestToken', $token)) {
+            // check if id give are given org valid user
+            $logUser = $this->getUser();
+            $roles = $logUser ? $logUser->getRoles() : null;
+            $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+            // admin cant change skills
+            $method = in_array('ROLE_ENTERPRISE', $roles) ? "Enterprise" : "Advisor";
+            try {
+                $idTypeLoggedUser = $logUser->{"get" . $method}()->getId();
+                $idTypeProfileUser = $profile->{"get" . $method}()->getId();
+                if ($idTypeLoggedUser != $idTypeProfileUser) {
+                    throw new AccessDeniedException($msg);
+                }
+            } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+                //$this->addFlash("danger", $msg);
+
+                return $this->json([
+                    'isChecked' => "Refused"
+                ]);
+            }
+
+            $profile->addSkill($skill);
+            $manager->persist($profile);
+            $manager->flush();
+
+            return $this->json([
+                'isChecked' => true
+            ]);
+        }
     }
 
     /**
@@ -167,28 +241,57 @@ class ProfileController extends AbstractController
      * @ParamConverter("profile", options={"id" = "id"})
      * @ParamConverter("skill", options={"id" = "skillId"})
      */
-    public function removeSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    public function removeSkill(Request $request, Profile $profile, Skill $skill, EntityManagerInterface $manager)
     {
-        // todo add advisor or enterprise detection
-        $profile->removeSkill($skill);
-        $manager->persist($profile);
-        $manager->flush();
+        $token = $request->request->get("token");
+        if ($this->isCsrfTokenValid('requestToken', $token)) {
+            // check if id give are given org valid user
+            $logUser = $this->getUser();
+            $roles = $logUser ? $logUser->getRoles() : null;
+            $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
+            // admin cant change skills result , only enterprise or advisor possible
+            $method = in_array('ROLE_ENTERPRISE', $roles) ? "Enterprise" : "Advisor";
+            try {
+                $idTypeLoggedUser = $logUser->{"get" . $method}()->getId();
+                $idTypeProfileUser = $profile->{"get" . $method}()->getId();
+                if ($idTypeLoggedUser != $idTypeProfileUser) {
+                    throw new AccessDeniedException($msg);
+                }
+            } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+                return $this->json([
+                    'isChecked' => "Refused"
+                ]);
+            }
+            $profile->removeSkill($skill);
+            $manager->persist($profile);
+            $manager->flush();
 
-        return $this->json([
-            'isChecked' => false
-        ]);
+            return $this->json([
+                'isChecked' => false
+            ]);
+        }
     }
 
     /**
-     * @Route("/{id}/checkSkill/{skillId}", name="checkSkill")
-     * @IsGranted("ROLE_USER")
-     * @ParamConverter("profile", options={"id" = "id"})
-     * @ParamConverter("skill", options={"id" = "skillId"})
+     * @Route("/{id}/checkAllSkill", name="checkAllSkill")
+     * @IsGranted({"ROLE_USER"})
      */
-    public function checkSkill(Profile $profile, Skill $skill, EntityManagerInterface $manager)
+    public function checkAllSkills(Request $request, Profile $profile)
     {
+        $token = $request->request->get("token");
+        $skillsId = [];
+        if ($this->isCsrfTokenValid('requestToken', $token)) {
+            foreach ($profile->getSkills() as $skill) {
+                $skillsId[] = $skill->getId();
+            }
+
+            return $this->json([
+                'skillsId' => $skillsId
+            ]);
+        }
+        $this->addFlash("danger", "Action non permise.");
         return $this->json([
-            'isChecked' => $profile->isInSkillList($skill)
+            'skillsId' => $skillsId
         ]);
     }
 }
