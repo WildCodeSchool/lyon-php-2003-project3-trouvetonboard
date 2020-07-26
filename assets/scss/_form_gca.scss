@@ -125,8 +125,10 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
         div {
             div {
                 margin: 0px;
+
                 div{
                     border-radius: $cust-border-radius;
+
                     #advisor_cvLinkFile_file, #enterprise_brochureFile_file {
                         margin-left: 0px;
                         padding-left: 0px;
@@ -134,6 +136,7 @@ $cust-formBlock-input-width-local: $cust-formBlock-input-width - 35%;
                     }
                 }
             }
+
             fieldset {
                 div {
                     margin: 0px;
