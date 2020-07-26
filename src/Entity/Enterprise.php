@@ -235,8 +235,6 @@ class Enterprise implements \Serializable
         } else {
             $this->name = ' ';
         }
-
-
         return $this;
     }
 
