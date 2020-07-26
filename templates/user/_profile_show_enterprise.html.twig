@@ -62,13 +62,16 @@
             {% endif %}
         </tr>
         <tr>
-            <th width="{{ thWidth }}">Plaquette:</th>
+            <div class="d-flex justify-content-center align-items-center">
+            <th class="align-middle" width="40%">Plaquette:</th>
             {% if user.enterprise.brochure %}
                 <td>
                     <!-- Button trigger modal -->
-                    <button id="showCVButton" type="button" class="btn btn-primary">
-                        Voir ma plaquette
-                    </button>
+                    <div class="container-btn">
+                        <button id="showCVButton" type="button" class="">
+                            Voir ma plaquette
+                        </button>
+                    </div>
                     <!-- Modal -->
                     <div class="modal" id="CVAdvisor">
                         <div class="modal-dialog bnj-modal-dialog">
@@ -92,6 +95,7 @@
             {% else %}
                 <td>Ajoutez votre plaquette</td>
             {% endif %}
+            </div>
         </tr>
         </tbody>
     </table>
