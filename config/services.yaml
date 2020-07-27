@@ -7,7 +7,8 @@ parameters:
     locale: 'en'
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
     mailer_cedric: '%env(resolve:MAILER_CEDRIC)%'
-    upload_directory: '%kernel.project_dir%/public/uploads/images/users'
+    upload_advisors_cv_directory: '%kernel.project_dir%/public/uploads/advisors/cv'
+    upload_enterprises_brochure_directory: '%kernel.project_dir%/public/uploads/enterprises/brochure'
 
 services:
     # default configuration for services in *this* file

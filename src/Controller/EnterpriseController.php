@@ -99,18 +99,11 @@ class EnterpriseController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $roles = [];
 
-            $projectRoot = $kernel->getProjectDir();
-            $pdf = new Pdf($projectRoot.'/public/uploads/images/users/'.$enterprise->getBrochure());
-            $pdf->saveImage($projectRoot.'/public/uploads/images/users/');
-
-            $filesystem = new Filesystem();
-
             if ($enterprise->getBrochure() !== null) {
                 $uniqueBrochure = explode('.', $enterprise->getBrochure());
-                $filesystem->copy(
-                    $projectRoot.'/public/uploads/images/users/1.jpg',
-                    $projectRoot.'/public/uploads/images/users/'.$uniqueBrochure[0].'.jpg'
-                );
+                $path = $this->getParameter("upload_enterprises_brochure_directory");
+                $pdf = new Pdf($path . '/'.$enterprise->getBrochure());
+                $pdf->saveImage($path . '/' . $uniqueBrochure[0] . '.jpg');
             }
 
             if ($connectedUser) {

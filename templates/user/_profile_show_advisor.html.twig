@@ -57,7 +57,7 @@
             <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Ajoutez un lien vers votre LinkedIn" }}</td>
         </tr>
         <tr>
-            <th width="{{ thWidth }}">CV:</th>
+            <th class="align-middle" width="{{ thWidth }}">CV:</th>
             {% if user.advisor.cvLink %}
                 <td>
                     {{ include('advisor/_CV_modal.html.twig') }}
