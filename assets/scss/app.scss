@@ -235,3 +235,23 @@ hr.rounded {
     background-color: #6e9db8;
     color: #fff;
 }
+
+.container-cgu {
+    width: 90%;
+    margin: 50px auto;
+    padding: 10px;
+
+    h1 {
+        margin-bottom: 30px;
+    }
+
+    h3 {
+        font-size: 25px;
+        margin-top: 50px;
+        text-decoration: underline;
+    }
+
+    p {
+        font-weight: initial;
+    }
+}
