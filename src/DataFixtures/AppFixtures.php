@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
         $cedric->setFirstName("Cedric");
         $cedric->setLastName("Delannoy");
         // file is versionned but real-mdp  is not versionned
-        $cedric->setPassword($this->passwordEncoder->encodePassword($cedric, "**********"));
+        $cedric->setPassword($this->passwordEncoder->encodePassword($cedric, "****"));
         $manager->persist($cedric);
         $manager->flush();
     }
