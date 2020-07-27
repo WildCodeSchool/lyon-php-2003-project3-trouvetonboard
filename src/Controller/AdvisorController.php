@@ -72,19 +72,18 @@ class AdvisorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $projectRoot = $kernel->getProjectDir();
-            if ($advisor->getCvLink()) {
-                $pdf = new Pdf($projectRoot . '/public/uploads/images/users/' . $advisor->getCvLink());
-                $pdf->saveImage($projectRoot . '/public/uploads/images/users/');
-            }
-
-            $filesystem = new Filesystem();
 
             if ($advisor->getCvLink() !== null) {
+                $projectRoot = $kernel->getProjectDir();
+                $pdf = new Pdf($projectRoot.'/public/uploads/advisors/cv/'.$advisor->getCvLink());
+                $pdf->saveImage($projectRoot.'/public/uploads/advisors/cv/');
+
+                $filesystem = new Filesystem();
+
                 $uniqueCV = explode('.', $advisor->getCvLink());
                 $filesystem->copy(
-                    $projectRoot.'/public/uploads/images/users/1.jpg',
-                    $projectRoot.'/public/uploads/images/users/'.$uniqueCV[0].'.jpg'
+                    $projectRoot.'/public/uploads/advisors/cv/1.jpg',
+                    $projectRoot.'/public/uploads/advisors/cv/'.$uniqueCV[0].'.jpg'
                 );
             }
 
