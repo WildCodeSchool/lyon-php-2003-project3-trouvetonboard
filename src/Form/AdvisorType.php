@@ -48,6 +48,7 @@ class AdvisorType extends AbstractType
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
+                'download_link' => false,
             ])
         ;
 
