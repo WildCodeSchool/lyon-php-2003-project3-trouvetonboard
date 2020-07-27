@@ -7,13 +7,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-
             {% if app.user %}
                 {#  _____Display if connected_____ #}
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="nav-item nav-link" href="#">Mon Profil</a>
                     <a class="nav-item nav-link" href="{{ path("admin_index") }}">Administration</a>
-
                 {% else %}
                     <a class="nav-item nav-link" href="{{ path('user_profile_show') }}">Mon Profil</a>
                 {% endif %}
@@ -27,7 +24,6 @@
                 {#  _____Display if is not connected_____ #}
                 <a class="nav-item nav-link" href="{{ path('app_login') }}">Connexion</a>
             {% endif %}
-
         </div>
     </div>
 </nav>
