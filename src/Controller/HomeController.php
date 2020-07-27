@@ -37,4 +37,20 @@ class HomeController extends AbstractController
     {
         return $this->render('home/infoAdvisor.html.twig');
     }
+
+    /**
+     * @Route("/cgu", name="cgu")
+     */
+    public function cgu() :Response
+    {
+        return $this->render('home/cgu.html.twig');
+    }
+
+    /**
+     * @Route("/mentionslegales", name="legalmentions")
+     */
+    public function legalMentions() :Response
+    {
+        return $this->render('home/legalmentions.html.twig');
+    }
 }
