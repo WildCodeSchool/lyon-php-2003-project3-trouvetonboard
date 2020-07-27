@@ -8,7 +8,6 @@
         "ext-iconv": "*",
         "ext-imagick": "*",
         "egulias/email-validator": "^2.1",
-        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "laminas/laminas-code": "^3.4",
         "laminas/laminas-eventmanager": "^3.2",
         "phpmd/phpmd": "^2.6",
@@ -37,7 +36,8 @@
         "symfony/webpack-encore-bundle": "^1.5",
         "symfony/yaml": "4.3.*",
         "symfonycasts/verify-email-bundle": "^1.0",
-        "vich/uploader-bundle": "^1.12"
+        "vich/uploader-bundle": "^1.12",
+        "doctrine/doctrine-fixtures-bundle": "^3.3"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9",
