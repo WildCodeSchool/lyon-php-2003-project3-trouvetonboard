@@ -45,9 +45,6 @@ class AdvisorType extends AbstractType
                 ])
             ->add('cvLinkFile', VichFileType::class, [
                 'label' => "CV",
-                'attr' => [
-                    'placeholder' => "Ajoutez votre CV",
-                ],
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
