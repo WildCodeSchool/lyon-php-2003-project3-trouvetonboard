@@ -239,13 +239,6 @@ class SkillFixtures extends Fixture implements DependentFixtureInterface
             "Export",
             "Commerce",
             "Communication / Marketing",
-//            "Mandataire social",
-//            "Gouvernance d’entreprise",
-//            "Responsabilité sociale des entreprises (RSE)",
-//            "Finance",
-//            "Transformation / Gestion du changement",
-//            "Technologie digitale",
-//            "Système Information (infra, run, ERP...)",
         ];
     }
 }
