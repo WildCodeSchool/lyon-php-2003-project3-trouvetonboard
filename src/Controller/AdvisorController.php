@@ -50,18 +50,6 @@ class AdvisorController extends AbstractController
     }
 
     /**
-     * @Route("/{id<[0-9]{1,}>}", name="advisor_show", methods={"GET"})
-     * @IsGranted("ROLE_ADVISOR")
-     */
-    public function show(Advisor $advisor): Response
-    {
-
-        return $this->render('advisor/show.html.twig', [
-            'advisor' => $advisor,
-        ]);
-    }
-
-    /**
      * @Route("/{id<[0-9]{1,}>}/edit", name="advisor_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADVISOR")
      */
