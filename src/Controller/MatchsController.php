@@ -231,7 +231,7 @@ class MatchsController extends AbstractController
                 $route = "match_board_request_one";
                 $enterprise = $eProfile->getEnterprise();
                 $idUserProfile = $enterprise ? $enterprise->getUsers()[0]->getId() : 0;
-            } else {
+            } else { // else is for role advisor + admin , if  admin only route change for send email match
                 $templatePath = 'matchs/matchRequestEmail.html.twig';
                 $route = in_array('ROLE_ADMIN', $logUser->getRoles()) ? "admin_users" : "match_advisor_boardRequest";
                 $advisor = $aProfile->getAdvisor();
@@ -239,7 +239,6 @@ class MatchsController extends AbstractController
                 $idUserProfile = $advisorUser ? $advisorUser->getId() : 0;
             }
         }
-
 
         if ($idLogedUser != $idUserProfile && !(in_array('ROLE_ADMIN', $roles))) {
             $this->addFlash("danger", "Accès refusé, tentative d'accès à un emplacement non autorisé");
