@@ -9,7 +9,6 @@ use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
 use App\Service\CheckRoles;
 use App\Service\MatchArraySort;
-use phpDocumentor\Reflection\Types\Boolean;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -219,13 +218,13 @@ class MatchsController extends AbstractController
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
-        $idLogedUser = $idUserProfile = $roles = null;
+        $idLoggedUser = $idUserProfile = $roles = null;
         $templatePath = "";
         $route = "home";
         $logUser = $this->getUser();
         if ($logUser) {
             $roles = $logUser->getRoles();
-            $idLogedUser = $logUser->getId();
+            $idLoggedUser = $logUser->getId();
             if (in_array('ROLE_ENTERPRISE', $roles)) {
                 $templatePath = 'matchs/matchRequestEmailEnterprise.html.twig';
                 $route = "match_board_request_one";
@@ -240,7 +239,7 @@ class MatchsController extends AbstractController
             }
         }
 
-        if ($idLogedUser != $idUserProfile && !(in_array('ROLE_ADMIN', $roles))) {
+        if ($idLoggedUser != $idUserProfile && !(in_array('ROLE_ADMIN', $roles))) {
             $this->addFlash("danger", "Accès refusé, tentative d'accès à un emplacement non autorisé");
             return $this->redirectToRoute($route);
         }
@@ -291,7 +290,6 @@ class MatchsController extends AbstractController
         $this->addFlash('success', "Un email de demande de contact a été envoyé 
         à l'administrateur. Vous serez recontacté dans les plus brefs delais.");
 
-        // todo  modifier la valeur id
         return $this->redirectToRoute("match_board_request_enterprise", ["id" => $eProfile->getId()]);
     }
 }
