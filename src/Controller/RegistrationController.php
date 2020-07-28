@@ -44,6 +44,12 @@ class RegistrationController extends AbstractController
         GuardAuthenticatorHandler $guardHandler,
         LoginAuthenticator $authenticator
     ): Response {
+
+        if ($this->getUser()) {
+            $this->addFlash("warning", "Vous n'avez pas accès a cette page");
+            return $this->redirectToRoute("home");
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
