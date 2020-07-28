@@ -19,7 +19,6 @@ function getSkillList(link, token) {
     } catch (error) {
         return error;
     }
-    return null;
 }
 
 async function checkHasSkillAsynch(skillBlocks) {
