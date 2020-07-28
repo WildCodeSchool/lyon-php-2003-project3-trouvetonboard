@@ -214,7 +214,7 @@ class MatchsController extends AbstractController
      * @Route("/matchs/requestemail/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_request_email")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
-     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR","ROLE_ADMIN"})
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
