@@ -54,7 +54,14 @@
 
         <tr>
             <th width="{{ thWidth }}">LinkedIn :</th>
-            <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Ajoutez un lien vers votre LinkedIn" }}</td>
+            <td>
+                {% if user.advisor.linkedinLink %}
+                    <a href="{{ user.advisor.linkedinLink }}" target="_blank" class="button-link">Lien LinkedIn</a>
+
+                {% else %}
+                    Ajoutez un lien vers votre LinkedIn
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th class="align-middle" width="{{ thWidth }}">CV:</th>
