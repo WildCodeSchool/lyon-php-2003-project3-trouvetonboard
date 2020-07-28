@@ -9,6 +9,7 @@ use App\Repository\ProfileRepository;
 use App\Repository\SkillRepository;
 use App\Service\CheckRoles;
 use App\Service\MatchArraySort;
+use phpDocumentor\Reflection\Types\Boolean;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -218,31 +219,29 @@ class MatchsController extends AbstractController
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
-        $idLogedUser = $idUserProfile = $templatePath = null;
+        $idLogedUser = $idUserProfile = $roles = null;
+        $templatePath = "";
         $route = "home";
         $logUser = $this->getUser();
         if ($logUser) {
-            if (in_array('ROLE_ENTERPRISE', $logUser->getRoles())) {
+            $roles = $logUser->getRoles();
+            $idLogedUser = $logUser->getId();
+            if (in_array('ROLE_ENTERPRISE', $roles)) {
                 $templatePath = 'matchs/matchRequestEmailEnterprise.html.twig';
                 $route = "match_board_request_one";
-                $idLogedUser = $logUser->getId();
                 $enterprise = $eProfile->getEnterprise();
                 $idUserProfile = $enterprise ? $enterprise->getUsers()[0]->getId() : 0;
             } else {
                 $templatePath = 'matchs/matchRequestEmail.html.twig';
-                $route = "match_advisor_boardRequest";
-                $idLogedUser = $logUser->getId();
+                $route = in_array('ROLE_ADMIN', $logUser->getRoles()) ? "admin_users" : "match_advisor_boardRequest";
                 $advisor = $aProfile->getAdvisor();
                 $advisorUser = $advisor ? $advisor->getUser() : 0;
                 $idUserProfile = $advisorUser ? $advisorUser->getId() : 0;
             }
         }
 
-        try {
-            if ($idLogedUser != $idUserProfile) {
-                throw new AccessDeniedException("Accès refusé, tentative d'accès à un emplacement non autorisé");
-            }
-        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+
+        if ($idLogedUser != $idUserProfile && !(in_array('ROLE_ADMIN', $roles))) {
             $this->addFlash("danger", "Accès refusé, tentative d'accès à un emplacement non autorisé");
             return $this->redirectToRoute($route);
         }
