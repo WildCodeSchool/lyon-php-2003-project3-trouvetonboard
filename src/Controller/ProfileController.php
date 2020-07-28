@@ -134,7 +134,7 @@ class ProfileController extends AbstractController
         $logUser = $this->getUser();
         $msg = "Accès refusé, tentative d'accès à un emplacement non autorisé";
 
-        // todo give admin right
+
         try {
             $enterprise = $logUser ? $logUser->getEnterprise() : null;
             if (!$enterprise) {

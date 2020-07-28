@@ -290,7 +290,6 @@ class MatchsController extends AbstractController
         $this->addFlash('success', "Un email de demande de contact a été envoyé 
         à l'administrateur. Vous serez recontacté dans les plus brefs delais.");
 
-        // todo  modifier la valeur id
         return $this->redirectToRoute("match_board_request_enterprise", ["id" => $eProfile->getId()]);
     }
 }
