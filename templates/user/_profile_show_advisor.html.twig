@@ -16,17 +16,14 @@
         <tbody>
         <tr>
             <th width="{{ thWidth }}">Titre :</th>
-            <!-- TODO rajouter oui/non selon le choix -->
             <td>{{ user.advisor.profiles[0].title }}</td>
         </tr>
         <tr>
             <th width="{{ thWidth }}">Description :</th>
-            <!-- TODO rajouter oui/non selon le choix -->
             <td>{{ user.advisor.profiles[0].description }}</td>
         </tr>
         <tr>
             <th width="{{ thWidth }}">Votre historique de board :</th>
-            <!-- TODO rajouter oui/non selon le choix -->
             <td>{{ user.advisor.isAlreadyBoardMember ? "Historique" : "Vous n'êtes pas encore membre d'un board" }}</td>
         </tr>
 
@@ -54,7 +51,13 @@
 
         <tr>
             <th width="{{ thWidth }}">LinkedIn :</th>
-            <td>{{ user.advisor.linkedinLink ? "LinkedIn" : "Ajoutez un lien vers votre LinkedIn" }}</td>
+            <td>
+                {% if user.advisor.linkedinLink %}
+                    <a href="{{ user.advisor.linkedinLink }}" target="_blank" class="button-link">Lien LinkedIn</a>
+                {% else %}
+                    Ajoutez un lien vers votre LinkedIn
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th class="align-middle" width="{{ thWidth }}">CV:</th>

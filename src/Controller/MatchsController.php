@@ -214,35 +214,32 @@ class MatchsController extends AbstractController
      * @Route("/matchs/requestemail/{aProfile<[0-9]{1,}>}/{eProfile<[0-9]{1,}>}", name="match_request_email")
      * @ParamConverter("aProfile", options={"id" = "aProfile"})
      * @ParamConverter("eProfile", options={"id" = "eProfile"})
-     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR"})
+     * @IsGranted({"ROLE_ENTERPRISE","ROLE_ADVISOR","ROLE_ADMIN"})
      */
     public function matchRequestEmail(Profile $aProfile, Profile $eProfile, MailerInterface $mailer)
     {
-        $idLogedUser = $idUserProfile = $templatePath = null;
+        $idLoggedUser = $idUserProfile = $roles = null;
+        $templatePath = "";
         $route = "home";
         $logUser = $this->getUser();
         if ($logUser) {
-            if (in_array('ROLE_ENTERPRISE', $logUser->getRoles())) {
+            $roles = $logUser->getRoles();
+            $idLoggedUser = $logUser->getId();
+            if (in_array('ROLE_ENTERPRISE', $roles)) {
                 $templatePath = 'matchs/matchRequestEmailEnterprise.html.twig';
                 $route = "match_board_request_one";
-                $idLogedUser = $logUser->getId();
                 $enterprise = $eProfile->getEnterprise();
                 $idUserProfile = $enterprise ? $enterprise->getUsers()[0]->getId() : 0;
-            } else {
+            } else { // else is for role advisor + admin , if  admin only route change for send email match
                 $templatePath = 'matchs/matchRequestEmail.html.twig';
-                $route = "match_advisor_boardRequest";
-                $idLogedUser = $logUser->getId();
+                $route = in_array('ROLE_ADMIN', $logUser->getRoles()) ? "admin_users" : "match_advisor_boardRequest";
                 $advisor = $aProfile->getAdvisor();
                 $advisorUser = $advisor ? $advisor->getUser() : 0;
                 $idUserProfile = $advisorUser ? $advisorUser->getId() : 0;
             }
         }
 
-        try {
-            if ($idLogedUser != $idUserProfile) {
-                throw new AccessDeniedException("Accès refusé, tentative d'accès à un emplacement non autorisé");
-            }
-        } catch (\Symfony\Component\Security\Core\Exception\AccessDeniedException $e) {
+        if ($idLoggedUser != $idUserProfile && !(in_array('ROLE_ADMIN', $roles))) {
             $this->addFlash("danger", "Accès refusé, tentative d'accès à un emplacement non autorisé");
             return $this->redirectToRoute($route);
         }
@@ -293,7 +290,6 @@ class MatchsController extends AbstractController
         $this->addFlash('success', "Un email de demande de contact a été envoyé 
         à l'administrateur. Vous serez recontacté dans les plus brefs delais.");
 
-        // todo  modifier la valeur id
         return $this->redirectToRoute("match_board_request_enterprise", ["id" => $eProfile->getId()]);
     }
 }

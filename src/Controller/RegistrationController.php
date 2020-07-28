@@ -44,6 +44,12 @@ class RegistrationController extends AbstractController
         GuardAuthenticatorHandler $guardHandler,
         LoginAuthenticator $authenticator
     ): Response {
+
+        if ($this->getUser()) {
+            $this->addFlash("warning", "Vous n'avez pas accès a cette page");
+            return $this->redirectToRoute("home");
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -131,7 +137,6 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Votre adresse mail a bien été vérifiée');
 
         return $this->redirectToRoute('home');

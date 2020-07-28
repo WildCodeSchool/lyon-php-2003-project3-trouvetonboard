@@ -17,9 +17,8 @@ function getSkillList(link, token) {
             .then((res) => res.json())
             .then((data) => data.skillsId);
     } catch (error) {
-        // todo  implement message error
+        return error;
     }
-    return null;
 }
 
 async function checkHasSkillAsynch(skillBlocks) {

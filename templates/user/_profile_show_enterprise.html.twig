@@ -34,11 +34,23 @@
         </tr>
         <tr>
             <th width="40%">LinkedIn&nbsp:</th>
-            <td>{{ user.enterprise.linkedinLink }}</td>
+            <td>
+            {% if user.enterprise.linkedinLink %}
+                <a href="{{ user.enterprise.linkedinLink }}" target="_blank" class="button-link">Lien LinkedIn</a>
+            {% else %}
+                Ajoutez un lien vers votre LinkedIn
+            {% endif %}
+            </td>
         </tr>
         <tr>
             <th width="40%">Site Web&nbsp:</th>
-            <td>{{ user.enterprise.websiteLink }}</td>
+            <td>
+                {% if user.enterprise.websiteLink %}
+                    <a href="{{ user.enterprise.websiteLink }}" target="_blank" class="button-link">Site Web</a>
+                {% else %}
+                    Ajoutez un lien vers votre site Web
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th width="40%">Mon abonnement&nbsp:</th>
